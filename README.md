@@ -187,3 +187,83 @@ PantryPilot is a comprehensive full-stack web application designed to help users
 - **Customization**: Adapt the system to personal preferences and dietary needs
 
 </details>
+
+### Scope Plane
+
+<details>
+    <summary>Scope plane considerations(Expand for details)</summary>
+
+#### User Stories
+
+#### Feature Prioritization Matrix
+
+| Feature | Importance (1-5) | Viability (1-5) | Combined Score | MVP Status |
+|---------|------------------|-----------------|----------------|------------|
+| **Core Pantry Management** |
+| Add/Remove Pantry Items | 5 | 5 | 10 | ✅ MVP |
+| Edit Item Quantities | 5 | 5 | 10 | ✅ MVP |
+| Search Pantry Items | 5 | 4 | 9 | ✅ MVP |
+| Categorize Items | 4 | 4 | 8 | ✅ MVP |
+| View All Pantry Items | 5 | 5 | 10 | ✅ MVP |
+| **Recipe Management** |
+| Search Recipes by Ingredients | 5 | 3 | 8 | ✅ MVP |
+| View Recipe Details | 4 | 4 | 8 | ✅ MVP |
+| Save Favorite Recipes | 4 | 4 | 8 | ✅ MVP |
+| External Recipe API Integration | 4 | 3 | 7 | ✅ MVP |
+| Recipe Nutritional Information | 3 | 3 | 6 | ❌ Future |
+| **User Management** |
+| User Registration/Login | 5 | 4 | 9 | ✅ MVP |
+| User Profile Management | 3 | 4 | 7 | ✅ MVP |
+| Password Reset | 3 | 4 | 7 | ❌ Future |
+| **Meal Planning** |
+| Weekly Meal Calendar | 4 | 3 | 7 | ✅ MVP |
+| Add Meals to Calendar | 4 | 3 | 7 | ✅ MVP |
+| Meal Plan Templates | 2 | 2 | 4 | ❌ Future |
+| **Shopping Lists** |
+| Generate Shopping Lists | 4 | 3 | 7 | ✅ MVP |
+| Manual Shopping List Items | 3 | 4 | 7 | ✅ MVP |
+| Shopping List Categories | 3 | 3 | 6 | ❌ Future |
+| **Advanced Features** |
+| Expiration Date Tracking | 4 | 2 | 6 | ❌ Future |
+| Barcode Scanning | 4 | 1 | 5 | ❌ Future |
+| Nutritional Dashboard | 3 | 2 | 5 | ❌ Future |
+| Recipe Sharing | 2 | 2 | 4 | ❌ Future |
+| Mobile App | 4 | 1 | 5 | ❌ Future |
+| Voice Commands | 2 | 1 | 3 | ❌ Future |
+| **Integration Features** |
+| Import Recipes from URLs | 3 | 2 | 5 | ❌ Future |
+| Grocery Store API Integration | 3 | 1 | 4 | ❌ Future |
+| Social Media Sharing | 2 | 3 | 5 | ❌ Future |
+| **Analytics & Insights** |
+| Usage Analytics Dashboard | 2 | 3 | 5 | ❌ Future |
+| Food Waste Tracking | 3 | 2 | 5 | ❌ Future |
+| Budget Tracking | 3 | 2 | 5 | ❌ Future |
+| **UI/UX Enhancements** |
+| Responsive Design | 5 | 4 | 9 | ✅ MVP |
+| Dark Mode | 2 | 3 | 5 | ❌ Future |
+| Accessibility Features | 4 | 3 | 7 | ✅ MVP |
+| Drag & Drop Interface | 3 | 2 | 5 | ❌ Future |
+
+### Scoring Criteria
+
+#### Importance (1-5)
+- **5 (Critical)**: Essential for core user goals, blocking without it
+- **4 (High)**: Significantly improves user experience
+- **3 (Medium)**: Nice to have, adds value but not essential
+- **2 (Low)**: Minimal impact on core user goals
+- **1 (Minimal)**: Luxury feature with limited user benefit
+
+#### Viability (1-5)
+- **5 (Very Easy)**: Simple implementation, existing libraries available
+- **4 (Easy)**: Straightforward with standard web technologies
+- **3 (Moderate)**: Requires some research or external APIs
+- **2 (Difficult)**: Complex implementation or uncertain technical feasibility
+- **1 (Very Difficult)**: Requires specialized knowledge or technologies
+
+### MVP Cutoff Criteria
+**Features included in MVP must have:**
+- Combined Score ≥ 8, OR
+- Importance = 5 (regardless of viability), OR
+- Essential for basic application functionality
+
+</details>
