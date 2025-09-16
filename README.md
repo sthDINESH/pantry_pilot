@@ -1,5 +1,12 @@
 # PantryPilot - Smart Pantry Management System
 
+## Table of Contents
+1. [Project Summary](#project-summary)
+   - [Technology Stack](#technology-stack)
+   - [Website Preview](#website-preview)
+   - [Core Features](#core-features)
+   - [Future Enhancements](#future-enhancements)
+
 ## Project Summary
 
 PantryPilot is a comprehensive full-stack web application designed to help users efficiently manage their pantry inventory, discover recipes based on available ingredients, plan weekly meals, and generate smart shopping lists. The application combines intelligent ingredient tracking with meal planning capabilities to reduce food waste, save money, and streamline cooking experiences.
