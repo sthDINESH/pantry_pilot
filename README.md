@@ -92,7 +92,7 @@ PantryPilot is a comprehensive full-stack web application designed to help users
 
 ### Strategy plane
 
-<details>
+<details open>
     <summary>
     Strategy plane considerations(Expand for details)
     </summary>
@@ -108,13 +108,6 @@ PantryPilot is a comprehensive full-stack web application designed to help users
 - **Tech Comfort**: Moderate (uses smartphone apps regularly)
 - **Frequency**: Daily pantry checks, weekly meal planning
 
-##### Health-Conscious Professional (25-35 years)
-**Profile**: Single or couple, career-focused, health and nutrition aware
-- **Pain Points**: Limited cooking time, ingredient waste, nutritional tracking
-- **Goals**: Eat healthily, maximize ingredient usage, efficient meal prep
-- **Tech Comfort**: High (early adopter of productivity apps)
-- **Frequency**: Multiple daily interactions, batch meal planning
-
 ##### Budget-Conscious Home Cook (30-50 years)
 **Profile**: Price-sensitive shopper, enjoys cooking, wants to maximize value
 - **Pain Points**: Overspending on groceries, food expiration waste
@@ -122,14 +115,21 @@ PantryPilot is a comprehensive full-stack web application designed to help users
 - **Tech Comfort**: Moderate (uses apps for deals and coupons)
 - **Frequency**: Weekly planning, daily pantry monitoring
 
-### Secondary Personas
-
 ##### College Student/Young Adult (18-25 years)
 **Profile**: Learning to cook independently, limited budget
 - **Pain Points**: Food management inexperience, tight budget
 - **Goals**: Learn cooking skills, avoid food waste, eat well cheaply
 - **Tech Comfort**: Very High (digital native)
 - **Frequency**: Learning-based usage, irregular planning
+
+### Secondary Personas
+
+##### Health-Conscious Professional (25-35 years)
+**Profile**: Single or couple, career-focused, health and nutrition aware
+- **Pain Points**: Limited cooking time, ingredient waste, nutritional tracking
+- **Goals**: Eat healthily, maximize ingredient usage, efficient meal prep
+- **Tech Comfort**: High (early adopter of productivity apps)
+- **Frequency**: Multiple daily interactions, batch meal planning
 
 ##### Empty Nester Couple (50-65 years)
 **Profile**: Cooking for two, downsizing food purchases
@@ -190,80 +190,96 @@ PantryPilot is a comprehensive full-stack web application designed to help users
 
 ### Scope Plane
 
-<details>
+<details open>
     <summary>Scope plane considerations(Expand for details)</summary>
 
-#### User Stories
+#### Core User Stories
+
+##### User Authentication Stories
+
+- **US001: User Registration**: **AS A** new user **I WANT TO** create an account **SO THAT I CAN** save my pantry data and access personalized features
+- **US002: User Login**: **AS A** returning user **I WANT TO** log into my account **SO THAT I CAN** access my personal pantry
+- **US003: Password Reset**: **AS A** user who forgot my password **I WANT TO** reset it via email **SO THAT I CAN** regain access to my account
+
+##### Pantry Management Stories
+
+- **US004: Add Pantry Items**: **AS A** logged in user **I WANT TO** add ingredients to my pantry **SO THAT I CAN** track what I have available for cooking
+- **US005: View All Pantry Items**: **AS A** logged in user **I WANT TO** see all my pantry items in one place **SO THAT I CAN** quickly review what ingredients I have
+- **US006: Edit Pantry Item Quantities**: **AS A** logged in user **I WANT TO** update ingredient quantities **SO THAT I CAN** keep my pantry inventory accurate as I use items
+- **US007: Remove Pantry Items**: **AS A** logged in user **I WANT TO** delete items from my pantry **SO THAT I CAN** remove ingredients I no longer have
+- **US008: Search Pantry Items**: **AS A** logged in user with many ingredients **I WANT TO** search my pantry **SO THAT I CAN** quickly find specific items
+- **US009: Categorize Pantry Items**: **AS A** logged in user **I WANT TO** view my pantry by categories **SO THAT I CAN** easily find ingredients by type
+
+##### Recipe Management Stories
+
+- **US010: Search Recipes by Ingredients**: **AS A** home cook **I WANT TO** find recipes using ingredients I have **SO THAT I CAN** cook meals without additional shopping
+- **US011: View Recipe Details**: **AS A** cook **I WANT TO** see detailed recipe information **SO THAT I CAN** understand ingredients and instructions
+- **US012: Save Favorite Recipes**: **AS A** cook **I WANT TO** save recipes I like **SO THAT I CAN** easily find them again for future cooking
+- **US013: Save Personal Recipes**: **AS A** cook **I WANT TO** draft/complete personal recipes **SO THAT I CAN** add my own recipes for future cooking
+- **US014: Remove Saved Recipes**: **AS A** cook **I WANT TO** remove recipes from saved list **SO THAT I CAN** update my list of saved recipes
+- **US015: Update and Delete Personal Recipes**: **AS A** cook **I WANT TO** update/delete personal recipes **SO THAT I CAN** keep the recipes updated and delete them if I don't want them
+
+##### Meal Planning Stories
+
+- **US016: View Weekly Meal Calendar**: **AS A** organized cook **I WANT TO** see a weekly meal calendar **SO THAT I CAN** plan my meals for the week ahead
+- **US017: Add Meals to Calendar**: **AS A** meal planner **I WANT TO** add specific meals to calendar days **SO THAT I CAN** organize my weekly cooking schedule
+
+##### Shopping List Stories
+
+- **US018: Generate Shopping Lists from Meal Plans**: **AS A** meal planner **I WANT TO** automatically generate shopping lists **SO THAT I CAN** buy ingredients needed for my planned meals
+- **US019: Manage Shopping Lists Manually**: **AS A** shopper **I WANT TO** add custom items to my shopping list **SO THAT I CAN** include household items beyond just recipe ingredients
+
+##### User Experience Stories
+
+- **US000: Website Help**: **AS A** new user **I WANT TO** see website help **SO THAT I CAN** understand the purpose and get detailed information on how to use the website
+- **US020: Responsive Design Access**: **AS A** mobile user **I WANT TO** access PantryPilot on my phone **SO THAT I CAN** manage my pantry while shopping or cooking
+- **US021: Accessibility Features**: **AS A** user with accessibility needs **I WANT TO** navigate PantryPilot using assistive technologies **SO THAT I CAN** use all features regardless of my abilities
+
+#### Extended User Stories
+
+- **US022: User Profile Management**: **AS A** user **I WANT TO** manage my profile information **SO THAT I CAN** keep my account details current and personalize my experience
 
 #### Feature Prioritization Matrix
 
-| Feature | Importance (1-5) | Viability (1-5) | Combined Score | MVP Status |
-|---------|------------------|-----------------|----------------|------------|
-| **Core Pantry Management** |
-| Add/Remove Pantry Items | 5 | 5 | 10 | ✅ MVP |
-| Edit Item Quantities | 5 | 5 | 10 | ✅ MVP |
-| Search Pantry Items | 5 | 4 | 9 | ✅ MVP |
-| Categorize Items | 4 | 4 | 8 | ✅ MVP |
-| View All Pantry Items | 5 | 5 | 10 | ✅ MVP |
-| **Recipe Management** |
-| Search Recipes by Ingredients | 5 | 3 | 8 | ✅ MVP |
-| View Recipe Details | 4 | 4 | 8 | ✅ MVP |
-| Save Favorite Recipes | 4 | 4 | 8 | ✅ MVP |
-| External Recipe API Integration | 4 | 3 | 7 | ✅ MVP |
-| Recipe Nutritional Information | 3 | 3 | 6 | ❌ Future |
-| **User Management** |
-| User Registration/Login | 5 | 4 | 9 | ✅ MVP |
-| User Profile Management | 3 | 4 | 7 | ✅ MVP |
-| Password Reset | 3 | 4 | 7 | ❌ Future |
-| **Meal Planning** |
-| Weekly Meal Calendar | 4 | 3 | 7 | ✅ MVP |
-| Add Meals to Calendar | 4 | 3 | 7 | ✅ MVP |
-| Meal Plan Templates | 2 | 2 | 4 | ❌ Future |
-| **Shopping Lists** |
-| Generate Shopping Lists | 4 | 3 | 7 | ✅ MVP |
-| Manual Shopping List Items | 3 | 4 | 7 | ✅ MVP |
-| Shopping List Categories | 3 | 3 | 6 | ❌ Future |
-| **Advanced Features** |
-| Expiration Date Tracking | 4 | 2 | 6 | ❌ Future |
-| Barcode Scanning | 4 | 1 | 5 | ❌ Future |
-| Nutritional Dashboard | 3 | 2 | 5 | ❌ Future |
-| Recipe Sharing | 2 | 2 | 4 | ❌ Future |
-| Mobile App | 4 | 1 | 5 | ❌ Future |
-| Voice Commands | 2 | 1 | 3 | ❌ Future |
-| **Integration Features** |
-| Import Recipes from URLs | 3 | 2 | 5 | ❌ Future |
-| Grocery Store API Integration | 3 | 1 | 4 | ❌ Future |
-| Social Media Sharing | 2 | 3 | 5 | ❌ Future |
-| **Analytics & Insights** |
-| Usage Analytics Dashboard | 2 | 3 | 5 | ❌ Future |
-| Food Waste Tracking | 3 | 2 | 5 | ❌ Future |
-| Budget Tracking | 3 | 2 | 5 | ❌ Future |
-| **UI/UX Enhancements** |
-| Responsive Design | 5 | 4 | 9 | ✅ MVP |
-| Dark Mode | 2 | 3 | 5 | ❌ Future |
-| Accessibility Features | 4 | 3 | 7 | ✅ MVP |
-| Drag & Drop Interface | 3 | 2 | 5 | ❌ Future |
+The following matrix categorizes features by development priority and user impact to guide MVP development:
 
-### Scoring Criteria
+| Feature | Priority | User Impact | Development Effort | MVP Status |
+|---------|----------|-------------|-------------------|------------|
+| User Registration/Login (US001-US002) | High | High | Medium | ✅ Must Have |
+| Add/View Pantry Items (US004-US005) | High | High | Medium | ✅ Must Have |
+| Edit/Remove Pantry Items (US006-US007) | High | High | Low | ✅ Must Have |
+| Recipe Search by Ingredients (US010) | High | High | High | ✅ Must Have |
+| View Recipe Details (US011) | High | Medium | Low | ✅ Must Have |
+| Weekly Meal Calendar (US016) | High | High | High | ✅ Must Have |
+| Add Meals to Calendar (US017) | High | High | Medium | ✅ Must Have |
+| Generate Shopping Lists (US018) | High | High | High | ✅ Must Have |
+| Responsive Design (US020) | High | High | Medium | ✅ Must Have |
+| Website Help (US000) | High | Medium | Low | ✅ Must Have |
+| Search Pantry Items (US008) | Medium | High | Medium | ✅ Should Have |
+| Save Favorite Recipes (US012) | Medium | Medium | Medium | ✅ Should Have |
+| Accessibility Features (US021) | Medium | High | High | ✅ Should Have |
+| Categorize Pantry Items (US009) | Low | Medium | Medium | ⚠️ Could Have |
+| Manual Shopping List Management (US019) | Low | Medium | Low | ⚠️ Could Have |
+| Save Personal Recipes (US013) | Low | Medium | High | ⚠️ Could Have |
+| Remove Saved Recipes (US014) | Low | Low | Low | ⚠️ Could Have |
+| Update/Delete Personal Recipes (US015) | Low | Low | Medium | ⚠️ Could Have |
+| Password Reset (US003) | Low | Low | Medium | ⚠️ Could Have |
+| User Profile Management (US022) | Low | Low | Low | ❌ Won't Have |
 
-#### Importance (1-5)
-- **5 (Critical)**: Essential for core user goals, blocking without it
-- **4 (High)**: Significantly improves user experience
-- **3 (Medium)**: Nice to have, adds value but not essential
-- **2 (Low)**: Minimal impact on core user goals
-- **1 (Minimal)**: Luxury feature with limited user benefit
+**Legend:**
+- ✅ **Must Have**: Core functionality essential for MVP
+- ✅ **Should Have**: Important features that enhance user experience
+- ⚠️ **Could Have**: Nice-to-have features for future iterations
+- ❌ **Won't Have**: Features excluded from current scope
 
-#### Viability (1-5)
-- **5 (Very Easy)**: Simple implementation, existing libraries available
-- **4 (Easy)**: Straightforward with standard web technologies
-- **3 (Moderate)**: Requires some research or external APIs
-- **2 (Difficult)**: Complex implementation or uncertain technical feasibility
-- **1 (Very Difficult)**: Requires specialized knowledge or technologies
+**Development Sprint Priorities:**
+1. **Sprint 1**: User Authentication + Basic Pantry Management (US001-US002, US004-US007, US000)
+2. **Sprint 2**: Recipe Search + Recipe Details + Responsive Design (US010-US011, US020)
+3. **Sprint 3**: Meal Planning Foundation (US016-US017)
+4. **Sprint 4**: Shopping List Generation + Search Features (US018, US008)
+5. **Sprint 5**: Enhanced Features + Polish (US012, US021, US009, remaining features)
 
-### MVP Cutoff Criteria
-**Features included in MVP must have:**
-- Combined Score ≥ 8, OR
-- Importance = 5 (regardless of viability), OR
-- Essential for basic application functionality
-
-</details>
+**Key Dependencies:**
+- **US018 (Generate Shopping Lists)** requires **US016-US017 (Meal Planning)** to be implemented first
+- **US017 (Add Meals to Calendar)** requires **US016 (Weekly Meal Calendar)** as foundation
+- **US018 (Generate Shopping Lists)** also depends on **US004-US007 (Pantry Management)** for ingredient comparison
