@@ -32,7 +32,6 @@ PantryPilot is a comprehensive full-stack web application designed to help users
 #### 2. Recipe Management System
 - **Recipe Search**: Find recipes based on available pantry ingredients
 - **Custom Recipe Storage**: Save, edit, and organize personal recipes
-- **Recipe Categories**: Organize recipes by meal type, cuisine, dietary restrictions
 - **Cooking Instructions**: Step-by-step cooking guidance
 - **Photo Integration**: Add images to recipes for visual reference
 
@@ -43,7 +42,6 @@ PantryPilot is a comprehensive full-stack web application designed to help users
 #### 4. Smart Shopping Lists
 - **Auto-Generated Lists**: Create shopping lists based on planned meals
 - **Missing Ingredients**: Identify ingredients needed for specific recipes
-- **Store Organization**: Organize lists by store sections (produce, dairy, etc.)
 
 #### 5. User Interface and Experience
 - **Responsive Design**: Works seamlessly on desktop, tablet, and mobile devices
@@ -61,6 +59,7 @@ PantryPilot is a comprehensive full-stack web application designed to help users
 - **Camera Receipt Scan** *(Could-Have Feature)*: Use mobile camera to scan receipts for instant updates
 
 #### 2. Enhanced Recipe Features
+- **Recipe Categories**: Organize recipes by meal type, cuisine, dietary restrictions
 - **Ingredient Substitutions**: Suggest alternatives for missing ingredients
 
 #### 3. Advanced Meal Planning
@@ -69,6 +68,7 @@ PantryPilot is a comprehensive full-stack web application designed to help users
 - **Batch Planning**: Plan multiple weeks in advance
 
 #### 4. Enhanced Shopping Features
+- **Store Organization**: Organize lists by store sections (produce, dairy, etc.)
 - **Quantity Calculations**: Calculate exact quantities needed
 - **Multiple Stores**: Manage different lists for different stores
 - **Sharing Capability**: Share shopping lists with family members
@@ -92,7 +92,7 @@ PantryPilot is a comprehensive full-stack web application designed to help users
 
 ### Strategy plane
 
-<details open>
+<details>
     <summary>
     Strategy plane considerations(Expand for details)
     </summary>
@@ -190,96 +190,121 @@ PantryPilot is a comprehensive full-stack web application designed to help users
 
 ### Scope Plane
 
-<details open>
+<details>
     <summary>Scope plane considerations(Expand for details)</summary>
 
 #### Core User Stories
 
-##### User Authentication Stories
+##### User Authentication Stories (Sprint 1)
 
-- **US001: User Registration**: **AS A** new user **I WANT TO** create an account **SO THAT I CAN** save my pantry data and access personalized features
+- **US001: User Registration**: **AS A** new user **I WANT TO** create an account with email and password **SO THAT I CAN** save my pantry data and access personalized features
 - **US002: User Login**: **AS A** returning user **I WANT TO** log into my account **SO THAT I CAN** access my personal pantry
-- **US003: Password Reset**: **AS A** user who forgot my password **I WANT TO** reset it via email **SO THAT I CAN** regain access to my account
+- **US003: User Logout**: **AS A** logged in user **I WANT TO** log out of my account **SO THAT I CAN** secure my data when finished
 
-##### Pantry Management Stories
+##### Basic Pantry Management Stories (Sprint 1)
 
-- **US004: Add Pantry Items**: **AS A** logged in user **I WANT TO** add ingredients to my pantry **SO THAT I CAN** track what I have available for cooking
-- **US005: View All Pantry Items**: **AS A** logged in user **I WANT TO** see all my pantry items in one place **SO THAT I CAN** quickly review what ingredients I have
+- **US004: Add Pantry Items**: **AS A** logged in user **I WANT TO** add ingredients to my pantry with name and quantity **SO THAT I CAN** track what I have available for cooking
+- **US005: View All Pantry Items**: **AS A** logged in user **I WANT TO** see all my pantry items in a list **SO THAT I CAN** quickly review what ingredients I have
 - **US006: Edit Pantry Item Quantities**: **AS A** logged in user **I WANT TO** update ingredient quantities **SO THAT I CAN** keep my pantry inventory accurate as I use items
 - **US007: Remove Pantry Items**: **AS A** logged in user **I WANT TO** delete items from my pantry **SO THAT I CAN** remove ingredients I no longer have
-- **US008: Search Pantry Items**: **AS A** logged in user with many ingredients **I WANT TO** search my pantry **SO THAT I CAN** quickly find specific items
-- **US009: Categorize Pantry Items**: **AS A** logged in user **I WANT TO** view my pantry by categories **SO THAT I CAN** easily find ingredients by type
 
-##### Recipe Management Stories
+##### Help and Navigation Stories (Sprint 1)
 
-- **US010: Search Recipes by Ingredients**: **AS A** home cook **I WANT TO** find recipes using ingredients I have **SO THAT I CAN** cook meals without additional shopping
-- **US011: View Recipe Details**: **AS A** cook **I WANT TO** see detailed recipe information **SO THAT I CAN** understand ingredients and instructions
-- **US012: Save Favorite Recipes**: **AS A** cook **I WANT TO** save recipes I like **SO THAT I CAN** easily find them again for future cooking
-- **US013: Save Personal Recipes**: **AS A** cook **I WANT TO** draft/complete personal recipes **SO THAT I CAN** add my own recipes for future cooking
-- **US014: Remove Saved Recipes**: **AS A** cook **I WANT TO** remove recipes from saved list **SO THAT I CAN** update my list of saved recipes
-- **US015: Update and Delete Personal Recipes**: **AS A** cook **I WANT TO** update/delete personal recipes **SO THAT I CAN** keep the recipes updated and delete them if I don't want them
+- **US008: Website Help**: **AS A** new user **I WANT TO** see website help and navigation guidance **SO THAT I CAN** understand how to use PantryPilot effectively
+- **US009: Basic Responsive Layout**: **AS A** mobile user **I WANT TO** access basic pantry features on my phone **SO THAT I CAN** manage my pantry while shopping
 
-##### Meal Planning Stories
+##### Recipe Discovery Stories (Sprint 2)
 
-- **US016: View Weekly Meal Calendar**: **AS A** organized cook **I WANT TO** see a weekly meal calendar **SO THAT I CAN** plan my meals for the week ahead
-- **US017: Add Meals to Calendar**: **AS A** meal planner **I WANT TO** add specific meals to calendar days **SO THAT I CAN** organize my weekly cooking schedule
+- **US010: Search Recipes by Available Ingredients**: **AS A** home cook **I WANT TO** find recipes using ingredients I have in my pantry **SO THAT I CAN** cook meals without additional shopping
+- **US011: View Recipe Details**: **AS A** cook **I WANT TO** see detailed recipe information including ingredients, instructions, and prep time **SO THAT I CAN** understand what's needed to make the recipe
+- **US012: Filter Recipes by Matching Ingredients**: **AS A** home cook **I WANT TO** filter recipes by how many pantry ingredients they use **SO THAT I CAN** prioritize recipes requiring minimal shopping
 
-##### Shopping List Stories
+##### Recipe Management Stories (Sprint 2)
 
-- **US018: Generate Shopping Lists from Meal Plans**: **AS A** meal planner **I WANT TO** automatically generate shopping lists **SO THAT I CAN** buy ingredients needed for my planned meals
-- **US019: Manage Shopping Lists Manually**: **AS A** shopper **I WANT TO** add custom items to my shopping list **SO THAT I CAN** include household items beyond just recipe ingredients
+- **US013: Save Favorite Recipes**: **AS A** cook **I WANT TO** save recipes I like to a favorites list **SO THAT I CAN** easily find them again for future cooking
+- **US014: View Saved Recipes**: **AS A** cook **I WANT TO** see all my saved recipes in one place **SO THAT I CAN** browse my personal recipe collection
 
-##### User Experience Stories
+##### Meal Planning Foundation (Sprint 3)
 
-- **US000: Website Help**: **AS A** new user **I WANT TO** see website help **SO THAT I CAN** understand the purpose and get detailed information on how to use the website
-- **US020: Responsive Design Access**: **AS A** mobile user **I WANT TO** access PantryPilot on my phone **SO THAT I CAN** manage my pantry while shopping or cooking
-- **US021: Accessibility Features**: **AS A** user with accessibility needs **I WANT TO** navigate PantryPilot using assistive technologies **SO THAT I CAN** use all features regardless of my abilities
+- **US015: View Weekly Meal Calendar**: **AS A** organized cook **I WANT TO** see a weekly meal calendar interface **SO THAT I CAN** plan my meals for the week ahead
+- **US016: Add Meals to Calendar**: **AS A** meal planner **I WANT TO** add specific recipes to calendar days and meal times **SO THAT I CAN** organize my weekly cooking schedule
 
-#### Extended User Stories
+##### Shopping List Generation (Sprint 4)
 
-- **US022: User Profile Management**: **AS A** user **I WANT TO** manage my profile information **SO THAT I CAN** keep my account details current and personalize my experience
+- **US017: Generate Shopping Lists from Meal Plans**: **AS A** meal planner **I WANT TO** automatically generate shopping lists based on my planned meals **SO THAT I CAN** buy ingredients needed for my weekly menu
+- **US018: Compare Pantry vs Recipe Ingredients**: **AS A** meal planner **I WANT TO** see which recipe ingredients I already have **SO THAT I CAN** only buy what I need
+- **US019: View and Edit Shopping Lists**: **AS A** shopper **I WANT TO** view and modify my generated shopping list **SO THAT I CAN** customize it before shopping
 
-#### Feature Prioritization Matrix
+##### Advanced Pantry Features (Sprint 5)
 
-The following matrix categorizes features by development priority and user impact to guide MVP development:
+- **US020: Search Pantry Items**: **AS A** user with many ingredients **I WANT TO** search my pantry by name **SO THAT I CAN** quickly find specific items
+- **US021: Categorize Pantry Items**: **AS A** organized user **I WANT TO** view my pantry items organized by categories (spices, grains, proteins, etc.) **SO THAT I CAN** easily find ingredients by type
 
-| Feature | Priority | User Impact | Development Effort | MVP Status |
-|---------|----------|-------------|-------------------|------------|
-| User Registration/Login (US001-US002) | High | High | Medium | ✅ Must Have |
-| Add/View Pantry Items (US004-US005) | High | High | Medium | ✅ Must Have |
-| Edit/Remove Pantry Items (US006-US007) | High | High | Low | ✅ Must Have |
-| Recipe Search by Ingredients (US010) | High | High | High | ✅ Must Have |
-| View Recipe Details (US011) | High | Medium | Low | ✅ Must Have |
-| Weekly Meal Calendar (US016) | High | High | High | ✅ Must Have |
-| Add Meals to Calendar (US017) | High | High | Medium | ✅ Must Have |
-| Generate Shopping Lists (US018) | High | High | High | ✅ Must Have |
-| Responsive Design (US020) | High | High | Medium | ✅ Must Have |
-| Website Help (US000) | High | Medium | Low | ✅ Must Have |
-| Search Pantry Items (US008) | Medium | High | Medium | ✅ Should Have |
-| Save Favorite Recipes (US012) | Medium | Medium | Medium | ✅ Should Have |
-| Accessibility Features (US021) | Medium | High | High | ✅ Should Have |
-| Categorize Pantry Items (US009) | Low | Medium | Medium | ⚠️ Could Have |
-| Manual Shopping List Management (US019) | Low | Medium | Low | ⚠️ Could Have |
-| Save Personal Recipes (US013) | Low | Medium | High | ⚠️ Could Have |
-| Remove Saved Recipes (US014) | Low | Low | Low | ⚠️ Could Have |
-| Update/Delete Personal Recipes (US015) | Low | Low | Medium | ⚠️ Could Have |
-| Password Reset (US003) | Low | Low | Medium | ⚠️ Could Have |
-| User Profile Management (US022) | Low | Low | Low | ❌ Won't Have |
+##### Enhanced User Experience (Sprint 5)
 
-**Legend:**
-- ✅ **Must Have**: Core functionality essential for MVP
-- ✅ **Should Have**: Important features that enhance user experience
-- ⚠️ **Could Have**: Nice-to-have features for future iterations
-- ❌ **Won't Have**: Features excluded from current scope
+- **US022: Full Responsive Design**: **AS A** mobile user **I WANT TO** access all PantryPilot features on my phone **SO THAT I CAN** manage pantry, recipes, and meal planning while mobile
+- **US023: Remove Saved Recipes**: **AS A** cook **I WANT TO** remove recipes from my favorites list **SO THAT I CAN** keep my saved recipes relevant
+- **US024: Enhanced Recipe Search**: **AS A** cook **I WANT TO** search recipes by name, cuisine, or dietary restrictions **SO THAT I CAN** find specific types of meals
 
-**Development Sprint Priorities:**
-1. **Sprint 1**: User Authentication + Basic Pantry Management (US001-US002, US004-US007, US000)
-2. **Sprint 2**: Recipe Search + Recipe Details + Responsive Design (US010-US011, US020)
-3. **Sprint 3**: Meal Planning Foundation (US016-US017)
-4. **Sprint 4**: Shopping List Generation + Search Features (US018, US008)
-5. **Sprint 5**: Enhanced Features + Polish (US012, US021, US009, remaining features)
+#### Future Enhancement Stories (Post-MVP)
 
-**Key Dependencies:**
-- **US018 (Generate Shopping Lists)** requires **US016-US017 (Meal Planning)** to be implemented first
-- **US017 (Add Meals to Calendar)** requires **US016 (Weekly Meal Calendar)** as foundation
-- **US018 (Generate Shopping Lists)** also depends on **US004-US007 (Pantry Management)** for ingredient comparison
+##### Personal Recipe Management
+- **US025: Create Personal Recipes**: **AS A** cook **I WANT TO** create and save my own recipes **SO THAT I CAN** store my family recipes digitally
+- **US026: Edit Personal Recipes**: **AS A** cook **I WANT TO** edit my personal recipes **SO THAT I CAN** improve and update them over time
+
+##### Nutritional Information System
+- **US027: View Recipe Nutrition**: **AS A** health-conscious cook **I WANT TO** see nutritional information for recipes **SO THAT I CAN** make informed dietary choices
+- **US028: View Ingredient Nutrition**: **AS A** health-conscious user **I WANT TO** access nutritional data for individual ingredients **SO THAT I CAN** understand the nutritional value of my pantry items
+- **US029: Weekly Nutrition Summary**: **AS A** health-conscious meal planner **I WANT TO** see a nutritional summary of my planned weekly meals **SO THAT I CAN** ensure balanced nutrition across the week
+- **US030: Nutritional Balance Tracking**: **AS A** health-conscious user **I WANT TO** track calories, macronutrients, vitamins, and minerals **SO THAT I CAN** monitor my nutritional intake
+- **US031: Dietary Restriction Filtering**: **AS A** user with dietary needs **I WANT TO** filter recipes by dietary restrictions (vegetarian, gluten-free, etc.) **SO THAT I CAN** find recipes that match my dietary requirements
+
+##### Advanced Meal Planning
+- **US032: Family Preferences**: **AS A** family cook **I WANT TO** set dietary preferences for family members **SO THAT I CAN** plan meals that work for everyone
+- **US033: Batch Meal Planning**: **AS A** organized planner **I WANT TO** plan multiple weeks at once **SO THAT I CAN** prepare for busy periods
+
+##### Advanced Pantry Management
+- **US034: Track Expiration Dates**: **AS A** user **I WANT TO** track expiration dates for pantry items **SO THAT I CAN** use ingredients before they spoil
+- **US035: Expiration Alerts**: **AS A** user **I WANT TO** receive alerts for expiring items **SO THAT I CAN** prioritize using them
+
+#### Updated Feature Prioritization Matrix
+
+| Feature | Sprint | Priority | User Impact | Development Effort | MVP Status |
+|---------|--------|----------|-------------|-------------------|------------|
+| User Authentication (US001-US003) | 1 | High | High | Medium | ✅ Must Have |
+| Basic Pantry Management (US004-US007) | 1 | High | High | Medium | ✅ Must Have |
+| Help & Basic Mobile (US008-US009) | 1 | High | Medium | Low | ✅ Must Have |
+| Recipe Discovery (US010-US012) | 2 | High | High | High | ✅ Must Have |
+| Recipe Management (US013-US014) | 2 | Medium | Medium | Medium | ✅ Should Have |
+| Meal Planning (US015-US016) | 3 | High | High | High | ✅ Must Have |
+| Shopping Lists (US017-US019) | 4 | High | High | High | ✅ Must Have |
+| Advanced Pantry (US020-US021) | 5 | Medium | High | Medium | ✅ Should Have |
+| Enhanced UX (US022-US024) | 5 | Medium | High | Medium | ✅ Should Have |
+| Personal Recipes (US025-US026) | Future | Low | Medium | High | ⚠️ Could Have |
+| Nutritional Information (US027-US031) | Future | Low | Medium | High | ⚠️ Could Have |
+| Advanced Planning (US032-US033) | Future | Low | Low | High | ❌ Won't Have |
+| Expiration Tracking (US034-US035) | Future | Low | Low | Medium | ❌ Won't Have |
+
+**Sprint Breakdown:**
+
+**Sprint 1 (Foundation)**: Authentication + Basic Pantry + Help
+- Focus: Core user account management and basic pantry CRUD operations
+- Deliverable: Users can register, login, and manage basic pantry inventory
+
+**Sprint 2 (Recipe Discovery)**: Recipe Search + Recipe Management  
+- Focus: Recipe discovery using pantry ingredients and basic recipe saving
+- Deliverable: Users can find recipes based on available ingredients
+
+**Sprint 3 (Planning Foundation)**: Meal Planning
+- Focus: Meal calendar foundation and meal scheduling
+- Deliverable: Users can plan weekly meals using saved recipes
+
+**Sprint 4 (Shopping Integration)**: Shopping List Generation
+- Focus: Generate shopping lists from meal plans with pantry comparison
+- Deliverable: Complete meal planning to shopping workflow
+
+**Sprint 5 (Polish & Enhancement)**: Advanced Pantry + Full Responsive + UX Improvements
+- Focus: Advanced pantry features, mobile optimization and user experience enhancements
+- Deliverable: Production-ready application with full feature set
+
+</details>
