@@ -8,6 +8,8 @@
    - [Future Enhancements](#future-enhancements)
 2. [UX Design](#ux-design)
    - [Strategy Plane](#strategy-plane)
+   - [Scope Plane](#scope-plane)
+   - [Structure Plane](#structure-plane)
 
 ## Project Summary
 
@@ -306,5 +308,265 @@ PantryPilot is a comprehensive full-stack web application designed to help users
 **Sprint 5 (Polish & Enhancement)**: Advanced Pantry + Full Responsive + UX Improvements
 - Focus: Advanced pantry features, mobile optimization and user experience enhancements
 - Deliverable: Production-ready application with full feature set
+
+</details>
+
+### Structure Plane
+
+<details>
+    <summary>Structure plane considerations (Expand for details)</summary>
+
+#### Information Architecture
+
+##### Site Map and Navigation Structure
+
+```
+PantryPilot (Root)
+├── Authentication
+│   ├── Registration (/accounts/register/)
+│   ├── Login (/accounts/login/)
+│   └── Logout (/accounts/logout/)
+├── Dashboard (/)
+│   ├── Pantry Overview Widget
+│   ├── Recent Recipes Widget
+│   └── Upcoming Meals Widget
+├── Pantry Management (/pantry/)
+│   ├── View All Items (/pantry/)
+│   ├── Add Item (/pantry/add/)
+│   ├── Edit Item (/pantry/<id>/edit/)
+│   ├── Delete Item (/pantry/<id>/delete/)
+│   └── Search & Filter (/pantry/?search=<term>&category=<cat>)
+├── Recipe Discovery (/recipes/)
+│   ├── Recipe Search (/recipes/)
+│   ├── Recipe Details (/recipes/<id>/)
+│   ├── Saved Recipes (/recipes/saved/)
+│   └── Recipe by Ingredients (/recipes/search-by-ingredients/)
+├── Meal Planning (/meals/)
+│   ├── Weekly Calendar (/meals/)
+│   ├── Add Meal (/meals/add/)
+│   └── Edit Meal Plan (/meals/<week>/edit/)
+├── Shopping Lists (/shopping/)
+│   ├── View Lists (/shopping/)
+│   ├── Generate from Meals (/shopping/generate/)
+│   └── Edit List (/shopping/<id>/edit/)
+└── Help & Support (/help/)
+    └── Getting Started Guide
+```
+
+##### Content Hierarchy and Relationships
+
+**Primary Content Objects:**
+- **User**: Authenticates and owns all personal data
+- **PantryItem**: Core inventory item with quantity and category
+- **Recipe**: External/saved recipes with ingredients and instructions
+- **MealPlan**: Weekly calendar entries linking recipes to specific dates/times
+- **ShoppingList**: Generated lists based on meal plans vs. pantry comparison
+
+**Content Relationships:**
+```
+User (1) ──→ (Many) PantryItem
+User (1) ──→ (Many) SavedRecipe
+User (1) ──→ (Many) MealPlan
+User (1) ──→ (Many) ShoppingList
+
+MealPlan (Many) ──→ (1) Recipe
+Recipe (Many) ──→ (Many) Ingredient
+PantryItem (Many) ──→ (1) Category
+ShoppingList (1) ──→ (Many) MealPlan
+```
+
+##### Information Grouping Strategy
+
+**Sprint 1 - Foundation Architecture:**
+- User authentication and profile management
+- Basic pantry CRUD operations with simple list/detail views
+- Help documentation and onboarding flows
+
+**Sprint 2 - Recipe Integration:**
+- Recipe discovery with external API integration
+- Recipe detail views with ingredient matching
+- Saved recipes collection management
+
+**Sprint 3 - Planning Architecture:**
+- Calendar-based meal planning interface
+- Weekly view with meal slots (breakfast/lunch/dinner)
+- Recipe-to-meal assignment workflows
+
+**Sprint 4 - Shopping Integration:**
+- Shopping list generation algorithms
+- Pantry vs. recipe ingredient comparison logic
+- List management and editing interfaces
+
+**Sprint 5 - Enhanced Organization:**
+- Advanced search and filtering systems
+- Category-based organization for pantry items
+- Mobile-responsive navigation patterns
+
+#### Interaction Design
+
+##### Core User Workflows
+
+**1. New User Onboarding Flow**
+```
+Landing Page → Registration → Welcome Tour → Add First Pantry Items → Dashboard
+```
+
+**2. Daily Pantry Management Flow**
+```
+Dashboard → Pantry View → [Add/Edit/Remove Items] → Updated Dashboard
+```
+
+**3. Recipe Discovery and Saving Flow**
+```
+Dashboard → Recipe Search → Filter by Available Ingredients → View Recipe Details → Save to Favorites
+```
+
+**4. Weekly Meal Planning Flow**
+```
+Dashboard → Meal Calendar → Select Day/Meal → Browse Saved Recipes → Assign Recipe → Complete Week
+```
+
+**5. Shopping List Generation Flow**
+```
+Meal Calendar → Generate Shopping List → Review Missing Ingredients → Edit List → Shopping Mode
+```
+
+##### Navigation Patterns
+
+**Primary Navigation (Always Visible):**
+- Dashboard (Home icon)
+- Pantry (Pantry icon)
+- Recipes (Recipe book icon)
+- Meal Planning (Calendar icon)
+- Shopping Lists (Shopping cart icon)
+
+**Secondary Navigation (Contextual):**
+- Search functionality (Global header)
+- User account menu (Profile dropdown)
+- Help/Support (Question mark icon)
+- Mobile hamburger menu (Responsive)
+
+**Breadcrumb Navigation:**
+- Enabled for deep content paths
+- Format: Dashboard > Pantry > Add Item
+- Skip for single-level pages
+
+##### Interaction Patterns
+
+**Quick Actions (Dashboard):**
+- "Add Pantry Item" floating action button
+- "Find Recipes" based on available ingredients
+- "Plan Today's Meal" quick calendar access
+- "Generate Shopping List" if meals planned
+
+**Search and Filter Interactions:**
+- Real-time search with debounced input
+- Filter chips for categories, dietary restrictions
+- Sort options for alphabetical, date added, quantity
+- Clear all filters option
+
+**Form Interactions:**
+- Inline validation with immediate feedback
+- Auto-save for lengthy forms (meal planning)
+- Confirmation dialogs for destructive actions
+- Progress indicators for multi-step processes
+
+**Mobile-Specific Interactions:**
+- Swipe gestures for delete/edit actions
+- Pull-to-refresh for data updates
+- Touch-friendly button sizing (44px minimum)
+- Bottom navigation for primary actions
+
+##### Progressive Disclosure Strategy
+
+**Dashboard Information Hierarchy:**
+```
+Level 1: Critical alerts (low stock, expiring items)
+Level 2: Quick stats (pantry count, planned meals)
+Level 3: Recent activity and recommendations
+Level 4: Detailed insights and analytics
+```
+
+**Pantry Management Hierarchy:**
+```
+Level 1: Item name, quantity, basic category
+Level 2: Last updated date, usage frequency
+Level 3: Detailed nutrition info, expiration dates
+Level 4: Purchase history, cost tracking
+```
+
+**Recipe Information Hierarchy:**
+```
+Level 1: Recipe title, image, cook time, difficulty
+Level 2: Ingredient list with pantry match indicators
+Level 3: Detailed instructions and tips
+Level 4: Nutritional information and user reviews
+```
+
+##### Error Handling and Feedback
+
+**Error Prevention:**
+- Form validation before submission
+- Confirmation dialogs for destructive actions
+- Auto-save drafts for complex forms
+- Offline capability with sync notifications
+
+**Error Recovery:**
+- Clear error messages with suggested actions
+- Undo functionality for accidental deletions
+- Form state preservation after errors
+- Alternative paths for failed operations
+
+**Success Feedback:**
+- Toast notifications for completed actions
+- Visual state changes (checkmarks, color updates)
+- Progress indicators for ongoing processes
+- Achievement badges for milestones
+
+##### Accessibility Considerations
+
+**Keyboard Navigation:**
+- Tab order follows logical content flow
+- Skip links for main content areas
+- Keyboard shortcuts for frequent actions
+- Focus indicators clearly visible
+
+**Screen Reader Support:**
+- Semantic HTML structure with proper headings
+- Alt text for all images and icons
+- ARIA labels for complex interactions
+- Live regions for dynamic content updates
+
+**Visual Accessibility:**
+- High contrast color schemes
+- Scalable text up to 200% zoom
+- Clear visual hierarchy with sufficient spacing
+- Color-blind friendly design choices
+
+#### Technical Architecture Considerations
+
+##### Django App Structure
+```
+pantry_pilot/
+├── accounts/          # User authentication and profiles
+├── pantry/           # Pantry inventory management
+├── recipes/          # Recipe discovery and management
+├── meals/            # Meal planning functionality
+├── shopping/         # Shopping list generation
+├── core/             # Shared utilities and base templates
+└── static/           # CSS, JavaScript, images
+```
+
+##### Database Relationship Design
+- User-centric data isolation for privacy
+- Optimized queries for dashboard widgets
+- Efficient filtering for recipe searches
+- Scalable architecture for future features
+
+##### API Integration Points
+- External recipe API for discovery
+- Potential barcode scanning integration
+- Future nutritional data services
+- Shopping list sharing capabilities
 
 </details>
