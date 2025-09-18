@@ -1,3 +1,78 @@
+/* Google font import */
+@import url('https://fonts.googleapis.com/css2?family=Andada+Pro:ital,wght@0,400..840;1,400..840&family=Pridi:wght@200;300;400;500;600;700&family=Tangerine:wght@400;700&display=swap');
+
+:root {
+    /* Fonts stylings */
+    --primary-font: "Pridi", serif;
+    --accent-font: "Tangerine", cursive;
+    --secondary-accent-font: "Andada Pro", serif;
+
+    /* Color scheme */
+    --light-color: white;
+    --secondary-light-color: #D6D5D0;
+    --accent-color: #D64040;
+    --accent-color-light: #EEABA9;
+    --secondary-accent-color: #448260;
+
+    /* height calculations */
+    --navbar-brand-height: calc(1.375rem + min(1.5vw, 1.5vh));
+    --navbar-height: calc(var(--navbar-brand-height) + 3.25rem); /* calculated with bootstrap margins/paddings */
+    --nav-link-font-size: calc(0.75rem + min(0.8vw, 0.8vh));
+}
+
+/* General styles */ 
+/* ---------------------------------------------------------- */
 * {
     box-sizing: border-box;
+    font-family: var(--primary-font);
+}
+
+body {
+    font-size: calc(0.8 * var(--nav-link-font-size));
+}
+
+header {
+    margin-top: var(--navbar-height); /* account for overlap with fixed navbar */
+}
+
+
+h1, 
+.heading,
+.navbar-brand {
+    font-family: var(--accent-font);
+    font-size: calc(4 * var(--nav-link-font-size));
+    font-weight: bold;
+}
+
+h1,
+.heading {
+    margin: calc(2 * var(--nav-link-font-size)) 0;
+}
+
+.nav-link,
+.sub-heading {
+    font-family: var(--secondary-accent-font);
+    text-transform: uppercase;
+    font-size: var(--nav-link-font-size);
+}
+
+.sub-heading {
+    margin-bottom: var(--nav-link-font-size);
+}
+
+/* Navbar styling */ 
+/* ---------------------------------------------------------- */
+.navbar-brand {
+    font-size: var(--navbar-brand-height);
+    display: flex;
+    align-items: center;
+}
+
+.navbar-brand>img {
+    aspect-ratio: 1;
+    height: calc(var(--navbar-brand-height) * 1.5);
+}
+
+.navbar {
+    background-color: var(--light-color);
 }
