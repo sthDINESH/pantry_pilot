@@ -14,6 +14,7 @@ from pathlib import Path
 import os
 import sys
 import dj_database_url
+from django.contrib.messages import constants as messages
 
 if os.path.isfile('env.py'):
     import env
@@ -56,10 +57,11 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'pantry',
+    'dashboard',
 ]
 
 SITE_ID = 1
-LOGIN_REDIRECT_URL = '/pantry'
+LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 # AllAuth Configuration
@@ -68,6 +70,10 @@ ACCOUNT_EMAIL_VERIFICATION = "none"
 ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD = "username"
 ACCOUNT_SESSION_REMEMBER = True
+
+AUTHENTICATION_BACKENDS = [
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -156,3 +162,12 @@ STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Map Django's message tags with bootstrap alert labels
+MESSAGE_TAGS = {
+    messages.DEBUG: 'debug',
+    messages.INFO: 'info', 
+    messages.SUCCESS: 'success',
+    messages.WARNING: 'warning',
+    messages.ERROR: 'danger',  # Maps to Bootstrap's alert-danger
+}

@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock title %}
+
+{% block main_content %}
+<div class="container-fluid mt-5 pt-4">
+    {% if user.is_authenticated %}
+    <!-- Authenticated User Dashboard -->
+    <div class="row">
+        <div class="col-12">
+            <h1 class="mb-4">Welcome back, {{ user.username }}!</h1>
+            <p class="lead">Here's your personalized pantry dashboard.</p>
+        </div>
+    </div>
+
+    <!-- User-specific content will be added here -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="alert alert-info">
+                <h5>Getting Started</h5>
+                <p class="mb-0">Start by <a href="{% url 'pantry' %}" class="alert-link">adding items to your pantry</a>
+                    to see personalized recommendations and meal planning features.</p>
+            </div>
+        </div>
+    </div>
+
+    {% else %}
+    <!-- Anonymous User Landing Page -->
+    <div class="row">
+        <div class="col-12 text-center">
+            <h1 class="display-4 mb-4">Welcome to PantryPilot</h1>
+            <p class="lead mb-4">Smart pantry management made simple</p>
+        </div>
+    </div>
+
+    <!-- Feature Showcase -->
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="row">
+                <div class="col-md-4 mb-4 text-center">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <i class="fas fa-jar fa-3x mb-3 text-primary"></i>
+                            <h5 class="card-title">Track Pantry</h5>
+                            <p class="card-text">Keep track of your ingredients and never run out again</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4 text-center">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <i class="fas fa-book fa-3x mb-3 text-success"></i>
+                            <h5 class="card-title">Find Recipes</h5>
+                            <p class="card-text">Discover recipes using ingredients you already have</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4 text-center">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <i class="fas fa-calendar fa-3x mb-3 text-info"></i>
+                            <h5 class="card-title">Plan Meals</h5>
+                            <p class="card-text">Plan your weekly meals and generate smart shopping lists</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-6 text-center">
+            <h3>Ready to get started?</h3>
+            <p class="mb-4">Join thousands of smart home cooks who are reducing food waste and saving money.</p>
+            <a href="{{ signup_url }}" class="btn btn-primary btn-lg me-3">Sign Up Free</a>
+            <a href="{{ login_url }}" class="btn btn-outline-primary btn-lg">Login</a>
+        </div>
+    </div>
+
+    {% endif %}
+</div>
+{% endblock main_content %}

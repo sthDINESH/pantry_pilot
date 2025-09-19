@@ -20,5 +20,6 @@ from django.urls import path, include
 urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('admin/', admin.site.urls),
-    path('pantry', include('pantry.urls'), name='pantry-urls'),
+    path('pantry/', include('pantry.urls'), name='pantry-urls'),
+    path('', include('dashboard.urls')),  # Dashboard as home page
 ]
