@@ -68,7 +68,7 @@ h1,
     align-items: center;
 }
 
-.navbar-brand>img {
+.navbar-brand > img {
     aspect-ratio: 1;
     height: calc(var(--navbar-brand-height) * 1.5);
 }

@@ -1,4 +1,9 @@
 {% load static %}
+{% url 'account_login' as login_url %}
+{% url 'account_signup' as signup_url %}
+{% url 'account_logout' as logout_url %}
+{% url 'pantry' as pantry_url %}
+{% url 'home' as home_url %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -32,11 +37,33 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                        <a class="nav-link {% if request.path == home_url %} active {% endif %}" 
+                           {% if request.path == home_url %} aria-current='page' {% endif %}
+                           href="{{ home_url }}">Home</a>
+                    </li>
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == pantry_url %} active {% endif %}" 
+                           {% if request.path == pantry_url %} aria-current='page' {% endif %}
+                           href="{{ pantry_url }}">Pantry</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Sign Up</a>
+                        <a class="nav-link {% if request.path == logout_url %} active {% endif %}" 
+                           {% if request.path == logout_url %} aria-current='page' {% endif %}
+                           href="{{ logout_url }}">Logout</a>
                     </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == login_url %} active {% endif %}" 
+                           {% if request.path == login_url %} aria-current='page' {% endif %} 
+                           href="{{ login_url }}">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == signup_url %} active {% endif %}" 
+                           {% if request.path == signup_url %} aria-current='page' {% endif %} 
+                           href="{{ signup_url }}">Sign Up</a>
+                    </li>
+                    {% endif %}
                 </ul>
                 <!-- <form class="d-flex" role="search">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
