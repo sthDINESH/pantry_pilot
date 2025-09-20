@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock head_title %}
+
+{% block main_content %}
+<section id="sign-up-section" class="auth-grid-container">
+  <div class="auth-image-container">
+    <div class="square-card">
+      <div class="square-card-image" data-image-src=""></div>
+    </div>
+    <div class="square-card">
+      <div class="square-card-image" data-image-src=""></div>
+    </div>
+    <div class="square-card">
+      <div class="square-card-image" data-image-src=""></div>
+    </div>
+    <div class="square-card">
+      <div class="square-card-image" data-image-src=""></div>
+    </div>
+  </div>
+  <div class="auth-header">
+    <div class="heading">Sign Up to Pantry Pilot!</div>
+    <div class="sub-heading">Start your journey.</div>
+  </div>
+  <div class="auth-form">
+    <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+      {% csrf_token %}
+      {{ form.as_p }}
+      {% if redirect_field_value %}
+      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+      {% endif %}
+      <button type="submit" class="btn btn-primary">Start Your Kitchen Journey &raquo;</button>
+    </form>
+  </div>
+  <div class="auth-footer">
+    <p class="text-muted">{% blocktrans %}Already have an account? <a href="{{ login_url }}"
+        class="text-decoration-none">Sign in here</a>{% endblocktrans %}
+    </p>
+  </div>
+</section>
+
+{% endblock main_content %}

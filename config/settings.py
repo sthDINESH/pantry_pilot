@@ -42,6 +42,11 @@ ALLOWED_HOSTS = [
     '.herokuapp.com',
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://127.0.0.1',
+    'https://*.herokuapp.com',
+]
+
 
 # Application definition
 

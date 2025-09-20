@@ -16,11 +16,15 @@
 
     /* height calculations */
     --navbar-brand-height: calc(1.375rem + min(1.5vw, 1.5vh));
-    --navbar-height: calc(var(--navbar-brand-height) + 3.25rem); /* calculated with bootstrap margins/paddings */
+    --navbar-height: calc(var(--navbar-brand-height) + 3.25rem);
+    /* calculated with bootstrap margins/paddings */
     --nav-link-font-size: calc(0.75rem + min(0.8vw, 0.8vh));
+    --auth-main-image-card-height: min(45vw, 45vh);
+    --auth-main-image-card-pos-right: calc((100% - var(--auth-image-card-max-height)) * 0.125);
+
 }
 
-/* General styles */ 
+/* General styles */
 /* ---------------------------------------------------------- */
 * {
     box-sizing: border-box;
@@ -32,11 +36,12 @@ body {
 }
 
 header {
-    margin-top: var(--navbar-height); /* account for overlap with fixed navbar */
+    margin-top: var(--navbar-height);
+    /* account for overlap with fixed navbar */
 }
 
 
-h1, 
+h1,
 .heading,
 .navbar-brand {
     font-family: var(--accent-font);
@@ -58,9 +63,39 @@ h1,
 
 .sub-heading {
     margin-bottom: var(--nav-link-font-size);
+    color: var(--accent-color);
 }
 
-/* Navbar styling */ 
+/* Custom Button Styling */
+/* ---------------------------------------------------------- */
+.btn-primary {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: var(--light-color);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: var(--accent-color-light);
+    border-color: var(--accent-color-light);
+    color: var(--accent-color);
+}
+
+.btn-primary:active,
+.btn-primary.active {
+    background-color: var(--secondary-accent-color);
+    border-color: var(--secondary-accent-color);
+    color: var(--light-color);
+}
+
+.btn-primary:disabled,
+.btn-primary.disabled {
+    background-color: var(--secondary-light-color);
+    border-color: var(--secondary-light-color);
+    color: #6c757d;
+}
+
+/* Navbar styling */
 /* ---------------------------------------------------------- */
 .navbar-brand {
     font-size: var(--navbar-brand-height);
@@ -76,4 +111,103 @@ h1,
 
 .navbar {
     background-color: var(--light-color);
+}
+
+
+/* Authentication form styling */
+/* ---------------------------------------------------------- */
+.auth-grid-container {
+    height: calc(100vh - var(--navbar-height));
+    width: 100vw;
+    display: grid;
+    grid-template-columns: 1fr 1.25fr;
+    grid-template-rows: 2fr 4fr 1fr 1fr;
+    grid-template-areas:
+        "image-area header-area"
+        "image-area form-area"
+        "image-area footer-area"
+        "image-area ps-area";
+}
+
+.auth-image-container {
+    grid-area: image-area;
+}
+
+.auth-header {
+    grid-area: header-area;
+}
+
+.auth-form {
+    grid-area: form-area;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.auth-footer {
+    grid-area: footer-area;
+}
+
+.auth-ps {
+    grid-area: ps-area;
+}
+
+.auth-form .btn-primary {
+    width: 80%;
+}
+
+/* Cards styling */
+/* ---------------------------------------------------------- */
+.square-card {
+    aspect-ratio: 1;
+    display: grid;
+    place-items: center;
+    background-color: var(--light-color);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.square-card-image {
+    aspect-ratio: 1;
+    width: 90%;
+    background-color: var(--accent-color);
+}
+
+
+/* Sign-up section styling */
+/* ---------------------------------------------------------- */
+#sign-up-section .auth-image-container {
+    border: 2px dotted coral;
+    position: relative;
+}
+
+#sign-up-section .square-card {
+    position: absolute;
+}
+
+#sign-up-section .square-card:nth-child(1) {
+    --card-width: calc(0.4 * var(--auth-main-image-card-height));
+    width: var(--card-width);
+    right: min(calc(100% - var(--card-width)), calc(var(--auth-main-image-card-height) * 0.55));
+    top: calc(50% - (var(--card-width)) * 2.5);
+}
+
+#sign-up-section .square-card:nth-child(2) {
+    --card-width: calc(0.6 * var(--auth-main-image-card-height));
+    width: var(--card-width);
+    top: calc(50% - (var(--card-width)) * 1.25);
+    right: min(calc(100% - var(--card-width)), calc(var(--auth-main-image-card-height) * 0.9));
+}
+
+#sign-up-section .square-card:nth-child(3) {
+    width: var(--auth-main-image-card-height);
+    top: calc(50% - (var(--auth-main-image-card-height) * 0.5));
+    right: 0;
+
+}
+
+#sign-up-section .square-card:nth-child(4) {
+    --card-width: calc(0.35 * var(--auth-main-image-card-height));
+    width: var(--card-width);
+    right: min(calc(100% - var(--card-width)), calc(var(--auth-main-image-card-height) * 0.8));
+    top: calc(50% + (var(--card-width)) * 1.25);
 }
