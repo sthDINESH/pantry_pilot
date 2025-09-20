@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block main_content %}
+<section id="auth-section" class="auth-grid-container">
+  <div class="auth-image-container">
+    <div class="square-card">
+      <div class="square-card-image" data-image-src=""></div>
+    </div>
+    <div class="square-card">
+      <div class="square-card-image" data-image-src=""></div>
+    </div>
+    <div class="square-card">
+      <div class="square-card-image" data-image-src=""></div>
+    </div>
+    <div class="square-card">
+      <div class="square-card-image" data-image-src=""></div>
+    </div>
+  </div>
+  <div class="auth-header">
+    {% block auth_section_title %}
+    {% endblock auth_section_title %}
+  </div>
+  <div class="auth-form">
+    {% block auth_section_form %}
+    {% endblock auth_section_form %}
+  </div>
+  <div class="auth-footer">
+    {% block auth_section_footer %}
+    {% endblock auth_section_footer %}
+  </div>
+</section>
+{% endblock main_content %}
+
+{% block footer_content %}
+{% endblock footer_content %}

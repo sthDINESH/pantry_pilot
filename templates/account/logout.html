@@ -1,21 +1,20 @@
-{% extends "account/base.html" %}
+{% extends "auth_base.html" %}
 
 {% load i18n %}
 
-{% block head_title %}{% trans "Sign Out" %}{% endblock head_title %}
+{% block title %}{% trans "Sign Out" %}{% endblock title %}
 
-{% block content %}
-<h1>{% trans "Sign Out" %}</h1>
-
+{% block auth_section_title %}
+<h2 class="heading">{% trans "Sign Out" %}</h2>
 <p>{% trans 'Are you sure you want to sign out?' %}</p>
+{% endblock auth_section_title %}
 
+{% block auth_section_form %}
 <form method="post" action="{% url 'account_logout' %}">
   {% csrf_token %}
   {% if redirect_field_value %}
   <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
   {% endif %}
-  <button type="submit">{% trans 'Sign Out' %}</button>
+  <button type="submit" class="btn btn-primary">{% trans 'Sign Out' %}</button>
 </form>
-
-
-{% endblock content %}
+{% endblock auth_section_form %}
