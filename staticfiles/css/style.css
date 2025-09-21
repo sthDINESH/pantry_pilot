@@ -16,11 +16,15 @@
 
     /* height calculations */
     --navbar-brand-height: calc(1.375rem + min(1.5vw, 1.5vh));
-    --navbar-height: calc(var(--navbar-brand-height) + 3.25rem); /* calculated with bootstrap margins/paddings */
+    --navbar-height: calc(var(--navbar-brand-height) + 3.25rem);
+    /* calculated with bootstrap margins/paddings */
     --nav-link-font-size: calc(0.75rem + min(0.8vw, 0.8vh));
+    --auth-main-image-card-height: min(45vw, 45vh);
+    --auth-main-image-card-pos-right: calc((100% - var(--auth-image-card-max-height)) * 0.125);
+
 }
 
-/* General styles */ 
+/* General styles */
 /* ---------------------------------------------------------- */
 * {
     box-sizing: border-box;
@@ -32,11 +36,12 @@ body {
 }
 
 header {
-    margin-top: var(--navbar-height); /* account for overlap with fixed navbar */
+    margin-top: var(--navbar-height);
+    /* account for overlap with fixed navbar */
 }
 
 
-h1, 
+h1,
 .heading,
 .navbar-brand {
     font-family: var(--accent-font);
@@ -58,9 +63,44 @@ h1,
 
 .sub-heading {
     margin-bottom: var(--nav-link-font-size);
+    color: var(--accent-color);
 }
 
-/* Navbar styling */ 
+a {
+    color: var(--accent-color);
+}
+
+/* Custom Button Styling */
+/* ---------------------------------------------------------- */
+.btn-primary {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+    color: var(--light-color);
+    border-radius: 1rem;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: var(--accent-color-light);
+    border-color: var(--accent-color-light);
+    color: var(--accent-color);
+}
+
+.btn-primary:active,
+.btn-primary.active {
+    background-color: var(--secondary-accent-color);
+    border-color: var(--secondary-accent-color);
+    color: var(--light-color);
+}
+
+.btn-primary:disabled,
+.btn-primary.disabled {
+    background-color: var(--secondary-light-color);
+    border-color: var(--secondary-light-color);
+    color: #6c757d;
+}
+
+/* Navbar styling */
 /* ---------------------------------------------------------- */
 .navbar-brand {
     font-size: var(--navbar-brand-height);
@@ -68,11 +108,168 @@ h1,
     align-items: center;
 }
 
-.navbar-brand > img {
+.navbar-brand img {
     aspect-ratio: 1;
     height: calc(var(--navbar-brand-height) * 1.5);
+    /* height: 30px; */
 }
 
 .navbar {
     background-color: var(--light-color);
+}
+
+
+/* Authentication form styling */
+/* ---------------------------------------------------------- */
+.auth-grid-container {
+    height: calc(100vh - var(--navbar-height));
+    width: 100vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 3fr 4fr 1.5fr 1fr;
+    grid-template-areas:
+        "image-area header-area"
+        "image-area form-area"
+        "image-area footer-area"
+        "image-area ps-area";
+    column-gap: 2rem;
+}
+
+.auth-image-container {
+    grid-area: image-area;
+}
+
+.auth-header {
+    grid-area: header-area;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* border: 2px dotted coral; */
+}
+
+.auth-form {
+    grid-area: form-area;
+}
+
+.auth-form form {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.auth-form-cta {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.auth-footer {
+    grid-area: footer-area;
+}
+
+.auth-ps {
+    grid-area: ps-area;
+}
+
+.auth-form-cta {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.auth-form .btn-primary {
+    width: 60%;
+}
+
+/* Cards styling */
+/* ---------------------------------------------------------- */
+.square-card {
+    aspect-ratio: 1;
+    display: grid;
+    place-items: center;
+    background-color: var(--light-color);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.square-card-image {
+    aspect-ratio: 1;
+    width: 90%;
+    background-color: var(--accent-color);
+}
+
+
+/* Sign-up section styling */
+/* ---------------------------------------------------------- */
+.auth-grid-container .auth-image-container {
+    /* border: 2px dotted coral; */
+    position: relative;
+}
+
+.auth-grid-container .square-card {
+    position: absolute;
+}
+
+.auth-grid-container .square-card:nth-child(1) {
+    --card-width: calc(0.4 * var(--auth-main-image-card-height));
+    width: var(--card-width);
+    right: min(calc(100% - var(--card-width)), calc(var(--auth-main-image-card-height) * 0.55));
+    top: calc(50% - (var(--card-width)) * 2.5);
+}
+
+.auth-grid-container .square-card:nth-child(2) {
+    --card-width: calc(0.6 * var(--auth-main-image-card-height));
+    width: var(--card-width);
+    top: calc(50% - (var(--card-width)) * 1.25);
+    right: min(calc(100% - var(--card-width)), calc(var(--auth-main-image-card-height) * 0.9));
+}
+
+.auth-grid-container .square-card:nth-child(3) {
+    width: var(--auth-main-image-card-height);
+    top: calc(50% - (var(--auth-main-image-card-height) * 0.5));
+    right: 0;
+
+}
+
+.auth-grid-container .square-card:nth-child(4) {
+    --card-width: calc(0.38 * var(--auth-main-image-card-height));
+    width: var(--card-width);
+    right: min(calc(100% - var(--card-width)), calc(var(--auth-main-image-card-height) * 0.8));
+    top: calc(50% + (var(--card-width)) * 1.25);
+}
+
+#sign-up-form .square-card-image.feature-image-1 {
+    background: url('../images/meal-planning.webp') no-repeat center center / cover;
+}
+
+#sign-up-form .square-card-image.feature-image-2 {
+    background: url('../images/recipes.webp') no-repeat center center / cover;
+}
+
+#sign-up-form .square-card-image.feature-image-3 {
+    background: url('../images/pantry_tracking.webp') no-repeat center center / cover;
+}
+
+#sign-up-form .square-card-image.feature-image-4 {
+    background: url('../images/shopping_list.webp') no-repeat center center / cover;
+}
+
+#sign-up-form .heading {
+    margin-top: 0;
+}
+
+#sign-up-form .sub-heading {
+    text-transform: none;
+    font-style: italic;
+    margin-bottom: 0;
+}
+
+#sign-up-form .auth-footer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }

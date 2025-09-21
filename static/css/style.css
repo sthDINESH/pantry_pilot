@@ -66,12 +66,17 @@ h1,
     color: var(--accent-color);
 }
 
+a {
+    color: var(--accent-color);
+}
+
 /* Custom Button Styling */
 /* ---------------------------------------------------------- */
 .btn-primary {
     background-color: var(--accent-color);
     border-color: var(--accent-color);
     color: var(--light-color);
+    border-radius: 1rem;
 }
 
 .btn-primary:hover,
@@ -120,13 +125,14 @@ h1,
     height: calc(100vh - var(--navbar-height));
     width: 100vw;
     display: grid;
-    grid-template-columns: 1fr 1.25fr;
-    grid-template-rows: 2fr 4fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 3fr 4fr 1.5fr 1fr;
     grid-template-areas:
         "image-area header-area"
         "image-area form-area"
         "image-area footer-area"
         "image-area ps-area";
+    column-gap: 2rem;
 }
 
 .auth-image-container {
@@ -135,13 +141,30 @@ h1,
 
 .auth-header {
     grid-area: header-area;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* border: 2px dotted coral; */
 }
 
 .auth-form {
     grid-area: form-area;
+}
+
+.auth-form form {
+    height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.auth-form-cta {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .auth-footer {
@@ -152,8 +175,15 @@ h1,
     grid-area: ps-area;
 }
 
+.auth-form-cta {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
 .auth-form .btn-primary {
-    width: 80%;
+    width: 60%;
 }
 
 /* Cards styling */
@@ -176,7 +206,7 @@ h1,
 /* Sign-up section styling */
 /* ---------------------------------------------------------- */
 .auth-grid-container .auth-image-container {
-    border: 2px dotted coral;
+    /* border: 2px dotted coral; */
     position: relative;
 }
 
@@ -206,8 +236,31 @@ h1,
 }
 
 .auth-grid-container .square-card:nth-child(4) {
-    --card-width: calc(0.35 * var(--auth-main-image-card-height));
+    --card-width: calc(0.38 * var(--auth-main-image-card-height));
     width: var(--card-width);
     right: min(calc(100% - var(--card-width)), calc(var(--auth-main-image-card-height) * 0.8));
     top: calc(50% + (var(--card-width)) * 1.25);
+}
+
+.auth-grid-container .square-card-image.feature-image-1 {
+    background: url('../images/meal-planning.webp') no-repeat center center / cover;
+}
+
+.auth-grid-container .square-card-image.feature-image-2 {
+    background: url('../images/recipes.webp') no-repeat center center / cover;
+}
+
+.auth-grid-container .square-card-image.feature-image-3 {
+    background: url('../images/pantry_tracking.webp') no-repeat center center / cover;
+}
+
+.auth-grid-container .square-card-image.feature-image-4 {
+    background: url('../images/shopping_list.webp') no-repeat center center / cover;
+}
+
+
+#sign-up-form .auth-footer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
 }

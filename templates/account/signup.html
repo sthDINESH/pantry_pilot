@@ -4,24 +4,32 @@
 
 {% block title %}{% trans "Sign Up" %}{% endblock title %}
 
+{% block section_id %}sign-up-form{% endblock section_id %}
+
 {% block auth_section_title %}
-<h2 class="heading">Sign Up to Pantry Pilot!</h2>
-<div class="sub-heading">Start your journey.</div>
+<div>
+  <div class="sub-heading">Welcome.</div>
+  <h2 class="heading">Sign Up to Pantry Pilot!</h2>
+</div>
 {% endblock auth_section_title %}
 
 {% block auth_section_form %}
 <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
-  {% csrf_token %}
-  {{ form.as_p }}
-  {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-  {% endif %}
-  <button type="submit" class="btn btn-primary">Start Your Kitchen Journey &raquo;</button>
+  <div class="auth-form-fields">
+    {% csrf_token %}
+    {{ form.as_p }}
+    {% if redirect_field_value %}
+    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+    {% endif %}
+  </div>
+  <div class="auth-form-cta">
+    <button type="submit" class="btn btn-primary">Start Your Journey &raquo;</button>
+    <p class="text-muted">{% blocktrans %}Already have an account? <a href="{{ login_url }}"
+        class="text-decoration-none">Sign in here</a>{% endblocktrans %}
+    </p>
+  </div>
 </form>
 {% endblock auth_section_form %}
 
 {% block auth_section_footer %}
-<p class="text-muted">{% blocktrans %}Already have an account? <a href="{{ login_url }}"
-    class="text-decoration-none">Sign in here</a>{% endblocktrans %}
-</p>
 {% endblock auth_section_footer %}

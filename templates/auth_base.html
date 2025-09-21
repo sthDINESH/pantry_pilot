@@ -2,20 +2,22 @@
 
 {% load i18n %}
 
+{% load static %}
+
 {% block main_content %}
-<section class="auth-grid-container">
+<section id="{% block section_id %}{% endblock section_id %}" class="auth-grid-container">
   <div class="auth-image-container">
     <div class="square-card">
-      <div class="square-card-image" data-image-src=""></div>
+      <div class="square-card-image feature-image-1"></div>
     </div>
     <div class="square-card">
-      <div class="square-card-image" data-image-src=""></div>
+      <div class="square-card-image feature-image-2"></div>
     </div>
     <div class="square-card">
-      <div class="square-card-image" data-image-src=""></div>
+      <div class="square-card-image feature-image-3"></div>
     </div>
     <div class="square-card">
-      <div class="square-card-image" data-image-src=""></div>
+      <div class="square-card-image feature-image-4"></div>
     </div>
   </div>
   <div class="auth-header">
