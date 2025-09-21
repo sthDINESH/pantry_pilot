@@ -1,20 +1,19 @@
 from django.shortcuts import render
 from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .models import PantryItem
+from .models import Category
 
 # Create your views here.
 
 
-class PantryItemList(LoginRequiredMixin, ListView):
+class CategoryList(LoginRequiredMixin, ListView):
     """
-    Display pantry items for the currently logged-in user
+    Display Pantry item categories for the currently logged in user
     """
-    context_object_name = 'pantry_items'
-    template_name = 'pantry/pantry_item_list.html'
-    
+    context_object_name = "categories"
+    template_name = "pantry/pantry_item_list.html"
+
     def get_queryset(self):
         """
-        Filter pantry items to only show items belonging to the current user
         """
-        return PantryItem.objects.filter(user=self.request.user)
+        return Category.objects.filter(user=self.request.user)
