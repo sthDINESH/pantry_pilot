@@ -242,31 +242,22 @@ a {
     top: calc(50% + (var(--card-width)) * 1.25);
 }
 
-#sign-up-form .square-card-image.feature-image-1 {
+.auth-grid-container .square-card-image.feature-image-1 {
     background: url('../images/meal-planning.webp') no-repeat center center / cover;
 }
 
-#sign-up-form .square-card-image.feature-image-2 {
+.auth-grid-container .square-card-image.feature-image-2 {
     background: url('../images/recipes.webp') no-repeat center center / cover;
 }
 
-#sign-up-form .square-card-image.feature-image-3 {
+.auth-grid-container .square-card-image.feature-image-3 {
     background: url('../images/pantry_tracking.webp') no-repeat center center / cover;
 }
 
-#sign-up-form .square-card-image.feature-image-4 {
+.auth-grid-container .square-card-image.feature-image-4 {
     background: url('../images/shopping_list.webp') no-repeat center center / cover;
 }
 
-#sign-up-form .heading {
-    margin-top: 0;
-}
-
-#sign-up-form .sub-heading {
-    text-transform: none;
-    font-style: italic;
-    margin-bottom: 0;
-}
 
 #sign-up-form .auth-footer {
     display: flex;
