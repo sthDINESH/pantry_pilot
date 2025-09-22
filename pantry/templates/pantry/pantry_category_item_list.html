@@ -6,21 +6,24 @@ Pantry
 
 {% block main_content %}
 <h1>Pantry Items:</h1>
-<form method="post">
+<form id="pantry-item-form" method="post">
     {{ pantry_item_form }}
     {{ category_form }}
     {% csrf_token %}
-    <button type="submit">Add</button>
+    <button id="pantry-submit-button" type="submit">Add</button>
 </form>
 {% for category in categories %}
 <div id="category-{{ category.id }}" class="pantry-category">
-    <h2 class="sub-heading"> {{ category }} </h2>
+    <h2 class="sub-heading" data-category-name="{{ category.category_name }}"> {{ category }} </h2>
     <button type="button" data-type="category-delete" data-category-id="{{ category.id }}" data-category="{{ category }}">Delete category</button>
 
     {% for pantry_item in category.pantry_items.all %}
     <div id="item-{{ pantry_item.id }}" class="pantry-item">
-        <p>{{ pantry_item.name }} - {{ pantry_item.quantity }} {{ pantry_item.get_units_display }}</p>
+        <div class="pantry-item-name">{{ pantry_item.name }}</div>
+        <div class="pantry-item-quantity">{{ pantry_item.quantity }}</div>
+        <div class="pantry-item-units" data-item-units="{{ pantry_item.units }}">{{ pantry_item.get_units_display }}</div>
         <div>
+            <button type="button" data-type="pantry-item-update" data-item-id="{{ pantry_item.id }}" data-category-id="{{ category.id }}">Update</button>
             <button type="button" data-type="pantry-item-delete" data-item-id="{{ pantry_item.id }}" data-item-name="{{ pantry_item.name }}">Delete</button>
         </div>
     </div>

@@ -12,5 +12,10 @@ urlpatterns = [
         views.delete_pantry_item,
         name="pantry_item_delete"
     ),
+    path(
+        'item/<int:item_id>/update',
+        views.update_pantry_item,
+        name="pantry_item_update"
+    ),
     path('', views.CategoryList.as_view(), name="pantry"),
 ]

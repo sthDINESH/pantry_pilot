@@ -21,7 +21,7 @@ class CategoryList(LoginRequiredMixin, ListView):
         """
         """
         return Category.objects.filter(user=self.request.user)
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["pantry_item_form"] = PantryItemForm()
@@ -32,8 +32,8 @@ class CategoryList(LoginRequiredMixin, ListView):
         print("DEBUG: IN POST method")
         print(request.POST)
 
-        category_form = CategoryForm(request.POST)
-        pantry_item_form = PantryItemForm(request.POST)
+        category_form = CategoryForm(data=request.POST)
+        pantry_item_form = PantryItemForm(data=request.POST)
 
         if category_form.is_valid() and pantry_item_form.is_valid():
             # Get or create a category for the user depending on
@@ -84,7 +84,7 @@ class CategoryList(LoginRequiredMixin, ListView):
 @login_required
 def delete_pantry_item(request, item_id):
     """
-    View to delete pantry item
+    View to delete pantry item objects
     """
     queryset = PantryItem.objects.filter(user=request.user)
     pantry_item = get_object_or_404(queryset, pk=item_id)
@@ -106,6 +106,68 @@ def delete_pantry_item(request, item_id):
 
 
 @login_required
+def update_pantry_item(request, item_id):
+    """
+    View to update existing pantry item objects
+    """
+    if request.method == "POST":
+        pantry_item = get_object_or_404(PantryItem, pk=item_id)
+
+        pantry_item_form = PantryItemForm(
+            data=request.POST,
+            instance=pantry_item
+        )
+        category_form = CategoryForm(data=request.POST)
+
+        if category_form.is_valid() and pantry_item_form.is_valid():
+            # Get or create a category for the user depending on
+            # whether the category already exists
+            category, category_created = Category.objects.get_or_create(
+                user=request.user,
+                category_name=category_form.cleaned_data['category_name']
+            )
+            if category_created:
+                messages.add_message(
+                    request,
+                    messages.SUCCESS,
+                    (
+                        f"Added new category - "
+                        f"{category_form.cleaned_data['category_name']}"
+                    )
+                )
+                     
+            if pantry_item.user == request.user:
+                pantry_item = pantry_item_form.save(commit=False)
+                pantry_item.category = category
+                pantry_item.save()
+                messages.add_message(
+                    request,
+                    messages.SUCCESS,
+                    f"Updated item - {pantry_item_form.cleaned_data['name']}"
+                )
+            else:
+                messages.add_message(
+                    request,
+                    messages.ERROR,
+                    (
+                        f"Error updating item - "
+                        f"{pantry_item_form.cleaned_data['name']}."
+                        " You can only update your items."
+                    )
+                )
+        else:
+            messages.add_message(
+                request,
+                messages.ERROR,
+                (
+                    f"Error updating item - "
+                    f"{pantry_item_form.cleaned_data['name']}."
+                )
+            )
+        return redirect('pantry')
+
+
+@login_required
 def delete_category(request, category_id):
     """
     View to delete categories from pantry
@@ -118,7 +180,7 @@ def delete_category(request, category_id):
         messages.add_message(
             request,
             messages.SUCCESS,
-            f'Category removed - {category.category_name}'
+            f'Category removed - {category}'
         )
     else:
         messages.add_message(

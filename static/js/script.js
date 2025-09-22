@@ -10,7 +10,8 @@ document.addEventListener("DOMContentLoaded", function () {
   //   Add event listeners
   const buttons = document.querySelectorAll("button");
   buttons.forEach((button) => {
-    if (button.getAttribute("data-type") === "pantry-item-delete") {
+    let buttonType = button.getAttribute("data-type");
+    if (buttonType === "pantry-item-delete") {
       button.addEventListener("click", function (event) {
         const pantryItemId = event.target.getAttribute("data-item-id");
         deleteModalBody.innerHTML = `
@@ -25,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
         deleteConfirm.href = `item/${pantryItemId}/delete`;
         deleteModal.show();
       });
-    } else if (button.getAttribute("data-type") === "category-delete") {
+    } else if (buttonType === "category-delete") {
       button.addEventListener("click", function (event) {
         const categoryId = event.target.getAttribute("data-category-id");
         deleteModalBody.innerHTML = `
@@ -41,6 +42,30 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
         deleteConfirm.href = `category/${categoryId}/delete`;
         deleteModal.show();
+      });
+    } else if (buttonType === "pantry-item-update") {
+      button.addEventListener("click", function (event) {
+        const pantryItemForm = document.querySelector("#pantry-item-form");
+        // Get the PK for pantry item and related category
+        const itemId = event.target.getAttribute("data-item-id");
+        const categoryId = event.target.getAttribute("data-category-id");
+        
+        // Copy the pantry item attributes to populate the form
+        pantryItemForm.querySelector("#id_name").value = document
+          .querySelector(`#item-${itemId} .pantry-item-name`).innerText;
+        pantryItemForm.querySelector("#id_quantity").value = document
+          .querySelector(`#item-${itemId} .pantry-item-quantity`).innerText;
+        pantryItemForm.querySelector("#id_units").value = document
+          .querySelector(`#item-${itemId} .pantry-item-units`)
+          .getAttribute("data-item-units");
+        pantryItemForm.querySelector("#id_category_name").value = document
+          .querySelector(`#category-${categoryId} .sub-heading`)
+          .getAttribute("data-category-name");
+
+        // Update the submit form button
+        document.querySelector("#pantry-submit-button").innerText = "Update";
+        // Update form action
+        pantryItemForm.setAttribute("action",`item/${itemId}/update`);
       });
     }
   });
