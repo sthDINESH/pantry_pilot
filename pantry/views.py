@@ -1,7 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+
 from .models import Category, PantryItem
 from .forms import PantryItemForm, CategoryForm
 
@@ -77,3 +79,27 @@ class CategoryList(LoginRequiredMixin, ListView):
                 )
             return redirect('pantry')
         return self.get(request, * args, **kwargs)
+
+
+@login_required
+def delete_pantry_item(request, item_id):
+    """
+    View to delete pantry item
+    """
+    queryset = PantryItem.objects.filter(user=request.user)
+    pantry_item = get_object_or_404(queryset, pk=item_id)
+
+    if pantry_item.user == request.user:
+        pantry_item.delete()
+        messages.add_message(
+            request,
+            messages.SUCCESS,
+            f'Item removed - {pantry_item.name}'
+        )
+    else:
+        messages.add_message(
+            request,
+            messages.ERROR,
+            'You can only remove your items',
+        )
+    return redirect('pantry')
