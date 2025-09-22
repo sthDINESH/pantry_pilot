@@ -6,6 +6,12 @@ Pantry
 
 {% block main_content %}
     <h1>Pantry Items:</h1>
+    <form method="post">
+        {{ pantry_item_form }}
+        {{ category_form }}
+        {% csrf_token %}
+        <button type="submit">Add</button>
+    </form>
     {% for category in categories %}
         <!-- <p>{{ pantry_item.name }} - {{ pantry_item.quantity }} {{ pantry_item.get_units_display }}</p> -->
         <h2>{{ category }}</h2>
