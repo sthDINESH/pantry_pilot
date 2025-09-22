@@ -13,7 +13,7 @@ class CategoryList(LoginRequiredMixin, ListView):
     Display Pantry item categories for the currently logged in user
     """
     context_object_name = "categories"
-    template_name = "pantry/pantry_item_list.html"
+    template_name = "pantry/pantry_category_item_list.html"
 
     def get_queryset(self):
         """
