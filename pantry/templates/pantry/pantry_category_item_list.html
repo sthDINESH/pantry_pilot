@@ -15,7 +15,7 @@ Pantry
 {% for category in categories %}
 <div id="category-{{ category.id }}" class="pantry-category">
     <h2 class="sub-heading"> {{ category }} </h2>
-    <button type="button" data-type="category-delete">Delete category</button>
+    <button type="button" data-type="category-delete" data-category-id="{{ category.id }}" data-category="{{ category }}">Delete category</button>
 
     {% for pantry_item in category.pantry_items.all %}
     <div id="item-{{ pantry_item.id }}" class="pantry-item">

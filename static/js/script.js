@@ -1,7 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
   console.log("DEBUG: Hello world!");
 
-  const deleteModal = new bootstrap.Modal(document.querySelector("#delete-modal"));
+  const deleteModal = new bootstrap.Modal(
+    document.querySelector("#delete-modal")
+  );
   const deleteModalBody = document.querySelector("#delete-modal .modal-body");
   const deleteConfirm = document.querySelector("#delete-confirm");
 
@@ -10,16 +12,34 @@ document.addEventListener("DOMContentLoaded", function () {
   buttons.forEach((button) => {
     if (button.getAttribute("data-type") === "pantry-item-delete") {
       button.addEventListener("click", function (event) {
-        const pantry_item_id = event.target.getAttribute("data-item-id");
-        console.log(`DEBUG: Delete item id: ${pantry_item_id}`);
+        const pantryItemId = event.target.getAttribute("data-item-id");
         deleteModalBody.innerHTML = `
             <p>
-            Are you sure you want to remove <strong>${button.getAttribute("data-item-name")}</strong> from pantry?
+            Are you sure you want to remove <strong>${button.getAttribute(
+              "data-item-name"
+            )}</strong> from pantry?
             <br>
             This action cannot be undone!
             </p>
         `;
-        deleteConfirm.href = `${pantry_item_id}/delete`;
+        deleteConfirm.href = `item/${pantryItemId}/delete`;
+        deleteModal.show();
+      });
+    } else if (button.getAttribute("data-type") === "category-delete") {
+      button.addEventListener("click", function (event) {
+        const categoryId = event.target.getAttribute("data-category-id");
+        deleteModalBody.innerHTML = `
+            <p>
+            Are you sure you want to remove <strong>${event.target.getAttribute(
+              "data-category"
+            )}</strong> from pantry?
+            <br>
+            All <em>${event.target.getAttribute(
+              "data-category"
+            )}</em> items will be removed and this action cannot be undone!
+            </p>
+        `;
+        deleteConfirm.href = `category/${categoryId}/delete`;
         deleteModal.show();
       });
     }

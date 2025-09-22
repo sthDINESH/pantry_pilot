@@ -103,3 +103,27 @@ def delete_pantry_item(request, item_id):
             'You can only remove your items',
         )
     return redirect('pantry')
+
+
+@login_required
+def delete_category(request, category_id):
+    """
+    View to delete categories from pantry
+    """
+    queryset = Category.objects.filter(user=request.user)
+    category = get_object_or_404(queryset, pk=category_id)
+
+    if category.user == request.user:
+        category.delete()
+        messages.add_message(
+            request,
+            messages.SUCCESS,
+            f'Category removed - {category.category_name}'
+        )
+    else:
+        messages.add_message(
+            request,
+            messages.ERROR,
+            'You can only remove your categories',
+        )
+    return redirect('pantry')
