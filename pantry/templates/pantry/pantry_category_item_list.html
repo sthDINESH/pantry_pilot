@@ -55,4 +55,59 @@ Pantry
         </div>
     </div>
 </div>
+
+{% if show_duplicate_modal %}
+<!-- Duplicate Item Modal -->
+<div class="modal fade" id="duplicate-item-modal" tabindex="-1" aria-labelledby="duplicate-item-modal-label" aria-hidden="true" data-redirect-url="{% url 'pantry' %}">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="duplicate-item-modal-label">Item Already Exists</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    <strong>{{ existing_item.name }}</strong> already exists in your pantry.
+                </p>
+                <div class="row">
+                    <div class="col-6">
+                        <h6>Current:</h6>
+                        <p>{{ existing_item.quantity }} {{ existing_item.get_units_display }}</p>
+                        <p>{{ existing_item.category.get_category_name_display }}</p>
+                    </div>
+                    <div class="col-6">
+                        <h6>New:</h6>
+                        <p>{{ form_data.quantity }} {{ form_data.units_display }}</p>
+                        <p>{{ form_data.category_display }}</p>
+                    </div>
+                </div>
+                <hr>
+                <p>How would you like to handle this?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+
+                {% if add_quantity_form %}
+                <!-- Update quantity form -->
+                <form method="post" action="{% url 'pantry_item_resolve' existing_item.id %}" style="display: inline;">
+                    {% csrf_token %}
+                    {{ add_quantity_form }}
+                    <button type="submit" class="btn btn-success">Add to Existing</button>
+                </form>
+                {% endif %}
+
+                {% if replace_quantity_form %}                
+                <!-- Replace quantity form -->
+                <form method="post" action="{% url 'pantry_item_resolve' existing_item.id %}" style="display: inline;">
+                    {% csrf_token %}
+                    {{ replace_quantity_form }}
+                    <button type="submit" class="btn btn-warning">Replace Existing</button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
 {% endblock main_content %}

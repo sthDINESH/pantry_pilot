@@ -7,6 +7,20 @@ document.addEventListener("DOMContentLoaded", function () {
   const deleteModalBody = document.querySelector("#delete-modal .modal-body");
   const deleteConfirm = document.querySelector("#delete-confirm");
 
+  const duplicateItemModal = document.querySelector("#duplicate-item-modal");
+  // Auto show duplicate item modal for user input if it exists in DOM
+  if (duplicateItemModal) {
+    const modal = new bootstrap.Modal(duplicateItemModal);
+    modal.show();
+
+    // Listen for modal dismissal
+    duplicateItemModal.addEventListener("hidden.bs.modal", function (event) {
+      // Redirect to pantry when modal is completely hidden
+      window.location.href =
+        duplicateItemModal.getAttribute("data-redirect-url");
+    });
+  }
+
   //   Add event listeners
   const buttons = document.querySelectorAll("button");
   buttons.forEach((button) => {
@@ -79,7 +93,7 @@ document.addEventListener("DOMContentLoaded", function () {
         cancelButton.addEventListener("click", function (event) {
           // Reset the pantry item form fields to defaults
           pantryItemForm.querySelector("#id_name").value = "";
-            
+
           pantryItemForm.querySelector("#id_quantity").value = "";
           pantryItemForm.querySelector("#id_units").value = "piece";
           pantryItemForm.querySelector("#id_category_name").value = "other";
