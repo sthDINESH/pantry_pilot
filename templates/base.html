@@ -13,7 +13,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pantry Pilot | {% block title %}{% endblock title %}</title>
 
-    <!-- FontAwesome CSS -->
     <!-- Bootstrap5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
@@ -21,10 +20,10 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 
-<body>
+<body class="flex-container">
     <!-- Navigation bar -->
     <nav class="navbar navbar-expand-lg fixed-top">
-        <div class="container-fluid">
+        <div class="container">
             <a class="navbar-brand" href="{{ home_url }}">
                 <img src="{% static 'images/pantry_pilot_logo.png' %}" alt="Website logo">
                 Pantry Pilot
@@ -37,31 +36,26 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path == home_url %} active {% endif %}" 
-                           {% if request.path == home_url %} aria-current='page' {% endif %} 
-                           href="{{ home_url }}">Home</a>
+                        <a class="nav-link {% if request.path == home_url %} active {% endif %}" aria-current='page'
+                            href="{{ home_url }}">Home</a>
                     </li>
                     {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path == pantry_url %} active {% endif %}" 
-                           {% if request.path == pantry_url %} aria-current='page' {% endif %}
-                           href="{{ pantry_url }}">Pantry</a>
+                        <a class="nav-link {% if request.path == pantry_url %} active {% endif %}" aria-current='page'
+                            href="{{ pantry_url }}">Pantry</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path == logout_url %} active {% endif %}" 
-                           {% if request.path == logout_url %} aria-current='page' {% endif %}
-                           href="{{ logout_url }}">Logout</a>
+                        <a class="nav-link {% if request.path == logout_url %} active {% endif %}" aria-current='page'
+                            href="{{ logout_url }}">Logout</a>
                     </li>
                     {% else %}
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path == login_url %} active {% endif %}" 
-                           {% if request.path == login_url %} aria-current='page' {% endif %} 
-                           href="{{ login_url }}">Login</a>
+                        <a class="nav-link {% if request.path == login_url %} active {% endif %}" aria-current='page'
+                            href="{{ login_url }}">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {% if request.path == signup_url %} active {% endif %}" 
-                           {% if request.path == signup_url %} aria-current='page' {% endif %} 
-                           href="{{ signup_url }}">Sign Up</a>
+                        <a class="nav-link {% if request.path == signup_url %} active {% endif %}" aria-current='page'
+                            href="{{ signup_url }}">SignUp</a>
                     </li>
                     {% endif %}
                 </ul>
@@ -69,7 +63,7 @@
         </div>
     </nav>
 
-    <header>
+    <header class="flex-header">
         <!-- displaying Django messages -->
         <div class="container">
             <div class="row">
@@ -84,17 +78,62 @@
             </div>
         </div>
     </header>
-    
-    <main>
+
+    <main class="flex-main">
         {% block main_content %}
         {% endblock main_content %}
 
         {% block modal_content %}
         {% endblock modal_content %}
     </main>
-    
-    <footer>
+
+    <footer class="flex-footer">
         {% block footer_content %}
+        <div class="container">
+            <div class="footer-column-wrapper">
+                <div class="site-details footer-column">
+                    <a href="" class="footer-site-logo">Pantry Pilot</a>
+                    <div class="site-details-paragraph">
+                        Your smart kitchen companion for tracking pantry inventory, discovering recipes
+                        with your ingredients, and reducing food waste.
+                        <br>
+                        Simplify meal planning and save money with
+                        intelligent shopping lists.
+                    </div>
+                    <div class="site-socials">
+                        <a href="https://www.facebook.com/pantrypilot" target="_blank" rel="noopener noreferrer"
+                            aria-label="Follow us on Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://www.youtube.com/c/pantrypilot" target="_blank" rel="noopener noreferrer"
+                            aria-label="Subscribe to our YouTube channel">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="https://twitter.com/pantrypilot" target="_blank" rel="noopener noreferrer"
+                            aria-label="Follow us on Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://www.instagram.com/pantrypilot" target="_blank" rel="noopener noreferrer"
+                            aria-label="Follow us on Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-menus footer-column">
+                    <h3 class="sub-heading">Quick Links</h3>
+                    <ul>
+                        <li>Home</li>
+                        <li>Track Pantry</li>
+                        <li>Search Recipes</li>
+                        <li>Plan Meals</li>
+                        <li>Smart Shopping</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            © {% now "Y" %} PantryPilot. All rights reserved. | All rights reserved.
+        </div>
         {% endblock footer_content %}
     </footer>
 
@@ -102,6 +141,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
+
+    <!-- Fontawesome JS -->
+    <script src="https://kit.fontawesome.com/a46681dd6d.js" crossorigin="anonymous"></script>
 
     <!-- GSAP JS -->
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
