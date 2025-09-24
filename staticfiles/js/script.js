@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
   // Utility functions
+  // ---------------------------------------------------------------
   // Function to check if element hidden with bs collapse is visible
   function isElementShown(element) {
     return (
@@ -10,6 +11,31 @@ document.addEventListener("DOMContentLoaded", function () {
     );
   }
 
+  // Handle collapse icon changes
+  function updateCollapseIcon(button, state) {
+    const icon = button.querySelector("i");
+    if (!icon) return;
+
+    const targetSelector = button.getAttribute("data-bs-target");
+
+    if (targetSelector === "#pantry-item-form") {
+      // Form collapse button (plus/minus)
+      if (state === "expanded") {
+        icon.className = "fa-solid fa-chevron-up";
+      } else {
+        icon.className = "fa-solid fa-plus";
+      }
+    } else if (targetSelector && targetSelector.startsWith("#category-body-")) {
+      // Category collapse button (chevron up/down)
+      if (state === "expanded") {
+        icon.className = "fa-solid fa-chevron-up";
+      } else {
+        icon.className = "fa-solid fa-chevron-down";
+      }
+    }
+  }
+
+  // ---------------------------------------------------------------
   const deleteModal = new bootstrap.Modal(
     document.querySelector("#delete-modal")
   );
@@ -31,6 +57,8 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Event listeners
+  // ---------------------------------------------------------------
+  // Event listeners for button clicks
   const buttons = document.querySelectorAll("button");
   buttons.forEach((button) => {
     let buttonType = button.getAttribute("data-type");
@@ -164,9 +192,72 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  gsap.from(".auth-grid-container .square-card", {
-    y: 1000,
-    duration: 1,
-    stagger: 0.1,
+  // Event listeners for collapse icon
+  const collapseButtons = document.querySelectorAll(
+    '[data-bs-toggle="collapse"]'
+  );
+  collapseButtons.forEach((button) => {
+    const targetSelector = button.getAttribute("data-bs-target");
+    const targetElement = document.querySelector(targetSelector);
+
+    if (targetElement) {
+      // Set initial state based on current classes
+      const isExpanded = targetElement.classList.contains("show");
+      updateCollapseIcon(button, isExpanded ? "expanded" : "collapsed");
+
+      // Listen for Bootstrap collapse events
+      targetElement.addEventListener("show.bs.collapse", function () {
+        updateCollapseIcon(button, "expanded");
+      });
+
+      targetElement.addEventListener("hide.bs.collapse", function () {
+        updateCollapseIcon(button, "collapsed");
+      });
+    }
   });
+
+  // GSAP for animations
+  // Register ScrollTrigger plugin
+  // gsap.registerPlugin(ScrollTrigger);
+
+  // // Scroll trigger animation for pantry item category images
+  // console.log(document.querySelector("#pantry-section"));
+
+  // // Create an object to animate
+  // let imageSequence = { frame: 0 };
+
+  // gsap.timeline(
+  //   {
+  //     onUpdate: updateCount,
+  //     ScrollTrigger: {
+  //       trigger: document.querySelector("#pantry-section"),
+  //       start: "top 5%",
+  //       end: "bottom 95%",
+  //       scrub:1,
+  //       pin:false,
+  //       markers:true,
+  //       onUpdate: self => {
+  //         console.log("Progress:",self.progress);
+  //       }
+  //     }
+  //   }
+  // ).to(
+  //   imageSequence,
+  //   {
+  //     frame: 5,
+  //     ease: "none",
+  //     duration: 1
+  //   }
+  // );
+
+  // function updateCount (){
+  //   console.log(Math.round(imageSequence.frame));
+  // }
+
+
+  // gsap.from(".auth-grid-container .square-card", {
+  //   y: 1000,
+  //   duration: 1,
+  //   stagger: 0.1,
+  // });
 });
