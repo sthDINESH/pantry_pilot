@@ -23,7 +23,7 @@
 <body class="flex-container">
     <!-- Navigation bar -->
     <nav class="navbar navbar-expand-lg fixed-top">
-        <div class="container">
+        <div class="container-fluid">
             <a class="navbar-brand" href="{{ home_url }}">
                 <img src="{% static 'images/pantry_pilot_logo.png' %}" alt="Website logo">
                 Pantry Pilot
@@ -59,6 +59,12 @@
                     </li>
                     {% endif %}
                 </ul>
+                {% if user.is_authenticated %}
+                <div class="user-profile ms-5">
+                    <i class="fa-solid fa-user"></i>
+                    {{ user.username }}
+                </div>
+                {% endif %}
             </div>
         </div>
     </nav>

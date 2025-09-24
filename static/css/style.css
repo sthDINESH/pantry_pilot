@@ -57,10 +57,16 @@ h1,
 }
 
 .nav-link,
+.user-profile,
 .sub-heading {
     font-family: var(--secondary-accent-font);
     text-transform: uppercase;
     font-size: var(--nav-link-font-size);
+}
+
+.user-profile {
+    text-transform: none;
+    color: var(--accent-color);
 }
 
 .sub-heading {
@@ -482,6 +488,11 @@ footer a {
 
 /* For large devices and larger (>=992px) */
 @media screen and (min-width:992px) {
+
+    .navbar .container-fluid {
+        padding-left: calc(var(--navbar-height) * 0.25);
+        padding-right: calc(var(--navbar-height) * 0.25);
+    }
 
     /* Pantry page styling */
     .split-screen {
