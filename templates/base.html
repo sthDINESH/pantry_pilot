@@ -87,8 +87,8 @@
         {% endblock modal_content %}
     </main>
 
+    {% block footer_content %}
     <footer class="flex-footer">
-        {% block footer_content %}
         <div class="container">
             <div class="footer-column-wrapper">
                 <div class="site-details footer-column">
@@ -134,8 +134,8 @@
         <div class="footer-copyright">
             © {% now "Y" %} PantryPilot. All rights reserved. | All rights reserved.
         </div>
-        {% endblock footer_content %}
     </footer>
+    {% endblock footer_content %}
 
     <!-- Bootstrap5 JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
