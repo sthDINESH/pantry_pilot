@@ -25,9 +25,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const buttons = document.querySelectorAll("button");
   buttons.forEach((button) => {
     let buttonType = button.getAttribute("data-type");
+
     if (buttonType === "pantry-item-delete") {
       button.addEventListener("click", function (event) {
-        const pantryItemId = event.target.getAttribute("data-item-id");
+        const pantryItemId = event.currentTarget.getAttribute("data-item-id");
         deleteModalBody.innerHTML = `
             <p>
             Are you sure you want to remove <strong>${button.getAttribute(
@@ -42,14 +43,14 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     } else if (buttonType === "category-delete") {
       button.addEventListener("click", function (event) {
-        const categoryId = event.target.getAttribute("data-category-id");
+        const categoryId = event.currentTarget.getAttribute("data-category-id");
         deleteModalBody.innerHTML = `
             <p>
-            Are you sure you want to remove <strong>${event.target.getAttribute(
+            Are you sure you want to remove <strong>${event.currentTarget.getAttribute(
               "data-category"
             )}</strong> from pantry?
             <br>
-            All <em>${event.target.getAttribute(
+            All <em>${event.currentTarget.getAttribute(
               "data-category"
             )}</em> items will be removed and this action cannot be undone!
             </p>
@@ -61,8 +62,8 @@ document.addEventListener("DOMContentLoaded", function () {
       button.addEventListener("click", function (event) {
         const pantryItemForm = document.querySelector("#pantry-item-form");
         // Get the PK for pantry item and related category
-        const itemId = event.target.getAttribute("data-item-id");
-        const categoryId = event.target.getAttribute("data-category-id");
+        const itemId = event.currentTarget.getAttribute("data-item-id");
+        const categoryId = event.currentTarget.getAttribute("data-category-id");
 
         // Copy the pantry item attributes to populate the form
         pantryItemForm.querySelector("#id_name").value = document.querySelector(
@@ -79,33 +80,48 @@ document.addEventListener("DOMContentLoaded", function () {
           .querySelector(`#category-${categoryId} .sub-heading`)
           .getAttribute("data-category-name");
 
+        // Add a button to cancel the update if not present
+        let cancelButton = pantryItemForm.querySelector("#cancel-button");
+        if (!cancelButton) {
+          cancelButton = document.createElement("button");
+          cancelButton.id = "cancel-button";
+          cancelButton.innerText = "Cancel";
+          cancelButton.classList.add("btn", "btn-danger");
+          pantryItemForm.appendChild(cancelButton);
+          cancelButton.addEventListener("click", function (event) {
+            // Reset the pantry item form fields to defaults
+            pantryItemForm.querySelector("#id_name").value = "";
+
+            pantryItemForm.querySelector("#id_quantity").value = "";
+            pantryItemForm.querySelector("#id_units").value = "piece";
+            pantryItemForm.querySelector("#id_category_name").value = "other";
+
+            // Change Update button back to add
+            document.querySelector("#pantry-submit-button").innerText = "Add";
+            // Update form action
+            pantryItemForm.setAttribute("action", "");
+
+            // Delete the cancel button
+            document.querySelector("#cancel-button").remove();
+          });
+        }
+
         // Update the submit form button
         document.querySelector("#pantry-submit-button").innerText = "Update";
         // Update form action
         pantryItemForm.setAttribute("action", `item/${itemId}/update`);
 
-        // Add a button to cancel the update
-        const cancelButton = document.createElement("button");
-        cancelButton.id = "cancel-button";
-        cancelButton.innerText = "Cancel";
-        cancelButton.classList.add("btn", "btn-danger");
-        pantryItemForm.appendChild(cancelButton);
-        cancelButton.addEventListener("click", function (event) {
-          // Reset the pantry item form fields to defaults
-          pantryItemForm.querySelector("#id_name").value = "";
-
-          pantryItemForm.querySelector("#id_quantity").value = "";
-          pantryItemForm.querySelector("#id_units").value = "piece";
-          pantryItemForm.querySelector("#id_category_name").value = "other";
-
-          // Change Update button back to add
-          document.querySelector("#pantry-submit-button").innerText = "Add";
-          // Update form action
-          pantryItemForm.setAttribute("action", "");
-
-          // Delete the cancel button
-          document.querySelector("#cancel-button").remove();
+        // Scroll form into view smoothly
+        pantryItemForm.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+          inline: "nearest",
         });
+
+        // Focus on the first input field after scrolling
+        setTimeout(() => {
+          pantryItemForm.querySelector("#id_quantity").focus();
+        }, 500); // Delay to allow scroll animation to complete
       });
     }
   });

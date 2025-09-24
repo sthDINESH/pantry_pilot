@@ -1,41 +1,97 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block title %}
 Pantry
 {%endblock title %}
 
 {% block main_content %}
-<h1>Pantry Items:</h1>
-<form id="pantry-item-form" method="post">
-    {{ pantry_item_form }}
-    {{ category_form }}
-    {% csrf_token %}
-    <button id="pantry-submit-button" type="submit">Add</button>
-</form>
-{% for category in categories %}
-<div id="category-{{ category.id }}" class="pantry-category">
-    <h2 class="sub-heading" data-category-name="{{ category.category_name }}"> {{ category }} </h2>
-    <button type="button" data-type="category-delete" data-category-id="{{ category.id }}" data-category="{{ category }}">Delete category</button>
+<div class="split-screen">
+    <div class="screen left-screen"></div>
+    <div class="screen right-screen">
+        <div id="pantry-section" class="section-wrapper">
+            <div class="container">
+                <div class="section-heading">
+                    <h1>My Pantry</h1>
+                    <button type="button" class="btn btn-primary circle" data-type="expand-pantry-form">
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                    <p class="section-body-text">Track quantities, organize by category, and stay on top of your kitchen
+                        inventory.</p>
+                </div>
 
-    {% for pantry_item in category.pantry_items.all %}
-    <div id="item-{{ pantry_item.id }}" class="pantry-item">
-        <div class="pantry-item-name">{{ pantry_item.name }}</div>
-        <div class="pantry-item-quantity">{{ pantry_item.quantity }}</div>
-        <div class="pantry-item-units" data-item-units="{{ pantry_item.units }}">{{ pantry_item.get_units_display }}</div>
-        <div>
-            <button type="button" data-type="pantry-item-update" data-item-id="{{ pantry_item.id }}" data-category-id="{{ category.id }}">Update</button>
-            <button type="button" data-type="pantry-item-delete" data-item-id="{{ pantry_item.id }}" data-item-name="{{ pantry_item.name }}">Delete</button>
+                <form id="pantry-item-form" method="post">
+                    {{ pantry_item_form }}
+                    {{ category_form }}
+                    {% csrf_token %}
+                    <button id="pantry-submit-button" type="submit">Add</button>
+                </form>
+                {% for category in categories %}
+                <div id="category-{{ category.id }}" class="pantry-category">
+                    <div class="pantry-category-heading">
+                        <h2 class="sub-heading" data-category-name="{{ category.category_name }}"> {{ category }} </h2>
+                        <button type="button" class="btn btn-secondary btn-sm circle" data-type="category-delete"
+                            data-category-id="{{ category.id }}" data-category="{{ category }}">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                        <button type="button" class="btn btn-info btn-sm circle" data-type="category-collapse"
+                            data-category-id="{{ category.id }}" data-category="{{ category }}">
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
+                    </div>
+                    <div class="pantry-category-body row row-cols-1 row-cols-md-3 row-cols-lg-4 g-3">
+                        {% for pantry_item in category.pantry_items.all %}
+                        <div id="item-{{ pantry_item.id }}" class="pantry-item col">
+                            <div class="card">
+                                <img src="{% static 'images/pantry_item_placeholder.webp' %}" class="card-img-top"
+                                    alt="...">
+                                <div class="card-body">
+                                    <div class="pantry-item-name card-title">{{ pantry_item.name }}</div>
+                                    <div class="card-text">
+                                        <div class="pantry-item-details">
+                                            <div class="pantry-item-quantity">{{ pantry_item.quantity }}</div>
+                                            <div class="pantry-item-units" data-item-units="{{ pantry_item.units }}">
+                                                {{ pantry_item.get_units_display }}</div>
+                                        </div>
+                                        <div class="pantry-item-controls">
+                                            <button type="button" class="btn btn-info btn-sm circle" data-type="pantry-item-update"
+                                                data-item-id="{{ pantry_item.id }}"
+                                                data-category-id="{{ category.id }}">
+                                                <i class="fa-solid fa-pen"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-secondary btn-sm circle" data-type="pantry-item-delete"
+                                                data-item-id="{{ pantry_item.id }}"
+                                                data-item-name="{{ pantry_item.name }}">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {% empty %}
+                        <p>No items found.</p>
+                        {% endfor %}
+                    </div>
+
+
+
+                </div>
+                {% empty %}
+                <p>No category found.</p>
+                {% endfor %}
+            </div>
+
         </div>
+
     </div>
-
-    {% empty %}
-    <p>No items found.</p>
-    {% endfor %}
 </div>
-{% empty %}
-<p>No category found.</p>
-{% endfor %}
+</div>
+{% endblock main_content %}
 
+{% block modal_content %}
 <!-- Delete confirmation modal -->
 <div class="modal fade" id="delete-modal" tabindex="-1" aria-labelledby="delete-modal-label" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -58,7 +114,8 @@ Pantry
 
 {% if show_duplicate_modal %}
 <!-- Duplicate Item Modal -->
-<div class="modal fade" id="duplicate-item-modal" tabindex="-1" aria-labelledby="duplicate-item-modal-label" aria-hidden="true" data-redirect-url="{% url 'pantry' %}">
+<div class="modal fade" id="duplicate-item-modal" tabindex="-1" aria-labelledby="duplicate-item-modal-label"
+    aria-hidden="true" data-redirect-url="{% url 'pantry' %}">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -96,7 +153,7 @@ Pantry
                 </form>
                 {% endif %}
 
-                {% if replace_quantity_form %}                
+                {% if replace_quantity_form %}
                 <!-- Replace quantity form -->
                 <form method="post" action="{% url 'pantry_item_resolve' existing_item.id %}" style="display: inline;">
                     {% csrf_token %}
@@ -110,4 +167,4 @@ Pantry
 </div>
 {% endif %}
 
-{% endblock main_content %}
+{% endblock modal_content %}
