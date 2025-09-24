@@ -380,6 +380,8 @@ a {
 
 #pantry-section .section-body-text {
     flex-basis: 100%;
+    text-align: center;
+    margin-bottom: 2rem;
 }
 
 
