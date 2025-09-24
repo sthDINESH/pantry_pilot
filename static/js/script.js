@@ -1,5 +1,14 @@
 document.addEventListener("DOMContentLoaded", function () {
-  console.log("DEBUG: Hello world!");
+  // Utility functions
+  // Function to check if element hidden with bs collapse is visible
+  function isElementShown(element) {
+    return (
+      element.classList.contains("show") ||
+      element.classList.contains("collapsing") ||
+      (!element.classList.contains("collapse") &&
+        window.getComputedStyle(element).display !== "none")
+    );
+  }
 
   const deleteModal = new bootstrap.Modal(
     document.querySelector("#delete-modal")
@@ -7,8 +16,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const deleteModalBody = document.querySelector("#delete-modal .modal-body");
   const deleteConfirm = document.querySelector("#delete-confirm");
 
-  const duplicateItemModal = document.querySelector("#duplicate-item-modal");
   // Auto show duplicate item modal for user input if it exists in DOM
+  const duplicateItemModal = document.querySelector("#duplicate-item-modal");
   if (duplicateItemModal) {
     const modal = new bootstrap.Modal(duplicateItemModal);
     modal.show();
@@ -21,12 +30,13 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  //   Add event listeners
+  // Event listeners
   const buttons = document.querySelectorAll("button");
   buttons.forEach((button) => {
     let buttonType = button.getAttribute("data-type");
 
     if (buttonType === "pantry-item-delete") {
+      // Delete items from pantry
       button.addEventListener("click", function (event) {
         const pantryItemId = event.currentTarget.getAttribute("data-item-id");
         deleteModalBody.innerHTML = `
@@ -42,6 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
         deleteModal.show();
       });
     } else if (buttonType === "category-delete") {
+      // Delete entire category
       button.addEventListener("click", function (event) {
         const categoryId = event.currentTarget.getAttribute("data-category-id");
         deleteModalBody.innerHTML = `
@@ -59,8 +70,10 @@ document.addEventListener("DOMContentLoaded", function () {
         deleteModal.show();
       });
     } else if (buttonType === "pantry-item-update") {
+      // Update items in pantry
       button.addEventListener("click", function (event) {
         const pantryItemForm = document.querySelector("#pantry-item-form");
+
         // Get the PK for pantry item and related category
         const itemId = event.currentTarget.getAttribute("data-item-id");
         const categoryId = event.currentTarget.getAttribute("data-category-id");
@@ -111,17 +124,42 @@ document.addEventListener("DOMContentLoaded", function () {
         // Update form action
         pantryItemForm.setAttribute("action", `item/${itemId}/update`);
 
-        // Scroll form into view smoothly
-        pantryItemForm.scrollIntoView({
-          behavior: "smooth",
-          block: "center",
-          inline: "nearest",
-        });
+        // Check if form is already visible before showing
+        const formAlreadyVisible = isElementShown(pantryItemForm);
 
-        // Focus on the first input field after scrolling
-        setTimeout(() => {
-          pantryItemForm.querySelector("#id_quantity").focus();
-        }, 500); // Delay to allow scroll animation to complete
+        if (!formAlreadyVisible) {
+          // Show the form and scroll to it
+          const bsCollapse =
+            bootstrap.Collapse.getOrCreateInstance(pantryItemForm);
+          bsCollapse.show();
+
+          // Handle post-show actions
+          pantryItemForm.addEventListener(
+            "shown.bs.collapse",
+            function onShown() {
+              pantryItemForm.scrollIntoView({
+                behavior: "smooth",
+                block: "center",
+              });
+
+              setTimeout(() => {
+                pantryItemForm.querySelector("#id_quantity").focus();
+              }, 300);
+
+              // Remove event listener after first use
+              pantryItemForm.removeEventListener("shown.bs.collapse", onShown);
+            }
+          );
+        } else {
+          // Form is already visible, just scroll to it and focus
+          pantryItemForm.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          });
+          setTimeout(() => {
+            pantryItemForm.querySelector("#id_quantity").focus();
+          }, 300);
+        }
       });
     }
   });

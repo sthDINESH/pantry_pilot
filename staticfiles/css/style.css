@@ -33,6 +33,8 @@
 
 body {
     font-size: calc(0.8 * var(--nav-link-font-size));
+    display: flex;
+    flex-direction: column;
 }
 
 header {
@@ -55,10 +57,16 @@ h1,
 }
 
 .nav-link,
+.user-profile,
 .sub-heading {
     font-family: var(--secondary-accent-font);
     text-transform: uppercase;
     font-size: var(--nav-link-font-size);
+}
+
+.user-profile {
+    text-transform: none;
+    color: var(--accent-color);
 }
 
 .sub-heading {
@@ -69,6 +77,26 @@ h1,
 a {
     color: var(--accent-color);
 }
+
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.flex-main {
+    flex: 1 0 auto;
+}
+
+.flex-footer {
+    flex-shrink: 0;
+    margin-top: auto;
+}
+
+.hide {
+    display: none;
+}
+
 
 /* Custom Button Styling */
 /* ---------------------------------------------------------- */
@@ -98,6 +126,11 @@ a {
     background-color: var(--secondary-light-color);
     border-color: var(--secondary-light-color);
     color: #6c757d;
+}
+
+.circle {
+    aspect-ratio: 1;
+    border-radius: 50%;
 }
 
 /* Navbar styling */
@@ -263,4 +296,229 @@ a {
     display: flex;
     justify-content: space-around;
     align-items: center;
+}
+
+/* Pantry page styling */
+/* ---------------------------------------------------------- */
+.split-screen {
+    display: flex;
+    flex-direction: column;
+}
+
+.left-screen {
+    height: 25vh;
+    background: var(--secondary-light-color) url('../images/pantry_tracking.webp') no-repeat center center / cover;
+}
+
+#pantry-section.section-wrapper {
+    padding-bottom: 4rem;
+}
+
+.pantry-category {
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.pantry-category-heading {
+    padding: 1rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--accent-color-light);
+    margin-bottom: 1.5rem;
+}
+
+.pantry-category-heading>h2 {
+    margin: 0;
+    flex-grow: 1;
+}
+
+.pantry-category-heading>button {
+    margin-left: 0.25rem;
+}
+
+.pantry-item {
+    aspect-ratio: 1;
+}
+
+.pantry-item > .card {
+    aspect-ratio: 1;
+    border-radius: 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.pantry-item .card-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.pantry-item-controls {
+    align-self: flex-end;
+}
+
+.pantry-item img {
+    height: 75%;
+    border-radius: 0;
+}
+
+.pantry-item-name {
+    font-size: var(--nav-link-font-size);
+}
+
+.pantry-item-details {
+    display: flex;
+    gap: 0.25rem;
+    font-style: italic;
+}
+
+#pantry-section .section-heading {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#pantry-section .section-body-text {
+    flex-basis: 100%;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+
+
+/* Footer styling */
+/* ---------------------------------------------------------- */
+footer {
+    padding-top: 4rem;
+    padding-bottom: 1.5rem;
+    background-color: var(--accent-color);
+}
+
+footer * {
+    color: var(--light-color);
+}
+
+.footer-column-wrapper {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 1.5rem;
+}
+
+.footer-column {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+footer a {
+    text-decoration: none;
+    font-family: var(--accent-font);
+}
+
+.footer-site-logo {
+    display: block;
+    font-size: calc(2.75 * var(--nav-link-font-size));
+    font-weight: 900;
+    margin-bottom: 1.5rem;
+}
+
+.site-socials {
+    padding: 1.5rem 0;
+    width: 50%;
+    display: flex;
+    justify-content: space-between;
+    font-size: calc(1.5 * var(--nav-link-font-size));
+}
+
+.footer-menus {
+    padding-top: 4rem;
+}
+
+.footer-menus .sub-heading {
+    color: var(--light-color);
+}
+
+.footer-menus ul {
+    list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+    padding-left: 0;
+}
+
+
+.footer-copyright {
+    border-top: 1px solid var(--light-color);
+    text-align: center;
+    padding: 1rem 0;
+}
+
+/* Media queries */
+/* ---------------------------------------------------------- */
+/* For medium devices and larger (>=768px) */
+@media screen and (min-width:768px) {
+
+    /* Footer styling */
+    footer {
+        padding-top: 9rem;
+    }
+
+    .footer-column-wrapper {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .footer-column {
+        text-align: left;
+        align-items: flex-start;
+        max-width: 40%;
+    }
+
+    footer .site-logo {
+        margin-bottom: 2.5rem;
+    }
+
+    .footer-menus ul {
+        display: block;
+    }
+
+    .footer-menus li {
+        line-height: 1.75rem;
+    }
+
+}
+
+/* For large devices and larger (>=992px) */
+@media screen and (min-width:992px) {
+
+    .navbar .container-fluid {
+        padding-left: calc(var(--navbar-height) * 0.25);
+        padding-right: calc(var(--navbar-height) * 0.25);
+    }
+
+    /* Pantry page styling */
+    .split-screen {
+        flex-direction: row;
+    }
+
+    .screen {
+        /* width: 50%; */
+    }
+
+    .left-screen {
+        width: 40%;
+        height: 100vh;
+        background: var(--secondary-light-color) url('../images/pantry_tracking.webp') no-repeat center center / cover;
+        position: sticky;
+        top: 0;
+    }
+
+    .right-screen {
+        width: 60%;
+        min-height: 100vh;
+    }
+
+    #pantry-section.section-wrapper {
+        padding: 4rem calc(var(--navbar-height) * 0.25);
+    }
 }
