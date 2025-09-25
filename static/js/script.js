@@ -127,8 +127,8 @@ document.addEventListener("DOMContentLoaded", function () {
           cancelButton = document.createElement("button");
           cancelButton.id = "cancel-button";
           cancelButton.innerText = "Cancel";
-          cancelButton.classList.add("btn", "btn-danger");
-          pantryItemForm.appendChild(cancelButton);
+          cancelButton.classList.add("btn", "btn-secondary");
+          pantryItemForm.querySelector(".form-button-controls").appendChild(cancelButton);
           cancelButton.addEventListener("click", function (event) {
             // Reset the pantry item form fields to defaults
             pantryItemForm.querySelector("#id_name").value = "";

@@ -26,10 +26,12 @@ Pantry
                     inventory.</p>
 
                 <form id="pantry-item-form" method="post" class="collapse">
-                    {{ pantry_item_form | crispy }}
-                    {{ category_form | crispy }}
+                    {% crispy pantry_item_form %}
+                    {% crispy category_form %}
                     {% csrf_token %}
-                    <button id="pantry-submit-button" type="submit">Add</button>
+                    <div class="form-button-controls">
+                        <button id="pantry-submit-button" type="submit" class="btn btn-primary">Add</button>
+                    </div>
                 </form>
                 {% for category in categories %}
                 <div id="category-{{ category.id }}" class="pantry-category">

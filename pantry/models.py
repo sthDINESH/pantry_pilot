@@ -93,7 +93,7 @@ class PantryItem(models.Model):
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="pantry_items"
     )
-    name = models.CharField(max_length=200)
+    name = models.CharField("Item",max_length=200)
     quantity = models.DecimalField(max_digits=10, decimal_places=2)
     units = models.CharField(
         max_length=20, choices=UNIT_CHOICES, default='piece'

@@ -100,11 +100,16 @@ a {
 
 /* Custom Button Styling */
 /* ---------------------------------------------------------- */
+.btn-primary,
+.btn-secondary {
+    border-radius: 1rem;
+}
+
 .btn-primary {
     background-color: var(--accent-color);
     border-color: var(--accent-color);
     color: var(--light-color);
-    border-radius: 1rem;
+
 }
 
 .btn-primary:hover,
@@ -341,7 +346,7 @@ a {
     aspect-ratio: 1;
 }
 
-.pantry-item > .card {
+.pantry-item>.card {
     aspect-ratio: 1;
     border-radius: 0;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -379,9 +384,21 @@ a {
 }
 
 #pantry-section .section-body-text {
-    flex-basis: 100%;
     text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+#pantry-item-form button {
+    width: 125px;
+    margin-top: 1.5rem;
     margin-bottom: 2rem;
+}
+
+#pantry-item-form .form-button-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 
@@ -457,6 +474,11 @@ footer a {
 /* ---------------------------------------------------------- */
 /* For medium devices and larger (>=768px) */
 @media screen and (min-width:768px) {
+    
+    /* Pantry section styling */
+    #pantry-section .section-body-text {
+        text-align: left;
+    }
 
     /* Footer styling */
     footer {
