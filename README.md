@@ -1129,7 +1129,7 @@ Hamburger Menu Expanded:
 └─────────────────────────┘
 ```
 
-#### Unauthenticated User Experience Flow
+##### Unauthenticated User Experience Flow
 
 **User Journey for New Visitors:**
 ```
@@ -1150,3 +1150,70 @@ Login Page → Dashboard → Onboarding Flow
 6. **Call-to-Action Placement**: Strategic placement of signup buttons throughout the journey
 
 These wireframes ensure that users who aren't logged in have a clear path to understanding PantryPilot's value and can easily create an account to start using the application.
+
+</details>
+
+### Surface Plane
+
+<details>
+    <summary>Surface plane considerations (Expand for details)</summary>
+
+#### Color Palette
+
+**Color Selection Process:**
+Color combinations were evaluated using [Colormind.io](http://colormind.io/) to ensure optimal contrast ratios, brand consistency, and accessibility compliance. 
+
+The warm red accent paired with earthy green creates a natural, food-focused aesthetic.
+
+<figure>
+  <img src="documentation/ux_surface_plane/color_palette.png" 
+       alt="PantryPilot color palette showing primary and supporting colors with hex codes" 
+       width="100%" 
+       style="max-width: 800px; height: auto; border: 1px solid #ddd; border-radius: 8px; margin: 20px 0;">
+  <figcaption><strong>Figure 3:</strong> Complete color palette for PantryPilot showing primary brand colors, supporting colors.</figcaption>
+</figure>
+
+**Color Usage:**
+**Primary Colors:**
+- **Light Color**: `#FFFFFF` (White) - Primary background and text
+- **Accent Color**: `#D64040` - Primary brand color for buttons and highlights
+- **Secondary Accent**: `#448260` - Supporting accent for success states and secondary actions
+
+**Supporting Colors:**
+- **Secondary Light**: `#D6D5D0` - Subtle backgrounds and borders
+- **Accent Light**: `#EEABA9` - Hover states and light accents
+
+**Color Usage:**
+- Primary navigation and key interactive elements use the main accent color
+- Success messages and confirmations use the secondary accent green
+- Backgrounds maintain high contrast with white and light gray variations
+- Color-blind friendly palette ensuring accessibility compliance
+
+#### Typography
+
+**Font Pairing Research:**
+
+Typography combinations were evaluated using [Fontjoy.com](https://fontjoy.com/) to ensure optimal readability, visual hierarchy, and brand personality alignment. 
+
+The serif-dominant approach reinforces the warm, traditional cooking aesthetic while maintaining modern digital usability.
+
+<figure>
+  <img src="documentation/ux_surface_plane/typography.png" 
+       alt="PantryPilot typography hierarchy showing font families and usage" 
+       width="100%" 
+       style="max-width: 800px; height: auto; border: 1px solid #ddd; border-radius: 8px; margin: 20px 0;">
+  <figcaption><strong>Figure 2:</strong> Typography hierarchy demonstrating the three-font system used throughout PantryPilot.</figcaption>
+</figure>
+
+**Font Stack:**
+- **Primary Font**: "Pridi", serif - Body text and general content
+- **Accent Font**: "Tangerine", cursive - Brand name and decorative headings  
+- **Secondary Accent**: "Andada Pro", serif - Subheadings and emphasis text
+
+**Typography Hierarchy:**
+- **Brand/Logo**: Tangerine font for distinctive brand identity
+- **Headings**: Andada Pro for clear content hierarchy
+- **Body Text**: Pridi for optimal readability
+- **Navigation**: Andada Pro with custom sizing using CSS variables
+
+</details>
