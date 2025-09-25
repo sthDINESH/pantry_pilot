@@ -338,6 +338,12 @@ a {
     flex-grow: 1;
 }
 
+.pantry-category-heading span {
+    text-transform: none;
+    font-weight: 300;
+    font-style: italic;
+}
+
 .pantry-category-heading>button {
     margin-left: 0.25rem;
 }
