@@ -333,9 +333,10 @@ PantryPilot (Root)
 │   └── Upcoming Meals Widget
 ├── Pantry Management (/pantry/)
 │   ├── View All Items (/pantry/)
-│   ├── Add Item (/pantry/add/)
-│   ├── Edit Item (/pantry/<id>/edit/)
-│   ├── Delete Item (/pantry/<id>/delete/)
+│   ├── Add Item (/pantry/)
+│   ├── Edit Item (/pantry/item/<id>/update/)
+│   ├── Delete Item (/pantry/item/<id>/delete/)
+│   ├── Handle duplicates while adding (/pantry/item/<id>/resolve/)
 │   └── Search & Filter (/pantry/?search=<term>&category=<cat>)
 ├── Recipe Discovery (/recipes/)
 │   ├── Recipe Search (/recipes/)
@@ -622,66 +623,17 @@ pantry_pilot/
 └─────────────────────────────────────────────────────────┘
 ```
 
-**2. Pantry List View - Sprint 1**
-```
-┌─────────────────────────────────────────────────────────┐
-│ Header: [Logo] [Nav: PANTRY|Recipes|Meals|Shopping] [User]│
-├─────────────────────────────────────────────────────────┤
-│ Breadcrumb: Dashboard > Pantry                         │
-│                                                         │
-│ Page Header                                            │
-│ ┌─────────────────────────────────────────────────────┐ │
-│ │ My Pantry (24 items)           [+ Add New Item]    │ │
-│ │ [Search Box........................] [Filter ▼]    │ │
-│ └─────────────────────────────────────────────────────┘ │
-│                                                         │
-│ Items List                                             │
-│ ┌─────────────────────────────────────────────────────┐ │
-│ │ ┌─────┐ Tomatoes                         [Edit][×] │ │
-│ │ │ [T] │ Quantity: 6 pieces                         │ │
-│ │ └─────┘ Category: Vegetables                        │ │
-│ ├─────────────────────────────────────────────────────┤ │
-│ │ ┌─────┐ Rice                             [Edit][×] │ │
-│ │ │ [R] │ Quantity: 2 cups                           │ │
-│ │ └─────┘ Category: Grains                            │ │
-│ ├─────────────────────────────────────────────────────┤ │
-│ │ ┌─────┐ Chicken Breast                   [Edit][×] │ │
-│ │ │ [C] │ Quantity: 1 lb                              │ │
-│ │ └─────┘ Category: Protein                           │ │
-│ └─────────────────────────────────────────────────────┘ │
-│                                                         │
-│ [Load More Items]                                      │
-└─────────────────────────────────────────────────────────┘
-```
+**2. Pantry List View with Add/Update Item Form - Sprint 1**
 
-**3. Add/Edit Pantry Item Form - Sprint 1**
-```
-┌─────────────────────────────────────────────────────────┐
-│ Header: [Logo] [Nav: PANTRY|Recipes|Meals|Shopping] [User]│
-├─────────────────────────────────────────────────────────┤
-│ Breadcrumb: Dashboard > Pantry > Add Item              │
-│                                                         │
-│ Form Container                                         │
-│ ┌─────────────────────────────────────────────────────┐ │
-│ │ Add New Pantry Item                                 │ │
-│ │                                                     │ │
-│ │ Item Name *                                         │ │
-│ │ [_________________________________]                │ │
-│ │                                                     │ │
-│ │ Quantity *                                          │ │
-│ │ [_____________] [Unit Dropdown ▼]                   │ │
-│ │                                                     │ │
-│ │ Category                                            │ │
-│ │ [Category Dropdown ▼            ]                  │ │
-│ │                                                     │ │
-│ │ Notes (Optional)                                    │ │
-│ │ [_________________________________]                │ │
-│ │ [_________________________________]                │ │
-│ │                                                     │ │
-│ │ [Cancel] [Save Item]                                │ │
-│ └─────────────────────────────────────────────────────┘ │
-└─────────────────────────────────────────────────────────┘
-```
+<figure>
+  <img src="documentation/wireframes/wireframe_pantry_page.png" 
+       alt="Pantry page wireframe" 
+       width="800" 
+       style="border: 1px solid #ccc; border-radius: 4px;">
+  <figcaption><strong>Figure 1:</strong> Pantry page wireframe showing the inventory management interface with category organization and item cards and Add/Update Form.
+  <em>Only available to authenticated users.</em>
+  </figcaption>
+</figure>
 
 **4. Recipe Search View - Sprint 2**
 ```
