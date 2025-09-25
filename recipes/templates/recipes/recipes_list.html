@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+{{ page_title }}
+{% endblock title %}
+
+{% block main_content %}
+<div class="split-screen">
+    <div class="screen left-screen"></div>
+    <div class="screen right-screen">
+        <div id="recipes-section" class="section-wrapper">
+            <div class="container">
+                <div class="section-heading">
+                    <h1>{{ page_title }}</h1>
+                    <button type="button" class="btn btn-primary circle" data-bs-toggle="collapse"
+                        data-bs-target="#recipe-form" aria-expanded="false" aria-controls="recipe-form"
+                        data-type="collapse-trigger">
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                </div>
+                <p class="section-body-text">Discover, save, and organize your favorite recipes for every occasion.</p>
+
+                <!-- Recipe form will be added later -->
+                <div id="recipe-form" class="collapse">
+                    <p class="text-muted">Recipe form will be added here...</p>
+                </div>
+
+                <!-- Recipes list will be added here -->
+                <div class="recipes-container">
+                    <p class="text-muted">No recipes found. Start by adding your first recipe!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main_content %}
