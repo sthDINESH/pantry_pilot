@@ -2,6 +2,8 @@
 
 {% load static %}
 
+{% load crispy_forms_tags %}
+
 {% block title %}
 Pantry
 {%endblock title %}
@@ -24,8 +26,8 @@ Pantry
                     inventory.</p>
 
                 <form id="pantry-item-form" method="post" class="collapse">
-                    {{ pantry_item_form }}
-                    {{ category_form }}
+                    {{ pantry_item_form | crispy }}
+                    {{ category_form | crispy }}
                     {% csrf_token %}
                     <button id="pantry-submit-button" type="submit">Add</button>
                 </form>
