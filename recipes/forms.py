@@ -38,7 +38,11 @@ class RecipeSearchForm(forms.Form):
             FloatingField('diet'),
             FloatingField('meal_type'),
             Div(
-                Submit('submit', "Search", css_class="btn btn-primary form-button"),
+                Submit(
+                    'submit',
+                    "Search",
+                    css_class="btn btn-primary form-button"
+                ),
                 css_class="form-button-controls"
             )
         )
