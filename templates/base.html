@@ -3,6 +3,7 @@
 {% url 'account_signup' as signup_url %}
 {% url 'account_logout' as logout_url %}
 {% url 'pantry' as pantry_url %}
+{% url 'recipes' as recipes_url %}
 {% url 'dashboard' as home_url %}
 
 <!DOCTYPE html>
@@ -43,6 +44,10 @@
                     <li class="nav-item">
                         <a class="nav-link {% if request.path == pantry_url %} active {% endif %}" aria-current='page'
                             href="{{ pantry_url }}">Pantry</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == recipes_url %} active {% endif %}" aria-current='page'
+                            href="{{ recipes_url }}">Recipes</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {% if request.path == logout_url %} active {% endif %}" aria-current='page'
