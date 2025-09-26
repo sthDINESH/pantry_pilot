@@ -10,6 +10,7 @@
     /* Color scheme */
     --light-color: white;
     --secondary-light-color: #D6D5D0;
+    --secondary-light-color-rgb: 214, 213, 208; /* Add this line */
     --accent-color: #D64040;
     --accent-color-light: #EEABA9;
     --secondary-accent-color: #448260;
@@ -465,7 +466,7 @@ a {
     flex-grow: 1;
     display: flex;
     justify-content: center;
-    aspect-ratio: 1 / 0.75;
+    aspect-ratio: 1 / 0.7;
 }
 
 #recipes-form-tabs .nav-link {
@@ -635,12 +636,12 @@ footer a {
     }
 
     #recipes-page .left-screen {
-        width: 60%;
+        width: 65%;
         min-height: 100vh;
     }
 
     #recipes-page .right-screen {
-        width: 40%;
+        width: 35%;
         height: 100vh;
         background-color: var(--secondary-light-color);
         display: flex;
@@ -663,7 +664,9 @@ footer a {
 
     #recipes-page .right-screen>.section-image {
         flex-grow: 1;
-        background: url('../images/recipes_secondary_image.webp') no-repeat center center / cover;
+        background: 
+            linear-gradient(to bottom, rgba(var(--secondary-light-color-rgb), 0.4), transparent),
+            url('../images/recipes_secondary_image.webp') no-repeat center center / cover;
 
     }
 
