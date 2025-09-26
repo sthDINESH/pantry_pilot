@@ -3,35 +3,134 @@
 {% load static %}
 
 {% block title %}
-{{ page_title }}
+Recipes
 {% endblock title %}
 
 {% block main_content %}
-<div class="split-screen">
-    <div class="screen left-screen"></div>
-    <div class="screen right-screen">
+<div id="recipes-page" class="split-screen">
+    <div class="screen left-screen">
         <div id="recipes-section" class="section-wrapper">
             <div class="container">
                 <div class="section-heading">
-                    <h1>{{ page_title }}</h1>
-                    <button type="button" class="btn btn-primary circle" data-bs-toggle="collapse"
-                        data-bs-target="#recipe-form" aria-expanded="false" aria-controls="recipe-form"
-                        data-type="collapse-trigger">
-                        <i class="fa-solid fa-plus"></i>
-                    </button>
+                    <h1>Recipes</h1>
                 </div>
-                <p class="section-body-text">Discover, save, and organize your favorite recipes for every occasion.</p>
+                <p class="section-body-text"><strong class="sub-heading">Turn your pantry treasures into culinary
+                        adventures!</strong>
+                    <br>
+                    <br>
+                    Whether you're craving comfort classics or exploring new flavors, our recipe collection helps you
+                    create delicious meals with what you already have.
+                    <br>
+                    <br>
+                    Search by ingredients, save your family
+                    favorites, and discover the joy of cooking with confidence – because the best recipes start with
+                    what's already in your kitchen.
+                </p>
 
-                <!-- Recipe form will be added later -->
-                <div id="recipe-form" class="collapse">
-                    <p class="text-muted">Recipe form will be added here...</p>
+                <!-- Recipe search form -->
+                <div id="recipe-search-forms" class="container">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" id="recipes-form-tabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="discover-tab" data-bs-toggle="tab"
+                                data-bs-target="#discover-pane" type="button" role="tab" aria-controls="discover-pane"
+                                aria-selected="true">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                <span class="hide">Discover New Recipes</span>
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="saved-tab" data-bs-toggle="tab" data-bs-target="#saved-pane"
+                                type="button" role="tab" aria-controls="saved-pane" aria-selected="false">
+                                <i class="fa-solid fa-bookmark"></i>
+                                <span class="hide">View Saved Recipes</span>
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="my-recipes-tab" data-bs-toggle="tab"
+                                data-bs-target="#my-recipes-pane" type="button" role="tab"
+                                aria-controls="my-recipes-pane" aria-selected="false">
+                                <i class="fa-solid fa-book-open-reader"></i>
+                                <span class="hide">My Recipes</span>
+                            </button>
+                        </li>
+                    </ul>
+
+                    <!-- Tab content -->
+                    <div class="tab-content" id="recipes-form-tabContent">
+                        <div class="tab-pane fade show active" id="discover-pane" role="tabpanel"
+                            aria-labelledby="discover-tab" tabindex="0">
+                            <div class="p-4">
+                                <!-- Your pantry content here -->
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="saved-pane" role="tabpanel" aria-labelledby="saved-tab"
+                            tabindex="0">
+                            <div class="p-4">
+                                <!-- Your recipes content here -->
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="my-recipes-pane" role="tabpanel" aria-labelledby="my-recipes-tab"
+                            tabindex="0">
+                            <div class="p-4">
+                                <!-- Your shopping list content here -->
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Recipes list will be added here -->
-                <div class="recipes-container">
-                    <p class="text-muted">No recipes found. Start by adding your first recipe!</p>
+                <div class="container">
+                    <div id="recipe-search-results" class="category-section">
+                        <div class="category-section-heading">
+                            <h2 class="sub-heading">Search Results</h2>
+                        </div>
+                        <div class="category-section-body">
+                            <p class="text-muted">Discover recipes based on what you already have!</p>
+                        </div>
+
+                    </div>
+
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="screen right-screen">
+        <div class="carousel-container">
+            <div id="recipe-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#recipe-carousel" data-bs-slide-to="0" class="active"
+                        aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#recipe-carousel" data-bs-slide-to="1"
+                        aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#recipe-carousel" data-bs-slide-to="2"
+                        aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                    <div class="carousel-item active" data-bs-interval="5000">
+                        <img src="{% static 'images/recipes.webp'%}" class="d-block w-100" alt="...">
+                        <div class="carousel-caption d-block">
+                            <p>Discover new recipes based on what's in your pantry</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item" data-bs-interval="5000">
+                        <img src="{% static 'images/favorite_recipe.webp'%}" class="d-block w-100" alt="...">
+                        <div class="carousel-caption d-block">
+                            <p>Save your favorite recipes from searches</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item" data-bs-interval="5000">
+                        <img src="{% static 'images/family_recipes.webp'%}" class="d-block w-100" alt="...">
+                        <div class="carousel-caption d-block">
+                            <p>Save those recipes passed down through generations to your own recipe book</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section-image">
         </div>
     </div>
 </div>

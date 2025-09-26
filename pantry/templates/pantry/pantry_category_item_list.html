@@ -9,7 +9,7 @@ Pantry
 {%endblock title %}
 
 {% block main_content %}
-<div class="split-screen">
+<div id="my-pantry-page" class="split-screen">
     <div class="screen left-screen"></div>
     <div class="screen right-screen">
         <div id="pantry-section" class="section-wrapper">
@@ -34,8 +34,8 @@ Pantry
                     </div>
                 </form>
                 {% for category in categories %}
-                <div id="category-{{ category.id }}" class="pantry-category">
-                    <div class="pantry-category-heading">
+                <div id="category-{{ category.id }}" class="category-section">
+                    <div class="category-section-heading">
                         <h2 class="sub-heading" data-category-name="{{ category.category_name }}"> {{ category }}
                             <span>,
                                 {{ category.pantry_items.count }} item{{ category.pantry_items.count|pluralize }}
@@ -52,7 +52,7 @@ Pantry
                         </button>
                     </div>
                     <div id="category-body-{{ category.id }}"
-                        class="pantry-category-body row row-cols-1 row-cols-md-3 row-cols-lg-4 g-3 collapse show">
+                        class="category-section-body row row-cols-1 row-cols-md-3 row-cols-lg-4 g-3 collapse show">
                         {% for pantry_item in category.pantry_items.all %}
                         <div id="item-{{ pantry_item.id }}" class="pantry-item col">
                             <div class="card">
