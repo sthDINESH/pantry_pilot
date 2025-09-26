@@ -418,19 +418,19 @@ a {
     justify-content: space-between;
 }
 
-
-#pantry-item-form button {
-    width: 125px;
-    margin-top: 1.5rem;
-    margin-bottom: 2rem;
-}
-
-#pantry-item-form .form-button-controls {
+.form-button-controls {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 0.5rem;
 }
+
+.form-button {
+    width: 125px;
+    margin-top: 1.5rem;
+    margin-bottom: 2rem;
+}
+
 
 /* Recipes page styling */
 /* ---------------------------------------------------------- */

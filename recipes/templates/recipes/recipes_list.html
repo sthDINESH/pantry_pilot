@@ -2,6 +2,8 @@
 
 {% load static %}
 
+{% load crispy_forms_tags %}
+
 {% block title %}
 Recipes
 {% endblock title %}
@@ -16,10 +18,6 @@ Recipes
                 </div>
                 <p class="section-body-text"><strong class="sub-heading">Turn your pantry treasures into culinary
                         adventures!</strong>
-                    <br>
-                    <br>
-                    Whether you're craving comfort classics or exploring new flavors, our recipe collection helps you
-                    create delicious meals with what you already have.
                     <br>
                     <br>
                     Search by ingredients, save your family
@@ -61,7 +59,14 @@ Recipes
                         <div class="tab-pane fade show active" id="discover-pane" role="tabpanel"
                             aria-labelledby="discover-tab" tabindex="0">
                             <div class="p-4">
+                                <p><strong>Ready to create something amazing?</strong>
+                                    <br>
+                                    <br>
+                                    Tell us what you fancy and we'll find perfect recipes to match based on ingredients
+                                    you already have on hand!
+                                </p>
                                 <!-- Your pantry content here -->
+                                {% crispy recipe_search_form %}
                             </div>
                         </div>
 

@@ -50,3 +50,66 @@ STATUS_CHOICES = (
     (0, "Draft"), 
     (1, "Published")
 )
+
+# Additional cuisine choices for recipe filtering
+CUISINE_CHOICES = [
+    ('african', 'African'),
+    ('american', 'American'),
+    ('british', 'British'),
+    ('cajun', 'Cajun'),
+    ('caribbean', 'Caribbean'),
+    ('chinese', 'Chinese'),
+    ('eastern_european', 'Eastern European'),
+    ('european', 'European'),
+    ('french', 'French'),
+    ('german', 'German'),
+    ('greek', 'Greek'),
+    ('indian', 'Indian'),
+    ('irish', 'Irish'),
+    ('italian', 'Italian'),
+    ('japanese', 'Japanese'),
+    ('jewish', 'Jewish'),
+    ('korean', 'Korean'),
+    ('latin_american', 'Latin American'),
+    ('mediterranean', 'Mediterranean'),
+    ('mexican', 'Mexican'),
+    ('middle_eastern', 'Middle Eastern'),
+    ('nordic', 'Nordic'),
+    ('southern', 'Southern'),
+    ('spanish', 'Spanish'),
+    ('thai', 'Thai'),
+    ('vietnamese', 'Vietnamese'),
+]
+
+# Additional diet choices for recipe filtering
+DIET_CHOICES = [
+    ('gluten_free', 'Gluten Free'),
+    ('ketogenic', 'Ketogenic'),
+    ('vegetarian', 'Vegetarian'),
+    ('lacto_vegetarian', 'Lacto-Vegetarian'),
+    ('ovo_vegetarian', 'Ovo-Vegetarian'),
+    ('vegan', 'Vegan'),
+    ('pescetarian', 'Pescetarian'),
+    ('paleo', 'Paleo'),
+    ('primal', 'Primal'),
+    ('low_fodmap', 'Low FODMAP'),
+    ('whole30', 'Whole30'),
+]
+
+# Meal type choices for recipe categorization
+MEAL_TYPE_CHOICES = [
+    ('main_course', 'Main Course'),
+    ('side_dish', 'Side Dish'),
+    ('dessert', 'Dessert'),
+    ('appetizer', 'Appetizer'),
+    ('salad', 'Salad'),
+    ('bread', 'Bread'),
+    ('breakfast', 'Breakfast'),
+    ('soup', 'Soup'),
+    ('beverage', 'Beverage'),
+    ('sauce', 'Sauce'),
+    ('marinade', 'Marinade'),
+    ('fingerfood', 'Finger Food'),
+    ('snack', 'Snack'),
+    ('drink', 'Drink'),
+]
