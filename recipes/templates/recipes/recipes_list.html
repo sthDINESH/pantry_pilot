@@ -104,8 +104,27 @@ Recipes
                                         <div class="recipe-title card-title">{{ recipe.title }}</div>
                                         <div class="card-text">
                                             <div class="recipe-details">
-                                                Missing ingredients: {{ recipe.missed_ingredient_count }}
-                                            </div> 
+                                                <em>
+                                                    Ingredients:
+                                                    <span>
+                                                        {{ recipe.missed_ingredient_count }} missing
+                                                    </span>
+                                                    ,
+                                                    <span>
+                                                        {{ recipe.used_ingredient_count }} in pantry
+                                                    </span>
+                                                </em>
+                                                <button type="button" class="btn btn-secondary btn-sm circle"
+                                                    data-type="ingredient-count-info">
+                                                    <i class="fa-solid fa-info"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="button-controls">
+                                            <button type="button" class="btn btn-info"
+                                                data-type="recipe-detail" data-recipe-id="{{ recipe.id }}">
+                                                View
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
