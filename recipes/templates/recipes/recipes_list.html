@@ -62,8 +62,8 @@ Recipes
                                 <p><strong>Ready to create something amazing?</strong>
                                     <br>
                                     <br>
-                                    Tell us what you fancy and we'll find perfect recipes to match based on ingredients
-                                    you already have on hand!
+                                    Choose what you fancy and find perfect recipes to match based on ingredients
+                                    already on hand!
                                 </p>
                                 <!-- Your pantry content here -->
                                 {% crispy recipe_search_form %}
@@ -92,9 +92,38 @@ Recipes
                         <div class="category-section-heading">
                             <h2 class="sub-heading">Search Results</h2>
                         </div>
-                        <div class="category-section-body">
-                            <p class="text-muted">Discover recipes based on what you already have!</p>
-                            {{ search_results }}
+                        <div class="category-section-body row row-cols-1 row-cols-md-2 g-3">
+                            {% if search_results %}
+                            {% if search_results.response.success %}
+                            {% for recipe in search_results.response.recipes %}
+                            <div class="recipe-item col list-view-card">
+                                <div class="card">
+                                    <img src="{{ recipe.image }}" class="card-img-top"
+                                        alt="Image for {{ recipe.title }}">
+                                    <div class="card-body">
+                                        <div class="recipe-title card-title">{{ recipe.title }}</div>
+                                        <div class="card-text">
+                                            <div class="recipe-details">
+                                                <p>Missing ingredients: {{ recipe.missed_ingredient_count }} </p>
+                                            </div> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% empty %}
+                            <p>
+                                No matching results found - Try something different or check saved recipes.
+                            </p>
+
+                            {% endfor %}
+                            {% else %}
+                            <p>
+                                Apologies - some error occurred during search! Try again later or check saved recipes.
+                            </p>
+                            {% endif %}
+                            {% else %}
+                            <p class="text-muted">Start searching for recipes!</p>
+                            {% endif %}
                         </div>
 
                     </div>

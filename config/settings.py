@@ -183,3 +183,6 @@ MESSAGE_TAGS = {
     messages.WARNING: 'warning',
     messages.ERROR: 'danger',  # Maps to Bootstrap's alert-danger
 }
+
+# API key for Spoonacular API service
+SPOONACULAR_API_KEY = os.environ.get("SPOONACULAR_API_KEY")

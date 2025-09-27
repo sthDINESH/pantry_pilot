@@ -10,7 +10,8 @@
     /* Color scheme */
     --light-color: white;
     --secondary-light-color: #D6D5D0;
-    --secondary-light-color-rgb: 214, 213, 208; /* Add this line */
+    --secondary-light-color-rgb: 214, 213, 208;
+    /* Add this line */
     --accent-color: #D64040;
     --accent-color-light: #EEABA9;
     --secondary-accent-color: #448260;
@@ -365,6 +366,37 @@ a {
     margin-left: 0.25rem;
 }
 
+.list-view-card {
+    aspect-ratio: 1;
+    min-height: 350px;
+}
+
+.list-view-card > .card {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.list-view-card .card-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.list-view-card .button-controls {
+    align-self: flex-end;
+}
+
+.list-view-card img {
+    height: 65%;
+    border-radius: 0;
+    object-fit: cover;
+}
+
+.list-view-card .card-title {
+    font-size: calc(0.9 * var(--nav-link-font-size));
+}
+
 /* Pantry page styling */
 /* ---------------------------------------------------------- */
 #my-pantry-page .left-screen {
@@ -376,38 +408,9 @@ a {
     padding-bottom: 4rem;
 }
 
-
-.pantry-item {
-    aspect-ratio: 1;
-}
-
-.pantry-item>.card {
-    aspect-ratio: 1;
-    border-radius: 0;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.pantry-item .card-text {
-    display: flex;
-    flex-direction: column;
-}
-
-.pantry-item-controls {
-    align-self: flex-end;
-}
-
-.pantry-item img {
-    height: 75%;
-    border-radius: 0;
-}
-
-.pantry-item-name {
-    font-size: var(--nav-link-font-size);
-}
-
 .pantry-item-details {
     display: flex;
-    gap: 0.25rem;
+    gap: 0.2rem;
     font-style: italic;
 }
 
@@ -664,7 +667,7 @@ footer a {
 
     #recipes-page .right-screen>.section-image {
         flex-grow: 1;
-        background: 
+        background:
             linear-gradient(to bottom, rgba(var(--secondary-light-color-rgb), 0.4), transparent),
             url('../images/recipes_secondary_image.webp') no-repeat center center / cover;
 

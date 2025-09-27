@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
-from django.urls import reverse
-from django.http import HttpResponseRedirect
+
 from .forms import RecipeSearchForm
+from .spoonacular import SpoonacularApiService
+from pantry.models import PantryItem
 
 
 def recipes_list(request):
@@ -26,26 +27,31 @@ def recipes_list(request):
                 )
             }
 
-            # Store form data to repopulate form
-            request.session['search_form_data'] = search_data
+            # Fetch users pantry items
+            ingredient_names = [
+                pantry_item.name
+                for pantry_item in PantryItem.objects.filter(user=request.user)
+            ]
+            # request.session['search_results']['ingredients'] = ingredients
 
-            # TODO: Add Spoonacular API results to session
-            # api_results = call_spoonacular_api(search_data)
-            # request.session['search_results']['api_data'] = api_results
+            # Search recipes based on pantry items and search query
+            search_results = SpoonacularApiService().search_recipes(
+                ingredients=ingredient_names,
+                cuisine=search_data["cuisine"],
+                diet=search_data["diet"],
+                meal_type=search_data["meal_type"],
+            )
+            request.session['search_results']['response'] = search_results
 
             return redirect('recipes')
 
     # Check for search results from session (after redirect)
     if 'search_results' in request.session:
         search_results = request.session.pop('search_results')
-
-    # Repopulate form with previous search data if available
-    if 'search_form_data' in request.session:
-        form_data = request.session.pop('search_form_data')
+        form_data = search_results["query_data"]
         recipe_search_form = RecipeSearchForm(initial=form_data)
 
     context = {
-        'page_title': 'Recipes',
         'recipe_search_form': recipe_search_form,
         'search_results': search_results,
     }

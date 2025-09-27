@@ -54,7 +54,7 @@ Pantry
                     <div id="category-body-{{ category.id }}"
                         class="category-section-body row row-cols-1 row-cols-md-3 row-cols-lg-4 g-3 collapse show">
                         {% for pantry_item in category.pantry_items.all %}
-                        <div id="item-{{ pantry_item.id }}" class="pantry-item col">
+                        <div id="item-{{ pantry_item.id }}" class="pantry-item col list-view-card">
                             <div class="card">
                                 <img src="{% static 'images/pantry_item_placeholder.webp' %}" class="card-img-top"
                                     alt="...">
@@ -66,7 +66,7 @@ Pantry
                                             <div class="pantry-item-units" data-item-units="{{ pantry_item.units }}">
                                                 {{ pantry_item.get_units_display }}</div>
                                         </div>
-                                        <div class="pantry-item-controls">
+                                        <div class="button-controls">
                                             <button type="button" class="btn btn-info btn-sm circle"
                                                 data-type="pantry-item-update" data-item-id="{{ pantry_item.id }}"
                                                 data-category-id="{{ category.id }}">
