@@ -368,11 +368,9 @@ a {
 
 .list-view-card {
     aspect-ratio: 1;
-    min-height: 350px;
 }
 
-.list-view-card > .card {
-    width: 100%;
+.list-view-card>.card {
     height: 100%;
     border-radius: 0;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -493,10 +491,6 @@ a {
     border-top: 0;
 }
 
-#recipe-search-results {
-    /* min-height: 100vh; */
-}
-
 /* Footer styling */
 /* ---------------------------------------------------------- */
 footer {
@@ -568,6 +562,10 @@ footer a {
 /* For medium devices and larger (>=768px) */
 @media screen and (min-width:768px) {
 
+
+    .list-view-card {
+        min-height: 350px;
+    }
 
     /* Footer styling */
     footer {

@@ -52,7 +52,7 @@ Pantry
                         </button>
                     </div>
                     <div id="category-body-{{ category.id }}"
-                        class="category-section-body row row-cols-1 row-cols-md-3 row-cols-lg-4 g-3 collapse show">
+                        class="category-section-body row row-cols-1 row-cols-md-2 row-cols-xl-3 g-3 collapse show">
                         {% for pantry_item in category.pantry_items.all %}
                         <div id="item-{{ pantry_item.id }}" class="pantry-item col list-view-card">
                             <div class="card">
