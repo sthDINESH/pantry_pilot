@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+import time
 
 from .forms import RecipeSearchForm
 from .spoonacular import SpoonacularApiService
@@ -17,14 +18,15 @@ def recipes_list(request):
         if recipe_search_form.is_valid():
             search_data = recipe_search_form.cleaned_data
 
-            # Store search results in session for retrieval after redirect
-            request.session['search_results'] = {
+            # Store search results persistently in session
+            request.session['recipe_search_state'] = {
                 'query_data': search_data,
                 'message': (
                     f"Searching for {search_data['cuisine'] or 'any cuisine'} "
                     f"{search_data['diet'] or 'any diet'} "
                     f"{search_data['meal_type'] or 'any meal type'} recipes"
-                )
+                ),
+                'timestamp': int(time.time())  # For cache expiry if needed
             }
 
             # Fetch users pantry items
@@ -32,22 +34,24 @@ def recipes_list(request):
                 pantry_item.name
                 for pantry_item in PantryItem.objects.filter(user=request.user)
             ]
-            # request.session['search_results']['ingredients'] = ingredients
 
-            # Search recipes based on pantry items and search query
+            # Search recipes
             search_results = SpoonacularApiService().search_recipes(
                 ingredients=ingredient_names,
                 cuisine=search_data["cuisine"],
                 diet=search_data["diet"],
                 meal_type=search_data["meal_type"],
             )
-            request.session['search_results']['response'] = search_results
+
+            # Store search results persistently
+            request.session['recipe_search_state']['response'] = search_results
+            request.session.modified = True  # Ensure session is saved
 
             return redirect('recipes')
 
-    # Check for search results from session (after redirect)
-    if 'search_results' in request.session:
-        search_results = request.session.pop('search_results')
+    # ✅ Check for persistent search results (don't pop)
+    if 'recipe_search_state' in request.session:
+        search_results = request.session['recipe_search_state']
         form_data = search_results["query_data"]
         recipe_search_form = RecipeSearchForm(initial=form_data)
 
