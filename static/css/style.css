@@ -367,7 +367,7 @@ a {
 }
 
 .list-view-card {
-    aspect-ratio: 1;
+    /* aspect-ratio: 1; */
 }
 
 .list-view-card>.card {
@@ -417,6 +417,11 @@ a {
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
+}
+
+
+.pantry-item.list-view-card {
+    aspect-ratio: 1;
 }
 
 .form-button-controls {
@@ -586,6 +591,10 @@ footer a {
 
     .list-view-card {
         min-height: 360px;
+    }
+
+    .recipe-item.list-view-card {
+        min-height: 475px;
     }
 
 
