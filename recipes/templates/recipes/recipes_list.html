@@ -115,7 +115,7 @@ Recipes
                                                     </span>
                                                 </em>
                                                 <button type="button" class="btn btn-secondary btn-sm circle"
-                                                    data-type="ingredient-count-info">
+                                                    data-type="ingredients-count-info" data-recipe-id="{{ recipe.id }}">
                                                     <i class="fa-solid fa-info"></i>
                                                 </button>
                                             </div>
@@ -189,3 +189,16 @@ Recipes
     </div>
 </div>
 {% endblock main_content %}
+
+<!-- Pop-up modal to display matched/missing ingredients for recipe
+Use base modal -->
+{% block modal_title %}
+Ingredients List
+{% endblock modal_title %}
+
+<!-- Dump search results as json for js interactivity  -->
+{% block json_data %}
+{% if search_results.response.success %}
+{{ search_results.response.recipes|json_script:"search-data" }}
+{% endif %}
+{% endblock json_data%}

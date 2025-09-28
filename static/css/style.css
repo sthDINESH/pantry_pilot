@@ -395,6 +395,31 @@ a {
     font-size: calc(0.9 * var(--nav-link-font-size));
 }
 
+.form-button-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.form-button {
+    width: 125px;
+    margin-top: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.modal-body img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    object-position: center;
+}
+
+.modal-body .category-section-heading {
+    text-transform: uppercase;
+    color: var(--accent-color);
+}
+
 /* Pantry page styling */
 /* ---------------------------------------------------------- */
 #my-pantry-page .left-screen {
@@ -424,18 +449,6 @@ a {
     aspect-ratio: 1;
 }
 
-.form-button-controls {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.form-button {
-    width: 125px;
-    margin-top: 1.5rem;
-    margin-bottom: 2rem;
-}
 
 
 /* Recipes page styling */

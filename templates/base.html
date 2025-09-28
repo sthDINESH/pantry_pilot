@@ -95,7 +95,7 @@
         {% endblock main_content %}
 
         {% block modal_content %}
-        <!-- Delete confirmation modal -->
+        <!-- Base modal -->
         <div class="modal fade" id="base-modal" tabindex="-1" aria-labelledby="base-modal-label" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -181,6 +181,9 @@
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
 
     <!-- Custom JS -->
+    {% block json_data %}
+    {% endblock json_data%}
+
     <script src="{% static 'js/script.js' %}"></script>
 </body>
 

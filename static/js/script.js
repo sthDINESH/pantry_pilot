@@ -35,16 +35,27 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  // Parse search results JSON from DOM if available
+  const searchResultsNode = document.querySelector("#search-data");
+  let searchResults = {};
+  if (searchResultsNode) {
+    try {
+      searchResults = JSON.parse(searchResultsNode.textContent);
+    } catch (e) {
+      console.error("Error parsing search results:", e);
+    }
+  }
+
   // ---------------------------------------------------------------
   // Create a BS modal object for base Modal if present
   const baseModalNode = document.querySelector("#base-modal");
   let baseModal = null;
-  if(baseModalNode){
+  if (baseModalNode) {
     baseModal = new bootstrap.Modal(baseModalNode);
   }
   const baseModalBody = document.querySelector("#base-modal .modal-body");
 
-  // Button with id delete-confirm in  Base modal 
+  // Button with id delete-confirm in  Base modal
   const deleteConfirm = document.querySelector("#delete-confirm");
 
   // Auto show duplicate item modal for user input if it exists in DOM
@@ -132,8 +143,10 @@ document.addEventListener("DOMContentLoaded", function () {
           cancelButton = document.createElement("button");
           cancelButton.id = "cancel-button";
           cancelButton.innerText = "Cancel";
-          cancelButton.classList.add("btn", "btn-secondary","form-button");
-          pantryItemForm.querySelector(".form-button-controls").appendChild(cancelButton);
+          cancelButton.classList.add("btn", "btn-secondary", "form-button");
+          pantryItemForm
+            .querySelector(".form-button-controls")
+            .appendChild(cancelButton);
           cancelButton.addEventListener("click", function (event) {
             // Reset the pantry item form fields to defaults
             pantryItemForm.querySelector("#id_name").value = "";
@@ -193,6 +206,86 @@ document.addEventListener("DOMContentLoaded", function () {
             pantryItemForm.querySelector("#id_quantity").focus();
           }, 300);
         }
+      });
+    } else if (buttonType === "ingredients-count-info") {
+      button.addEventListener("click", function (event) {
+        // Display matched and missing ingredients for the recipe
+        // Populate base modal with data
+        const recipeId = event.currentTarget.getAttribute("data-recipe-id");
+        const recipe = searchResults.find((recipe) => recipe.id == recipeId);
+
+        if (!recipe) {
+          baseModalBody.innerHTML = "<p>Recipe data not available.</p>";
+          baseModal.show();
+          return;
+        }
+        // Build modal content with full recipe data
+        let modalContent = `
+            <div class="recipe-modal-header container-fluid">
+                <div class="row">
+                  <div class="col-md-5">
+                    <img src="${recipe.image}" alt="${recipe.title}">
+                  </div>
+                  <div class="col-md-7 d-flex align-items-center">
+                    <h3>${recipe.title}</h3>
+                  </div>
+                </div>
+            </div>
+        `;
+
+        if (
+          recipe.used_ingredient_names &&
+          recipe.used_ingredient_names.length > 0
+        ) {
+          modalContent += `
+            <div class="container-fluid">
+              <div class="ingredients-section row">
+                <div class="col-12 category-section-heading">
+                      In Your Pantry <span>(${recipe.used_ingredient_names.length} items)</span>
+                </div>
+                <div class="col-12"> 
+                  <div class="row">
+            `;
+          recipe.used_ingredient_names.forEach((ingredient) => {
+            modalContent += `
+                    <div class="col-md-6">
+                        <span class="mb-1">✓ ${ingredient}</span>
+                    </div>
+                `;
+          });
+          modalContent += `
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+        }
+
+        if (
+          recipe.missed_ingredient_names &&
+          recipe.missed_ingredient_names.length > 0
+        ) {
+          modalContent += `
+            <div class="container-fluid">
+              <div class="ingredients-section row">
+                <div class="col-12 category-section-heading">
+                  Need to Buy <span>(${recipe.missed_ingredient_names.length} items)</span>
+                </div>
+                <div class="col-12"> 
+                  <div class="row">
+            `;
+          recipe.missed_ingredient_names.forEach((ingredient) => {
+            modalContent += `
+                    <div class="col-md-6">
+                        <span class="mb-1">• ${ingredient}</span>
+                    </div>
+                `;
+          });
+        }
+
+        // Update modal
+        baseModalBody.innerHTML = modalContent;
+        baseModal.show();
       });
     }
   });
@@ -258,7 +351,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // function updateCount (){
   //   console.log(Math.round(imageSequence.frame));
   // }
-
 
   // gsap.from(".auth-grid-container .square-card", {
   //   y: 1000,
