@@ -36,10 +36,15 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // ---------------------------------------------------------------
-  const deleteModal = new bootstrap.Modal(
-    document.querySelector("#delete-modal")
-  );
-  const deleteModalBody = document.querySelector("#delete-modal .modal-body");
+  // Create a BS modal object for base Modal if present
+  const baseModalNode = document.querySelector("#base-modal");
+  let baseModal = null;
+  if(baseModalNode){
+    baseModal = new bootstrap.Modal(baseModalNode);
+  }
+  const baseModalBody = document.querySelector("#base-modal .modal-body");
+
+  // Button with id delete-confirm in  Base modal 
   const deleteConfirm = document.querySelector("#delete-confirm");
 
   // Auto show duplicate item modal for user input if it exists in DOM
@@ -67,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function () {
       // Delete items from pantry
       button.addEventListener("click", function (event) {
         const pantryItemId = event.currentTarget.getAttribute("data-item-id");
-        deleteModalBody.innerHTML = `
+        baseModalBody.innerHTML = `
             <p>
             Are you sure you want to remove <strong>${button.getAttribute(
               "data-item-name"
@@ -77,25 +82,25 @@ document.addEventListener("DOMContentLoaded", function () {
             </p>
         `;
         deleteConfirm.href = `item/${pantryItemId}/delete`;
-        deleteModal.show();
+        baseModal.show();
       });
     } else if (buttonType === "category-delete") {
       // Delete entire category
       button.addEventListener("click", function (event) {
         const categoryId = event.currentTarget.getAttribute("data-category-id");
-        deleteModalBody.innerHTML = `
+        baseModalBody.innerHTML = `
             <p>
-            Are you sure you want to remove <strong>${event.currentTarget.getAttribute(
+            Are you sure you want to remove category <strong>${event.currentTarget.getAttribute(
               "data-category"
             )}</strong> from pantry?
             <br>
-            All <em>${event.currentTarget.getAttribute(
+            All items in <em>${event.currentTarget.getAttribute(
               "data-category"
-            )}</em> items will be removed and this action cannot be undone!
+            )}</em> will be removed and this action cannot be undone!
             </p>
         `;
         deleteConfirm.href = `category/${categoryId}/delete`;
-        deleteModal.show();
+        baseModal.show();
       });
     } else if (buttonType === "pantry-item-update") {
       // Update items in pantry
@@ -127,7 +132,7 @@ document.addEventListener("DOMContentLoaded", function () {
           cancelButton = document.createElement("button");
           cancelButton.id = "cancel-button";
           cancelButton.innerText = "Cancel";
-          cancelButton.classList.add("btn", "btn-secondary");
+          cancelButton.classList.add("btn", "btn-secondary","form-button");
           pantryItemForm.querySelector(".form-button-controls").appendChild(cancelButton);
           cancelButton.addEventListener("click", function (event) {
             // Reset the pantry item form fields to defaults

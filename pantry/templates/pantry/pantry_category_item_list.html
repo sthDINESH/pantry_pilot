@@ -98,28 +98,6 @@ Pantry
     </div>
 </div>
 </div>
-{% endblock main_content %}
-
-{% block modal_content %}
-<!-- Delete confirmation modal -->
-<div class="modal fade" id="delete-modal" tabindex="-1" aria-labelledby="delete-modal-label" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="delete-modal-label">Delete item from pantry?</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Are you sure you want to remove item from pantry?
-                This action cannot be undone.
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <a id="delete-confirm" href="#" class="btn btn-danger">Delete</a>
-            </div>
-        </div>
-    </div>
-</div>
 
 {% if show_duplicate_modal %}
 <!-- Duplicate Item Modal -->
@@ -175,5 +153,12 @@ Pantry
     </div>
 </div>
 {% endif %}
+{% endblock main_content %}
 
-{% endblock modal_content %}
+{% block modal_title %}
+Delete from pantry?
+{% endblock modal_title %}
+
+{% block modal_action %}
+<a id="delete-confirm" href="#" class="btn btn-danger">Delete</a>
+{% endblock modal_action %}
