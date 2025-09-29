@@ -65,15 +65,140 @@ Recipes
                                     Choose what you fancy and find perfect recipes to match based on ingredients
                                     already on hand!
                                 </p>
-                                <!-- Your pantry content here -->
                                 {% crispy recipe_search_form %}
+                                <!-- Search results list will be added here -->
+                                <div class="container">
+                                    <div id="recipe-search-results" class="category-section">
+                                        <div class="category-section-heading">
+                                            <h2 class="sub-heading">Search Results</h2>
+                                        </div>
+                                        <div class="category-section-body row row-cols-1 row-cols-md-2 g-3">
+                                            {% if search_results %}
+                                            {% if search_results.response.success %}
+                                            {% for recipe in search_results.response.recipes %}
+                                            <div class="recipe-item col list-view-card">
+                                                <div class="card">
+                                                    <img src="{{ recipe.image }}" class="card-img-top"
+                                                        alt="Image for {{ recipe.title }}">
+                                                    <div class="card-body">
+                                                        <div class="recipe-title card-title">{{ recipe.title }}</div>
+                                                        <div class="card-text">
+                                                            <div class="recipe-details">
+                                                                <em>
+                                                                    Ingredients:
+                                                                    <span>
+                                                                        {{ recipe.missed_ingredient_count }} missing
+                                                                    </span>
+                                                                    ,
+                                                                    <span>
+                                                                        {{ recipe.used_ingredient_count }} in pantry
+                                                                    </span>
+                                                                </em>
+                                                                <button type="button"
+                                                                    class="btn btn-secondary btn-sm circle"
+                                                                    data-type="ingredients-count-info"
+                                                                    data-recipe-id="{{ recipe.id }}">
+                                                                    <i class="fa-solid fa-info"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="button-controls">
+                                                            <a href="{% url 'recipe_detail' recipe.id %}"
+                                                                class="btn btn-info">View</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% empty %}
+                                            <p>
+                                                No matching results found - Try something different or check saved
+                                                recipes.
+                                            </p>
+
+                                            {% endfor %}
+                                            {% else %}
+                                            <p>
+                                                Apologies - some error occurred during search! Try again later or check
+                                                saved recipes.
+                                            </p>
+                                            {% endif %}
+                                            {% else %}
+                                            <p class="text-muted">Start searching for recipes!</p>
+                                            {% endif %}
+                                        </div>
+
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
 
                         <div class="tab-pane fade" id="saved-pane" role="tabpanel" aria-labelledby="saved-tab"
                             tabindex="0">
                             <div class="p-4">
-                                <!-- Your recipes content here -->
+                                <!-- Saved recipes listed here -->
+                                <div class="container">
+                                    <div id="saved-recipes" class="category-section">
+                                        <div class="category-section-heading">
+                                            <h2 class="sub-heading">
+                                                Saved Recipes
+                                                <span>
+                                                    , {{ number_saved_recipes }} available
+                                                </span>
+                                            </h2>
+
+                                        </div>
+                                        <div class="category-section-body row row-cols-1 row-cols-md-2 g-3">
+                                            {% if saved_recipes %}
+                                            {% for recipe in saved_recipes %}
+                                            <div class="recipe-item col list-view-card">
+                                                <div class="card">
+                                                    <img src="{{ recipe.api_image_url }}" class="card-img-top"
+                                                        alt="Image for {{ recipe.title }}">
+                                                    <div class="card-body">
+                                                        <div class="recipe-title card-title">{{ recipe.title }}</div>
+                                                        <div class="card-text">
+                                                            <div class="recipe-details">
+                                                                <em>
+                                                                    Ingredients:
+                                                                    <span>
+                                                                        {{ recipe.missed_ingredient_count }} missing
+                                                                    </span>
+                                                                    ,
+                                                                    <span>
+                                                                        {{ recipe.used_ingredient_count }} in pantry
+                                                                    </span>
+                                                                </em>
+                                                                <button type="button"
+                                                                    class="btn btn-secondary btn-sm circle"
+                                                                    data-type="ingredients-count-info"
+                                                                    data-recipe-id="{{ recipe.id }}">
+                                                                    <i class="fa-solid fa-info"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="button-controls">
+                                                            <a href="{% url 'recipe_detail' recipe.id %}"
+                                                                class="btn btn-info">View</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% empty %}
+                                            <p>
+                                                No matching results found - Try something different or check saved
+                                                recipes.
+                                            </p>
+
+                                            {% endfor %}
+                                            {% else %}
+                                            <p class="text-muted">No saved recipes found - Search for recipes and save your favorites.</p>
+                                            {% endif %}
+                                        </div>
+
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
 
@@ -86,65 +211,7 @@ Recipes
                     </div>
                 </div>
 
-                <!-- Recipes list will be added here -->
-                <div class="container">
-                    <div id="recipe-search-results" class="category-section">
-                        <div class="category-section-heading">
-                            <h2 class="sub-heading">Search Results</h2>
-                        </div>
-                        <div class="category-section-body row row-cols-1 row-cols-md-2 g-3">
-                            {% if search_results %}
-                            {% if search_results.response.success %}
-                            {% for recipe in search_results.response.recipes %}
-                            <div class="recipe-item col list-view-card">
-                                <div class="card">
-                                    <img src="{{ recipe.image }}" class="card-img-top"
-                                        alt="Image for {{ recipe.title }}">
-                                    <div class="card-body">
-                                        <div class="recipe-title card-title">{{ recipe.title }}</div>
-                                        <div class="card-text">
-                                            <div class="recipe-details">
-                                                <em>
-                                                    Ingredients:
-                                                    <span>
-                                                        {{ recipe.missed_ingredient_count }} missing
-                                                    </span>
-                                                    ,
-                                                    <span>
-                                                        {{ recipe.used_ingredient_count }} in pantry
-                                                    </span>
-                                                </em>
-                                                <button type="button" class="btn btn-secondary btn-sm circle"
-                                                    data-type="ingredients-count-info" data-recipe-id="{{ recipe.id }}">
-                                                    <i class="fa-solid fa-info"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="button-controls">
-                                            <a href="{% url 'recipe_detail' recipe.id %}" class="btn btn-info">View</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            {% empty %}
-                            <p>
-                                No matching results found - Try something different or check saved recipes.
-                            </p>
 
-                            {% endfor %}
-                            {% else %}
-                            <p>
-                                Apologies - some error occurred during search! Try again later or check saved recipes.
-                            </p>
-                            {% endif %}
-                            {% else %}
-                            <p class="text-muted">Start searching for recipes!</p>
-                            {% endif %}
-                        </div>
-
-                    </div>
-
-                </div>
             </div>
         </div>
     </div>

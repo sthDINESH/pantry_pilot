@@ -58,9 +58,16 @@ def recipes_list(request):
         form_data = search_results["query_data"]
         recipe_search_form = RecipeSearchForm(initial=form_data)
 
+    saved_recipes = SavedRecipe.objects.filter(
+        user=request.user,
+        is_external=True,
+    )
+
     context = {
         'recipe_search_form': recipe_search_form,
         'search_results': search_results,
+        'saved_recipes': saved_recipes,
+        'number_saved_recipes': saved_recipes.count(),
     }
     return render(request, 'recipes/recipes_list.html', context)
 
@@ -147,6 +154,7 @@ def fetch_recipe_detail(request, recipe_id):
 
     # Check if recipe detail is available in session
     if (session_key in request.session['recipe_detail_state']):
+        # Check if recipe detail is available in session
         # Fetch recipe detail from session
         recipe_detail = (
             request.session['recipe_detail_state'][session_key][
