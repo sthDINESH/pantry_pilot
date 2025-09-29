@@ -64,12 +64,20 @@ def recipes_list(request):
 
 def recipe_detail(request, recipe_id):
     """
+    Display recipe details
     """
+    recipe_detail = SpoonacularApiService().get_recipe_details(
+        recipe_id=recipe_id,
+        user_id=request.user.id
+    )
+    print(recipe_detail)
+
     return render(
         request=request,
         template_name="recipes/recipe_detail.html",
         context={
             'recipe_id': recipe_id,
+            'recipe_detail': recipe_detail,
         }
     )
 

@@ -80,9 +80,36 @@ class SpoonacularApiService:
             return {
                 'success': False,
                 'error': api_result['error'],
-                'message': 'External recipe service temporarily unavailable. Please try again later.',
-                'fallback_suggestions': self._get_fallback_suggestions(ingredients),
+                'message': (
+                    'External recipe service temporarily unavailable. '
+                    'Please try again later.'
+                ),
+                'fallback_suggestions': self._get_fallback_suggestions(
+                    ingredients
+                ),
                 # 'quota_status': self.quota_manager.get_user_quota_status(user_id)
+            }
+
+    def get_recipe_details(self, recipe_id: str, user_id: int) -> Dict:
+        """
+        Get detailed information for a specific recipe.
+        - Get full recipe details
+        - Used when user clicks on a recipe to see instructions, etc.
+        """
+        # Make API call
+        api_result = self._get_recipe_details_from_api(recipe_id)
+        
+        if api_result['success']:
+            return {
+                'success': True,
+                'source': 'api',
+                'recipe': api_result['recipe'],
+            }
+        else:
+            return {
+                'success': False,
+                'error': api_result['error'],
+                'message': 'Recipe details temporarily unavailable.',
             }
 
     # =========================================================================
@@ -129,7 +156,7 @@ class SpoonacularApiService:
                 if not APIConfig.MOCK_API_CALL:
                     recipes_data = response.json()
                 else:
-                    recipes_data = api_response.api_response
+                    recipes_data = api_response.example_recipes_search_response
                 return {
                     'success': True,
                     'recipes': self._format_recipe_results(recipes_data)
@@ -166,6 +193,53 @@ class SpoonacularApiService:
                 'message': 'Unexpected error occurred'
             }
 
+    def _get_recipe_details_from_api(self, recipe_id: str) -> Dict:
+        """Get detailed recipe information from Spoonacular API."""
+        try:
+            url = f"{APIConfig.SPOONACULAR_BASE_URL}/{recipe_id}/information"
+            params = {
+                'apiKey': APIConfig.SPOONACULAR_API_KEY,
+                'includeNutrition': False,  # costs extra API points
+                'addWinePairing': False,  # costs extra API points
+                'addTasteData': False,  # costs extra API points
+            }
+
+            # Make the API call
+            if not APIConfig.MOCK_API_CALL:
+                response = requests.get(url, params=params, timeout=30)
+            else:
+                response = requests.get("https://dog.ceo/api/breeds/image/random", timeout=30)
+
+            if response.status_code == 200:
+                if not APIConfig.MOCK_API_CALL:
+                    recipe_data = response.json()
+                else:
+                    recipe_data = api_response.example_recipe_detail_response
+                return {
+                    'success': True,
+                    'recipe': self._format_recipe_details(recipe_data)
+                }
+            elif response.status_code == 402:
+                # Payment required - quota exceeded
+                return {
+                    'success': False,
+                    'error': 'API_QUOTA_EXCEEDED',
+                    'message': 'Daily API quota exceeded'
+                }
+            else:
+                return {
+                    'success': False,
+                    'error': f'API_ERROR_{response.status_code}',
+                    'message': f'Failed to get recipe details'
+                }
+        except Exception as e:
+            self.logger.error(f"Error getting recipe details: {e}")
+            return {
+                'success': False,
+                'error': 'NETWORK_ERROR',
+                'message': 'Failed to retrieve recipe details'
+            }
+
     def _format_recipe_results(self, raw_data: Dict) -> List[Dict]:
         """
         Convert Spoonacular complex recipe API response to standard format.
@@ -187,6 +261,28 @@ class SpoonacularApiService:
             }
             formatted_recipes.append(formatted_recipe)
         return formatted_recipes
+    
+    def _format_recipe_details(self, raw_data: Dict) -> Dict:
+        """Convert detailed recipe data to standard format."""
+        print(raw_data)
+        return {
+            'id': raw_data.get('id'),
+            'title': raw_data.get('title'),
+            'image': raw_data.get('image'),
+            'ready_in_minutes': raw_data.get('readyInMinutes'),
+            'servings': raw_data.get('servings'),
+            'instructions': raw_data.get('instructions'),
+            'ingredients': [
+                {
+                    'name': ing.get('name'),
+                    'amount': ing.get('amount'),
+                    'unit': ing.get('unit')
+                }
+                for ing in raw_data.get('extendedIngredients', [])
+            ],
+            'source_url': raw_data.get('sourceUrl'),
+            'source': 'spoonacular'
+        }
 
 
 if __name__ == "__main__":
