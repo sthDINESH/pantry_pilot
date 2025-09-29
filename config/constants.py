@@ -11,6 +11,8 @@ UNIT_CHOICES = [
 
         # Volume measurements - Imperial/US
         ('cup', 'Cups'),
+        ('cups', 'Cups'),
+        ('servings', 'Servings'),
         ('tbsp', 'Tablespoons'),
         ('tsp', 'Teaspoons'),
         ('fl_oz', 'Fluid Ounces'),

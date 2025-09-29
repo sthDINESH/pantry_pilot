@@ -35,8 +35,8 @@ Recipes
                         {% for ingredient in recipe_detail.recipe.ingredients %}
                         <span class="py-2">
                             {{ ingredient.name|title }}, <em>{{ ingredient.amount }} {{ ingredient.unit }}</em>
-                            {% if ingredient.meta %}
-                            <em>({{ ingredient.meta }})</em>
+                            {% if ingredient.note %}
+                            <em>({{ ingredient.note }})</em>
                             {% endif %}
                         </span>
                         {% endfor %}
@@ -62,7 +62,7 @@ Recipes
                 {{ recipe_detail.recipe.instructions|safe }}
             </div>
             <div class="col-12 form-button-controls">
-                <a href="" class="btn btn-primary form-button">Save</a>
+                <a href="{% url 'recipe_save' recipe_detail.recipe.id %}" class="btn btn-primary form-button">Save</a>
                 <a href="{% url 'recipes' %}" class="btn btn-secondary form-button">Back</a>
             </div>
             {% else %}

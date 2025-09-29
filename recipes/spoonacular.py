@@ -5,6 +5,7 @@ from typing import List, Dict
 import requests
 
 import recipes.api_response as api_response
+import config.constants as constants
 
 # =============================================================================
 # CONFIGURATION SETTINGS
@@ -40,7 +41,7 @@ class APIConfig:
     SPOONACULAR_API_KEY = settings.SPOONACULAR_API_KEY  # From environment variables
 
     # Test with dummy response
-    MOCK_API_CALL = True
+    MOCK_API_CALL = False
 
 
 # =============================================================================
@@ -277,9 +278,21 @@ class SpoonacularApiService:
                 {
                     'name': ing.get('name'),
                     'amount': ing.get('amount'),
-                    'unit': ing.get('unit'),
-                    'meta': " ".join(ing.get('meta')) if ing.get('meta') else None,
-                    'measures': ing.get('measures').get('metric'),
+                    'unit': (
+                        (
+                            ing.get('unit').lower()
+                            if ing.get('unit').lower() in [
+                                unit[0] for unit in constants.UNIT_CHOICES
+                            ]
+                            else 'piece'
+                        )
+                    ),
+                    'note': (
+                        " ".join(ing.get('meta'))
+                        if ing.get('meta') else ""
+                    ),
+                    'metric': ing.get('measures').get('metric'), 
+                    # API response: "metric": {"amount": 56.75, "unitShort": "g", "unitLong": "grams"},
                 }
                 for ing in raw_data.get('extendedIngredients', [])
             ],

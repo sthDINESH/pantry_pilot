@@ -1,11 +1,14 @@
-from django.shortcuts import render, redirect
 import time
-
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from .forms import RecipeSearchForm
-from .spoonacular import SpoonacularApiService
 from pantry.models import PantryItem
+from .models import SavedRecipe, RecipeIngredient
+from .spoonacular import SpoonacularApiService
 
 
+@login_required
 def recipes_list(request):
     """
     Display recipes list and handle search functionality
@@ -26,7 +29,7 @@ def recipes_list(request):
                     f"{search_data['diet'] or 'any diet'} "
                     f"{search_data['meal_type'] or 'any meal type'} recipes"
                 ),
-                'timestamp': int(time.time())  # For cache expiry if needed
+                'timestamp': int(time.time())
             }
 
             # Fetch users pantry items
@@ -62,21 +65,109 @@ def recipes_list(request):
     return render(request, 'recipes/recipes_list.html', context)
 
 
+@login_required
 def recipe_detail(request, recipe_id):
     """
     Display recipe details
     """
-    recipe_detail = SpoonacularApiService().get_recipe_details(
-        recipe_id=recipe_id,
-        user_id=request.user.id
-    )
+    recipe_detail = fetch_recipe_detail(request, recipe_id)
 
     return render(
         request=request,
         template_name="recipes/recipe_detail.html",
         context={
-            'recipe_id': recipe_id,
             'recipe_detail': recipe_detail,
         }
     )
+
+
+@login_required
+def recipe_save(request, recipe_id):
+    """
+    Save recipe details for recipe_id for the user
+    """
+    recipe_detail = fetch_recipe_detail(request, recipe_id)
+
+    saved_recipe, created = SavedRecipe.objects.get_or_create(
+        user=request.user,
+        api_recipe_id=recipe_id,
+        api_image_url=recipe_detail['recipe']['image'],
+        api_source_url=recipe_detail['recipe']['source_url'],
+        is_external=True,
+        title=recipe_detail['recipe']['title'],
+        summary=recipe_detail['recipe']['summary'],
+        cook_time=recipe_detail['recipe']['ready_in_minutes'],
+        cook_time_units="min",
+        servings=recipe_detail['recipe']['servings'],
+        instructions=recipe_detail['recipe']['instructions'],
+        status=1,
+    )
+
+    # Save ingredients for the recipe
+    if created:
+        for ingredient in recipe_detail['recipe']['ingredients']:
+            RecipeIngredient.objects.create(
+                recipe=saved_recipe,
+                ingredient_name=ingredient['name'],
+                quantity=ingredient['amount'],
+                units=ingredient['unit'],
+                note=ingredient['note'],
+                metric_quantity=ingredient['metric']['amount'],
+                metric_units=ingredient['metric']['unitShort'],
+            )
+
+        messages.add_message(
+            request,
+            messages.SUCCESS,
+            (
+                f"Recipe saved - {saved_recipe.title}"
+            )
+        )
+
+    else:
+        messages.add_message(
+            request,
+            messages.WARNING,
+            (
+                f"Already saved - {saved_recipe.title}"
+            )
+        )
+
+    return redirect('recipe_detail',recipe_id=recipe_id)
+
+
+def fetch_recipe_detail(request, recipe_id):
+    """
+    """
+    session_key = str(recipe_id)
+    recipe_detail = None
+
+    if 'recipe_detail_state' not in request.session:
+        request.session['recipe_detail_state'] = {}
+
+    # Check if recipe detail is available in session
+    if (session_key in request.session['recipe_detail_state']):
+        # Fetch recipe detail from session
+        recipe_detail = (
+            request.session['recipe_detail_state'][session_key][
+                'recipe_detail'
+            ]
+        )
+        print("Fetched from session")
+    else:
+        # Make an API call
+        recipe_detail = SpoonacularApiService().get_recipe_details(
+            recipe_id=recipe_id,
+            user_id=request.user.id
+        )
+
+        # Save recipe detail into session
+        if recipe_detail['success']:
+            request.session['recipe_detail_state'][session_key] = {
+                'recipe_detail': recipe_detail,
+                'timestamp': int(time.time()),
+            }
+            request.session.modified = True  # Ensure session is saved
+
+    return recipe_detail
 

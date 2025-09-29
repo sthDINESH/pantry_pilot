@@ -20,22 +20,11 @@ class SavedRecipe(models.Model):
     api_recipe_id = models.IntegerField("Spoonacular Recipe Id", default=0)
     api_image_url = models.URLField(default="")
     api_source_url = models.URLField(default="")
-    is_external = models.BooleanField()
+    is_external = models.BooleanField(default=False)
     # Common fields for all recipes
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200)
-    description = models.TextField()
-    prep_time = models.DecimalField(
-        "Prep time",
-        max_digits=10,
-        decimal_places=2
-    )
-    prep_time_units = models.CharField(
-        "Prep time units",
-        max_length=10,
-        choices=constants.TIME_UNIT_CHOICES,
-        default="min"
-    )
+    summary = models.TextField()
     cook_time = models.DecimalField(
         "Cooking time",
         max_digits=10,
@@ -68,7 +57,7 @@ class RecipeIngredient(models.Model):
     Stores a single recipe ingredient (with quantity and units)
     related to :model:`Recipe`
     """
-    recipe_id = models.ForeignKey(
+    recipe = models.ForeignKey(
         SavedRecipe,
         on_delete=models.CASCADE,
         related_name=(
@@ -82,12 +71,22 @@ class RecipeIngredient(models.Model):
         choices=constants.UNIT_CHOICES,
         default='piece'
     )
-    notes = models.TextField(default="")
+    note = models.TextField(default="")
+    metric_quantity = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        default=0
+    )
+    metric_units = models.CharField(
+        max_length=10,
+        choices=constants.UNIT_CHOICES,
+        default='piece'
+    )
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 
     class Meta:
-        unique_together = ['recipe_id', 'ingredient_name']
+        # unique_together = ['recipe_id', 'ingredient_name', 'quantity', 'units']
         ordering = ['ingredient_name']
 
     def __str__(self):
