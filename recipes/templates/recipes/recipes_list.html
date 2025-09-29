@@ -121,10 +121,7 @@ Recipes
                                             </div>
                                         </div>
                                         <div class="button-controls">
-                                            <button type="button" class="btn btn-info"
-                                                data-type="recipe-detail" data-recipe-id="{{ recipe.id }}">
-                                                View
-                                            </button>
+                                            <a href="{% url 'recipe_detail' recipe.id %}" class="btn btn-info">View</a>
                                         </div>
                                     </div>
                                 </div>

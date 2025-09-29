@@ -61,3 +61,15 @@ def recipes_list(request):
     }
     return render(request, 'recipes/recipes_list.html', context)
 
+
+def recipe_detail(request, recipe_id):
+    """
+    """
+    return render(
+        request=request,
+        template_name="recipes/recipe_detail.html",
+        context={
+            'recipe_id': recipe_id,
+        }
+    )
+
