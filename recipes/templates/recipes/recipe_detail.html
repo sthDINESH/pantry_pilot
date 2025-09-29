@@ -9,8 +9,69 @@ Recipes
 {% endblock title %}
 
 {% block main_content %}
-Details for {{ recipe_id }}
-{{ recipe_detail }}
+<div class="section-wrapper recipe-detail-page">
+    <div class="container">
+        <div class="row">
+            {% if recipe_detail.success %}
+            <div class="col-12 section-heading">
+                <h1>{{ recipe_detail.recipe.title }}</h1>
+            </div>
+            <div class="col-12 col-md-4 d-flex align-items-center py-2">
+                <img src="{{ recipe_detail.recipe.image }}" alt="{{ recipe_detail.recipe.title }}">
+            </div>
+            <div class="col-12 col-md-8 recipe-summary d-flex align-items-center py-2 ps-md-5">
+                <div class="summary">
+                    {{ recipe_detail.recipe.summary|safe }}
+                    <br>
+                    <br>
+                    <em>Source: {{ recipe_detail.recipe.source_url }}</em>
+                </div>
+                <!-- <a href="" class="btn btn-primary form-button">Save</a> -->
+            </div>
+            <div class="col-12 col-md-4 recipe-additional-section py-2 pt-md-5">
+                <div class="category-section ingredients">
+                    <h2 class="sub-heading">Ingredients</h2>
+                    <div class="section-body d-flex flex-column">
+                        {% for ingredient in recipe_detail.recipe.ingredients %}
+                        <span class="py-2">
+                            {{ ingredient.name|title }}, <em>{{ ingredient.amount }} {{ ingredient.unit }}</em>
+                            {% if ingredient.meta %}
+                            <em>({{ ingredient.meta }})</em>
+                            {% endif %}
+                        </span>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="category-section cook-time">
+                    <h2 class="sub-heading">Cooks in</h2>
+                    <div class="section-body">
+                        {{ recipe_detail.recipe.ready_in_minutes }} minutes
+                    </div>
+                </div>
+                <div class="category-section servings">
+                    <h2 class="sub-heading">Serves</h2>
+                    <div class="section-body">
+                        {{ recipe_detail.recipe.servings }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-8 recipe-instructions py-2 pt-md-5 ps-md-5">
+                <div class="category-section">
+                    <h2 class="sub-heading">Instructions</h2>
+                </div>
+                {{ recipe_detail.recipe.instructions|safe }}
+            </div>
+            <div class="col-12 form-button-controls">
+                <a href="" class="btn btn-primary form-button">Save</a>
+                <a href="{% url 'recipes' %}" class="btn btn-secondary form-button">Back</a>
+            </div>
+            {% else %}
+            <p>Oops - Details for the recipe not found!. Please, try a different recipe or check saved recipes instead.
+            </p>
+            {% endif %}
+        </div>
+    </div>
+</div>
 {% endblock main_content %}
 
 <!-- Pop-up modal to display matched/missing ingredients for recipe
@@ -18,4 +79,3 @@ Use base modal -->
 {% block modal_title %}
 Ingredients List
 {% endblock modal_title %}
-

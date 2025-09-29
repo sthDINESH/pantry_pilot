@@ -103,7 +103,8 @@ a {
 /* Custom Button Styling */
 /* ---------------------------------------------------------- */
 .btn-primary,
-.btn-secondary {
+.btn-secondary,
+.btn-info {
     border-radius: 1rem;
 }
 
@@ -530,6 +531,61 @@ a {
     margin-right: 0.5rem;
 }
 
+/* Recipe detail page styling */
+/* ---------------------------------------------------------- */
+.recipe-detail-page h1 {
+    font-size: calc(3.25 * var(--nav-link-font-size));
+}
+
+.recipe-detail-page img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    object-position: center;
+}
+
+.recipe-detail-page .category-section {
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.recipe-instructions li {
+    padding-top: 1.5rem;
+    padding-botton: 1.5rem;
+
+}
+
+.recipe-instructions {
+    list-style: none;
+    counter-reset: step-counter;
+}
+
+.recipe-instructions ol {
+    padding-left: 0;
+}
+
+.recipe-instructions li {
+    padding: 1rem 0 1rem 50px;
+    position: relative;
+    counter-increment: step-counter;
+    display: flex;
+    align-items: center;
+}
+
+.recipe-instructions li::before {
+    content: counter(step-counter);
+    position: absolute;
+    left: 0;
+    min-width: 40px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background-color: var(--accent-color);
+    color: var(--light-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 /* Footer styling */
 /* ---------------------------------------------------------- */
 footer {
@@ -610,6 +666,17 @@ footer a {
         min-height: 475px;
     }
 
+    .recipe-detail-page h1 {
+        font-size: calc(4 * var(--nav-link-font-size));
+    }
+    
+    .recipe-instructions .sub-heading {
+        padding-left: 50px; /* align with li text */
+    }
+
+    .recipe-detail-page .form-button-controls {
+        margin-top: 3rem;
+    }
 
     /* Footer styling */
     footer {
@@ -715,13 +782,26 @@ footer a {
 
     }
 
-    
+
     .recipe-item.list-view-card {
         min-height: 500px;
     }
 
     .section-wrapper {
         padding: 4rem calc(var(--navbar-height) * 0.25);
+    }
+
+    .recipe-instructions .sub-heading {
+        padding-left: 75px; /* align with li text */
+    }
+
+    .recipe-instructions li {
+        padding: 1.5rem 0 1.5rem 75px;
+    }
+
+    .recipe-instructions li::before {
+        min-width: 60px;
+        font-size: 1.25rem;
     }
 
 

@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.utils.html import strip_tags
 import logging
 from typing import List, Dict
 import requests
@@ -264,11 +265,11 @@ class SpoonacularApiService:
     
     def _format_recipe_details(self, raw_data: Dict) -> Dict:
         """Convert detailed recipe data to standard format."""
-        print(raw_data)
         return {
             'id': raw_data.get('id'),
             'title': raw_data.get('title'),
             'image': raw_data.get('image'),
+            'summary': strip_tags(raw_data.get('summary', '')),
             'ready_in_minutes': raw_data.get('readyInMinutes'),
             'servings': raw_data.get('servings'),
             'instructions': raw_data.get('instructions'),
@@ -276,7 +277,9 @@ class SpoonacularApiService:
                 {
                     'name': ing.get('name'),
                     'amount': ing.get('amount'),
-                    'unit': ing.get('unit')
+                    'unit': ing.get('unit'),
+                    'meta': " ".join(ing.get('meta')) if ing.get('meta') else None,
+                    'measures': ing.get('measures').get('metric'),
                 }
                 for ing in raw_data.get('extendedIngredients', [])
             ],

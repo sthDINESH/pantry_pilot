@@ -49,7 +49,7 @@ def recipes_list(request):
 
             return redirect('recipes')
 
-    # ✅ Check for persistent search results (don't pop)
+    # Check for persistent search results (don't pop)
     if 'recipe_search_state' in request.session:
         search_results = request.session['recipe_search_state']
         form_data = search_results["query_data"]
@@ -70,7 +70,6 @@ def recipe_detail(request, recipe_id):
         recipe_id=recipe_id,
         user_id=request.user.id
     )
-    print(recipe_detail)
 
     return render(
         request=request,
