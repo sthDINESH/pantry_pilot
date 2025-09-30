@@ -17,5 +17,10 @@ urlpatterns = [
         views.recipe_save,
         name='recipe_save'
     ),
+    path(
+        'recipe/<int:recipe_id>/delete',
+        views.recipe_delete,
+        name='recipe_delete'
+    ),
     path('', views.recipes_list, name='recipes'),
 ]

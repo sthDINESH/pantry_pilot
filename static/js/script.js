@@ -54,6 +54,8 @@ document.addEventListener("DOMContentLoaded", function () {
     baseModal = new bootstrap.Modal(baseModalNode);
   }
   const baseModalBody = document.querySelector("#base-modal .modal-body");
+  const baseModalTitle = document.querySelector("#base-modal .modal-title");
+  const baseModalFooter = document.querySelector("#base-modal .modal-footer");
 
   // Button with id delete-confirm in  Base modal
   const deleteConfirm = document.querySelector("#delete-confirm");
@@ -213,6 +215,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Populate base modal with data
         const recipeId = event.currentTarget.getAttribute("data-recipe-id");
         const recipe = searchResults.find((recipe) => recipe.id == recipeId);
+        baseModalTitle.innerText = "Ingredients List"
 
         if (!recipe) {
           baseModalBody.innerHTML = "<p>Recipe data not available.</p>";
@@ -287,6 +290,30 @@ document.addEventListener("DOMContentLoaded", function () {
         baseModalBody.innerHTML = modalContent;
         baseModal.show();
       });
+    } else if (buttonType === "recipe-delete") {
+      // Delete Saved Recipe
+      button.addEventListener("click", function (event) {
+        const recipeId = event.currentTarget.getAttribute("data-recipe-id");
+        const recipeTitle = event.currentTarget.getAttribute("data-recipe-title");
+        baseModalTitle.innerText = "Delete Recipe?"
+        baseModalBody.innerHTML = `
+            <p>
+            Are you sure you want to delete <strong>${recipeTitle}</strong> from your recipes?
+            <br>
+            This action cannot be undone!
+            </p>
+        `;
+        let deleteButton = document.querySelector("#recipe-delete");
+        if(!deleteButton){
+          deleteButton = document.createElement("a");
+          deleteButton.id = "recipe-delete";
+          deleteButton.classList.add("btn","btn-primary");
+          deleteButton.innerText = "Delete";
+          deleteButton.href = `/recipes/recipe/${recipeId}/delete`;
+          baseModalFooter.appendChild(deleteButton);
+        }
+        baseModal.show();
+      })
     }
   });
 

@@ -88,10 +88,13 @@ Recipe
             </div>
             <div class="col-12 form-button-controls">
                 {% if saved_recipe %}
-                <button type="button" class="btn btn-primary form-button" data-type="" data-recipe-id="{{ recipe_detail.recipe.id }}">Delete</button>
+                <button type="button" class="btn btn-primary form-button" data-type="recipe-delete"
+                    data-recipe-id="{{ recipe_detail.recipe.id }}"
+                    data-recipe-title="{{ recipe_detail.recipe.title }}">Delete</button>
                 {% else %}
                 {% if recipe_detail.recipe.is_external %}
-                <a href="{% url 'recipe_save' recipe_detail.recipe.api_recipe_id %}" class="btn btn-primary form-button">Save</a>
+                <a href="{% url 'recipe_save' recipe_detail.recipe.api_recipe_id %}"
+                    class="btn btn-primary form-button">Save</a>
                 {% endif %}
                 {% endif %}
                 <a href="{% url 'recipes' %}" class="btn btn-secondary form-button">Back</a>

@@ -197,6 +197,29 @@ def recipe_save(request, api_recipe_id):
     return redirect('saved_recipe_detail', recipe_id=saved_recipe.id)
 
 
+@login_required
+def recipe_delete(request, recipe_id):
+    """
+    """
+    queryset = SavedRecipe.objects.filter(user=request.user)
+    saved_recipe = get_object_or_404(queryset, pk=recipe_id)
+
+    if saved_recipe.user == request.user:
+        saved_recipe.delete()
+        messages.add_message(
+            request,
+            messages.SUCCESS,
+            f'Recipe removed - {saved_recipe.title}'
+        )
+    else:
+        messages.add_message(
+            request,
+            messages.ERROR,
+            'You can only remove your recipes',
+        )
+    return redirect('recipes')
+
+
 def fetch_recipe_detail(request, api_recipe_id):
     """
     """
@@ -232,4 +255,3 @@ def fetch_recipe_detail(request, api_recipe_id):
             request.session.modified = True  # Ensure session is saved
 
     return recipe_detail
-

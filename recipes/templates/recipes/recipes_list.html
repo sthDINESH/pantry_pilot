@@ -180,6 +180,9 @@ Recipes
                                                         <div class="button-controls">
                                                             <a href="{% url 'saved_recipe_detail' recipe.id %}"
                                                                 class="btn btn-info">View</a>
+                                                            <button class="btn btn-secondary" data-type="recipe-delete"
+                                                                data-recipe-id="{{ recipe.id }}"
+                                                                data-recipe-title="{{ recipe.title }}">Delete</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -192,7 +195,8 @@ Recipes
 
                                             {% endfor %}
                                             {% else %}
-                                            <p class="text-muted">No saved recipes found - Search for recipes and save your favorites.</p>
+                                            <p class="text-muted">No saved recipes found - Search for recipes and save
+                                                your favorites.</p>
                                             {% endif %}
                                         </div>
 
@@ -256,10 +260,6 @@ Recipes
 
 <!-- Pop-up modal to display matched/missing ingredients for recipe
 Use base modal -->
-{% block modal_title %}
-Ingredients List
-{% endblock modal_title %}
-
 <!-- Dump search results as json for js interactivity  -->
 {% block json_data %}
 {% if search_results.response.success %}
