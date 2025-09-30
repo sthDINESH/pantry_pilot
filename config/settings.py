@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     'pantry',
     'dashboard',
     'recipes',
+    'meals',
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"

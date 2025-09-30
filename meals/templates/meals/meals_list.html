@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+{{ page_title }}
+{% endblock title %}
+
+{% block main_content %}
+<div id="meals-page" class="split-screen">
+    <div class="screen left-screen">
+        <div id="meals-section" class="section-wrapper">
+            <div class="container">
+                <div class="section-heading">
+                    <h1>{{ page_title }}</h1>
+                </div>
+                <p class="section-body-text">
+                    <strong class="sub-heading">Plan your weekly meals with confidence!</strong>
+                    <br><br>
+                    Create meal plans using your saved recipes and pantry items. Stay organized, 
+                    reduce food waste, and make meal preparation a breeze.
+                </p>
+
+                <!-- Meal planning content will go here -->
+                <div id="meal-planning-content" class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Welcome to Meal Planning</h5>
+                                    <p class="card-text">
+                                        This is where your meal planning features will be implemented.
+                                    </p>
+                                    <p class="card-text">
+                                        <small class="text-muted">Coming soon: Weekly meal calendar, recipe scheduling, and shopping lists.</small>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="screen right-screen">
+        <div class="section-image"></div>
+    </div>
+</div>
+{% endblock main_content %}
