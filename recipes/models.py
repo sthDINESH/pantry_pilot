@@ -64,10 +64,10 @@ class RecipeIngredient(models.Model):
             "ingredients"
         )
     )
-    ingredient_name = models.CharField("Ingredient", max_length=50)
+    ingredient_name = models.CharField("Ingredient", max_length=100)
     original_name = models.CharField(
         "Full ingredient",
-        max_length=50,
+        max_length=200,
         default=""
     )
     quantity = models.DecimalField(max_digits=10, decimal_places=2)
