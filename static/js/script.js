@@ -214,7 +214,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Display matched and missing ingredients for the recipe
         // Populate base modal with data
         const recipeId = event.currentTarget.getAttribute("data-recipe-id");
-        const recipe = searchResults.find((recipe) => recipe.id == recipeId);
+        const recipe = searchResults.find((recipe) => recipe.api_recipe_id == recipeId);
         baseModalTitle.innerText = "Ingredients List"
 
         if (!recipe) {

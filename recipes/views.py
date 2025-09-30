@@ -21,36 +21,6 @@ def recipes_list(request):
         pantry_item.name
         for pantry_item in PantryItem.objects.filter(user=request.user)
     ]
-    print(pantry_item_names)
-
-    # Fetch saved recipes with ingredient analysis
-    saved_recipes = SavedRecipe.objects.filter(
-        user=request.user,
-        is_external=True,
-    )
-
-    # Add ingredient analysis to each recipe
-    saved_recipes_with_notes = []
-    for recipe in saved_recipes:
-        ingredients = recipe.ingredients.all()
-        missed_ingredients = []
-        used_ingredients = []
-
-        for ingredient in ingredients:
-            if ingredient.ingredient_name in pantry_item_names:
-                used_ingredients.append(ingredient)
-                print("Found:", ingredient.ingredient_name)
-            else:
-                missed_ingredients.append(ingredient)
-                print("Missing:", ingredient.ingredient_name)
-
-        # Add notes directly to recipe object
-        recipe.missed_ingredients = missed_ingredients
-        recipe.used_ingredients = used_ingredients
-        recipe.missed_ingredient_count = len(missed_ingredients)
-        recipe.used_ingredient_count = len(used_ingredients)
-
-        saved_recipes_with_notes.append(recipe)
 
     if request.method == "POST":
         recipe_search_form = RecipeSearchForm(request.POST)
@@ -68,7 +38,7 @@ def recipes_list(request):
                 'timestamp': int(time.time())
             }
 
-            # Search recipes
+            # Search recipes using Spoonacular API
             search_results = SpoonacularApiService().search_recipes(
                 ingredients=pantry_item_names,
                 cuisine=search_data["cuisine"],
@@ -76,17 +46,69 @@ def recipes_list(request):
                 meal_type=search_data["meal_type"],
             )
 
-            # Store search results persistently
+            # Store search results persistently in session
             request.session['recipe_search_state']['response'] = search_results
             request.session.modified = True  # Ensure session is saved
 
             return redirect('recipes')
+        
+    # Fetch saved recipes
+    saved_recipes = SavedRecipe.objects.filter(
+        user=request.user,
+        is_external=True,
+    )
 
-    # Check for persistent search results (don't pop)
+    # Add ingredient analysis to each saved recipe
+    saved_recipes_with_notes = []
+    for recipe in saved_recipes:
+        ingredients = recipe.ingredients.all()
+        missed_ingredients = []
+        used_ingredients = []
+
+        for ingredient in ingredients:
+            if ingredient.ingredient_name in pantry_item_names:
+                used_ingredients.append(ingredient)
+                # print("Found:", ingredient.ingredient_name)
+            else:
+                missed_ingredients.append(ingredient)
+                # print("Missing:", ingredient.ingredient_name)
+
+        # Add notes to recipe object
+        recipe.missed_ingredients = missed_ingredients
+        recipe.used_ingredients = used_ingredients
+        recipe.missed_ingredient_count = len(missed_ingredients)
+        recipe.used_ingredient_count = len(used_ingredients)
+
+        saved_recipes_with_notes.append(recipe)
+
+    # Check session for persistent search results
     if 'recipe_search_state' in request.session:
         search_results = request.session['recipe_search_state']
         form_data = search_results["query_data"]
         recipe_search_form = RecipeSearchForm(initial=form_data)
+
+        # Check and mark recipes that have already been saved
+        if search_results.get("response", {}).get("success"):
+            saved_recipe_api_ids = {
+                r.api_recipe_id for r in saved_recipes_with_notes
+            }
+            for recipe in search_results['response']['recipes']:
+                recipe['saved'] = (
+                    recipe['api_recipe_id'] in saved_recipe_api_ids
+                )
+                # For already saved results add recipe id(PK)
+                # for direct links to saved version
+                if recipe['saved']:
+                    saved_recipe = next(
+                        (
+                            r for r in saved_recipes_with_notes
+                            if r.api_recipe_id == recipe['api_recipe_id']
+                        ),
+                        None
+                    )
+                    recipe['id'] = saved_recipe.id if saved_recipe else None
+                else:
+                    recipe['id'] = None
 
     context = {
         'recipe_search_form': recipe_search_form,

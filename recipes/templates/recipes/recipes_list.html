@@ -81,7 +81,15 @@ Recipes
                                                     <img src="{{ recipe.image }}" class="card-img-top"
                                                         alt="Image for {{ recipe.title }}">
                                                     <div class="card-body">
-                                                        <div class="recipe-title card-title">{{ recipe.title }}</div>
+                                                        <div class="recipe-title card-title">
+                                                            {{ recipe.title }}
+                                                            {% if recipe.saved %}
+                                                            <br>
+                                                            <small class="text-success">
+                                                                <i class="fa-solid fa-bookmark"></i> Saved
+                                                            </small>
+                                                            {% endif %}
+                                                        </div>
                                                         <div class="card-text">
                                                             <div class="recipe-details">
                                                                 <em>
@@ -97,14 +105,23 @@ Recipes
                                                                 <button type="button"
                                                                     class="btn btn-secondary btn-sm circle"
                                                                     data-type="ingredients-count-info"
-                                                                    data-recipe-id="{{ recipe.id }}">
+                                                                    data-recipe-id="{{ recipe.api_recipe_id }}">
                                                                     <i class="fa-solid fa-info"></i>
                                                                 </button>
                                                             </div>
                                                         </div>
                                                         <div class="button-controls">
-                                                            <a href="{% url 'recipe_detail' recipe.id %}?from=discover"
-                                                                class="btn btn-info">View</a>
+                                                            {% if recipe.saved %}
+                                                            <a href="{% url 'saved_recipe_detail' recipe.id %}?from=discover"
+                                                                class="btn btn-info">
+                                                                View
+                                                            </a>
+                                                            {% else %}
+                                                            <a href="{% url 'recipe_detail' recipe.api_recipe_id %}?from=discover"
+                                                                class="btn btn-info">
+                                                                View
+                                                            </a>
+                                                            {% endif %}
                                                         </div>
                                                     </div>
                                                 </div>

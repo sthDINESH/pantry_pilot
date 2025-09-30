@@ -255,7 +255,7 @@ class SpoonacularApiService:
 
         for recipe in raw_data['results']:
             formatted_recipe = {
-                'id': recipe.get('id'),
+                'api_recipe_id': recipe.get('id'),
                 'title': recipe.get('title'),
                 'image': recipe.get('image'),
                 'used_ingredient_count': recipe.get('usedIngredientCount'),
