@@ -34,9 +34,13 @@ Recipes
                     <div class="section-body d-flex flex-column">
                         {% for ingredient in recipe_detail.recipe.ingredients %}
                         <span class="py-2">
+                            {% if ingredient.original_name %}
+                            {{ ingredient.original_name }}
+                            {% else %}
                             {{ ingredient.name|title }}, <em>{{ ingredient.amount }} {{ ingredient.unit }}</em>
                             {% if ingredient.note %}
                             <em>({{ ingredient.note }})</em>
+                            {% endif %}
                             {% endif %}
                         </span>
                         {% endfor %}

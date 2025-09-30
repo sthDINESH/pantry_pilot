@@ -65,6 +65,11 @@ class RecipeIngredient(models.Model):
         )
     )
     ingredient_name = models.CharField("Ingredient", max_length=50)
+    original_name = models.CharField(
+        "Full ingredient",
+        max_length=50,
+        default=""
+    )
     quantity = models.DecimalField(max_digits=10, decimal_places=2)
     units = models.CharField(
         max_length=10,

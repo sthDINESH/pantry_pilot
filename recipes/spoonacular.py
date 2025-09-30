@@ -41,7 +41,7 @@ class APIConfig:
     SPOONACULAR_API_KEY = settings.SPOONACULAR_API_KEY  # From environment variables
 
     # Test with dummy response
-    MOCK_API_CALL = True
+    MOCK_API_CALL = False
 
 
 # =============================================================================
@@ -176,7 +176,10 @@ class SpoonacularApiService:
                     'error': f'API_ERROR_{response.status_code}',
                     'message': (
                         (
-                            f'API request failed with status {response.status_code}'
+                            (
+                                f'API request failed with status '
+                                f'{response.status_code}'
+                            )
                         )
                     )
                 }
@@ -277,6 +280,7 @@ class SpoonacularApiService:
             'ingredients': [
                 {
                     'name': ing.get('name'),
+                    'original_name': ing.get('original'),
                     'amount': ing.get('amount'),
                     'unit': (
                         (

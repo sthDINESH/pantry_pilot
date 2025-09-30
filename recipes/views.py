@@ -116,6 +116,7 @@ def recipe_save(request, recipe_id):
             RecipeIngredient.objects.create(
                 recipe=saved_recipe,
                 ingredient_name=ingredient['name'],
+                original_name=ingredient['original_name'],
                 quantity=ingredient['amount'],
                 units=ingredient['unit'],
                 note=ingredient['note'],
