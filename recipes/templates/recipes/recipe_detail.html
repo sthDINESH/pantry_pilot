@@ -15,6 +15,11 @@ Recipe
             {% if recipe_detail.success %}
             <div class="col-12 section-heading">
                 <h1>{{ recipe_detail.recipe.title }}</h1>
+                {% if saved_recipe %}
+                <small class="text-success">
+                    <i class="fa-solid fa-bookmark"></i> Saved
+                </small>
+                {% endif %}
             </div>
             <div class="col-12 col-md-4 d-flex align-items-center py-2">
                 {% if recipe_detail.recipe.is_external %}
@@ -97,7 +102,8 @@ Recipe
                     class="btn btn-primary form-button">Save</a>
                 {% endif %}
                 {% endif %}
-                <a href="{% url 'recipes' %}{% if request.GET.from %}?tab={{ request.GET.from }}{% endif %}" class="btn btn-secondary form-button">Back</a>
+                <a href="{% url 'recipes' %}{% if request.GET.from %}?tab={{ request.GET.from }}{% endif %}"
+                    class="btn btn-secondary form-button">Back</a>
             </div>
             {% else %}
             <p>Oops - Details for the recipe not found!. Please, try a different recipe or check saved recipes instead.
