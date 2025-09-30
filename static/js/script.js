@@ -341,6 +341,44 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+  // Recipes page - extract the tab parameter from URL
+  // To support return to the same tab from where the details were viewed
+  const urlParams = new URLSearchParams(window.location.search);
+  const activeTab = urlParams.get('tab');
+  
+  if (activeTab) {
+    // Map parameter values to actual tab IDs
+    const tabMap = {
+      'discover': 'discover-tab',      // ?tab=discover → #discover-tab
+      'saved': 'saved-tab',           // ?tab=saved → #saved-tab  
+      'my-recipes': 'my-recipes-tab'  // ?tab=my-recipes → #my-recipes-tab
+    };
+    
+    const tabId = tabMap[activeTab];
+    if (tabId) {
+      // Deactivate current active tab
+      document.querySelectorAll('#recipes-form-tabs .nav-link').forEach(tab => {
+        tab.classList.remove('active');
+        tab.setAttribute('aria-selected', 'false');
+      });
+      
+      // Hide all tab content
+      document.querySelectorAll('#recipes-section .tab-pane').forEach(pane => {
+        pane.classList.remove('show', 'active');
+      });
+      
+      // Activate the target tab
+      const targetTab = document.getElementById(tabId);
+      const targetPane = document.getElementById(activeTab + '-pane');
+      
+      if (targetTab && targetPane) {
+        targetTab.classList.add('active');
+        targetTab.setAttribute('aria-selected', 'true');
+        targetPane.classList.add('show', 'active');
+      }
+    }
+  }
+
   // GSAP for animations
   // Register ScrollTrigger plugin
   // gsap.registerPlugin(ScrollTrigger);
