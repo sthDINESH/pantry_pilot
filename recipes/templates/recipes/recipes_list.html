@@ -121,6 +121,10 @@ Recipes
                                                                 class="btn btn-info">
                                                                 View
                                                             </a>
+                                                            <a href="{% url 'recipe_save' recipe.api_recipe_id %}?from=discover"
+                                                                class="btn btn-primary">
+                                                                Save
+                                                            </a>
                                                             {% endif %}
                                                         </div>
                                                     </div>

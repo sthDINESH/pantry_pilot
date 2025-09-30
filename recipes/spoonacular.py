@@ -41,7 +41,7 @@ class APIConfig:
     SPOONACULAR_API_KEY = settings.SPOONACULAR_API_KEY  # From environment variables
 
     # Test with dummy response
-    MOCK_API_CALL = True
+    MOCK_API_CALL = False
 
 
 # =============================================================================

@@ -215,8 +215,14 @@ def recipe_save(request, api_recipe_id):
                 f"Already saved - {saved_recipe.title}"
             )
         )
+    
+    # Handle from 'query' parameter if present 
+    from_tab = request.GET.get('from')
 
-    return redirect('saved_recipe_detail', recipe_id=saved_recipe.id)
+    if from_tab in ['discover']:
+        return redirect('recipes')
+    else:
+        return redirect('saved_recipe_detail', recipe_id=saved_recipe.id)
 
 
 @login_required
