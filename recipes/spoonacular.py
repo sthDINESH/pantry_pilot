@@ -41,7 +41,7 @@ class APIConfig:
     SPOONACULAR_API_KEY = settings.SPOONACULAR_API_KEY  # From environment variables
 
     # Test with dummy response
-    MOCK_API_CALL = False
+    MOCK_API_CALL = True
 
 
 # =============================================================================
@@ -270,11 +270,12 @@ class SpoonacularApiService:
     def _format_recipe_details(self, raw_data: Dict) -> Dict:
         """Convert detailed recipe data to standard format."""
         return {
-            'id': raw_data.get('id'),
+            'is_external': True,
+            'api_recipe_id': raw_data.get('id'),
             'title': raw_data.get('title'),
-            'image': raw_data.get('image'),
+            'api_image_url': raw_data.get('image'),
             'summary': strip_tags(raw_data.get('summary', '')),
-            'ready_in_minutes': raw_data.get('readyInMinutes'),
+            'cook_time': raw_data.get('readyInMinutes'),
             'servings': raw_data.get('servings'),
             'instructions': raw_data.get('instructions'),
             'ingredients': [
@@ -300,7 +301,7 @@ class SpoonacularApiService:
                 }
                 for ing in raw_data.get('extendedIngredients', [])
             ],
-            'source_url': raw_data.get('sourceUrl'),
+            'api_source_url': raw_data.get('sourceUrl'),
             'source': 'spoonacular'
         }
 

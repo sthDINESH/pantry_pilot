@@ -1,5 +1,5 @@
 import time
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import RecipeSearchForm
@@ -15,6 +15,42 @@ def recipes_list(request):
     """
     recipe_search_form = RecipeSearchForm()
     search_results = None
+
+    # Fetch users pantry items
+    pantry_item_names = [
+        pantry_item.name
+        for pantry_item in PantryItem.objects.filter(user=request.user)
+    ]
+    print(pantry_item_names)
+
+    # Fetch saved recipes with ingredient analysis
+    saved_recipes = SavedRecipe.objects.filter(
+        user=request.user,
+        is_external=True,
+    )
+
+    # Add ingredient analysis to each recipe
+    saved_recipes_with_notes = []
+    for recipe in saved_recipes:
+        ingredients = recipe.ingredients.all()
+        missed_ingredients = []
+        used_ingredients = []
+
+        for ingredient in ingredients:
+            if ingredient.ingredient_name in pantry_item_names:
+                used_ingredients.append(ingredient)
+                print("Found:", ingredient.ingredient_name)
+            else:
+                missed_ingredients.append(ingredient)
+                print("Missing:", ingredient.ingredient_name)
+
+        # Add notes directly to recipe object
+        recipe.missed_ingredients = missed_ingredients
+        recipe.used_ingredients = used_ingredients
+        recipe.missed_ingredient_count = len(missed_ingredients)
+        recipe.used_ingredient_count = len(used_ingredients)
+
+        saved_recipes_with_notes.append(recipe)
 
     if request.method == "POST":
         recipe_search_form = RecipeSearchForm(request.POST)
@@ -32,15 +68,9 @@ def recipes_list(request):
                 'timestamp': int(time.time())
             }
 
-            # Fetch users pantry items
-            ingredient_names = [
-                pantry_item.name
-                for pantry_item in PantryItem.objects.filter(user=request.user)
-            ]
-
             # Search recipes
             search_results = SpoonacularApiService().search_recipes(
-                ingredients=ingredient_names,
+                ingredients=pantry_item_names,
                 cuisine=search_data["cuisine"],
                 diet=search_data["diet"],
                 meal_type=search_data["meal_type"],
@@ -58,26 +88,21 @@ def recipes_list(request):
         form_data = search_results["query_data"]
         recipe_search_form = RecipeSearchForm(initial=form_data)
 
-    saved_recipes = SavedRecipe.objects.filter(
-        user=request.user,
-        is_external=True,
-    )
-
     context = {
         'recipe_search_form': recipe_search_form,
         'search_results': search_results,
-        'saved_recipes': saved_recipes,
-        'number_saved_recipes': saved_recipes.count(),
+        'saved_recipes': saved_recipes_with_notes,
+        'number_saved_recipes': len(saved_recipes_with_notes),
     }
     return render(request, 'recipes/recipes_list.html', context)
 
 
 @login_required
-def recipe_detail(request, recipe_id):
+def recipe_detail(request, api_recipe_id):
     """
     Display recipe details
     """
-    recipe_detail = fetch_recipe_detail(request, recipe_id)
+    recipe_detail = fetch_recipe_detail(request, api_recipe_id)
 
     return render(
         request=request,
@@ -89,25 +114,53 @@ def recipe_detail(request, recipe_id):
 
 
 @login_required
-def recipe_save(request, recipe_id):
+def saved_recipe_detail(request, recipe_id):
+    """
+    Fetch saved recipe related to :model:`SavedRecipe` with pk=recipe_id
+    and render using recipe_detail.html template
+    """
+    queryset = SavedRecipe.objects.filter(
+        user=request.user,
+    )
+    saved_recipe = get_object_or_404(queryset, id=recipe_id)
+
+    recipe_detail = {}
+    recipe_detail['success'] = True
+    recipe_detail['recipe'] = saved_recipe
+
+    return render(
+        request=request,
+        template_name="recipes/recipe_detail.html",
+        context={
+            'recipe_detail': recipe_detail,
+            'saved_recipe': True,
+        }
+    )
+
+
+@login_required
+def recipe_save(request, api_recipe_id):
     """
     Save recipe details for recipe_id for the user
     """
-    recipe_detail = fetch_recipe_detail(request, recipe_id)
+    recipe_detail = fetch_recipe_detail(request, api_recipe_id)
 
     saved_recipe, created = SavedRecipe.objects.get_or_create(
         user=request.user,
-        api_recipe_id=recipe_id,
-        api_image_url=recipe_detail['recipe']['image'],
-        api_source_url=recipe_detail['recipe']['source_url'],
-        is_external=True,
-        title=recipe_detail['recipe']['title'],
-        summary=recipe_detail['recipe']['summary'],
-        cook_time=recipe_detail['recipe']['ready_in_minutes'],
-        cook_time_units="min",
-        servings=recipe_detail['recipe']['servings'],
-        instructions=recipe_detail['recipe']['instructions'],
-        status=1,
+        api_recipe_id=api_recipe_id,
+        defaults={
+            # All other fields go in defaults
+            'api_image_url': recipe_detail['recipe']['api_image_url'],
+            'api_source_url': recipe_detail['recipe']['api_source_url'],
+            'is_external': True,
+            'title': recipe_detail['recipe']['title'],
+            'summary': recipe_detail['recipe']['summary'],
+            'cook_time': recipe_detail['recipe']['cook_time'],
+            'cook_time_units': "min",
+            'servings': recipe_detail['recipe']['servings'],
+            'instructions': recipe_detail['recipe']['instructions'],
+            'status': 1,
+        }
     )
 
     # Save ingredients for the recipe
@@ -141,13 +194,13 @@ def recipe_save(request, recipe_id):
             )
         )
 
-    return redirect('recipe_detail',recipe_id=recipe_id)
+    return redirect('saved_recipe_detail', recipe_id=saved_recipe.id)
 
 
-def fetch_recipe_detail(request, recipe_id):
+def fetch_recipe_detail(request, api_recipe_id):
     """
     """
-    session_key = str(recipe_id)
+    session_key = str(api_recipe_id)
     recipe_detail = None
 
     if 'recipe_detail_state' not in request.session:
@@ -166,7 +219,7 @@ def fetch_recipe_detail(request, recipe_id):
     else:
         # Make an API call
         recipe_detail = SpoonacularApiService().get_recipe_details(
-            recipe_id=recipe_id,
+            recipe_id=api_recipe_id,
             user_id=request.user.id
         )
 

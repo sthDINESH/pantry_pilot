@@ -5,7 +5,7 @@
 {% load crispy_forms_tags %}
 
 {% block title %}
-Recipes
+Recipe
 {% endblock title %}
 
 {% block main_content %}
@@ -17,14 +17,20 @@ Recipes
                 <h1>{{ recipe_detail.recipe.title }}</h1>
             </div>
             <div class="col-12 col-md-4 d-flex align-items-center py-2">
+                {% if recipe_detail.recipe.is_external %}
+                <img src="{{ recipe_detail.recipe.api_image_url }}" alt="{{ recipe_detail.recipe.title }}">
+                {% else %}
                 <img src="{{ recipe_detail.recipe.image }}" alt="{{ recipe_detail.recipe.title }}">
+                {% endif %}
             </div>
             <div class="col-12 col-md-8 recipe-summary d-flex align-items-center py-2 ps-md-5">
                 <div class="summary">
                     {{ recipe_detail.recipe.summary|safe }}
+                    {% if recipe_detail.recipe.api_source_url %}
                     <br>
                     <br>
-                    <em>Source: {{ recipe_detail.recipe.source_url }}</em>
+                    <em>Source: {{ recipe_detail.recipe.api_source_url }}</em>
+                    {% endif %}
                 </div>
                 <!-- <a href="" class="btn btn-primary form-button">Save</a> -->
             </div>
@@ -32,6 +38,20 @@ Recipes
                 <div class="category-section ingredients">
                     <h2 class="sub-heading">Ingredients</h2>
                     <div class="section-body d-flex flex-column">
+                        {% if saved_recipe %}
+                        {% for ingredient in recipe_detail.recipe.ingredients.all %}
+                        <span class="py-2">
+                            {% if ingredient.original_name %}
+                            {{ ingredient.original_name }}
+                            {% else %}
+                            {{ ingredient.name|title }}, <em>{{ ingredient.amount }} {{ ingredient.unit }}</em>
+                            {% if ingredient.note %}
+                            <em>({{ ingredient.note }})</em>
+                            {% endif %}
+                            {% endif %}
+                        </span>
+                        {% endfor %}
+                        {% else %}
                         {% for ingredient in recipe_detail.recipe.ingredients %}
                         <span class="py-2">
                             {% if ingredient.original_name %}
@@ -44,12 +64,13 @@ Recipes
                             {% endif %}
                         </span>
                         {% endfor %}
+                        {% endif %}
                     </div>
                 </div>
                 <div class="category-section cook-time">
                     <h2 class="sub-heading">Cooks in</h2>
                     <div class="section-body">
-                        {{ recipe_detail.recipe.ready_in_minutes }} minutes
+                        {{ recipe_detail.recipe.cook_time }} minutes
                     </div>
                 </div>
                 <div class="category-section servings">
@@ -66,7 +87,13 @@ Recipes
                 {{ recipe_detail.recipe.instructions|safe }}
             </div>
             <div class="col-12 form-button-controls">
-                <a href="{% url 'recipe_save' recipe_detail.recipe.id %}" class="btn btn-primary form-button">Save</a>
+                {% if saved_recipe %}
+                <button type="button" class="btn btn-primary form-button" data-type="" data-recipe-id="{{ recipe_detail.recipe.id }}">Delete</button>
+                {% else %}
+                {% if recipe_detail.recipe.is_external %}
+                <a href="{% url 'recipe_save' recipe_detail.recipe.api_recipe_id %}" class="btn btn-primary form-button">Save</a>
+                {% endif %}
+                {% endif %}
                 <a href="{% url 'recipes' %}" class="btn btn-secondary form-button">Back</a>
             </div>
             {% else %}
