@@ -207,13 +207,16 @@ Recipes
                                                         <form method="post"
                                                             action="{% url 'toggle_recipe_selection' recipe.id %}?from=saved">
                                                             {% csrf_token %}
-                                                            {% if recipe.id|stringformat:"s" in selected_for_meal_plan %}
-                                                            <button type="submit" class="btn">
+                                                            {% if recipe.id|stringformat:"s" in selected_for_meal_plan%}
+                                                            <button type="submit" class="btn"
+                                                                data-type="toggle-meal-selection"
+                                                                data-recipe-id="{{ recipe.id }}">
                                                                 <i class="fa-solid fa-check"></i> Selected (Remove)
                                                             </button>
                                                             {% else %}
-                                                            <button type="submit"
-                                                                class="btn">
+                                                            <button type="submit" class="btn"
+                                                                data-type="toggle-meal-selection"
+                                                                data-recipe-id="{{ recipe.id }}">
                                                                 <i class="fa-solid fa-calendar-plus"></i> Select for
                                                                 Meal Plan
                                                             </button>

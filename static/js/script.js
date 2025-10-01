@@ -214,8 +214,10 @@ document.addEventListener("DOMContentLoaded", function () {
         // Display matched and missing ingredients for the recipe
         // Populate base modal with data
         const recipeId = event.currentTarget.getAttribute("data-recipe-id");
-        const recipe = searchResults.find((recipe) => recipe.api_recipe_id == recipeId);
-        baseModalTitle.innerText = "Ingredients List"
+        const recipe = searchResults.find(
+          (recipe) => recipe.api_recipe_id == recipeId
+        );
+        baseModalTitle.innerText = "Ingredients List";
 
         if (!recipe) {
           baseModalBody.innerHTML = "<p>Recipe data not available.</p>";
@@ -294,8 +296,9 @@ document.addEventListener("DOMContentLoaded", function () {
       // Delete Saved Recipe
       button.addEventListener("click", function (event) {
         const recipeId = event.currentTarget.getAttribute("data-recipe-id");
-        const recipeTitle = event.currentTarget.getAttribute("data-recipe-title");
-        baseModalTitle.innerText = "Delete Recipe?"
+        const recipeTitle =
+          event.currentTarget.getAttribute("data-recipe-title");
+        baseModalTitle.innerText = "Delete Recipe?";
         baseModalBody.innerHTML = `
             <p>
             Are you sure you want to delete <strong>${recipeTitle}</strong> from your recipes?
@@ -304,16 +307,47 @@ document.addEventListener("DOMContentLoaded", function () {
             </p>
         `;
         let deleteButton = document.querySelector("#recipe-delete");
-        if(!deleteButton){
+        if (!deleteButton) {
           deleteButton = document.createElement("a");
           deleteButton.id = "recipe-delete";
-          deleteButton.classList.add("btn","btn-primary");
+          deleteButton.classList.add("btn", "btn-primary");
           deleteButton.innerText = "Delete";
           deleteButton.href = `/recipes/recipe/${recipeId}/delete`;
           baseModalFooter.appendChild(deleteButton);
         }
         baseModal.show();
-      })
+      });
+    } else if (buttonType === "toggle-meal-selection") {
+      button.addEventListener("click", function (event) {
+        event.preventDefault();
+        const form = button.closest("form");
+        const csrfTokenInput = form.querySelector("input[name='csrfmiddlewaretoken']");
+        const csrfToken = csrfTokenInput ? csrfTokenInput.value : null;
+        const recipeId = button.getAttribute("data-recipe-id");
+        // AJAX call to update the server
+        fetch(form.action, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": csrfToken,
+            "X-Requested-With": "XMLHttpRequest"
+          },
+          body: JSON.stringify({ recipe_id: recipeId })
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            if (data.selected) {
+              button.innerHTML = '<i class="fa-solid fa-check"></i> Selected (Remove)';
+            } else {
+              button.innerHTML = '<i class="fa-solid fa-calendar-plus"></i> Select for Meal Plan';
+            }
+          }
+        })
+        .catch(error => {
+          console.error("Error:", error);
+        });
+      });
     }
   });
 
@@ -344,37 +378,41 @@ document.addEventListener("DOMContentLoaded", function () {
   // Recipes page - extract the tab parameter from URL
   // To support return to the same tab from where the details were viewed
   const urlParams = new URLSearchParams(window.location.search);
-  const activeTab = urlParams.get('tab');
-  
+  const activeTab = urlParams.get("tab");
+
   if (activeTab) {
     // Map parameter values to actual tab IDs
     const tabMap = {
-      'discover': 'discover-tab',      // ?tab=discover → #discover-tab
-      'saved': 'saved-tab',           // ?tab=saved → #saved-tab  
-      'my-recipes': 'my-recipes-tab'  // ?tab=my-recipes → #my-recipes-tab
+      discover: "discover-tab", // ?tab=discover → #discover-tab
+      saved: "saved-tab", // ?tab=saved → #saved-tab
+      "my-recipes": "my-recipes-tab", // ?tab=my-recipes → #my-recipes-tab
     };
-    
+
     const tabId = tabMap[activeTab];
     if (tabId) {
       // Deactivate current active tab
-      document.querySelectorAll('#recipes-form-tabs .nav-link').forEach(tab => {
-        tab.classList.remove('active');
-        tab.setAttribute('aria-selected', 'false');
-      });
-      
+      document
+        .querySelectorAll("#recipes-form-tabs .nav-link")
+        .forEach((tab) => {
+          tab.classList.remove("active");
+          tab.setAttribute("aria-selected", "false");
+        });
+
       // Hide all tab content
-      document.querySelectorAll('#recipes-section .tab-pane').forEach(pane => {
-        pane.classList.remove('show', 'active');
-      });
-      
+      document
+        .querySelectorAll("#recipes-section .tab-pane")
+        .forEach((pane) => {
+          pane.classList.remove("show", "active");
+        });
+
       // Activate the target tab
       const targetTab = document.getElementById(tabId);
-      const targetPane = document.getElementById(activeTab + '-pane');
-      
+      const targetPane = document.getElementById(activeTab + "-pane");
+
       if (targetTab && targetPane) {
-        targetTab.classList.add('active');
-        targetTab.setAttribute('aria-selected', 'true');
-        targetPane.classList.add('show', 'active');
+        targetTab.classList.add("active");
+        targetTab.setAttribute("aria-selected", "true");
+        targetPane.classList.add("show", "active");
       }
     }
   }
