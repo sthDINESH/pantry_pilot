@@ -58,7 +58,7 @@ Recipes
                     <div class="tab-content" id="recipes-form-tabContent">
                         <div class="tab-pane fade show active" id="discover-pane" role="tabpanel"
                             aria-labelledby="discover-tab" tabindex="0">
-                            <div class="p-4">
+                            <div class="p-2 p-md-4">
                                 <p><strong>Ready to create something amazing?</strong>
                                     <br>
                                     <br>
@@ -156,7 +156,7 @@ Recipes
 
                         <div class="tab-pane fade" id="saved-pane" role="tabpanel" aria-labelledby="saved-tab"
                             tabindex="0">
-                            <div class="p-4">
+                            <div class="p-2 p-md-4">
                                 <!-- Saved recipes listed here -->
                                 <div class="container">
                                     <div id="saved-recipes" class="category-section">
@@ -167,7 +167,6 @@ Recipes
                                                     , {{ number_saved_recipes }} available
                                                 </span>
                                             </h2>
-
                                         </div>
                                         <div class="category-section-body row row-cols-1 row-cols-md-2 g-3">
                                             {% if saved_recipes %}
@@ -205,6 +204,21 @@ Recipes
                                                                 data-recipe-id="{{ recipe.id }}"
                                                                 data-recipe-title="{{ recipe.title }}">Delete</button>
                                                         </div>
+                                                        <form method="post"
+                                                            action="{% url 'toggle_recipe_selection' recipe.id %}?from=saved">
+                                                            {% csrf_token %}
+                                                            {% if recipe.id|stringformat:"s" in selected_for_meal_plan %}
+                                                            <button type="submit" class="btn">
+                                                                <i class="fa-solid fa-check"></i> Selected (Remove)
+                                                            </button>
+                                                            {% else %}
+                                                            <button type="submit"
+                                                                class="btn">
+                                                                <i class="fa-solid fa-calendar-plus"></i> Select for
+                                                                Meal Plan
+                                                            </button>
+                                                            {% endif %}
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </div>
@@ -229,7 +243,7 @@ Recipes
 
                         <div class="tab-pane fade" id="my-recipes-pane" role="tabpanel" aria-labelledby="my-recipes-tab"
                             tabindex="0">
-                            <div class="p-4">
+                            <div class="p-2 p-md-4">
                                 <!-- Your shopping list content here -->
                             </div>
                         </div>

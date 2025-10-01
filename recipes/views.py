@@ -2,6 +2,8 @@ import time
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.urls import reverse
+from django.http import HttpResponseRedirect
 from .forms import RecipeSearchForm
 from pantry.models import PantryItem
 from .models import SavedRecipe, RecipeIngredient
@@ -51,7 +53,7 @@ def recipes_list(request):
             request.session.modified = True  # Ensure session is saved
 
             return redirect('recipes')
-        
+
     # Fetch saved recipes
     saved_recipes = SavedRecipe.objects.filter(
         user=request.user,
@@ -110,13 +112,44 @@ def recipes_list(request):
                 else:
                     recipe['id'] = None
 
+    # Get selected recipes for meal planning from session
+    selected_for_meal_plan = request.session.get('selected_for_meal_plan', [])
+    
     context = {
         'recipe_search_form': recipe_search_form,
         'search_results': search_results,
         'saved_recipes': saved_recipes_with_notes,
         'number_saved_recipes': len(saved_recipes_with_notes),
+        'selected_for_meal_plan': selected_for_meal_plan,
     }
     return render(request, 'recipes/recipes_list.html', context)
+
+
+@login_required
+def toggle_recipe_selection(request, recipe_id):
+    """
+    Add or remove a recipe from the user's meal planning selection (session-based).
+    """
+    selected_recipes = request.session.get('selected_for_meal_plan', [])
+    recipe_id_str = str(recipe_id)  # Store as string for consistency
+
+    if recipe_id_str in selected_recipes:
+        selected_recipes.remove(recipe_id_str)
+        messages.info(request, "Recipe removed from meal planning selection.")
+    else:
+        selected_recipes.append(recipe_id_str)
+        messages.success(request, "Recipe added to meal planning selection.")
+
+    request.session['selected_for_meal_plan'] = selected_recipes
+    request.session.modified = True
+
+    # preserve tab state 
+    from_tab = request.GET.get('from', '')
+    if from_tab in ['saved', 'my-recipe']:
+        recipes_url = reverse('recipes')
+        return HttpResponseRedirect(f'{recipes_url}?tab={from_tab}')
+    else:
+        return redirect('recipes')
 
 
 @login_required
@@ -215,8 +248,8 @@ def recipe_save(request, api_recipe_id):
                 f"Already saved - {saved_recipe.title}"
             )
         )
-    
-    # Handle from 'query' parameter if present 
+
+    # Handle from 'query' parameter if present
     from_tab = request.GET.get('from')
 
     if from_tab in ['discover']:

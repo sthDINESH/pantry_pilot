@@ -22,5 +22,10 @@ urlpatterns = [
         views.recipe_delete,
         name='recipe_delete'
     ),
+    path(
+        'toggle-selection/<int:recipe_id>/',
+        views.toggle_recipe_selection,
+        name='toggle_recipe_selection'
+    ),
     path('', views.recipes_list, name='recipes'),
 ]

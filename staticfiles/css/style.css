@@ -486,7 +486,7 @@ a {
     flex-grow: 1;
     display: flex;
     justify-content: center;
-    aspect-ratio: 1 / 0.7;
+    aspect-ratio: 1 / 0.5;
 }
 
 #recipes-form-tabs .nav-link {
@@ -516,6 +516,10 @@ a {
     align-items: center;
 }
 
+.recipe-item .card-img-top {
+    height: 55%;
+}
+
 .recipe-item .card-body {
     display: flex;
     flex-direction: column;
@@ -524,6 +528,17 @@ a {
 
 .recipe-item .button-controls {
     align-self: flex-start;
+}
+
+.recipe-item form {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: .5rem;
+
+}
+
+.recipe-item form > button {
+    color: var(--accent-color);
 }
 
 .fa-info {
