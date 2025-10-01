@@ -417,6 +417,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  document.querySelectorAll('.toast').forEach(function (toastNode) {
+    new bootstrap.Toast(toastNode, { delay: 5000 }).show();
+  });
+
   // GSAP for animations
   // Register ScrollTrigger plugin
   // gsap.registerPlugin(ScrollTrigger);
