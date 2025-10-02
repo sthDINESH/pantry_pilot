@@ -7,9 +7,10 @@
 {% endblock title %}
 
 {% block main_content %}
-<div id="meals-page" class="split-screen">
-    <div class="screen left-screen">
-        <div id="meals-section" class="section-wrapper">
+<div id="meals-page">
+    <div class="page-hero"></div>
+    <div class="page-intro">
+        <div class="section-wrapper">
             <div class="container">
                 <div class="section-heading">
                     <h1>{{ page_title }}</h1>
@@ -17,48 +18,90 @@
                 <p class="section-body-text">
                     <strong class="sub-heading">Plan your weekly meals with confidence!</strong>
                     <br><br>
-                    Create meal plans using your saved recipes and pantry items. Stay organized, 
+                    Create meal plans using your saved recipes and pantry items. Stay organized,
                     reduce food waste, and make meal preparation a breeze.
                 </p>
-
-                <!-- Meal planning content -->
-                <div id="meal-planning-content" class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card mb-4">
-                                <div class="card-body">
-                                    <h5 class="card-title">Selected Meals for Planning</h5>
-                                    {% if selected_recipes %}
-                                        <ul class="list-group">
-                                            {% for recipe in selected_recipes %}
-                                                <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                    <span>
-                                                        {{ recipe.title }}
-                                                        {% if recipe.cook_time %}
-                                                            <small class="text-muted">({{ recipe.cook_time }} min)</small>
-                                                        {% endif %}
-                                                    </span>
-                                                    <a href="{% url 'saved_recipe_detail' recipe.id %}" class="btn btn-info btn-sm">View</a>
-                                                </li>
-                                            {% endfor %}
-                                        </ul>
-                                        <p class="mt-3">
-                                            <strong>Total selected:</strong> {{ selected_count }}
-                                        </p>
-                                    {% else %}
-                                        <p class="text-muted">No meals selected for planning yet. Go to <a href="{% url 'recipes' %}">Recipes</a> and select meals for your plan.</p>
-                                    {% endif %}
+            </div>
+        </div>
+    </div>
+    <div id="meal-selection" class="split-screen left">
+        <div class="section-wrapper">
+            <!-- Meal planning content -->
+            <div id="meal-planning-content" class="container left">
+                <div class="category-section">
+                    <div class="category-section-heading">
+                        <h2 class="sub-heading">
+                            Selected Meals
+                            <span>
+                                ({{ selected_count }})
+                            </span>
+                        </h2>
+                    </div>
+                    <div class="selected-meals-list row-cols-1 g-3">
+                        {% if selected_recipes %}
+                        {% for recipe in selected_recipes %}
+                        <div class="selected-meal-card col">
+                            <div class="card mb-2">
+                                <div class="row g-0">
+                                    <div class="col-md-2">
+                                        {% if recipe.is_external %}
+                                        <img src=" {{ recipe.api_image_url }}" class="img-fluid"
+                                            alt="{{ recipe.title }}">
+                                        {% else %}
+                                        <img src=" {{ recipe.image }}" class="img-fluid" alt="{{ recipe.title }}">
+                                        {% endif %}
+                                    </div>
+                                    <div class="col-md-10">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ recipe.title }}</h5>
+                                            <p class="card-text">
+                                            </p>
+                                            {% if recipe.cook_time %}
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <p class="card-text">
+                                                    <small class="text-body-secondary">
+                                                        {{ recipe.cook_time }} min
+                                                    </small>
+                                                </p>
+                                                {% endif %}
+                                                <a href="{% url 'saved_recipe_detail' recipe.id %}"
+                                                    class="btn btn-info btn-sm">
+                                                    View
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        {% endfor %}
+                        {% else %}
+                        <p class="text-muted">No meals selected for planning yet. Go to <a
+                            href="{% url 'recipes' %}">Recipes</a> and select meals for your plan.</p>
+                        {% endif %}
                     </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div id="meal-planner" class="split-screen right">
+        <div class="section-wrapper">
+            <div class="container right calender-wrapper">
+                <div class="category-section">
+                    <div class="category-section-heading">
+                        <h2 class="sub-heading">
+                            Meal Planner
+                        </h2>
+                    </div>
+                    <div id='calendar-week'></div>
+                    <div id='calendar-day'></div>
                 </div>
             </div>
         </div>
     </div>
-    
-    <div class="screen right-screen">
-        <div class="section-image"></div>
+    <div class="week-view">
+
     </div>
 </div>
 {% endblock main_content %}

@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from recipes.models import SavedRecipe
 
+
 @login_required
 def meals_list(request):
     """

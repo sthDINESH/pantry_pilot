@@ -321,7 +321,9 @@ document.addEventListener("DOMContentLoaded", function () {
       button.addEventListener("click", function (event) {
         event.preventDefault();
         const form = button.closest("form");
-        const csrfTokenInput = form.querySelector("input[name='csrfmiddlewaretoken']");
+        const csrfTokenInput = form.querySelector(
+          "input[name='csrfmiddlewaretoken']"
+        );
         const csrfToken = csrfTokenInput ? csrfTokenInput.value : null;
         const recipeId = button.getAttribute("data-recipe-id");
         // AJAX call to update the server
@@ -330,23 +332,25 @@ document.addEventListener("DOMContentLoaded", function () {
           headers: {
             "Content-Type": "application/json",
             "X-CSRFToken": csrfToken,
-            "X-Requested-With": "XMLHttpRequest"
+            "X-Requested-With": "XMLHttpRequest",
           },
-          body: JSON.stringify({ recipe_id: recipeId })
+          body: JSON.stringify({ recipe_id: recipeId }),
         })
-        .then(response => response.json())
-        .then(data => {
-          if (data.success) {
-            if (data.selected) {
-              button.innerHTML = '<i class="fa-solid fa-check"></i> Selected (Remove)';
-            } else {
-              button.innerHTML = '<i class="fa-solid fa-calendar-plus"></i> Select for Meal Plan';
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success) {
+              if (data.selected) {
+                button.innerHTML =
+                  '<i class="fa-solid fa-check"></i> Selected (Remove)';
+              } else {
+                button.innerHTML =
+                  '<i class="fa-solid fa-calendar-plus"></i> Select for Meal Plan';
+              }
             }
-          }
-        })
-        .catch(error => {
-          console.error("Error:", error);
-        });
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
       });
     }
   });
@@ -417,9 +421,72 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  document.querySelectorAll('.toast').forEach(function (toastNode) {
+  document.querySelectorAll(".toast").forEach(function (toastNode) {
     new bootstrap.Toast(toastNode, { delay: 5000 }).show();
   });
+
+  const calendarWeekEl = document.getElementById("calendar-week");
+  if (calendarWeekEl) {
+    const calendarWeek = new FullCalendar.Calendar(calendarWeekEl, {
+      headerToolbar: {
+        start: 'prev, next, today',
+        center: 'title',
+        end: 'timeGridWeek,dayGridMonth',
+      },
+      aspectRatio: 3.5,
+      themeSystem: 'bootstrap5',
+      initialView: "timeGridWeek",
+      slotMinTime: "06:00:00",
+      slotMaxTime: "24:00:00",
+      slotDuration: '6:00:00',
+      expandRows: true,
+      allDaySlot: false,
+      // selectable: true,
+      // events: "/api/meal-plans/", // Your Django API endpoint
+
+      eventClick: function (info) {
+        // Handle meal click
+        console.log("Meal clicked:", info.event);
+      },
+
+      dateClick: function (info) {
+        // Handle empty slot click
+        openAddMealModal(info.date);
+      },
+    });
+    calendarWeek.render();
+  }
+  const calendarDayEl = document.getElementById("calendar-day");
+  if (calendarDayEl) {
+    const calendarDay = new FullCalendar.Calendar(calendarDayEl, {
+      headerToolbar: {
+        start: '',
+        center: 'title',
+        end: '',
+      },
+      // height:'50%',
+      themeSystem: 'bootstrap5',
+      initialView: "timeGridDay",
+      slotMinTime: "06:00:00",
+      slotMaxTime: "24:00:00",
+      slotDuration: '03:00:00',
+      expandRows: true,
+      allDaySlot: false,
+      // selectable: true,
+      // events: "/api/meal-plans/", // Your Django API endpoint
+
+      eventClick: function (info) {
+        // Handle meal click
+        console.log("Meal clicked:", info.event);
+      },
+
+      dateClick: function (info) {
+        // Handle empty slot click
+        openAddMealModal(info.date);
+      },
+    });
+    calendarDay.render();
+  }
 
   // GSAP for animations
   // Register ScrollTrigger plugin

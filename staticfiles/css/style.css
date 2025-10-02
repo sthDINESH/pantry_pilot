@@ -14,6 +14,7 @@
     /* Add this line */
     --accent-color: #D64040;
     --accent-color-light: #EEABA9;
+    --accent-color-light-rgb: 238, 171, 169;
     --secondary-accent-color: #448260;
 
     /* height calculations */
@@ -23,6 +24,9 @@
     --nav-link-font-size: calc(0.75rem + min(0.8vw, 0.8vh));
     --auth-main-image-card-height: min(45vw, 45vh);
     --auth-main-image-card-pos-right: calc((100% - var(--auth-image-card-max-height)) * 0.125);
+
+    /* Full Calendar styling */
+    --fc-border-color: black;
 
 }
 
@@ -367,10 +371,6 @@ a {
     margin-left: 0.25rem;
 }
 
-.list-view-card {
-    /* aspect-ratio: 1; */
-}
-
 .list-view-card>.card {
     height: 100%;
     border-radius: 0;
@@ -423,6 +423,11 @@ a {
 
 .toast-body {
     font-size: 1rem;
+}
+
+.fc-day-today {
+    background-color: rgba(var(--accent-color-light-rgb), 0.8) !important;
+    /* color: white !important; */
 }
 
 /* Pantry page styling */
@@ -541,7 +546,7 @@ a {
 
 }
 
-.recipe-item form > button {
+.recipe-item form>button {
     color: var(--accent-color);
 }
 
@@ -570,8 +575,7 @@ a {
 
 .recipe-instructions li {
     padding-top: 1.5rem;
-    padding-botton: 1.5rem;
-
+    padding-bottom: 1.5rem;
 }
 
 .recipe-instructions {
@@ -604,6 +608,57 @@ a {
     align-items: center;
     justify-content: center;
 }
+
+/* Meal planning page styling */
+/* ---------------------------------------------------------- */
+#meals-page {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#meals-page .page-hero {
+    height: 40vh;
+    width: 100vw;
+    background: var(--accent-color) url('../images/meal_plan-hero.webp') no-repeat center center / cover fixed;
+
+}
+
+#meals-page .page-intro {
+    width: 100%;
+}
+
+#meals-page .split-screen {
+    width: 100vw;
+}
+
+#meals-page .split-screen.right {
+    background-color: rgba(var(--secondary-light-color-rgb), 0.5);
+}
+
+#meals-page .section-wrapper {
+    width: 100%;
+    /* padding-bottom: 0; */
+}
+
+.selected-meals-list {
+    max-height: 30vh;
+    overflow-y: scroll;
+}
+
+.selected-meal-card img {
+    height: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    object-position: center;
+}
+
+#meals-page .week-view {
+    height:25vh;
+    width:100%;
+    background: var(--secondary-light-color) url('../images/meal_plan_hero_2.webp') no-repeat center center / cover;
+}
+
+
 
 /* Footer styling */
 /* ---------------------------------------------------------- */
@@ -688,9 +743,10 @@ footer a {
     .recipe-detail-page h1 {
         font-size: calc(4 * var(--nav-link-font-size));
     }
-    
+
     .recipe-instructions .sub-heading {
-        padding-left: 50px; /* align with li text */
+        padding-left: 50px;
+        /* align with li text */
     }
 
     .recipe-detail-page .form-button-controls {
@@ -801,7 +857,6 @@ footer a {
 
     }
 
-
     .recipe-item.list-view-card {
         min-height: 500px;
     }
@@ -811,7 +866,8 @@ footer a {
     }
 
     .recipe-instructions .sub-heading {
-        padding-left: 75px; /* align with li text */
+        padding-left: 75px;
+        /* align with li text */
     }
 
     .recipe-instructions li {
@@ -823,5 +879,16 @@ footer a {
         font-size: 1.25rem;
     }
 
+    /* Meals page styling */
+    #meals-page .split-screen.left {
+        width: 40%;
+    }
 
+    #meals-page .split-screen.right {
+        width: 60%;
+    }
+
+    .selected-meals-list {
+        max-height: 70vh;
+    }
 }
