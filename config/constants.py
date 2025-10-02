@@ -98,7 +98,11 @@ DIET_CHOICES = [
     ('whole30', 'Whole30'),
 ]
 
-# Meal type choices for recipe categorization
+"""
+Meal type choices for recipe search
+Supported types with Spoonacular recipe search API
+"""
+
 MEAL_TYPE_CHOICES = [
     ('main_course', 'Main Course'),
     ('side_dish', 'Side Dish'),
@@ -114,4 +118,19 @@ MEAL_TYPE_CHOICES = [
     ('fingerfood', 'Finger Food'),
     ('snack', 'Snack'),
     ('drink', 'Drink'),
+]
+
+"""
+Meal category choices for meal planning
+Used by :model:`MealPlanItem` to provides choices
+for meal categories
+"""
+MEAL_PLAN_CATEGORIES = [
+    ('breakfast', 'Breakfast'),
+    ('lunch', 'Lunch'),
+    ('dinner', 'Dinner'),
+    ('snack', 'Snack'),
+    ('dessert', 'Dessert'),
+    ('brunch', 'Brunch'),
+    ('other', 'Other'),
 ]
