@@ -460,7 +460,7 @@ document.addEventListener("DOMContentLoaded", function () {
       expandRows: true,
       allDaySlot: false,
       // selectable: true,
-      // events: "/api/meal-plans/", // Your Django API endpoint
+      events: "/meals/plan/",
 
       eventClick: function (info) {
         // Handle meal click
@@ -489,7 +489,7 @@ document.addEventListener("DOMContentLoaded", function () {
       allDaySlot: false,
       selectable: true,
       selectMirror: true,
-      // events: "/api/meal-plans/", // Your Django API endpoint
+      events: "/meals/plan/",
 
       eventClick: function (info) {
         // Handle meal click
