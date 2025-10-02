@@ -11,10 +11,11 @@ class MealPlanItemAdmin(admin.ModelAdmin):
         'user',
         'recipe',
         'meal_type',
-        'date'
+        'start_time',
+        'end_time',
     )
     list_filter = (
         'user',
-        'date',
+        'start_time',
         'meal_type',
     )

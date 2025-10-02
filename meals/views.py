@@ -64,7 +64,7 @@ def get_meal_plan(request):
 
     meal_plan_items = MealPlanItem.objects.filter(
         user=request.user,
-        date__range=(start_date, end_date)
+        start_time__range=(start_date, end_date)
     )
 
     # AJAX response
@@ -72,7 +72,7 @@ def get_meal_plan(request):
         {
             "id": item.id,
             "title": item.recipe.title if item.recipe else "Meal",
-            "start": item.date.isoformat(),
+            "start": item.start_time.isoformat(),
             "end": None,  # Add item.end if you have an end datetime
             "allDay": False,
             "extendedProps": {

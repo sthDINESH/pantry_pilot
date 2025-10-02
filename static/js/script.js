@@ -449,9 +449,9 @@ document.addEventListener("DOMContentLoaded", function () {
       headerToolbar: {
         start: 'prev, next, today',
         center: 'title',
-        end: 'timeGridWeek,dayGridMonth',
+        end: 'dayGridWeek,dayGridMonth',
       },
-      aspectRatio: 3.5,
+      aspectRatio: 3,
       themeSystem: 'bootstrap5',
       initialView: "dayGridWeek",
       slotMinTime: "06:00:00",
@@ -459,8 +459,8 @@ document.addEventListener("DOMContentLoaded", function () {
       slotDuration: '6:00:00',
       expandRows: true,
       allDaySlot: false,
-      // selectable: true,
       events: "/meals/plan/",
+      eventDisplay: 'block',
 
       eventClick: function (info) {
         // Handle meal click
@@ -490,6 +490,7 @@ document.addEventListener("DOMContentLoaded", function () {
       selectable: true,
       selectMirror: true,
       events: "/meals/plan/",
+      eventMinHeight: 40,
 
       eventClick: function (info) {
         // Handle meal click

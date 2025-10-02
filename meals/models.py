@@ -24,7 +24,8 @@ class MealPlanItem(models.Model):
         on_delete=models.CASCADE,
         related_name="meal_plan",
     )
-    date = models.DateTimeField()
+    start_time = models.DateTimeField()
+    end_time = models.DateTimeField()
     meal_type = models.CharField(
         max_length=20,
         choices=constants.MEAL_PLAN_CATEGORIES,
@@ -43,11 +44,11 @@ class MealPlanItem(models.Model):
     def clean(self):
         super().clean()
         # Ensure date is not before created_on
-        if self.date and self.created_on and self.date < self.created_on:
+        if self.start_time and self.created_on and self.start_time < self.created_on:
             raise ValidationError({
                 'date': 'Meal plan date cannot be before the creation date.'
             })
 
     class Meta:
-        unique_together = ['user', 'recipe', 'date']
+        unique_together = ['user', 'recipe', 'start_time']
         ordering = ['recipe', '-created_on']
