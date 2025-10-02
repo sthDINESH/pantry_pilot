@@ -104,4 +104,47 @@
 
     </div>
 </div>
+
+<!-- Meal plan modal -->
+<div class="modal fade" id="meal-plan-modal" tabindex="-1" aria-labelledby="meal-plan-modal-label"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="meal-plan-modal-label">Meal plan create/update</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- <p>
+                    <strong>{{ existing_item.name }}</strong> already exists in your pantry.
+                </p>
+                <div class="row">
+                    <div class="col-6">
+                        <h6>Current:</h6>
+                        <p>{{ existing_item.quantity }} {{ existing_item.get_units_display }}</p>
+                        <p>{{ existing_item.category.get_category_name_display }}</p>
+                    </div>
+                    <div class="col-6">
+                        <h6>New:</h6>
+                        <p>{{ form_data.quantity }} {{ form_data.units_display }}</p>
+                        <p>{{ form_data.category_display }}</p>
+                    </div>
+                </div>
+                <hr>
+                <p>How would you like to handle this?</p> -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+
+                <!-- Meal plan form -->
+                <form method="post" action="#" style="display: inline;">
+                    {% csrf_token %}
+                    <div class="form-content">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add to Plan</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock main_content %}

@@ -74,6 +74,15 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
+  // Create a BS5 modal object for meal plan modal if present
+  // This modal is used in meals page to add/update a meal item
+  // has an embedded form with CSRF token
+  const mealPlanModalEl = document.querySelector("#meal-plan-modal");
+  let mealPlanModal = null;
+  if(mealPlanModalEl) {
+    mealPlanModal = new bootstrap.Modal(mealPlanModalEl);
+  }
+
   // Event listeners
   // ---------------------------------------------------------------
   // Event listeners for button clicks
@@ -421,13 +430,22 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  // Initialize the toast for Django messages
+  // This is BS5 requirement for toasts
   document.querySelectorAll(".toast").forEach(function (toastNode) {
     new bootstrap.Toast(toastNode, { delay: 5000 }).show();
   });
 
+
+  // Full Calender components for meal planning page
+  // Renders the week/month and day view calenders in DOM
+  // -------------------------------------------------------------------
+  let calendarWeek = null
+  let calendarDay = null
+  // Week/Month view calender
   const calendarWeekEl = document.getElementById("calendar-week");
   if (calendarWeekEl) {
-    const calendarWeek = new FullCalendar.Calendar(calendarWeekEl, {
+    calendarWeek = new FullCalendar.Calendar(calendarWeekEl, {
       headerToolbar: {
         start: 'prev, next, today',
         center: 'title',
@@ -435,7 +453,7 @@ document.addEventListener("DOMContentLoaded", function () {
       },
       aspectRatio: 3.5,
       themeSystem: 'bootstrap5',
-      initialView: "timeGridWeek",
+      initialView: "dayGridWeek",
       slotMinTime: "06:00:00",
       slotMaxTime: "24:00:00",
       slotDuration: '6:00:00',
@@ -449,22 +467,19 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log("Meal clicked:", info.event);
       },
 
-      dateClick: function (info) {
-        // Handle empty slot click
-        openAddMealModal(info.date);
-      },
+      dateClick: calendarWeekDateClick,
     });
     calendarWeek.render();
   }
+
   const calendarDayEl = document.getElementById("calendar-day");
   if (calendarDayEl) {
-    const calendarDay = new FullCalendar.Calendar(calendarDayEl, {
+    calendarDay = new FullCalendar.Calendar(calendarDayEl, {
       headerToolbar: {
         start: '',
         center: 'title',
         end: '',
       },
-      // height:'50%',
       themeSystem: 'bootstrap5',
       initialView: "timeGridDay",
       slotMinTime: "06:00:00",
@@ -472,7 +487,8 @@ document.addEventListener("DOMContentLoaded", function () {
       slotDuration: '03:00:00',
       expandRows: true,
       allDaySlot: false,
-      // selectable: true,
+      selectable: true,
+      selectMirror: true,
       // events: "/api/meal-plans/", // Your Django API endpoint
 
       eventClick: function (info) {
@@ -480,13 +496,73 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log("Meal clicked:", info.event);
       },
 
-      dateClick: function (info) {
-        // Handle empty slot click
-        openAddMealModal(info.date);
-      },
+      dateClick: calendarDayDateClick, 
+
+      select: calendarDaySelect,
     });
     calendarDay.render();
   }
+
+  // Calender callbacks
+  // Add listener to "today" button to both calendars are in sync
+  setTimeout(function() {
+    const todayBtn = calendarWeekEl.parentNode.querySelector('.fc-today-button');
+    if (todayBtn) {
+      todayBtn.addEventListener('click', function() {
+        if (calendarDay) {
+          calendarDay.today(); // Move day view to today
+        }
+      });
+    }
+  }, 0);
+
+  function calendarWeekDateClick (info) {
+    // change to week view from month view if needed
+    calendarWeek.changeView('dayGridWeek',info.date);
+    // Change the day view calender to the selected date
+    if(calendarDay){
+      calendarDay.gotoDate(info.date);
+    }
+  }
+
+  function calendarWeekEventClick (info) {
+    // Change the day view calender to show the day of the event
+    calendarDay.goto(info.date);
+    // TODO: show modal to update an event
+  }
+
+  function calendarDaySelect(info) {
+    console.log(info);
+    // Show base modal to create an event
+    baseModal.show();
+  }
+
+  function calendarDayDateClick(info) {
+    createNewEvent(info, "This will be recipe title");
+  }
+
+  function createNewEvent(info, title, startTime="", endTime=""){
+    // Prepare modal content
+    const mealPlanModalTitle = document.querySelector("#meal-plan-modal .modal-title");
+    mealPlanModalTitle.innerText = "Add new meal to plan?"
+    mealPlanModal.show();
+
+
+    // // Add event to both the calenders
+    // console.log(info.date.toString())
+    // const event = {
+    //   title: title,
+    //   start: info.date,
+    //   // startTime:,
+    //   // endTime:,
+    //   classNames:[],
+    // }
+    // calendarDay.addEvent(event);
+
+
+  }
+
+
 
   // GSAP for animations
   // Register ScrollTrigger plugin
