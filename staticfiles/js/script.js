@@ -46,6 +46,40 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  /**
+   * Shows toast for dynamic messages
+   * @param {string} message
+   * @param {string} type: "success", "danger", "info", "warning"
+   */
+  function showToast(message, type = "success") {
+    // Create toast container if not present
+    const toastContainer = document.querySelector(".toast-container");
+    if (toastContainer) {
+      // Create toast element
+      const toast = document.createElement("div");
+      toast.className = `toast align-items-center text-bg-${type} border-0 show`;
+      toast.setAttribute("role", "alert");
+      toast.setAttribute("aria-live", "assertive");
+      toast.setAttribute("aria-atomic", "true");
+      toast.innerHTML = `
+      <div class="d-flex">
+        <div class="toast-body">
+          ${message}
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      `;
+      toastContainer.appendChild(toast);
+
+      new bootstrap.Toast(toast, { delay: 5000 }).show();
+
+      // Remove toast from DOM after hidden
+      toast.addEventListener("hidden.bs.toast", function () {
+        toast.remove();
+      });
+    }
+  }
+
   // ---------------------------------------------------------------
   // Create a BS modal object for base Modal if present
   const baseModalNode = document.querySelector("#base-modal");
@@ -79,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // has an embedded form with CSRF token
   const mealPlanModalEl = document.querySelector("#meal-plan-modal");
   let mealPlanModal = null;
-  if(mealPlanModalEl) {
+  if (mealPlanModalEl) {
     mealPlanModal = new bootstrap.Modal(mealPlanModalEl);
   }
 
@@ -436,37 +470,34 @@ document.addEventListener("DOMContentLoaded", function () {
     new bootstrap.Toast(toastNode, { delay: 5000 }).show();
   });
 
-
-  // Full Calender components for meal planning page
-  // Renders the week/month and day view calenders in DOM
+  // Full Calender objects to be rendered in meal planning page
+  // Documentation: https://fullcalendar.io/docs
+  // Renders two calender views:
+  // - dayGridWeek/dayGridMonth: displays meal plan item days
+  // - timeGridDay: displays meal plan item times
   // -------------------------------------------------------------------
-  let calendarWeek = null
-  let calendarDay = null
-  // Week/Month view calender
+  let calendarWeek = null; // dayGridWeek/dayGridMonth object
+  let calendarDay = null; // timeGridDay object
+
   const calendarWeekEl = document.getElementById("calendar-week");
   if (calendarWeekEl) {
     calendarWeek = new FullCalendar.Calendar(calendarWeekEl, {
       headerToolbar: {
-        start: 'prev, next, today',
-        center: 'title',
-        end: 'dayGridWeek,dayGridMonth',
+        start: "prev, next, today",
+        center: "title",
+        end: "dayGridWeek,dayGridMonth",
       },
-      aspectRatio: 3,
-      themeSystem: 'bootstrap5',
+      aspectRatio: 3.5,
+      themeSystem: "bootstrap5",
       initialView: "dayGridWeek",
       slotMinTime: "06:00:00",
       slotMaxTime: "24:00:00",
-      slotDuration: '6:00:00',
+      slotDuration: "6:00:00",
       expandRows: true,
       allDaySlot: false,
       events: "/meals/plan/",
-      eventDisplay: 'block',
-
-      eventClick: function (info) {
-        // Handle meal click
-        console.log("Meal clicked:", info.event);
-      },
-
+      eventDisplay: "block",
+      eventClick: calendarWeekEventClick,
       dateClick: calendarWeekDateClick,
     });
     calendarWeek.render();
@@ -476,15 +507,15 @@ document.addEventListener("DOMContentLoaded", function () {
   if (calendarDayEl) {
     calendarDay = new FullCalendar.Calendar(calendarDayEl, {
       headerToolbar: {
-        start: '',
-        center: 'title',
-        end: '',
+        start: "",
+        center: "title",
+        end: "",
       },
-      themeSystem: 'bootstrap5',
+      themeSystem: "bootstrap5",
       initialView: "timeGridDay",
       slotMinTime: "06:00:00",
       slotMaxTime: "24:00:00",
-      slotDuration: '03:00:00',
+      slotDuration: "03:00:00",
       expandRows: true,
       allDaySlot: false,
       selectable: true,
@@ -497,19 +528,21 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log("Meal clicked:", info.event);
       },
 
-      dateClick: calendarDayDateClick, 
+      dateClick: calendarDayDateClick,
 
       select: calendarDaySelect,
     });
     calendarDay.render();
   }
 
-  // Calender callbacks
-  // Add listener to "today" button to both calendars are in sync
-  setTimeout(function() {
-    const todayBtn = calendarWeekEl.parentNode.querySelector('.fc-today-button');
+  // Register an event handler to the today button in dayGridWeek/dayGridMonth view
+  // to move the timeGridDay view to today's date in sync
+  // timeout is required to allow the objects to completely render
+  setTimeout(function () {
+    const todayBtn =
+      calendarWeekEl.parentNode.querySelector(".fc-today-button");
     if (todayBtn) {
-      todayBtn.addEventListener('click', function() {
+      todayBtn.addEventListener("click", function () {
         if (calendarDay) {
           calendarDay.today(); // Move day view to today
         }
@@ -517,53 +550,124 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }, 0);
 
-  function calendarWeekDateClick (info) {
-    // change to week view from month view if needed
-    calendarWeek.changeView('dayGridWeek',info.date);
-    // Change the day view calender to the selected date
-    if(calendarDay){
+  // Calender callbacks
+  // ------------------
+  /**
+   * Callback function for week/Month view calendar's dateClick event
+   * Documentation: https://fullcalendar.io/docs
+   * @param {dateClickInfo} info
+   */
+  function calendarWeekDateClick(info) {
+    // If in dayGridMonth view, change to dayGridWeek view
+    calendarWeek.changeView("dayGridWeek", info.date);
+    // Move the day view calender to the selected date
+    if (calendarDay) {
       calendarDay.gotoDate(info.date);
     }
   }
 
-  function calendarWeekEventClick (info) {
+  /**
+   * Callback function for week/Month view calendar's eventClick event
+   * Documentation: https://fullcalendar.io/docs
+   * @param {eventClickInfo} info
+   */
+  function calendarWeekEventClick(info) {
     // Change the day view calender to show the day of the event
     calendarDay.goto(info.date);
     // TODO: show modal to update an event
   }
 
+  /**
+   * Callback function for timeGridDay view calendar's select event
+   * Documentation: https://fullcalendar.io/docs
+   * @param {selectionInfo} info
+   */
   function calendarDaySelect(info) {
-    console.log(info);
-    // Show base modal to create an event
-    baseModal.show();
+    // If selection is a single click (not a drag), 
+    // adjust end time to 3 hours after start
+    const start = info.start;
+    let end = info.end;
+
+    // If duration is 1 hour, adjust to 3 hours
+    if (end - start === 60 * 60 * 1000) {
+      end = new Date(start.getTime() + 3 * 60 * 60 * 1000);
+      info.end = end;
+    }
+    createNewEvent(info);
   }
 
-  function calendarDayDateClick(info) {
-    createNewEvent(info, "This will be recipe title");
-  }
+  /**
+   * Callback function for timeGridDay view calendar's dateClick event
+   * Documentation: https://fullcalendar.io/docs
+   * @param {dateClickInfo} info
+   */
+  function calendarDayDateClick(info) {}
 
-  function createNewEvent(info, title, startTime="", endTime=""){
-    // Prepare modal content
-    const mealPlanModalTitle = document.querySelector("#meal-plan-modal .modal-title");
-    mealPlanModalTitle.innerText = "Add new meal to plan?"
+  /**
+   * Function to pop-up modal with form for meal plan item object creation
+   * Uses info.start and info.end properties to pre-populate the form fields
+   * Processes JS datetime object to Django's default format
+   * @param {selectionInfo} info
+   */
+  function createNewEvent(info) {
+    const mealPlanModalTitle = document.querySelector(
+      "#meal-plan-modal .modal-title"
+    );
+    mealPlanModalTitle.innerText = "Add new meal to plan?";
+    const mealStartTime = document.querySelector("#id_start_time");
+    const mealEndTime = document.querySelector("#id_end_time");
+
+    if (mealStartTime) {
+      mealStartTime.value = info.start
+        .toISOString() // toISOString() returns 2025-10-02T21:00:00.000Z
+        .slice(0, 19) // .slice(0, 19) removes milliseconds and timezone
+        .replace("T", " "); // converts to Django's default format
+    }
+
+    if (mealEndTime) {
+      mealEndTime.value = info.end.toISOString().slice(0, 19).replace("T", " ");
+    }
     mealPlanModal.show();
-
-
-    // // Add event to both the calenders
-    // console.log(info.date.toString())
-    // const event = {
-    //   title: title,
-    //   start: info.date,
-    //   // startTime:,
-    //   // endTime:,
-    //   classNames:[],
-    // }
-    // calendarDay.addEvent(event);
-
-
   }
 
+  // Event handler for the submit action for the form meal plan modal
+  // AJAX post request is sent to the server with the form data from the modal
+  // This keeps the server in sync without having to re-render the page(better UX)
+  // Updates the calendar views without page re-fresh
+  const mealPlanForm = mealPlanModalEl.querySelector("form");
 
+  if (mealPlanForm) {
+    mealPlanForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const formData = new FormData(mealPlanForm);
+
+      // AJAX POST request to update the server
+      fetch(mealPlanForm.action, {
+        method: "POST",
+        headers: {
+          "X-Requested-With": "XMLHttpRequest",
+        },
+        body: formData,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success) {
+            // Success: close modal, show toast, update calendar, etc.
+            bootstrap.Modal.getInstance(mealPlanModalEl).hide();
+            showToast(data.message, "success");
+            calendarDay.refetchEvents();
+            calendarWeek.refetchEvents();
+          } else {
+            bootstrap.Modal.getInstance(mealPlanModalEl).hide();
+            showToast(data.message, "danger");
+          }
+        })
+        .catch((error) => {
+          console.error("AJAX error:", error);
+        });
+    });
+  }
 
   // GSAP for animations
   // Register ScrollTrigger plugin

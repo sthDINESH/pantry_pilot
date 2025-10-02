@@ -1,10 +1,11 @@
 from datetime import datetime, timedelta
 from dateutil.parser import parse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from recipes.models import SavedRecipe
 from .models import MealPlanItem
+from .forms import MealPlanItemForm
 
 
 @login_required
@@ -17,19 +18,45 @@ def meal_planning(request):
         List of recipes selected by user and saved in Django's session
     `selected_count`:
         Count of selected recipes
-    
+
     **Template:**
     :template:`meals/meal_planning.html`
     """
+    if request.method == "POST":
+        # Form submission is through an AJAX request
+        # Sends JSON response with success to frontend JS
+        meal_plan_item_form = MealPlanItemForm(request.POST)
+
+        if meal_plan_item_form.is_valid():
+            meal_plan_item = meal_plan_item_form.save(commit=False)
+            meal_plan_item.user = request.user
+            meal_plan_item.save()
+
+            return JsonResponse({
+                'success': True,
+                'message': f"Added {meal_plan_item.recipe.title} to meal plan",
+            })
+        else:
+            print("Form data has errors")
+            print(meal_plan_item_form.errors)
+            return JsonResponse({
+                'success': False,
+                'error': meal_plan_item_form.errors,
+                'message': "Error saving recipe to meal plans",
+            })
+
     selected_recipe_ids = request.session.get('selected_for_meal_plan', [])
     selected_recipes = SavedRecipe.objects.filter(
         id__in=selected_recipe_ids,
         user=request.user
     )
+
+    meal_plan_item_form = MealPlanItemForm()
+
     context = {
-        'page_title': 'Meal Planning',
         'selected_recipes': selected_recipes,
         'selected_count': selected_recipes.count(),
+        'meal_plan_item_form': meal_plan_item_form,
     }
     return render(request, 'meals/meal_planning.html', context)
 
@@ -73,7 +100,7 @@ def get_meal_plan(request):
             "id": item.id,
             "title": item.recipe.title if item.recipe else "Meal",
             "start": item.start_time.isoformat(),
-            "end": None,  # Add item.end if you have an end datetime
+            "end": item.end_time.isoformat(),
             "allDay": False,
             "extendedProps": {
                 "meal_type": item.meal_type,
