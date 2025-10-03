@@ -121,8 +121,12 @@ Meal Planning
                 <form method="post" action="{% url 'meals' %}" style="display: inline;">
                     {% csrf_token %}
                     {% crispy meal_plan_item_form %}
-                    <button type="submit" class="btn btn-primary" data-type="meal-plan-item">
+                    <button type="submit" class="btn btn-primary">
                         Add to Plan
+                    </button>
+                    <button type="button" class="btn btn-secondary hide" data-type="meal-plan-item-delete"
+                        data-state="confirm" data-meal-plan-item-id="">
+                        Delete from Plan
                     </button>
                 </form>
             </div>

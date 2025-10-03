@@ -64,7 +64,7 @@ def meal_planning(request):
 @login_required
 def get_meal_plan(request):
     """
-    Generate and return a JSON response containing 
+    Generate and return a JSON response containing
     a list of Full calendar event objects with details
     populated from meal plan items within `start` and `end`
     query string params
@@ -109,3 +109,48 @@ def get_meal_plan(request):
             },
         } for item in meal_plan_items
     ], safe=False)
+
+
+@login_required
+def delete_meal_plan_item(request, meal_plan_item_id):
+    """
+    Delete a meal plan item related to :model:`MealPlanItem`
+    Supports AJAX POST request from `eventClick` callbacks from FullCalender
+    Returns a JSON response with status
+
+    **Context**
+    `meal_plan_item`
+
+    **Template**
+    :template:`meals/meals_list.html`
+    """
+    try:
+        meal_plan_item = MealPlanItem.objects.get(
+            pk=meal_plan_item_id,
+            user=request.user,
+        )
+
+        # User specified while fetching record
+        # so proceed to delete
+        meal_plan_item.delete()
+        return JsonResponse({
+            'success': True,
+            'message': f'{meal_plan_item.recipe.title} removed from plan.'
+        })
+    except MealPlanItem.DoesNotExist:
+        return JsonResponse(
+            {
+                'success': False,
+                'message': 'Meal plan item not found.'
+            },
+            status=404
+        )
+    except Exception as e:
+        # Handle other exceptions
+        return JsonResponse(
+            {
+                'success': False,
+                'message': f'Error: {str(e)}'
+            },
+            status=500
+        )

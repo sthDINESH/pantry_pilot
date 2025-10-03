@@ -81,21 +81,29 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // ---------------------------------------------------------------
-  // Create a BS modal object for base Modal if present
-  const baseModalNode = document.querySelector("#base-modal");
-  let baseModal = null;
-  if (baseModalNode) {
-    baseModal = new bootstrap.Modal(baseModalNode);
-  }
+  // Global object declarations
+  // ---------------------------------------------------------------
+
+  // Handles to Bootstrap modal element in base.html
+  // ................................................
+  const baseModalEl = document.querySelector("#base-modal");
   const baseModalBody = document.querySelector("#base-modal .modal-body");
   const baseModalTitle = document.querySelector("#base-modal .modal-title");
   const baseModalFooter = document.querySelector("#base-modal .modal-footer");
-
-  // Button with id delete-confirm in  Base modal
+  // Button with id delete-confirm in Base modal
   const deleteConfirm = document.querySelector("#delete-confirm");
 
-  // Auto show duplicate item modal for user input if it exists in DOM
+  let baseModal = null;
+  if (baseModalEl) {
+    baseModal = new bootstrap.Modal(baseModalEl);
+  }
+
+  // Handles to Bootstrap modal element to resolve duplicates in pantry
+  // available in pantry_item_list.html
+  // ................................................
   const duplicateItemModal = document.querySelector("#duplicate-item-modal");
+  // View adds the modal in DOM only if duplicates need to be resolved
+  // Automatically show the modal for user input if it exists in DOM
   if (duplicateItemModal) {
     const modal = new bootstrap.Modal(duplicateItemModal);
     modal.show();
@@ -108,14 +116,292 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Create a BS5 modal object for meal plan modal if present
+  // Handles to meal plan modal
+  // ................................................
   // This modal is used in meals page to add/update a meal item
   // has an embedded form with CSRF token
-  const mealPlanModalEl = document.querySelector("#meal-plan-modal");
-  let mealPlanModal = null;
-  if (mealPlanModalEl) {
-    mealPlanModal = new bootstrap.Modal(mealPlanModalEl);
+  // const mealPlanModalEl = document.querySelector("#meal-plan-modal");
+  // const mealPlanModalTitle = document.querySelector(
+  //   "#meal-plan-modal .modal-title"
+  // );
+  // let mealPlanModal = null;
+  // if (mealPlanModalEl) {
+  //   mealPlanModal = new bootstrap.Modal(mealPlanModalEl);
+  // }
+
+  // Initialize the toast for Django messages
+  // This is BS5 requirement for toasts
+  document.querySelectorAll(".toast").forEach(function (toastNode) {
+    new bootstrap.Toast(toastNode, { delay: 5000 }).show();
+  });
+
+  /**
+   * Class definition for handling mealPlanModal
+   * instance in :template:`meals/meal_planning.html`
+   */
+  class mealPlanModalHandler {
+    // Private fields
+    // Handles to DOM elements
+    #modalEl;
+    #modalTitle;
+    #modalForm;
+    #formCRSFToken;
+    #submitButton;
+    #deleteItemButton;
+    #startTime;
+    #endTime;
+    #recipe;
+    #mealType;
+    #servings;
+    // BS5 object to control the modal
+    bsObject;
+
+    // External Calendar objects
+    calendarDay;
+    calendarWeek;
+
+    constructor() {
+      this.#modalEl = document.querySelector("#meal-plan-modal");
+      this.#modalTitle = this.#modalEl.querySelector(".modal-title");
+      this.#modalForm = this.#modalEl.querySelector("form");
+      this.#formCRSFToken = this.#modalForm.querySelector(
+        "input[name='csrfmiddlewaretoken']"
+      ).value;
+      this.#submitButton = this.#modalEl.querySelector("button[type='submit']");
+      this.#deleteItemButton = this.#modalEl.querySelector(
+        "button[data-type='meal-plan-item-delete'"
+      );
+      this.#startTime = document.querySelector("#id_start_time");
+      this.#endTime = document.querySelector("#id_end_time");
+      this.#recipe = this.#modalForm.querySelector("#id_recipe");
+      this.#mealType = this.#modalForm.querySelector("#id_meal_type");
+      this.#servings = this.#modalForm.querySelector("#id_servings");
+
+      if (this.#modalEl) {
+        this.bsObject = new bootstrap.Modal(this.#modalEl);
+      }
+      // Attach handler to form submit
+      if (this.#modalForm) {
+        this.#modalForm.addEventListener(
+          "submit",
+          this.submitHandler.bind(this)
+        );
+      }
+      // Attach Handler to delete Button
+      if (this.#deleteItemButton) {
+        this.#deleteItemButton.addEventListener(
+          "click",
+          this.deleteHandler.bind(this)
+        );
+      }
+    }
+
+    // Helper methods
+    title(text) {
+      if (this.#modalTitle) {
+        this.#modalTitle.innerText = text;
+      }
+    }
+
+    time(type, text) {
+      if (type === "start" && this.#startTime) {
+        this.#startTime.value = text;
+      }
+      if (type === "end" && this.#endTime) {
+        this.#endTime.value = text;
+      }
+    }
+
+    show() {
+      if (this.bsObject) {
+        this.bsObject.show();
+      }
+    }
+
+    /**
+     * Disables the form fields for edit
+     */
+    disableFormFields() {
+      if (this.#recipe) this.#recipe.setAttribute("disabled", "disabled");
+      if (this.#mealType) this.#mealType.setAttribute("disabled", "disabled");
+      if (this.#servings) this.#servings.setAttribute("disabled", "disabled");
+      if (this.#startTime) this.#startTime.setAttribute("disabled", "disabled");
+      if (this.#endTime) this.#endTime.setAttribute("disabled", "disabled");
+    }
+
+    /**
+     * Enables form fields to allow edit
+     */
+    enableFormFields() {
+      if (this.#recipe) this.#recipe.removeAttribute("disabled");
+      if (this.#mealType) this.#mealType.removeAttribute("disabled");
+      if (this.#servings) this.#servings.removeAttribute("disabled");
+      if (this.#startTime) this.#startTime.removeAttribute("disabled");
+      if (this.#endTime) this.#endTime.removeAttribute("disabled");
+    }
+
+    /**
+     * Event handler for form submit
+     * @param {*} event
+     */
+    submitHandler(event) {
+      event.preventDefault();
+      const formData = new FormData(this.#modalForm);
+
+      // AJAX POST request to update the server
+      fetch(this.#modalForm.action, {
+        method: "POST",
+        headers: {
+          "X-Requested-With": "XMLHttpRequest",
+        },
+        body: formData,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success) {
+            // Success: close modal, show toast, update calendar, etc.
+            this.bsObject.hide();
+            showToast(data.message, "success");
+            if (this.calendarDay) {
+              this.calendarDay.refetchEvents();
+            }
+            calendarDay.refetchEvents();
+            if (this.calendarWeek) {
+              this.calendarWeek.refetchEvents();
+            }
+          } else {
+            this.bsObject.hide();
+            showToast(data.message, "danger");
+          }
+        })
+        .catch((error) => {
+          console.error("AJAX error:", error);
+        });
+    }
+
+    /**
+     * Event handler for form delete button
+     * @param {*} event
+     */
+    deleteHandler(event) {
+      event.preventDefault();
+      const mealPlanItemId = event.currentTarget.getAttribute(
+        "data-meal-plan-item-id"
+      );
+      const state = event.currentTarget.getAttribute("data-state");
+      if (state === "confirm") {
+        this.disableFormFields();
+        // Ask for confirmation
+        event.currentTarget.setAttribute("data-state", "");
+        event.currentTarget.innerText = "Confirm Delete?";
+
+        this.#submitButton.classList.add("hide");
+      } else {
+        // AJAX request to delete post confirmation
+        fetch(`/meals/delete/${mealPlanItemId}/`, {
+          method: "POST",
+          headers: {
+            "X-Requested-With": "XMLHttpRequest",
+            "X-CSRFToken": this.#formCRSFToken,
+          },
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            this.bsObject.hide();
+            if (data.success) {
+              showToast(data.message, "success");
+              if (this.calendarDay) this.calendarDay.refetchEvents();
+              if (this.calendarWeek) this.calendarWeek.refetchEvents();
+            } else {
+              showToast("Error deleting meal plan item", "danger");
+            }
+          })
+          .catch((error) => {
+            this.bsObject.hide();
+            showToast("Error deleting meal plan item.", "danger");
+            console.error("AJAX error:", error);
+          });
+      }
+    }
+
+    /**
+     * create and save new meal plan item object
+     * Uses info.start and info.end properties to pre-populate the form fields
+     * Processes JS datetime object to Django's default format
+     * @param {selectionInfo} info
+     */
+    createNewEvent(info) {
+      this.title("Add selected meal to plan?");
+      this.time(
+        "start",
+        info.start
+          .toISOString() // toISOString() returns 2025-10-02T21:00:00.000Z
+          .slice(0, 19) // .slice(0, 19) removes milliseconds and timezone
+          .replace("T", " ") // converts to Django's default format
+      );
+      this.time("end", info.end.toISOString().slice(0, 19).replace("T", " "));
+
+      // Prepare modal
+      this.enableFormFields();
+      this.#submitButton.innerText = "Add to Plan";
+      this.#submitButton.classList.remove("hide");
+
+      this.#deleteItemButton.classList.add("hide");
+      this.bsObject.show();
+    }
+
+    /**
+     * Displays the selected event in the modal
+     * Allows Update and Delete
+     * @param {eventClickInfo} info
+     */
+    displayMealPlanItem(info) {
+      this.title("Update Meal Plan?");
+
+      this.enableFormFields();
+
+      // Get event details from FullCalendar event object
+      const event = info.event;
+      const mealPlanItemId = event.id;
+      const { meal_type, servings, recipe_id } = event.extendedProps;
+
+      // Set form field values in the modal
+      if (this.#startTime) {
+        this.#startTime.value = event.start
+          ? event.start.toISOString().slice(0, 19).replace("T", " ")
+          : "";
+      }
+      if (this.#endTime) {
+        this.#endTime.value = event.end
+          ? event.end.toISOString().slice(0, 19).replace("T", " ")
+          : "";
+      }
+      if (this.#mealType && meal_type) {
+        this.#mealType.value = meal_type;
+      }
+      if (this.#servings && servings) {
+        this.#servings.value = servings;
+      }
+      if (this.#recipe && recipe_id) {
+        this.#recipe.value = recipe_id;
+      }
+
+      // Prepare modal buttons
+      this.#submitButton.innerText = "Update";
+      this.#submitButton.classList.remove("hide");
+
+      this.#deleteItemButton.setAttribute(
+        "data-meal-plan-item-id",
+        mealPlanItemId
+      );
+      this.#deleteItemButton.setAttribute("data-state", "confirm");
+      this.#deleteItemButton.innerText = "Delete from Plan";
+      this.#deleteItemButton.classList.remove("hide");
+      this.bsObject.show();
+    }
   }
+
+  const mealPlanModal = new mealPlanModalHandler();
 
   // Event listeners
   // ---------------------------------------------------------------
@@ -464,12 +750,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Initialize the toast for Django messages
-  // This is BS5 requirement for toasts
-  document.querySelectorAll(".toast").forEach(function (toastNode) {
-    new bootstrap.Toast(toastNode, { delay: 5000 }).show();
-  });
-
   // Full Calender objects to be rendered in meal planning page
   // Documentation: https://fullcalendar.io/docs
   // Renders two calender views:
@@ -522,14 +802,7 @@ document.addEventListener("DOMContentLoaded", function () {
       selectMirror: true,
       events: "/meals/plan/",
       eventMinHeight: 40,
-
-      eventClick: function (info) {
-        // Handle meal click
-        console.log("Meal clicked:", info.event);
-      },
-
-      dateClick: calendarDayDateClick,
-
+      eventClick: calendarDayEventClick,
       select: calendarDaySelect,
     });
     calendarDay.render();
@@ -549,6 +822,10 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     }
   }, 0);
+
+  // Register calendar objects with mealPlanModal
+  mealPlanModal.calendarDay = calendarDay;
+  mealPlanModal.calendarWeek = calendarWeek;
 
   // Calender callbacks
   // ------------------
@@ -573,8 +850,9 @@ document.addEventListener("DOMContentLoaded", function () {
    */
   function calendarWeekEventClick(info) {
     // Change the day view calender to show the day of the event
-    calendarDay.goto(info.date);
-    // TODO: show modal to update an event
+    calendarDay.gotoDate(info.event.start);
+    // show modal to update/delete an event
+    mealPlanModal.displayMealPlanItem(info);
   }
 
   /**
@@ -583,7 +861,7 @@ document.addEventListener("DOMContentLoaded", function () {
    * @param {selectionInfo} info
    */
   function calendarDaySelect(info) {
-    // If selection is a single click (not a drag), 
+    // If selection is a single click (not a drag),
     // adjust end time to 3 hours after start
     const start = info.start;
     let end = info.end;
@@ -593,80 +871,16 @@ document.addEventListener("DOMContentLoaded", function () {
       end = new Date(start.getTime() + 3 * 60 * 60 * 1000);
       info.end = end;
     }
-    createNewEvent(info);
+    mealPlanModal.createNewEvent(info);
   }
 
   /**
-   * Callback function for timeGridDay view calendar's dateClick event
+   * Callback function for timeGridDay view calendar's eventClick event
    * Documentation: https://fullcalendar.io/docs
-   * @param {dateClickInfo} info
+   * @param {eventClickInfo} info
    */
-  function calendarDayDateClick(info) {}
-
-  /**
-   * Function to pop-up modal with form for meal plan item object creation
-   * Uses info.start and info.end properties to pre-populate the form fields
-   * Processes JS datetime object to Django's default format
-   * @param {selectionInfo} info
-   */
-  function createNewEvent(info) {
-    const mealPlanModalTitle = document.querySelector(
-      "#meal-plan-modal .modal-title"
-    );
-    mealPlanModalTitle.innerText = "Add new meal to plan?";
-    const mealStartTime = document.querySelector("#id_start_time");
-    const mealEndTime = document.querySelector("#id_end_time");
-
-    if (mealStartTime) {
-      mealStartTime.value = info.start
-        .toISOString() // toISOString() returns 2025-10-02T21:00:00.000Z
-        .slice(0, 19) // .slice(0, 19) removes milliseconds and timezone
-        .replace("T", " "); // converts to Django's default format
-    }
-
-    if (mealEndTime) {
-      mealEndTime.value = info.end.toISOString().slice(0, 19).replace("T", " ");
-    }
-    mealPlanModal.show();
-  }
-
-  // Event handler for the submit action for the form meal plan modal
-  // AJAX post request is sent to the server with the form data from the modal
-  // This keeps the server in sync without having to re-render the page(better UX)
-  // Updates the calendar views without page re-fresh
-  const mealPlanForm = mealPlanModalEl.querySelector("form");
-
-  if (mealPlanForm) {
-    mealPlanForm.addEventListener("submit", function (event) {
-      event.preventDefault();
-
-      const formData = new FormData(mealPlanForm);
-
-      // AJAX POST request to update the server
-      fetch(mealPlanForm.action, {
-        method: "POST",
-        headers: {
-          "X-Requested-With": "XMLHttpRequest",
-        },
-        body: formData,
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.success) {
-            // Success: close modal, show toast, update calendar, etc.
-            bootstrap.Modal.getInstance(mealPlanModalEl).hide();
-            showToast(data.message, "success");
-            calendarDay.refetchEvents();
-            calendarWeek.refetchEvents();
-          } else {
-            bootstrap.Modal.getInstance(mealPlanModalEl).hide();
-            showToast(data.message, "danger");
-          }
-        })
-        .catch((error) => {
-          console.error("AJAX error:", error);
-        });
-    });
+  function calendarDayEventClick(info) {
+    mealPlanModal.displayMealPlanItem(info);
   }
 
   // GSAP for animations
