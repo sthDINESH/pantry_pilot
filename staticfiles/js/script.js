@@ -345,6 +345,7 @@ document.addEventListener("DOMContentLoaded", function () {
       this.enableFormFields();
       this.#submitButton.innerText = "Add to Plan";
       this.#submitButton.classList.remove("hide");
+      this.#modalForm.action = `/meals/`;
 
       this.#deleteItemButton.classList.add("hide");
       this.bsObject.show();
@@ -389,6 +390,7 @@ document.addEventListener("DOMContentLoaded", function () {
       // Prepare modal buttons
       this.#submitButton.innerText = "Update";
       this.#submitButton.classList.remove("hide");
+      this.#modalForm.action = `/meals/update/${mealPlanItemId}/`;
 
       this.#deleteItemButton.setAttribute(
         "data-meal-plan-item-id",

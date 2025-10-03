@@ -8,5 +8,10 @@ urlpatterns = [
         views.delete_meal_plan_item,
         name='delete_meal_item'
     ),
+    path(
+        'update/<int:meal_plan_item_id>/',
+        views.update_meal_plan_item,
+        name='update_meal_item'
+    ),
     path('', views.meal_planning, name='meals'),
 ]

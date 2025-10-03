@@ -18,6 +18,8 @@ def meal_planning(request):
         List of recipes selected by user and saved in Django's session
     `selected_count`:
         Count of selected recipes
+    `meal_plan_item_form`:
+        Instance of :form:`MealPlanItemForm`
 
     **Template:**
     :template:`meals/meal_planning.html`
@@ -117,14 +119,9 @@ def delete_meal_plan_item(request, meal_plan_item_id):
     Delete a meal plan item related to :model:`MealPlanItem`
     Supports AJAX POST request from `eventClick` callbacks from FullCalender
     Returns a JSON response with status
-
-    **Context**
-    `meal_plan_item`
-
-    **Template**
-    :template:`meals/meals_list.html`
     """
     try:
+
         meal_plan_item = MealPlanItem.objects.get(
             pk=meal_plan_item_id,
             user=request.user,
@@ -154,3 +151,66 @@ def delete_meal_plan_item(request, meal_plan_item_id):
             },
             status=500
         )
+
+
+@login_required
+def update_meal_plan_item(request, meal_plan_item_id):
+    """
+    Update meal plan item related to :model:`MealPlanItem`
+    Supports AJAX POST request from `eventClick` callbacks from FullCalender
+    Returns a JSON response with status
+    """
+    if request.method == "POST":
+        try:
+            meal_plan_item = MealPlanItem.objects.get(
+                pk=meal_plan_item_id,
+                user=request.user,
+            )
+
+            meal_plan_item_form = MealPlanItemForm(
+                data=request.POST,
+                instance=meal_plan_item
+            )
+
+            if meal_plan_item_form.is_valid():
+                # User specified while fetching record
+                # so proceed to save
+                meal_plan_item_form.save()
+                return JsonResponse({
+                    'success': True,
+                    'message': 'Meal plan updated.'
+                })
+            else:
+                return JsonResponse(
+                    {
+                        'success': False,
+                        'message': (
+                            'Not updated - Errors in submitted meal plan item'
+                        )
+                    }
+                )
+        except MealPlanItem.DoesNotExist:
+            return JsonResponse(
+                {
+                    'success': False,
+                    'message': 'Meal plan item not found.'
+                },
+                status=404
+            )
+        except Exception as e:
+            # Handle other exceptions
+            return JsonResponse(
+                {
+                    'success': False,
+                    'message': f'Error: {str(e)}'
+                },
+                status=500
+            )
+    else:
+        return JsonResponse(
+                {
+                    'success': False,
+                    'message': 'Unsupported request.'
+                },
+                status=405
+            )

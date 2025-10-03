@@ -41,13 +41,17 @@ class MealPlanItem(models.Model):
     def __str__(self):
         return f"{self.user}-{self.recipe}:{self.meal_type}"
 
-    def clean(self):
-        super().clean()
-        # Ensure date is not before created_on
-        if self.start_time and self.created_on and self.start_time < self.created_on:
-            raise ValidationError({
-                'date': 'Meal plan date cannot be before the creation date.'
-            })
+    # def clean(self):
+    #     super().clean()
+    #     # Ensure date is not before created_on
+    #     if (
+    #         self.start_time
+    #         and self.created_on
+    #         and self.start_time < self.created_on
+    #     ):
+    #         raise ValidationError({
+    #             'start_time': f'Meal plan date cannot be before the creation date-{self.created_on}.'
+    #         })
 
     class Meta:
         unique_together = ['user', 'recipe', 'start_time']
