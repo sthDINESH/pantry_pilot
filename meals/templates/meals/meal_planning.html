@@ -46,7 +46,7 @@ Meal Planning
                         <div class="selected-meal-card col">
                             <div class="card mb-2">
                                 <div class="row g-0">
-                                    <div class="col-md-2">
+                                    <div class="col-3 col-md-2">
                                         {% if recipe.is_external %}
                                         <img src=" {{ recipe.api_image_url }}" class="img-fluid"
                                             alt="{{ recipe.title }}">
@@ -54,9 +54,9 @@ Meal Planning
                                         <img src=" {{ recipe.image }}" class="img-fluid" alt="{{ recipe.title }}">
                                         {% endif %}
                                     </div>
-                                    <div class="col-md-10">
+                                    <div class="col-9 col-md-10">
                                         <div class="card-body">
-                                            <h5 class="card-title">{{ recipe.title }}</h5>
+                                            <h3 class="card-title">{{ recipe.title }}</h3>
                                             <p class="card-text">
                                             </p>
                                             {% if recipe.cook_time %}

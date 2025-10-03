@@ -646,6 +646,10 @@ a {
     object-position: center;
 }
 
+.selected-meal-card h3 {
+    font-size: calc(0.7rem + .6vw);
+}
+
 #meals-page .week-view {
     height: 25vh;
     width: 100%;
