@@ -130,6 +130,7 @@ MEAL_PLAN_CATEGORIES = [
     ('lunch', 'Lunch'),
     ('dinner', 'Dinner'),
     ('snack', 'Snack'),
+    ('appetiser','Appetiser'),
     ('dessert', 'Dessert'),
     ('brunch', 'Brunch'),
     ('other', 'Other'),

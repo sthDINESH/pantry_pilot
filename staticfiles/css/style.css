@@ -15,7 +15,7 @@
     --accent-color: #D64040;
     --accent-color-light: #EEABA9;
     --accent-color-light-rgb: 238, 171, 169;
-    --secondary-accent-color: #448260;
+    --secondary-accent-color: #0DCAF0;
 
     /* height calculations */
     --navbar-brand-height: calc(1.375rem + min(1.5vw, 1.5vh));
@@ -24,9 +24,6 @@
     --nav-link-font-size: calc(0.75rem + min(0.8vw, 0.8vh));
     --auth-main-image-card-height: min(45vw, 45vh);
     --auth-main-image-card-pos-right: calc((100% - var(--auth-image-card-max-height)) * 0.125);
-
-    /* Full Calendar styling */
-    --fc-border-color: black;
 
 }
 
@@ -425,10 +422,7 @@ a {
     font-size: 1rem;
 }
 
-.fc-day-today {
-    background-color: rgba(var(--accent-color-light-rgb), 0.8) !important;
-    /* color: white !important; */
-}
+
 
 /* Pantry page styling */
 /* ---------------------------------------------------------- */
@@ -653,9 +647,78 @@ a {
 }
 
 #meals-page .week-view {
-    height:25vh;
-    width:100%;
+    height: 25vh;
+    width: 100%;
     background: var(--secondary-light-color) url('../images/meal_plan_hero_2.webp') no-repeat center center / cover;
+}
+
+/* Full calender styling */
+.fc-day-today {
+    background-color: rgba(var(--accent-color-light-rgb), 0.8) !important;
+}
+
+.meal-type-breakfast {
+    background-color: #0dcaf0;
+}
+
+.meal-type-lunch {
+    background-color: #edf5e7;
+}
+
+.meal-type-brunch {
+    background-color: #bdd6d8;
+}
+
+.meal-type-dinner {
+    background-color: #ed986e;
+}
+
+.meal-type-dessert {
+    background-color: #d5605e;
+}
+
+.meal-type-other,
+.meal-type-appetiser,
+.meal-type-snack {
+    background-color: white;
+}
+
+#calendar-week .fc--button {
+    display: none;
+}
+
+#calendar-week .fc-header-toolbar {
+    flex-wrap: wrap;
+}
+
+#calendar-week .fc-toolbar-chunk:nth-child(2) {
+    order: 1;
+    /* flex-grow: 1; */
+    text-align: center;
+    flex-basis: 100%;
+}
+
+.fc-toolbar-title {
+    padding-top: 0.5rem;
+}
+
+.fc .btn {
+    font-size: inherit;
+}
+
+#calendar-week .fc-next-button {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+}
+
+#calendar-week .fc-toolbar-chunk:first-child>.btn-group:nth-child(2) {
+    margin-left: 0;
+}
+
+.fc-timegrid-event {
+    max-width: 60%;
 }
 
 
@@ -889,6 +952,6 @@ footer a {
     }
 
     .selected-meals-list {
-        max-height: 70vh;
+        max-height: 100vh;
     }
 }

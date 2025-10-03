@@ -290,10 +290,13 @@ document.addEventListener("DOMContentLoaded", function () {
       );
       const state = event.currentTarget.getAttribute("data-state");
       if (state === "confirm") {
+        this.title("Delete Meal from Plan?");
         this.disableFormFields();
         // Ask for confirmation
         event.currentTarget.setAttribute("data-state", "");
-        event.currentTarget.innerText = "Confirm Delete?";
+        event.currentTarget.classList.remove("btn-secondary");
+        event.currentTarget.classList.add("btn-primary");
+        event.currentTarget.innerText = "Confirm Delete";
 
         this.#submitButton.classList.add("hide");
       } else {
@@ -399,6 +402,8 @@ document.addEventListener("DOMContentLoaded", function () {
       this.#deleteItemButton.setAttribute("data-state", "confirm");
       this.#deleteItemButton.innerText = "Delete from Plan";
       this.#deleteItemButton.classList.remove("hide");
+      this.#deleteItemButton.classList.add("btn-secondary");
+      this.#deleteItemButton.classList.remove("btn-primary");
       this.bsObject.show();
     }
   }
@@ -769,7 +774,7 @@ document.addEventListener("DOMContentLoaded", function () {
         center: "title",
         end: "dayGridWeek,dayGridMonth",
       },
-      aspectRatio: 3.5,
+      aspectRatio: 2.5,
       themeSystem: "bootstrap5",
       initialView: "dayGridWeek",
       slotMinTime: "06:00:00",

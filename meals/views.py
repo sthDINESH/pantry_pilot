@@ -104,6 +104,9 @@ def get_meal_plan(request):
             "start": item.start_time.isoformat(),
             "end": item.end_time.isoformat(),
             "allDay": False,
+            "classNames": f"meal-type-{item.meal_type}",
+            "textColor": "black",
+            "borderColor": "white",
             "extendedProps": {
                 "meal_type": item.meal_type,
                 "servings": item.servings,
