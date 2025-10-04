@@ -609,7 +609,8 @@ a {
 }
 
 #home-page .end-banner {
-    height: max(30vw, 30vh);
+    /* height: max(30vw, 30vh); */
+    height: max(50vw, 50vh);
     width: 100%;
     background: var(--secondary-light-color) url('../images/meal_plan_hero_2.webp') left top / cover;
     padding-top: 0;
@@ -1015,6 +1016,7 @@ footer a {
         width: 300px;
     }
 
+
     .recipe-item.list-view-card {
         min-height: 475px;
     }
@@ -1075,8 +1077,12 @@ footer a {
     }
 
 
-    .site-features > .container > p {
+    .site-features>.container>p {
         text-align: left;
+    }
+
+    #home-page .end-banner {
+        height: min(40vw, 40vh);
     }
 
     /* Pantry page styling */
