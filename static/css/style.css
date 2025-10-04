@@ -591,6 +591,7 @@ a {
 
 .site-features .card {
     aspect-ratio: 1;
+    height: 100%;
     border-radius: 0;
     background-color: var(--secondary-light-color);
 }
@@ -621,6 +622,14 @@ a {
     /* margin: 2rem; */
     background-color: rgba(var(--light-color-rgb), 0.5);
     backdrop-filter: blur(4px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.end-banner > .container > * {
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 /* Pantry page styling */
