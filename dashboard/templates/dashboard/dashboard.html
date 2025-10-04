@@ -19,21 +19,46 @@
                             aria-label="Slide 3"></button>
                         <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="3"
                             aria-label="Slide 4"></button>
+                        <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="4"
+                            aria-label="Slide 5"></button>
+                        <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="5"
+                            aria-label="Slide 6"></button>
+                        <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="6"
+                            aria-label="Slide 7"></button>
+                        <button type="button" data-bs-target="#hero-carousel" data-bs-slide-to="7"
+                            aria-label="Slide 8"></button>
                     </div>
                     <div class="carousel-inner">
                         <div class="carousel-item active" data-bs-interval="5000">
-                            <img src="{% static 'images/pantry_tracking.webp' %}" class="d-block w-100"
+                            <img src="{% static 'images/hero_carousel_pantry_1.webp' %}" class="d-block w-100"
                                 alt="Track your pantry inventory">
                         </div>
                         <div class="carousel-item" data-bs-interval="5000">
-                            <img src="{% static 'images/recipes.webp' %}" class="d-block w-100" alt="Discover recipes">
+                            <img src="{% static 'images/hero_carousel_recipe_1.webp' %}" class="d-block w-100"
+                                alt="Discover recipes">
                         </div>
                         <div class="carousel-item" data-bs-interval="5000">
-                            <img src="{% static 'images/meal-planning.webp' %}" class="d-block w-100"
+                            <img src="{% static 'images/hero_carousel_mealplan_2.webp' %}" class="d-block w-100"
                                 alt="Plan your meals">
                         </div>
                         <div class="carousel-item" data-bs-interval="5000">
-                            <img src="{% static 'images/shopping_list.webp' %}" class="d-block w-100"
+                            <img src="{% static 'images/hero_carousel_shopping_1.webp' %}" class="d-block w-100"
+                                alt="Smart shopping lists">
+                        </div>
+                        <div class="carousel-item" data-bs-interval="5000">
+                            <img src="{% static 'images/hero_carousel_pantry_2.webp' %}" class="d-block w-100"
+                                alt="Track your pantry inventory">
+                        </div>
+                        <div class="carousel-item" data-bs-interval="5000">
+                            <img src="{% static 'images/hero_carousel_recipe_2.webp' %}" class="d-block w-100" 
+                            alt="Discover recipes">
+                        </div>
+                        <div class="carousel-item" data-bs-interval="5000">
+                            <img src="{% static 'images/hero_carousel_mealplan_1.webp' %}" class="d-block w-100"
+                                alt="Plan your meals">
+                        </div>
+                        <div class="carousel-item" data-bs-interval="5000">
+                            <img src="{% static 'images/hero_carousel_shopping_2.webp' %}" class="d-block w-100"
                                 alt="Smart shopping lists">
                         </div>
                     </div>
@@ -42,7 +67,8 @@
                     <div class="header-content">
                         <h1>Pantry Pilot</h1>
                         <p>
-                            Your smart kitchen companion for pantry management, recipe discovery and effortless meal planning.
+                            Your smart kitchen companion for pantry management, recipe discovery and effortless meal
+                            planning.
                         </p>
                         <div class="form-button-controls">
                             {% if user.is_authenticated %}
@@ -98,9 +124,19 @@
                         <div class="card-icon">
                             <i class="fa-solid fa-jar"></i>
                         </div>
-                        <div class="card-body text-center">
+                        {% if user.is_authenticated %}
+                        <div class="card-body text-center d-flex flex-column justify-content-between">
+                            <h5 class="card-title">Your Pantry</h5>
+                            <div class="d-flex justify-content-center g-1">
+                                <span><em>Available Items:</em></span>
+                                <span>{{ pantry_items_count }}</span>
+                            </div>
+                            <a href="{% url 'pantry' %}">View All</a>
+                        {% else %}
+                        <div class="card-body text-center d-flex flex-column justify-content-start">
                             <h5 class="card-title">Manage Pantry</h5>
                             <p class="card-text">Keep track of your ingredients and never run out again</p>
+                        {% endif %}
                         </div>
                     </div>
                 </div>
@@ -109,10 +145,25 @@
                         <div class="card-icon">
                             <i class="fa-solid fa-book-open"></i>
                         </div>
-                        <div class="card-body text-center">
+                        {% if user.is_authenticated %}
+                        <div class="card-body text-center d-flex flex-column justify-content-between">
+                            <h5 class="card-title">Your Recipes</h5>
+                            <div class="d-flex justify-content-center g-1">
+                                <span><em>Saved Searches:</em></span>
+                                <span>{{ saved_search_count }}</span>
+                            </div>
+                            <div class="d-flex justify-content-center g-1">
+                                <span><em>Personal:</em></span>
+                                <span>10</span>
+                            </div>
+                            <a href="{% url 'recipes' %}">View All</a>
+                        {% else %}
+                        <div class="card-body text-center d-flex flex-column justify-content-start">
                             <h5 class="card-title">Discover Recipes</h5>
                             <p class="card-text">Find recipes using ingredients on hand or build your
-                                own cookbook with treasured family recipes</p>
+                                own cookbook with treasured family recipes
+                            </p>
+                        {% endif %}
                         </div>
                     </div>
                 </div>
@@ -121,11 +172,22 @@
                         <div class="card-icon">
                             <i class="fa-solid fa-calendar-plus"></i>
                         </div>
-                        <div class="card-body text-center">
+                        {% if user.is_authenticated %}
+                        <div class="card-body text-center d-flex flex-column justify-content-between">
+                            <h5 class="card-title">Upcoming Meal</h5>
+                            {% if upcoming_meal_title %}
+                            <em>{{ upcoming_meal_title }}</em>
+                            {% else %}
+                            <em>No Meal planned for today</em>
+                            {% endif %}
+                            <a href="{% url 'meals' %}">View Calendar</a>
+                        {% else %}
+                        <div class="card-body text-center d-flex flex-column justify-content-start">
                             <h5 class="card-title">Plan Meals</h5>
                             <p class="card-text">Plan and visualize your weekly meals with ease with interactive
                                 calendar
                             </p>
+                        {% endif %}
                         </div>
                     </div>
                 </div>
@@ -134,10 +196,20 @@
                         <div class="card-icon">
                             <i class="fa-solid fa-list-check"></i>
                         </div>
-                        <div class="card-body text-center">
+                        {% if user.is_authenticated %}
+                        <div class="card-body text-center d-flex flex-column justify-content-between">
+                            <h5 class="card-title">Your shopping lists</h5>
+                            <div class="d-flex justify-content-center g-1">
+                                <span><em>Next shopping:</em></span>
+                                <span>....</span>
+                            </div>
+                            <a href="">View All</a>
+                        {% else %}
+                        <div class="card-body text-center d-flex flex-column justify-content-start">
                             <h5 class="card-title">Simplify shopping</h5>
                             <p class="card-text">Automatically generate weekly shopping lists for missing ingredients
                             </p>
+                        {% endif %}
                         </div>
                     </div>
                 </div>

@@ -514,6 +514,8 @@ a {
 #hero-carousel .carousel-item {
     height: 100%;
     position: relative;
+    transition-duration: 1.2s;
+    transition-timing-function: ease-in-out;
 }
 
 #hero-carousel .carousel-item::before {
