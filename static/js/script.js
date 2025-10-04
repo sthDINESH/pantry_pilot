@@ -162,20 +162,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
     constructor() {
       this.#modalEl = document.querySelector("#meal-plan-modal");
-      this.#modalTitle = this.#modalEl.querySelector(".modal-title");
-      this.#modalForm = this.#modalEl.querySelector("form");
-      this.#formCRSFToken = this.#modalForm.querySelector(
-        "input[name='csrfmiddlewaretoken']"
-      ).value;
-      this.#submitButton = this.#modalEl.querySelector("button[type='submit']");
-      this.#deleteItemButton = this.#modalEl.querySelector(
-        "button[data-type='meal-plan-item-delete'"
-      );
-      this.#startTime = document.querySelector("#id_start_time");
-      this.#endTime = document.querySelector("#id_end_time");
-      this.#recipe = this.#modalForm.querySelector("#id_recipe");
-      this.#mealType = this.#modalForm.querySelector("#id_meal_type");
-      this.#servings = this.#modalForm.querySelector("#id_servings");
+      if (this.#modalEl) {
+        this.#modalTitle = this.#modalEl.querySelector(".modal-title");
+        this.#modalForm = this.#modalEl.querySelector("form");
+        this.#formCRSFToken = this.#modalForm.querySelector(
+          "input[name='csrfmiddlewaretoken']"
+        ).value;
+        this.#submitButton = this.#modalEl.querySelector(
+          "button[type='submit']"
+        );
+        this.#deleteItemButton = this.#modalEl.querySelector(
+          "button[data-type='meal-plan-item-delete'"
+        );
+        this.#startTime = this.#modalForm.querySelector("#id_start_time");
+        this.#endTime = this.#modalForm.querySelector("#id_end_time");
+        this.#recipe = this.#modalForm.querySelector("#id_recipe");
+        this.#mealType = this.#modalForm.querySelector("#id_meal_type");
+        this.#servings = this.#modalForm.querySelector("#id_servings");
+      }
 
       if (this.#modalEl) {
         this.bsObject = new bootstrap.Modal(this.#modalEl);
@@ -818,17 +822,19 @@ document.addEventListener("DOMContentLoaded", function () {
   // Register an event handler to the today button in dayGridWeek/dayGridMonth view
   // to move the timeGridDay view to today's date in sync
   // timeout is required to allow the objects to completely render
-  setTimeout(function () {
-    const todayBtn =
-      calendarWeekEl.parentNode.querySelector(".fc-today-button");
-    if (todayBtn) {
-      todayBtn.addEventListener("click", function () {
-        if (calendarDay) {
-          calendarDay.today(); // Move day view to today
-        }
-      });
-    }
-  }, 0);
+  if (calendarWeekEl) {
+    setTimeout(function () {
+      const todayBtn =
+        calendarWeekEl.parentNode.querySelector(".fc-today-button");
+      if (todayBtn) {
+        todayBtn.addEventListener("click", function () {
+          if (calendarDay) {
+            calendarDay.today(); // Move day view to today
+          }
+        });
+      }
+    }, 0);
+  }
 
   // Register calendar objects with mealPlanModal
   mealPlanModal.calendarDay = calendarDay;
