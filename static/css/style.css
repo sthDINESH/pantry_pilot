@@ -9,10 +9,12 @@
 
     /* Color scheme */
     --light-color: white;
+    --light-color-rgb: 255, 255, 255;
     --secondary-light-color: #D6D5D0;
     --secondary-light-color-rgb: 214, 213, 208;
     /* Add this line */
     --accent-color: #D64040;
+    --accent-color-rgb: 214, 64, 64;
     --accent-color-light: #EEABA9;
     --accent-color-light-rgb: 238, 171, 169;
     --secondary-accent-color: #0DCAF0;
@@ -422,7 +424,203 @@ a {
     font-size: 1rem;
 }
 
+/* Home page styling */
+/* ---------------------------------------------------------- */
+#home-page h1 {
+    font-size: min(20vw, 20vh);
+}
 
+#home-page .heading {
+    font-size: calc(2.6 * var(--nav-link-font-size));
+}
+
+#home-page .page-hero-container {
+    width: 100%;
+    position: relative;
+}
+
+#home-page .sticky-container {
+    position: sticky;
+    top: var(--navbar-height);
+    width: 100%;
+    height: calc(100vh - var(--navbar-height));
+}
+
+#home-page .carousel-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+#home-page .header-section {
+    width: 100%;
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    color: white;
+    /* Ensure intro text is white */
+}
+
+#home-page .header-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header-content p {
+    text-align: center;
+    font-size: calc(0.9 * var(--nav-link-font-size));
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+.header-section .form-button-controls {
+    flex-direction: column;
+}
+
+#home-page .form-button {
+    font-size: calc(0.8 * var(--nav-link-font-size));
+}
+
+.header-section .form-button:first-child {
+    margin-top: 0;
+    width: 225px;
+}
+
+#scroll-down {
+    font-size: 1rem;
+    position: absolute;
+    right: 0.5rem;
+    bottom: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+/* Hero carousel styling */
+#hero-carousel {
+    height: 100%;
+    width: 100%;
+}
+
+#hero-carousel .carousel-inner {
+    height: 100%;
+}
+
+#hero-carousel .carousel-item {
+    height: 100%;
+    position: relative;
+}
+
+#hero-carousel .carousel-item::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.35);
+    /* Dark overlay with 40% opacity */
+    z-index: 1;
+}
+
+#hero-carousel .carousel-item img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+#hero-carousel .carousel-caption {
+    position: relative;
+    z-index: 2;
+    /* Ensure text appears above the overlay */
+    background: transparent;
+    /* Remove the existing background */
+    border-radius: 0;
+    padding: 1rem;
+    color: white;
+    /* Ensure text is white for contrast */
+}
+
+#home-page .tag-line-container {
+    width: 100%;
+    height: calc(100vh - var(--navbar-height));
+    position: relative;
+    z-index: 2;
+    background-color: var(--accent-color);
+    background: url('../images/home_hero_top.webp') no-repeat center center / cover;
+    display: grid;
+    place-items: center;
+}
+
+#home-page .tag-line-container::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    /* Dark overlay with 40% opacity */
+    z-index: 1;
+}
+
+.tag-line-container>.tag-line-content {
+    /* width:80%; */
+    height: 70%;
+    background-color: rgba(var(--light-color-rgb), 0.5);
+    backdrop-filter: blur(5px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+}
+
+.tag-line-container .site-logo {
+    background: url('../images/pantry_pilot_logo.png') no-repeat center center / contain;
+    height: 50%;
+}
+
+.tag-line-container .sub-heading {
+    color: black;
+}
+
+.site-features p {
+    text-align: center;
+}
+
+.site-features .card {
+    aspect-ratio: 1;
+    border-radius: 0;
+    background-color: var(--secondary-light-color);
+}
+
+.site-features .card-icon {
+    height: 50%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.site-features i {
+    color: var(--accent-color);
+    font-size: calc(5 * var(--nav-link-font-size));
+}
+
+#home-page .end-banner {
+    height: max(30vw, 30vh);
+    width: 100%;
+    background: var(--secondary-light-color) url('../images/meal_plan_hero_2.webp') left top / cover;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.end-banner>.container {
+    /* margin: 2rem; */
+    background-color: rgba(var(--light-color-rgb), 0.5);
+    backdrop-filter: blur(4px);
+}
 
 /* Pantry page styling */
 /* ---------------------------------------------------------- */
@@ -803,6 +1001,20 @@ footer a {
         min-height: 360px;
     }
 
+    /* Home page styling */
+    #home-page .heading {
+        font-size: calc(4 * var(--nav-link-font-size));
+    }
+
+    .header-content p {
+        width: 70%;
+    }
+
+    .header-section .form-button:first-child {
+        margin-top: 0.75rem;
+        width: 300px;
+    }
+
     .recipe-item.list-view-card {
         min-height: 475px;
     }
@@ -859,6 +1071,11 @@ footer a {
     }
 
     .section-body-text {
+        text-align: left;
+    }
+
+
+    .site-features > .container > p {
         text-align: left;
     }
 
