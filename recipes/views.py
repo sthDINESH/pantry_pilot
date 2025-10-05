@@ -4,8 +4,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.urls import reverse
 from django.http import HttpResponseRedirect, JsonResponse
-from .forms import RecipeSearchForm
 from pantry.models import PantryItem
+from pantry.pantry_search import PantrySearch
+from .forms import RecipeSearchForm
 from .models import SavedRecipe, RecipeIngredient
 from .spoonacular import SpoonacularApiService
 
@@ -13,32 +14,35 @@ from .spoonacular import SpoonacularApiService
 @login_required
 def recipes_list(request):
     """
-    Display recipes list and handle search functionality
+    Display a single recipe item
+    - related to :model:`SavedRecipe`
+    - and search results based on submitted :form:`RecipeSearchForm`
+    ** Context: **
+        `recipe_search_form`: instance of :form:`RecipeSearchForm`
+        `search results`: object with search results
+            'query_data': search query data
+            'response': {}
+            'timestamp': int
+        `saved_recipes_json`: JSON derived from instances of
+            :model:`SavedRecipe`
+        `selected_for_meal_plan`: []
+            (recipes selected for meal planning available in session)
+    ** Template: **
+    :template:`recipes/recipes_list.html`
     """
-    recipe_search_form = RecipeSearchForm()
-    search_results = None
-
     # Fetch users pantry items
+    pantry_items = PantryItem.objects.filter(user=request.user)
     pantry_item_names = [
         pantry_item.name
-        for pantry_item in PantryItem.objects.filter(user=request.user)
+        for pantry_item in pantry_items
     ]
 
+    # Post request for recipe searches
+    # search params submitted via :forms:`RecipeSearchForm`
     if request.method == "POST":
         recipe_search_form = RecipeSearchForm(request.POST)
         if recipe_search_form.is_valid():
             search_data = recipe_search_form.cleaned_data
-
-            # Store search results persistently in session
-            request.session['recipe_search_state'] = {
-                'query_data': search_data,
-                'message': (
-                    f"Searching for {search_data['cuisine'] or 'any cuisine'} "
-                    f"{search_data['diet'] or 'any diet'} "
-                    f"{search_data['meal_type'] or 'any meal type'} recipes"
-                ),
-                'timestamp': int(time.time())
-            }
 
             # Search recipes using Spoonacular API
             search_results = SpoonacularApiService().search_recipes(
@@ -48,9 +52,14 @@ def recipes_list(request):
                 meal_type=search_data["meal_type"],
             )
 
-            # Store search results persistently in session
-            request.session['recipe_search_state']['response'] = search_results
-            request.session.modified = True  # Ensure session is saved
+            # Store search results in session
+            request.session['recipe_search_state'] = {
+                'query_data': search_data,
+                'timestamp': int(time.time()),
+                'response': search_results,
+            }
+            # Ensure session is saved
+            request.session.modified = True
 
             return redirect('recipes')
 
@@ -61,29 +70,47 @@ def recipes_list(request):
     )
 
     # Add ingredient analysis to each saved recipe
-    saved_recipes_with_notes = []
+    saved_recipes_json = []
     for recipe in saved_recipes:
         ingredients = recipe.ingredients.all()
-        missed_ingredients = []
-        used_ingredients = []
 
-        for ingredient in ingredients:
-            if ingredient.ingredient_name in pantry_item_names:
-                used_ingredients.append(ingredient)
-                # print("Found:", ingredient.ingredient_name)
-            else:
-                missed_ingredients.append(ingredient)
-                # print("Missing:", ingredient.ingredient_name)
+        matched_ingredients, similar_ingredients, missing_ingredients = (
+            PantrySearch().find_match(
+                recipe_ingredients=ingredients,
+                pantry_items=pantry_items
+            )
+        )
+        missing_ingredients = missing_ingredients
+        similar_ingredients = similar_ingredients
+        matched_ingredients = matched_ingredients
 
-        # Add notes to recipe object
-        recipe.missed_ingredients = missed_ingredients
-        recipe.used_ingredients = used_ingredients
-        recipe.missed_ingredient_count = len(missed_ingredients)
-        recipe.used_ingredient_count = len(used_ingredients)
+        saved_recipes_json.append(
+            {
+                'id': recipe.id,
+                'title': recipe.title,
+                'image': (
+                    recipe.api_image_url
+                    if recipe.is_external else recipe.image
+                ),
+                'matched_ingredients': [
+                    recipe_ing.ingredient_name
+                    for (recipe_ing, pantry_item, _)
+                    in matched_ingredients
+                ],
+                'similar_ingredients': [
+                    {recipe_ing.ingredient_name: pantry_item.name}
+                    for (recipe_ing, pantry_item, _)
+                    in similar_ingredients
+                ],
+                'missing_ingredients': [
+                    recipe_ing.ingredient_name
+                    for recipe_ing
+                    in missing_ingredients
+                ],
+            }
+        )
 
-        saved_recipes_with_notes.append(recipe)
-
-    # Check session for persistent search results
+    # Check if search results persist in session
     if 'recipe_search_state' in request.session:
         search_results = request.session['recipe_search_state']
         form_data = search_results["query_data"]
@@ -92,7 +119,7 @@ def recipes_list(request):
         # Check and mark recipes that have already been saved
         if search_results.get("response", {}).get("success"):
             saved_recipe_api_ids = {
-                r.api_recipe_id for r in saved_recipes_with_notes
+                r.api_recipe_id for r in saved_recipes
             }
             for recipe in search_results['response']['recipes']:
                 recipe['saved'] = (
@@ -103,7 +130,7 @@ def recipes_list(request):
                 if recipe['saved']:
                     saved_recipe = next(
                         (
-                            r for r in saved_recipes_with_notes
+                            r for r in saved_recipes
                             if r.api_recipe_id == recipe['api_recipe_id']
                         ),
                         None
@@ -111,15 +138,17 @@ def recipes_list(request):
                     recipe['id'] = saved_recipe.id if saved_recipe else None
                 else:
                     recipe['id'] = None
+    else:
+        search_results = None
+        recipe_search_form = RecipeSearchForm()
 
     # Get selected recipes for meal planning from session
     selected_for_meal_plan = request.session.get('selected_for_meal_plan', [])
-    
+
     context = {
         'recipe_search_form': recipe_search_form,
         'search_results': search_results,
-        'saved_recipes': saved_recipes_with_notes,
-        'number_saved_recipes': len(saved_recipes_with_notes),
+        'saved_recipes_json': saved_recipes_json,
         'selected_for_meal_plan': selected_for_meal_plan,
     }
     return render(request, 'recipes/recipes_list.html', context)
@@ -128,8 +157,8 @@ def recipes_list(request):
 @login_required
 def toggle_recipe_selection(request, recipe_id):
     """
-    Add or remove a recipe from the user's meal planning selection (session-based).
-    Supports AJAX requests.
+    Add or remove a recipe from the user's meal planning selection
+    (session-based). Supports AJAX requests.
     """
     selected_recipes = request.session.get('selected_for_meal_plan', [])
     recipe_id_str = str(recipe_id)

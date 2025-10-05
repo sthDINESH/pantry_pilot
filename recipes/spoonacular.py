@@ -38,7 +38,9 @@ class APIConfig:
 
     # Spoonacular API configuration
     SPOONACULAR_BASE_URL = "https://api.spoonacular.com/recipes"
-    SPOONACULAR_API_KEY = settings.SPOONACULAR_API_KEY  # From environment variables
+    SPOONACULAR_API_KEY = (
+        settings.SPOONACULAR_API_KEY  # From environment variables
+    )
 
     # Test with dummy response
     MOCK_API_CALL = False
@@ -89,7 +91,9 @@ class SpoonacularApiService:
                 'fallback_suggestions': self._get_fallback_suggestions(
                     ingredients
                 ),
-                # 'quota_status': self.quota_manager.get_user_quota_status(user_id)
+                # 'quota_status': self.quota_manager.get_user_quota_status(
+                #     user_id
+                # )
             }
 
     def get_recipe_details(self, recipe_id: str, user_id: int) -> Dict:
@@ -100,7 +104,7 @@ class SpoonacularApiService:
         """
         # Make API call
         api_result = self._get_recipe_details_from_api(recipe_id)
-        
+
         if api_result['success']:
             return {
                 'success': True,
@@ -152,7 +156,10 @@ class SpoonacularApiService:
             if not APIConfig.MOCK_API_CALL:
                 response = requests.get(url, params=params, timeout=30)
             else:
-                response = requests.get("https://dog.ceo/api/breeds/image/random", timeout=30)
+                response = requests.get(
+                    "https://dog.ceo/api/breeds/image/random",
+                    timeout=30
+                )
 
             if response.status_code == 200:
                 if not APIConfig.MOCK_API_CALL:
@@ -213,7 +220,10 @@ class SpoonacularApiService:
             if not APIConfig.MOCK_API_CALL:
                 response = requests.get(url, params=params, timeout=30)
             else:
-                response = requests.get("https://dog.ceo/api/breeds/image/random", timeout=30)
+                response = requests.get(
+                    "https://dog.ceo/api/breeds/image/random",
+                    timeout=30
+                )
 
             if response.status_code == 200:
                 if not APIConfig.MOCK_API_CALL:
@@ -235,7 +245,7 @@ class SpoonacularApiService:
                 return {
                     'success': False,
                     'error': f'API_ERROR_{response.status_code}',
-                    'message': f'Failed to get recipe details'
+                    'message': 'Failed to get recipe details'
                 }
         except Exception as e:
             self.logger.error(f"Error getting recipe details: {e}")
@@ -258,15 +268,23 @@ class SpoonacularApiService:
                 'api_recipe_id': recipe.get('id'),
                 'title': recipe.get('title'),
                 'image': recipe.get('image'),
-                'used_ingredient_count': recipe.get('usedIngredientCount'),
-                'missed_ingredient_count': recipe.get('missedIngredientCount'),
-                'used_ingredient_names': [ing.get('name') for ing in recipe.get('usedIngredients', [])],
-                'missed_ingredient_names': [ing.get('name') for ing in recipe.get('missedIngredients', [])],
+                'matched_ingredients_count': recipe.get('usedIngredientCount'),
+                'missing_ingredients_count': (
+                    recipe.get('missedIngredientCount')
+                ),
+                'matched_ingredients': [
+                    ing.get('name')
+                    for ing in recipe.get('usedIngredients', [])
+                ],
+                'missing_ingredients': [
+                    ing.get('name')
+                    for ing in recipe.get('missedIngredients', [])
+                ],
                 'source': 'spoonacular'
             }
             formatted_recipes.append(formatted_recipe)
         return formatted_recipes
-    
+
     def _format_recipe_details(self, raw_data: Dict) -> Dict:
         """Convert detailed recipe data to standard format."""
         return {
@@ -296,8 +314,12 @@ class SpoonacularApiService:
                         " ".join(ing.get('meta'))
                         if ing.get('meta') else ""
                     ),
-                    'metric': ing.get('measures').get('metric'), 
-                    # API response: "metric": {"amount": 56.75, "unitShort": "g", "unitLong": "grams"},
+                    'metric': ing.get('measures').get('metric'),
+                    # API response: "metric": {
+                    #     "amount": 56.75,
+                    #     "unitShort": "g",
+                    #     "unitLong": "grams"
+                    # },
                 }
                 for ing in raw_data.get('extendedIngredients', [])
             ],
@@ -309,7 +331,9 @@ class SpoonacularApiService:
 if __name__ == "__main__":
     APIConfig.MOCK_API_CALL = True
     print(SpoonacularApiService().search_recipes(
-        ingredients=['cheese', 'tomatoes', 'potatoes', 'salt', 'milk', 'onions'],
+        ingredients=[
+            'cheese', 'tomatoes', 'potatoes', 'salt', 'milk', 'onions'
+        ],
         cuisine="european",
         diet="vegetarian",
         meal_type='',

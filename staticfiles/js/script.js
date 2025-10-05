@@ -136,6 +136,62 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   /**
+   * Class definition for handling dumped JSON data
+   * instance in :template:`recipes/recipes_list.html`
+   */
+  class jsonDataHandler {
+    // Private elements
+    #searchResultsDataEl;
+    #savedRecipesDataEl;
+
+    searchResultsData;
+    savedRecipesData;
+
+    constructor() {
+      this.#searchResultsDataEl = document.querySelector("#search-data");
+      this.#savedRecipesDataEl = document.querySelector("#saved-recipes-data");
+
+      if (this.#searchResultsDataEl) {
+        try {
+          this.searchResultsData = JSON.parse(
+            this.#searchResultsDataEl.textContent
+          );
+        } catch (e) {
+          console.error("Error parsing search results:", e);
+        }
+      }
+
+      if (this.#savedRecipesDataEl) {
+        try {
+          this.savedRecipesData = JSON.parse(
+            this.#savedRecipesDataEl.textContent
+          );
+        } catch (e) {
+          console.error("Error parsing search results:", e);
+        }
+      }
+    }
+
+    /**
+     * Returns recipe data from parsed JSON
+     * @param {int} recipeId : primary key related to :model:SavedRecipe
+     * @param {int} apiRecipeId : Spoonacular recipe Id
+     * @returns
+     */
+    get_recipe_data(recipeId = null, apiRecipeId = null) {
+      if (apiRecipeId) {
+        return this.searchResultsData.find(
+          (recipe) => recipe.api_recipe_id == apiRecipeId
+        );
+      } else if (recipeId) {
+        return this.savedRecipesData.find((recipe) => recipe.id == recipeId);
+      }
+    }
+  }
+
+  recipesJson = new jsonDataHandler();
+
+  /**
    * Class definition for handling mealPlanModal
    * instance in :template:`meals/meal_planning.html`
    */
@@ -553,10 +609,12 @@ document.addEventListener("DOMContentLoaded", function () {
       button.addEventListener("click", function (event) {
         // Display matched and missing ingredients for the recipe
         // Populate base modal with data
+        const apiRecipeId = event.currentTarget.getAttribute("data-api-recipe-id");
         const recipeId = event.currentTarget.getAttribute("data-recipe-id");
-        const recipe = searchResults.find(
-          (recipe) => recipe.api_recipe_id == recipeId
-        );
+        // const recipe = searchResults.find(
+        //   (recipe) => recipe.api_recipe_id == recipeId
+        // );
+        const recipe = recipesJson.get_recipe_data(recipeId, apiRecipeId);
         baseModalTitle.innerText = "Ingredients List";
 
         if (!recipe) {
@@ -579,19 +637,19 @@ document.addEventListener("DOMContentLoaded", function () {
         `;
 
         if (
-          recipe.used_ingredient_names &&
-          recipe.used_ingredient_names.length > 0
+          recipe.matched_ingredients &&
+          recipe.matched_ingredients.length > 0
         ) {
           modalContent += `
             <div class="container-fluid">
               <div class="ingredients-section row">
                 <div class="col-12 category-section-heading">
-                      In Your Pantry <span>(${recipe.used_ingredient_names.length} items)</span>
+                      In Your Pantry <span>(${recipe.matched_ingredients.length} items)</span>
                 </div>
                 <div class="col-12"> 
                   <div class="row">
             `;
-          recipe.used_ingredient_names.forEach((ingredient) => {
+          recipe.matched_ingredients.forEach((ingredient) => {
             modalContent += `
                     <div class="col-md-6">
                         <span class="mb-1">✓ ${ingredient}</span>
@@ -607,19 +665,19 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         if (
-          recipe.missed_ingredient_names &&
-          recipe.missed_ingredient_names.length > 0
+          recipe.missing_ingredients &&
+          recipe.missing_ingredients.length > 0
         ) {
           modalContent += `
             <div class="container-fluid">
               <div class="ingredients-section row">
                 <div class="col-12 category-section-heading">
-                  Need to Buy <span>(${recipe.missed_ingredient_names.length} items)</span>
+                  Need to Buy <span>(${recipe.missing_ingredients.length} items)</span>
                 </div>
                 <div class="col-12"> 
                   <div class="row">
             `;
-          recipe.missed_ingredient_names.forEach((ingredient) => {
+          recipe.missing_ingredients.forEach((ingredient) => {
             modalContent += `
                     <div class="col-md-6">
                         <span class="mb-1">• ${ingredient}</span>

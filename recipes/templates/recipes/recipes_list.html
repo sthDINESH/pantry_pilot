@@ -40,7 +40,7 @@ Recipes
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="saved-tab" data-bs-toggle="tab" data-bs-target="#saved-pane"
                                 type="button" role="tab" aria-controls="saved-pane" aria-selected="false">
-                                <i class="fa-solid fa-bookmark"></i>
+                                <i class="fa-solid fa-bookmark"></i>({{ saved_recipes_json|length }})
                                 <span class="hide">View Saved Recipes</span>
                             </button>
                         </li>
@@ -95,17 +95,17 @@ Recipes
                                                                 <em>
                                                                     Ingredients:
                                                                     <span>
-                                                                        {{ recipe.missed_ingredient_count }} missing
+                                                                        {{ recipe.missing_ingredients_count }} missing
                                                                     </span>
                                                                     ,
                                                                     <span>
-                                                                        {{ recipe.used_ingredient_count }} in pantry
+                                                                        {{ recipe.matched_ingredients_count }} in pantry
                                                                     </span>
                                                                 </em>
                                                                 <button type="button"
                                                                     class="btn btn-secondary btn-sm circle"
                                                                     data-type="ingredients-count-info"
-                                                                    data-recipe-id="{{ recipe.api_recipe_id }}">
+                                                                    data-api-recipe-id="{{ recipe.api_recipe_id }}">
                                                                     <i class="fa-solid fa-info"></i>
                                                                 </button>
                                                             </div>
@@ -153,7 +153,6 @@ Recipes
                                 </div>
                             </div>
                         </div>
-
                         <div class="tab-pane fade" id="saved-pane" role="tabpanel" aria-labelledby="saved-tab"
                             tabindex="0">
                             <div class="p-2 p-md-4">
@@ -164,16 +163,16 @@ Recipes
                                             <h2 class="sub-heading">
                                                 Saved Recipes
                                                 <span>
-                                                    , {{ number_saved_recipes }} available
+                                                    , {{ saved_recipes_json|length }} available
                                                 </span>
                                             </h2>
                                         </div>
                                         <div class="category-section-body row row-cols-1 row-cols-md-2 g-3">
-                                            {% if saved_recipes %}
-                                            {% for recipe in saved_recipes %}
+                                            {% if saved_recipes_json %}
+                                            {% for recipe in saved_recipes_json %}
                                             <div class="recipe-item col list-view-card">
                                                 <div class="card">
-                                                    <img src="{{ recipe.api_image_url }}" class="card-img-top"
+                                                    <img src="{{ recipe.image }}" class="card-img-top"
                                                         alt="Image for {{ recipe.title }}">
                                                     <div class="card-body">
                                                         <div class="recipe-title card-title">{{ recipe.title }}</div>
@@ -182,11 +181,11 @@ Recipes
                                                                 <em>
                                                                     Ingredients:
                                                                     <span>
-                                                                        {{ recipe.missed_ingredient_count }} missing
+                                                                    {{ recipe.missing_ingredients|length }} missing,
                                                                     </span>
                                                                     ,
                                                                     <span>
-                                                                        {{ recipe.used_ingredient_count }} in pantry
+                                                                    {{ recipe.matched_ingredients|length }} in pantry
                                                                     </span>
                                                                 </em>
                                                                 <button type="button"
@@ -252,8 +251,6 @@ Recipes
                         </div>
                     </div>
                 </div>
-
-
             </div>
         </div>
     </div>
@@ -302,5 +299,6 @@ Use base modal -->
 {% block json_data %}
 {% if search_results.response.success %}
 {{ search_results.response.recipes|json_script:"search-data" }}
+{{ saved_recipes_json|json_script:"saved-recipes-data" }}
 {% endif %}
 {% endblock json_data%}
