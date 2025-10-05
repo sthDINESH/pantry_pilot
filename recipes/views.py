@@ -58,6 +58,8 @@ def recipes_list(request):
                 'timestamp': int(time.time()),
                 'response': search_results,
             }
+            # Clear any previous recipe details from session
+            request.session['recipe_detail_state'] = {}
             # Ensure session is saved
             request.session.modified = True
 
