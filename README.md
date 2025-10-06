@@ -707,6 +707,16 @@ pantry_pilot/
 ```
 
 **7. Shopping List View - Sprint 4**
+
+<figure>
+  <img src="documentation/wireframes/shopping_list_page.png" 
+       alt="Shopping list page wireframe" 
+       width="800" 
+       style="border: 1px solid #ccc; border-radius: 4px;">
+  <figcaption><strong>Figure 1:</strong> Shopping lists page wireframe showing the shopping list list view and detail view.
+  <em>Only available to authenticated users.</em>
+  </figcaption>
+</figure>
 ```
 ┌─────────────────────────────────────────────────────────┐
 │ Header: [Logo] [Nav: Pantry|Recipes|Meals|SHOPPING] [User]│
