@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}{{ page_title }}{% endblock title %}
+
+{% block main_content %}
+<div id="shopping-page" class="split-screen">
+    <div class="screen left-screen"></div>
+    <div class="screen right-screen">
+        <div id="shopping-section" class="section-wrapper">
+            <div class="container">
+                <div class="section-heading">
+                    <h1>{{ page_title }}</h1>
+                </div>
+                <p class="section-body-text">{{ message }}</p>
+                
+                <div class="placeholder-content">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <i class="fa-solid fa-list-check fa-3x mb-3 text-muted"></i>
+                            <h5 class="card-title">Shopping Lists</h5>
+                            <p class="card-text">Generate smart shopping lists from your meal plans and missing pantry items.</p>
+                            <button class="btn btn-primary" disabled>Generate List (Coming Soon)</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main_content %}

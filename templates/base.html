@@ -5,6 +5,7 @@
 {% url 'pantry' as pantry_url %}
 {% url 'recipes' as recipes_url %}
 {% url 'meals' as meals_url %}
+{% url 'shopping' as shopping_url %}
 {% url 'dashboard' as home_url %}
 
 <!DOCTYPE html>
@@ -55,6 +56,10 @@
                     <li class="nav-item">
                         <a class="nav-link {% if request.path == meals_url %} active {% endif %}" aria-current='page'
                             href="{{ meals_url }}">Meals</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.path == meals_url %} active {% endif %}" aria-current='page'
+                            href="{{ shopping_url }}">Shopping</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link {% if request.path == logout_url %} active {% endif %}" aria-current='page'
