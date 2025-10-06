@@ -5,40 +5,158 @@
 {% block title %}{{ page_title }}{% endblock title %}
 
 {% block main_content %}
-<div id="shopping-page" class="split-screen">
-    <div class="screen left-screen"></div>
-    <div class="screen right-screen">
-        <div id="shopping-section" class="section-wrapper">
-            <div class="container">
-                <div class="section-heading">
-                    <h1>{{ page_title }}</h1>
-                </div>
-                <p class="section-body-text">{{ message }}</p>
-
-                <div class="placeholder-content">
-                    {% for list in shopping_lists %}
-                    <div class="card">
-                        <div class="card-body text-center">
-                            <i class="fa-solid fa-list-check fa-3x mb-3 text-muted"></i>
-                            <h5 class="card-title">Shopping List - {{ list.week_start_date }} - {{ list.week_end_date }}</h5>
-                            <div class="card-body">
-                                <ol>
-                                    {% for item in list.shopping_list_items.all %}
-                                    <li>{{ item.item_name}} {{ item.quantity }}{{ item.get_units_display }}</li>
-                                    {% empty %}
-                                    <li>Nothing added to the shopping list yet.</li>
-                                    {% endfor %}
-                                </ol>
+<div id="shopping-lists-page">
+    <div class="page-hero"></div>
+    <div class="page-intro">
+        <div class="section-wrapper">
+            <div class="section-heading">
+                <h1>Shopping Lists</h1>
+            </div>
+            <p class="section-body-text">
+                <strong class="sub-heading">Shop with confidence, cook with ease</strong>
+                <br>
+                <br>
+                Automatically generate organized shopping lists that check your pantry first, so you buy only what's
+                missing and waste nothing.
+            </p>
+        </div>
+    </div>
+    <div class="list-view split-screen left">
+        <div class="section-wrapper">
+            <div class="shopping-lists container left">
+                <div class="category-section">
+                    <div class="category-section-heading">
+                        <h2 class="sub-heading">
+                            Shopping list for this week
+                        </h2>
+                    </div>
+                    <div class="this-week-shopping-list row-cols-1 g-1">
+                        {% if list_this_week %}
+                        <div class="col">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <div class="card-title">
+                                        {{ list_this_week.week_start_date }} - {{ list_this_week.week_end_date }}
+                                    </div>
+                                    <p class="card-text"></p>
+                                    <a href="{% url 'shopping_detail' list_this_week.id %}" class="card-link">View</a>
+                                    <a href="#" class="card-link">Another link</a>
+                                </div>
                             </div>
                         </div>
+                        {% else %}
+                        <em>No lists found.</em>
+                        Generate
+                        {% endif %}
                     </div>
-                    {% empty %}
-                    <p>No shopping list found. Generate shopping list for this week from your meal plans.</p>
-                    <button class="btn btn-primary" disabled>Generate List (Coming Soon)</button>
-                    {% endfor %}
+                </div>
+                <div class="category-section">
+                    <div class="category-section-heading">
+                        <h2 class="sub-heading">
+                            Previous Shopping Lists
+                            <span>
+                                ({{ previous_lists.count }})
+                            </span>
+                        </h2>
+                    </div>
+                    <div class="previous-shopping-lists row row-cols-1 g-1">
+                        {% for list in previous_lists %}
+                        <div class="col">
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <div class="card-title">{{ list.week_start_date }} - {{ list.week_end_date }}</div>
+                                    <p class="card-text"></p>
+                                    <a href="{% url 'shopping_detail' list.id %}" class="card-link">View</a>
+                                    <a href="#" class="card-link">Another link</a>
+                                </div>
+                            </div>
+                        </div>
+                        {% empty %}
+                        <em>No lists found.</em>
+                        {% endfor %}
+
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="detail-view split-screen center">
+        <div class="section-wrapper">
+            <div class="container d-flex justify-content-center align-items-center">
+                {% if detail_for %}
+                <div class="shopping-list d-flex flex-column align-items-center">
+                    <div class="section-heading text-center">
+                        <h2>
+                            {{ detail_for.shopping_list.week_start_date }} -
+                            {{ detail_for.shopping_list.week_end_date }}
+                        </h2>
+                    </div>
+                    <p class="section-body-text">
+                        <em>Generated on:</em> {{ detail_for.shopping_list.updated_on }}
+                    </p>
+                    <div class="shopping-list-content">
+                        <div class="category-section">
+                            <div class="category-section-heading">
+                                <h2 class="sub-heading">Need to Buy</h2>
+                            </div>
+                        </div>
+                        <div class="shopping-list-detail">
+                            {% for item in detail_for.shopping_list.shopping_list_items.all %}
+                            <div class="shopping-item d-flex align-items-center mb-2">
+                                <input type="checkbox" class="form-check-input me-2" id="item_{{ item.id }}"
+                                    name="completed_items" value="{{ item.id }}">
+                                <label for="item_{{ item.id }}" class="form-check-label flex-grow-1">
+                                    {{ item.item_name }} - {{ item.quantity }} {{ item.get_units_display }}
+                                </label>
+                            </div>
+                            {% empty %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                No items added the shopping list yet.
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="list-view split-screen right">
+        <div class="section-wrapper">
+            <div class="meals-this-week container right">
+                <div class="category-section">
+                    <div class="category-section-heading">
+                        <h2 class="sub-heading">
+                            Planned Meals,
+                            <span>
+                                {{ detail_for.planned_meals.count }}
+                            </span>
+                        </h2>
+                    </div>
+                    <div class="planned-meals-list row-cols-1 g-3">
+                        {% if detail_for %}
+                        {% for meal in detail_for.planned_meals %}
+                        <div class="col">
+                            <div class="meal-card">
+                                <div class="card-title">{{ meal.recipe.title }}</div>
+                                <div class="card-body"></div>
+                                <div class="card-footer"></div>
+
+                            </div>
+                        </div>
+                        {% empty %}
+                        <em>No meals planned for selected week.</em>
+                        {% endfor %}
+                        {% else %}
+                        <em>No meals planned for selected week.</em>
+                        {% endif %}
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="banner"></div>
+
 </div>
 {% endblock main_content %}
