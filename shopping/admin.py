@@ -10,5 +10,11 @@ class ShoppingListAdmin(admin.ModelAdmin):
 
 @admin.register(ShoppingListItem)
 class ShoppingListItemAdmin(admin.ModelAdmin):
-    list_display = ["item_name", "quantity", "units", "shopping_list", "created_on"]
+    list_display = [
+        "item_name",
+        "quantity",
+        "units",
+        "shopping_list",
+        "created_on",
+    ]
     list_filter = ["shopping_list"]

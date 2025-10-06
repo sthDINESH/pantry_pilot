@@ -14,16 +14,28 @@
                     <h1>{{ page_title }}</h1>
                 </div>
                 <p class="section-body-text">{{ message }}</p>
-                
+
                 <div class="placeholder-content">
+                    {% for list in shopping_lists %}
                     <div class="card">
                         <div class="card-body text-center">
                             <i class="fa-solid fa-list-check fa-3x mb-3 text-muted"></i>
-                            <h5 class="card-title">Shopping Lists</h5>
-                            <p class="card-text">Generate smart shopping lists from your meal plans and missing pantry items.</p>
-                            <button class="btn btn-primary" disabled>Generate List (Coming Soon)</button>
+                            <h5 class="card-title">Shopping List - {{ list.week_start_date }} - {{ list.week_end_date }}</h5>
+                            <div class="card-body">
+                                <ol>
+                                    {% for item in list.shopping_list_items.all %}
+                                    <li>{{ item.item_name}} {{ item.quantity }}{{ item.get_units_display }}</li>
+                                    {% empty %}
+                                    <li>Nothing added to the shopping list yet.</li>
+                                    {% endfor %}
+                                </ol>
+                            </div>
                         </div>
                     </div>
+                    {% empty %}
+                    <p>No shopping list found. Generate shopping list for this week from your meal plans.</p>
+                    <button class="btn btn-primary" disabled>Generate List (Coming Soon)</button>
+                    {% endfor %}
                 </div>
             </div>
         </div>
