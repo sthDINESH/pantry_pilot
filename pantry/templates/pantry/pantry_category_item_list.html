@@ -17,15 +17,15 @@ Pantry
                 <div class="section-heading">
                     <h1>My Pantry</h1>
                     <button type="button" class="btn btn-primary circle" data-bs-toggle="collapse"
-                        data-bs-target="#pantry-item-form" aria-expanded="false" aria-controls="pantry-item-form"
-                        data-type="collapse-trigger">
+                        data-bs-target="#pantry-item-form" {% if categories.count %} aria-expanded="false" {% else %}
+                        aria-expanded="true" {% endif %} aria-controls="pantry-item-form" data-type="collapse-trigger">
                         <i class="fa-solid fa-plus"></i>
                     </button>
                 </div>
                 <p class="section-body-text">Track quantities, organize by category, and stay on top of your kitchen
                     inventory.</p>
 
-                <form id="pantry-item-form" method="post" class="collapse">
+                <form id="pantry-item-form" method="post" class="collapse {% if not categories.count %}show{% endif %}">
                     {% crispy pantry_item_form %}
                     {% crispy category_form %}
                     {% csrf_token %}
@@ -89,7 +89,7 @@ Pantry
                     </div>
                 </div>
                 {% empty %}
-                <p>No category found.</p>
+                <p>Your pantry is empty. Start by adding items.</p>
                 {% endfor %}
             </div>
 
