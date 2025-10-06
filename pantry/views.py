@@ -130,6 +130,14 @@ class CategoryList(LoginRequiredMixin, ListView):
                     f"Added new item - {pantry_item_form.cleaned_data['name']}"
                 )
             return redirect('pantry')
+        else:
+            messages.add_message(
+                request,
+                messages.ERROR,
+                (
+                    f"Error adding item - {request.POST['name']}"
+                )
+            )
         return self.get(request, * args, **kwargs)
 
 
@@ -230,8 +238,13 @@ def resolve_duplicate_pantry_item(request, item_id):
                     request,
                     messages.SUCCESS,
                     (
-                        f"Updated {pantry_item.name} - added "
-                        f"{additional_quantity} {pantry_item.get_units_display()}"
+                        (
+                            f"Updated {pantry_item.name} - added "
+                            (
+                                f"{additional_quantity} "
+                                f"{pantry_item.get_units_display()}"
+                            )
+                        )
                     )
                 )
             elif action == 'replace_quantity':
@@ -248,7 +261,12 @@ def resolve_duplicate_pantry_item(request, item_id):
                 messages.add_message(
                     request,
                     messages.SUCCESS,
-                    f"Updated {pantry_item.name} - changed from {old_quantity} to {pantry_item.quantity} {pantry_item.get_units_display()}"
+                    (
+                        f"Updated {pantry_item.name}"
+                        f"- changed from {old_quantity} "
+                        f"to {pantry_item.quantity} "
+                        f"{pantry_item.get_units_display()}"
+                    )
                 )
         else:
             messages.add_message(

@@ -27,6 +27,14 @@ class PantryItemForm(forms.ModelForm):
             return name.strip().title()
         return name
 
+    def clean_quantity(self):
+        quantity = self.cleaned_data.get('quantity')
+        if quantity is not None and quantity <= 0:
+            raise forms.ValidationError(
+                "Quantity must be greater than zero."
+            )
+        return quantity
+
     class Meta:
         model = PantryItem
         fields = ('name', 'quantity', 'units')
