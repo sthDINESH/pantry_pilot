@@ -40,13 +40,15 @@
                                     </div>
                                     <p class="card-text"></p>
                                     <a href="{% url 'shopping_detail' list_this_week.id %}" class="card-link">View</a>
-                                    <a href="#" class="card-link">Another link</a>
+                                    <button type="button" class="btn btn-secondary" data-type="delete-shopping-list"
+                                        data-list-id="{{ list_this_week.id }}">Delete</button>
                                 </div>
                             </div>
                         </div>
                         {% else %}
                         <em>No lists found.</em>
-                        Generate
+                        Generate from
+                        <a href="{% url 'meals' %}">Meals</a> 
                         {% endif %}
                     </div>
                 </div>
@@ -67,7 +69,6 @@
                                     <div class="card-title">{{ list.week_start_date }} - {{ list.week_end_date }}</div>
                                     <p class="card-text"></p>
                                     <a href="{% url 'shopping_detail' list.id %}" class="card-link">View</a>
-                                    <!-- <a href="{% url 'delete_shopping_list' list.id %}" class="card-link">Delete</a> -->
                                     <button type="button" class="btn btn-secondary" data-type="delete-shopping-list"
                                         data-list-id="{{ list.id }}">Delete</button>
                                 </div>
@@ -76,7 +77,6 @@
                         {% empty %}
                         <em>No lists found.</em>
                         {% endfor %}
-
                     </div>
                 </div>
             </div>
@@ -85,25 +85,31 @@
     <div class="detail-view split-screen center">
         <div class="section-wrapper">
             <div class="container d-flex justify-content-center align-items-center">
-                {% if detail_for %}
                 <div class="shopping-list d-flex flex-column align-items-center">
                     <div class="section-heading text-center">
                         <h2>
+                            Shopping list
+                            <br>
+                            {% if detail_for %}
                             {{ detail_for.shopping_list.week_start_date }} -
                             {{ detail_for.shopping_list.week_end_date }}
+                            {% endif %}
                         </h2>
                     </div>
+                    {% if detail_for %}
                     <p class="section-body-text">
                         <em>Generated on:</em> {{ detail_for.shopping_list.updated_on }}
                     </p>
+                    {% endif %}
                     <div class="shopping-list-content">
+                        {% if detail_for %}
                         <div class="category-section">
                             <div class="category-section-heading">
                                 <h2 class="sub-heading">Need to Buy</h2>
                             </div>
                         </div>
                         <div class="shopping-list-detail">
-                            {% for item in detail_for.shopping_list.shopping_list_items.all %}
+                            {% for item in detail_for.items_to_buy %}
                             <div class="shopping-item d-flex align-items-center mb-2">
                                 <input type="checkbox" class="form-check-input me-2" id="item_{{ item.id }}"
                                     name="completed_items" value="{{ item.id }}">
@@ -112,13 +118,32 @@
                                 </label>
                             </div>
                             {% empty %}
+                            <em>No items to buy for the week.</em>
                             {% endfor %}
                         </div>
+
+                        {% if detail_for.items_in_pantry %}
+                        <div class="category-section mt-4">
+                            <div class="category-section-heading">
+                                <h2 class="sub-heading">Already in Pantry</h2>
+                            </div>
+                        </div>
+                        <div class="pantry-items-detail">
+                            {% for item in detail_for.items_in_pantry %}
+                            <div class="pantry-item d-flex align-items-center mb-2 text-muted">
+                                <i class="fa-solid fa-check me-2 text-success"></i>
+                                <span class="flex-grow-1">
+                                    {{ item.item_name }} - {{ item.quantity }} {{ item.get_units_display }}
+                                </span>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                        {% else %}
+                        No items in shopping list.
+                        {% endif %}
                     </div>
                 </div>
-                {% else %}
-                No items added the shopping list yet.
-                {% endif %}
             </div>
         </div>
     </div>
@@ -128,9 +153,9 @@
                 <div class="category-section">
                     <div class="category-section-heading">
                         <h2 class="sub-heading">
-                            Planned Meals,
+                            Planned Meals
                             <span>
-                                {{ detail_for.planned_meals.count }}
+                               ({{ detail_for.planned_meals.count|default:"0" }})
                             </span>
                         </h2>
                     </div>
@@ -148,7 +173,6 @@
                         <em>No meals planned for selected week.</em>
                         {% endfor %}
                         {% else %}
-                        <em>No meals planned for selected week.</em>
                         {% endif %}
 
                     </div>
@@ -163,7 +187,7 @@
 {% endblock main_content %}
 
 <!-- Base modal to confirm delete shopping list -->
- {% block modal_title %}
+{% block modal_title %}
 Delete Shopping List?
 {% endblock modal_title %}
 

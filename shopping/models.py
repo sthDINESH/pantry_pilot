@@ -18,11 +18,14 @@ class ShoppingList(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"Week: {self.week_start_date} - {self.week_end_date}, User: {self.user}"
+        return (
+            f"Week: {self.week_start_date} - {self.week_end_date}, "
+            f"User: {self.user}"
+        )
 
     class Meta:
         unique_together = ["user", "week_start_date"]
-        ordering = ["-created_on"]
+        ordering = ["-week_start_date"]
 
 
 class ShoppingListItem(models.Model):
@@ -43,6 +46,7 @@ class ShoppingListItem(models.Model):
         default='piece',
     )
     notes = models.TextField(default="", blank=True)
+    in_pantry = models.BooleanField(default=False)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 

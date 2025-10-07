@@ -72,6 +72,8 @@ document.addEventListener("DOMContentLoaded", function () {
   // ---------------------------------------------------------------
   // Global object declarations
   // ---------------------------------------------------------------
+  let calendarWeek = null; // dayGridWeek/dayGridMonth object
+  let calendarDay = null; // timeGridDay object
 
   // Handles to Bootstrap modal element in base.html
   // ................................................
@@ -769,6 +771,50 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+  // Event listeners for form submits
+  const forms = document.querySelectorAll("form");
+  forms.forEach((form) => {
+    const formType = form.getAttribute("data-type");
+    if (formType === "create-shopping-list") {
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        if (calendarWeek) {
+          const view = calendarWeek.view;
+          console.log("Week start:", view.currentStart);
+          console.log("Week end:", view.currentEnd);
+          // Use FullCalendar's week boundaries (respects firstDay: 1)
+          const weekStart = view.currentStart;
+          const weekEnd = new Date(view.currentEnd.getTime() - 1); // Subtract 1 day from currentEnd
+
+          // Full Calender returns date in local timezone
+          // .toISOString converts to UTC(GMT+0000)
+          // So, use custom function to format dates without timezone conversion
+          function formatDateLocal(date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, "0");
+            const day = String(date.getDate()).padStart(2, "0");
+            return `${year}-${month}-${day}`;
+          }
+
+          const weekStartStr = formatDateLocal(weekStart);
+          const weekEndStr = formatDateLocal(weekEnd);
+
+          console.log("Week start:", weekStartStr);
+          console.log("Week end:", weekEndStr);
+
+          // Set the hidden form fields
+          const weekStartField = form.querySelector("#id_week_start_date");
+          const weekEndField = form.querySelector("#id_week_end_date");
+
+          if (weekStartField) weekStartField.value = weekStartStr;
+          if (weekEndField) weekEndField.value = weekEndStr;
+
+          form.submit();
+        }
+      });
+    }
+  });
+
   // Recipes page - extract the tab parameter from URL
   // To support return to the same tab from where the details were viewed
   const urlParams = new URLSearchParams(window.location.search);
@@ -817,8 +863,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // - dayGridWeek/dayGridMonth: displays meal plan item days
   // - timeGridDay: displays meal plan item times
   // -------------------------------------------------------------------
-  let calendarWeek = null; // dayGridWeek/dayGridMonth object
-  let calendarDay = null; // timeGridDay object
 
   const calendarWeekEl = document.getElementById("calendar-week");
   if (calendarWeekEl) {
@@ -831,6 +875,7 @@ document.addEventListener("DOMContentLoaded", function () {
       aspectRatio: 2.5,
       themeSystem: "bootstrap5",
       initialView: "dayGridWeek",
+      // firstDay: 1, // Monday
       slotMinTime: "06:00:00",
       slotMaxTime: "24:00:00",
       slotDuration: "6:00:00",

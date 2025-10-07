@@ -96,6 +96,13 @@ Meal Planning
                         <h2 class="sub-heading">
                             Meal Planner
                         </h2>
+                        <form action="{% url 'shopping' %}" method="POST" data-type="create-shopping-list">
+                            {% csrf_token %}
+                            {{ shopping_list_form | crispy }}
+                            <button type="submit" class="btn btn-primary" data-type="create-shopping-list">
+                                Shopping List
+                            </button>
+                        </form>
                     </div>
                     <div id='calendar-week'></div>
                     <div id='calendar-day'></div>

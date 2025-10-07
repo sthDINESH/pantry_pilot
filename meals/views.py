@@ -1,9 +1,10 @@
 from datetime import datetime, timedelta
 from dateutil.parser import parse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from recipes.models import SavedRecipe
+from shopping.forms import ShoppingListForm
 from .models import MealPlanItem
 from .forms import MealPlanItemForm
 
@@ -20,6 +21,8 @@ def meal_planning(request):
         Count of selected recipes
     `meal_plan_item_form`:
         Instance of :form:`MealPlanItemForm`
+    `shopping_list_form`:
+        Instance of :form:`ShoppingListForm`
 
     **Template:**
     :template:`meals/meal_planning.html`
@@ -55,10 +58,13 @@ def meal_planning(request):
 
     meal_plan_item_form = MealPlanItemForm()
 
+    shopping_list_form = ShoppingListForm()
+
     context = {
         'selected_recipes': selected_recipes,
         'selected_count': selected_recipes.count(),
         'meal_plan_item_form': meal_plan_item_form,
+        'shopping_list_form': shopping_list_form,
     }
     return render(request, 'meals/meal_planning.html', context)
 

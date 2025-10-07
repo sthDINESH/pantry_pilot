@@ -2,20 +2,69 @@ from datetime import date, datetime, time
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
-from django.http import JsonResponse
 from django.contrib import messages
 from meals.models import MealPlanItem
-from .models import ShoppingList
+from pantry.models import PantryItem
+from pantry.pantry_search import PantrySearch
+from .models import ShoppingList, ShoppingListItem
+from .forms import ShoppingListForm
 
 
 @login_required
 def shopping_list(request, shopping_list_id=None):
     """
-    Display shopping list page with basic message
-    
+    Display shopping list page
+    related to :model:`ShoppingList` and :model:`ShoppingListItem`
+
+    ** Context **
+        `list_this_week`: instance of :model:`ShoppingList` for
+            current week
+        `previous_lists` : instances of :model:`ShoppingList` except
+            this week's
+        `detail_for` : Dict with details for shopping list to display
+            Keys:
+                'shopping_list': instance of :model:`ShoppingList`
+                'planned_meals': instances of :model:`MealPlanItem`
+
     **Template:**
     :template:`shopping/shopping_list.html`
     """
+    if request.method == "POST":
+        shopping_list_form = ShoppingListForm(request.POST)
+        if shopping_list_form.is_valid():
+            cleaned_data = shopping_list_form.cleaned_data
+
+            shopping_list, created = ShoppingList.objects.get_or_create(
+                user=request.user,
+                week_start_date=cleaned_data['week_start_date'],
+                defaults={
+                    'week_end_date': cleaned_data['week_end_date'],
+                }
+            )
+
+            if created:
+                generate_shopping_list_items(
+                    request=request,
+                    shopping_list_id=shopping_list.id,
+                )
+                messages.add_message(
+                    request,
+                    messages.SUCCESS,
+                    f"Created shopping list for "
+                    f"{shopping_list_form.cleaned_data['week_start_date']}:"
+                    f"{shopping_list_form.cleaned_data['week_end_date']}"
+                )
+        else:
+            messages.add_message(
+                request,
+                messages.ERROR,
+                "Error generating shopping list"
+            )
+        return redirect(
+            'shopping_detail',
+            shopping_list_id=shopping_list.id
+        )
+
     # get this week's list
     today = date.today()
     list_this_week = ShoppingList.objects.filter(
@@ -41,24 +90,25 @@ def shopping_list(request, shopping_list_id=None):
     if shopping_list_id:
         shopping_list = shopping_lists.filter(id=shopping_list_id).first()
 
-        # Convert dates to datetime objects for proper comparison
-        week_start_datetime = timezone.make_aware(datetime.combine(
+        planned_meals = get_planned_meals(
+            request,
             shopping_list.week_start_date,
-            time.min
-        ))  # Start of day
-        week_end_datetime = timezone.make_aware(datetime.combine(
             shopping_list.week_end_date,
-            time.max
-        ))  # End of day
-
-        planned_meals = MealPlanItem.objects.filter(
-            user=request.user,
-            start_time__gte=week_start_datetime,
-            start_time__lte=week_end_datetime,
         )
+
+        # Filter shopping list items by in_pantry status
+        items_to_buy = shopping_list.shopping_list_items.filter(
+            in_pantry=False
+        )
+        items_in_pantry = shopping_list.shopping_list_items.filter(
+            in_pantry=True
+        )
+
         detail_for = {
             'shopping_list': shopping_list,
             'planned_meals': planned_meals,
+            'items_to_buy': items_to_buy,
+            'items_in_pantry': items_in_pantry,
         }
     else:
         detail_for = None
@@ -95,3 +145,136 @@ def delete_shopping_list(request, shopping_list_id):
         f'{shopping_list.week_start_date}:{shopping_list.week_end_date}'
     )
     return redirect('shopping')
+
+
+@login_required
+def generate_shopping_list_items(request, shopping_list_id):
+    """
+    Generate instances of :model:`ShoppingListItem` for
+    :model:`ShoppingList` based on instances of
+    :model:`MealPlanItem` available for the week
+    """
+    shopping_list = get_object_or_404(ShoppingList.objects.filter(
+        user=request.user,
+        pk=shopping_list_id,
+    ))
+
+    planned_meals = get_planned_meals(
+        request,
+        shopping_list.week_start_date,
+        shopping_list.week_end_date,
+    )
+
+    pantry_items = PantryItem.objects.filter(
+        user=request.user,
+    )
+
+    ingredients_to_shop = {}
+    ingredients_in_pantry = {}
+    for meal in planned_meals:
+        meal_ingredients = meal.recipe.ingredients.all()
+        matched, _, missing = PantrySearch().find_match(
+            recipe_ingredients=meal_ingredients,
+            pantry_items=pantry_items,
+        )
+        for ingredient in missing:
+            if ingredient in ingredients_to_shop:
+                ingredients_to_shop[ingredient]['recipe'].append(meal.recipe)
+            else:
+                ingredients_to_shop[ingredient] = {
+                    'quantity': meal_ingredients.filter(
+                        ingredient_name=ingredient
+                    ).first().quantity,
+                    'units': meal_ingredients.filter(
+                        ingredient_name=ingredient
+                    ).first().units,
+                    'recipe': [meal.recipe],
+                }
+
+        for ingredient, pantry_item, _ in matched:
+            if ingredient in ingredients_in_pantry:
+                ingredients_in_pantry[ingredient]['recipe'].append(meal.recipe)
+            else:
+                ingredients_in_pantry[ingredient] = {
+                    'quantity': meal_ingredients.filter(
+                        ingredient_name=ingredient
+                    ).first().quantity,
+                    'units': meal_ingredients.filter(
+                        ingredient_name=ingredient
+                    ).first().units,
+                    'recipe': [meal.recipe],
+                    'pantry_item': pantry_item,
+                }
+
+    # Create ShoppingListItem objects for each ingredient to shop
+    for ingredient_name, ingredient_data in ingredients_to_shop.items():
+        # Create a new shopping list item
+        try:
+            ShoppingListItem.objects.create(
+                shopping_list=shopping_list,
+                item_name=ingredient_name,
+                quantity=ingredient_data['quantity'],
+                units=ingredient_data['units'],
+                notes=(
+                    "Needed for: " +
+                    ", ".join(
+                        [recipe.title for recipe in ingredient_data['recipe']]
+                    )
+                ),
+                in_pantry=False,
+            )
+        except Exception as e:
+            messages.add_message(
+                request,
+                messages.WARNING,
+                f"Error adding ingredients to shopping list- {e}"
+            )
+            break
+
+    # Create ShoppingListItems to keep track of items in pantry
+    for ingredient_name, ingredient_data in ingredients_in_pantry.items():
+        # Create a new shopping list item
+        try:
+            ShoppingListItem.objects.create(
+                shopping_list=shopping_list,
+                item_name=ingredient_name,
+                quantity=ingredient_data['quantity'],
+                units=ingredient_data['units'],
+                notes=(
+                    "Needed for: " +
+                    ", ".join(
+                        [recipe.title for recipe in ingredient_data['recipe']]
+                    )
+                ),
+                in_pantry=True,
+            )
+        except Exception as e:
+            messages.add_message(
+                request,
+                messages.WARNING,
+                f"Error adding ingredients to shopping list- {e}"
+            )
+            break
+
+
+@login_required
+def get_planned_meals(request, week_start, week_end):
+    """
+    """
+    # Convert dates to datetime objects for proper comparison
+    week_start_datetime = timezone.make_aware(datetime.combine(
+        week_start,
+        time.min
+    ))  # Start of day
+    week_end_datetime = timezone.make_aware(datetime.combine(
+        week_end,
+        time.max
+    ))  # End of day
+
+    planned_meals = MealPlanItem.objects.filter(
+        user=request.user,
+        start_time__gte=week_start_datetime,
+        start_time__lte=week_end_datetime,
+    )
+
+    return planned_meals
