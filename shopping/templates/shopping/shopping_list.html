@@ -67,7 +67,9 @@
                                     <div class="card-title">{{ list.week_start_date }} - {{ list.week_end_date }}</div>
                                     <p class="card-text"></p>
                                     <a href="{% url 'shopping_detail' list.id %}" class="card-link">View</a>
-                                    <a href="#" class="card-link">Another link</a>
+                                    <!-- <a href="{% url 'delete_shopping_list' list.id %}" class="card-link">Delete</a> -->
+                                    <button type="button" class="btn btn-secondary" data-type="delete-shopping-list"
+                                        data-list-id="{{ list.id }}">Delete</button>
                                 </div>
                             </div>
                         </div>
@@ -140,7 +142,6 @@
                                 <div class="card-title">{{ meal.recipe.title }}</div>
                                 <div class="card-body"></div>
                                 <div class="card-footer"></div>
-
                             </div>
                         </div>
                         {% empty %}
@@ -160,3 +161,12 @@
 
 </div>
 {% endblock main_content %}
+
+<!-- Base modal to confirm delete shopping list -->
+ {% block modal_title %}
+Delete Shopping List?
+{% endblock modal_title %}
+
+{% block modal_action %}
+<a id="delete-confirm" href="#" class="btn btn-danger">Delete</a>
+{% endblock modal_action %}

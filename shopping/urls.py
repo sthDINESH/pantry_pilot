@@ -8,4 +8,9 @@ urlpatterns = [
         views.shopping_list,
         name='shopping_detail'
     ),
+    path(
+        '<int:shopping_list_id>/delete',
+        views.delete_shopping_list,
+        name='delete_shopping_list'
+    ),
 ]

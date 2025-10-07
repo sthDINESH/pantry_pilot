@@ -35,17 +35,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Parse search results JSON from DOM if available
-  const searchResultsNode = document.querySelector("#search-data");
-  let searchResults = {};
-  if (searchResultsNode) {
-    try {
-      searchResults = JSON.parse(searchResultsNode.textContent);
-    } catch (e) {
-      console.error("Error parsing search results:", e);
-    }
-  }
-
   /**
    * Shows toast for dynamic messages
    * @param {string} message
@@ -115,19 +104,6 @@ document.addEventListener("DOMContentLoaded", function () {
         duplicateItemModal.getAttribute("data-redirect-url");
     });
   }
-
-  // Handles to meal plan modal
-  // ................................................
-  // This modal is used in meals page to add/update a meal item
-  // has an embedded form with CSRF token
-  // const mealPlanModalEl = document.querySelector("#meal-plan-modal");
-  // const mealPlanModalTitle = document.querySelector(
-  //   "#meal-plan-modal .modal-title"
-  // );
-  // let mealPlanModal = null;
-  // if (mealPlanModalEl) {
-  //   mealPlanModal = new bootstrap.Modal(mealPlanModalEl);
-  // }
 
   // Initialize the toast for Django messages
   // This is BS5 requirement for toasts
@@ -609,7 +585,8 @@ document.addEventListener("DOMContentLoaded", function () {
       button.addEventListener("click", function (event) {
         // Display matched and missing ingredients for the recipe
         // Populate base modal with data
-        const apiRecipeId = event.currentTarget.getAttribute("data-api-recipe-id");
+        const apiRecipeId =
+          event.currentTarget.getAttribute("data-api-recipe-id");
         const recipeId = event.currentTarget.getAttribute("data-recipe-id");
         // const recipe = searchResults.find(
         //   (recipe) => recipe.api_recipe_id == recipeId
@@ -749,6 +726,21 @@ document.addEventListener("DOMContentLoaded", function () {
           .catch((error) => {
             console.error("Error:", error);
           });
+      });
+    } else if (buttonType === "delete-shopping-list") {
+      button.addEventListener("click", function (event) {
+        const listId = event.currentTarget.getAttribute("data-list-id");
+        if (listId) {
+          baseModalBody.innerHTML = `
+            <p>
+            Are you sure you want to delete the shopping list?
+            <br>
+            This action cannot be undone!
+            </p>
+        `;
+          deleteConfirm.href = `/shopping/${listId}/delete`;
+          baseModal.show();
+        }
       });
     }
   });

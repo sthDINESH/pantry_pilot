@@ -1,7 +1,9 @@
 from datetime import date, datetime, time
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
+from django.http import JsonResponse
+from django.contrib import messages
 from meals.models import MealPlanItem
 from .models import ShoppingList
 
@@ -68,3 +70,28 @@ def shopping_list(request, shopping_list_id=None):
         'detail_for': detail_for,
     }
     return render(request, 'shopping/shopping_list.html', context)
+
+
+@login_required
+def delete_shopping_list(request, shopping_list_id):
+    """
+    Deletes an instance of shopping list
+    related to :model:`ShoppingList`
+    """
+    shopping_list = get_object_or_404(
+        ShoppingList.objects.filter(
+            pk=shopping_list_id,
+            user=request.user
+        )
+    )
+
+    # User specified while fetching record
+    # so proceed to delete
+    shopping_list.delete()
+    messages.add_message(
+        request,
+        messages.SUCCESS,
+        f'Shopping list removed - '
+        f'{shopping_list.week_start_date}:{shopping_list.week_end_date}'
+    )
+    return redirect('shopping')
