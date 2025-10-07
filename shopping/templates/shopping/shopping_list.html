@@ -39,7 +39,10 @@
                                         {{ list_this_week.week_start_date }} - {{ list_this_week.week_end_date }}
                                     </div>
                                     <p class="card-text"></p>
-                                    <a href="{% url 'shopping_detail' list_this_week.id %}" class="card-link">View</a>
+                                    {% if detail_for.shopping_list.id !=  list_this_week.id %}
+                                    <a href="{% url 'shopping_detail' list_this_week.id %}" class="btn btn-primary">View</a>
+                                    {% endif %}
+                                    <a href="{% url 'refresh_list' list_this_week.id %}" class="btn btn-info">Refresh</a>
                                     <button type="button" class="btn btn-secondary" data-type="delete-shopping-list"
                                         data-list-id="{{ list_this_week.id }}">Delete</button>
                                 </div>
@@ -68,7 +71,7 @@
                                 <div class="card-body">
                                     <div class="card-title">{{ list.week_start_date }} - {{ list.week_end_date }}</div>
                                     <p class="card-text"></p>
-                                    <a href="{% url 'shopping_detail' list.id %}" class="card-link">View</a>
+                                    <a href="{% url 'shopping_detail' list.id %}" class="btn btn-primary">View</a>
                                     <button type="button" class="btn btn-secondary" data-type="delete-shopping-list"
                                         data-list-id="{{ list.id }}">Delete</button>
                                 </div>

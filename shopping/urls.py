@@ -13,4 +13,9 @@ urlpatterns = [
         views.delete_shopping_list,
         name='delete_shopping_list'
     ),
+    path(
+        '<int:shopping_list_id>/refresh',
+        views.refresh_shopping_list,
+        name='refresh_list'
+    ),
 ]

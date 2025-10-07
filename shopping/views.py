@@ -258,6 +258,31 @@ def generate_shopping_list_items(request, shopping_list_id):
 
 
 @login_required
+def refresh_shopping_list(request, shopping_list_id):
+    """
+    Refresh the :model:`ShoppingListItem`s related to
+    :model:`ShoppingList`
+    - Deletes existing items and regenerates new ones
+    """
+    shopping_list = get_object_or_404(ShoppingList.objects.filter(
+        user=request.user,
+        pk=shopping_list_id,
+    ))
+
+    # delete existing shopping list items
+    for item in shopping_list.shopping_list_items.all():
+        item.delete()
+
+    # generate the shopping list items
+    generate_shopping_list_items(request, shopping_list.id)
+
+    return redirect(
+        'shopping_detail',
+        shopping_list_id=shopping_list.id
+    )
+
+
+@login_required
 def get_planned_meals(request, week_start, week_end):
     """
     """
