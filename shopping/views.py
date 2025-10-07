@@ -22,9 +22,6 @@ def shopping_list(request, shopping_list_id=None):
         `previous_lists` : instances of :model:`ShoppingList` except
             this week's
         `detail_for` : Dict with details for shopping list to display
-            Keys:
-                'shopping_list': instance of :model:`ShoppingList`
-                'planned_meals': instances of :model:`MealPlanItem`
 
     **Template:**
     :template:`shopping/shopping_list.html`
@@ -96,6 +93,9 @@ def shopping_list(request, shopping_list_id=None):
             shopping_list.week_end_date,
         )
 
+        # Group planned meals by day of the week
+        planned_meals_by_day = group_meals_by_day(planned_meals)
+
         # Filter shopping list items by in_pantry status
         items_to_buy = shopping_list.shopping_list_items.filter(
             in_pantry=False
@@ -106,7 +106,7 @@ def shopping_list(request, shopping_list_id=None):
 
         detail_for = {
             'shopping_list': shopping_list,
-            'planned_meals': planned_meals,
+            'planned_meals_by_day': planned_meals_by_day,
             'items_to_buy': items_to_buy,
             'items_in_pantry': items_in_pantry,
         }
@@ -303,3 +303,35 @@ def get_planned_meals(request, week_start, week_end):
     )
 
     return planned_meals
+
+
+def group_meals_by_day(planned_meals):
+    """
+    Group planned meals by day of the week
+    Args:
+        planned_meals: QuerySet or list of MealPlanItem objects
+
+    Returns:
+        dict: {
+            'Monday': [meal1, meal2, ...],
+            'Tuesday': [meal3, meal4, ...],
+            ...
+        }
+    """
+    # Initialize dictionary with all days of the week
+    days_of_week = [
+        'Monday', 'Tuesday', 'Wednesday', 'Thursday',
+        'Friday', 'Saturday', 'Sunday'
+    ]
+    meals_by_day = {}
+
+    # Initialize all days with empty lists
+    for day in days_of_week:
+        meals_by_day[day] = []
+
+    # Group meals by day
+    for meal in planned_meals:
+        day_name = meal.start_time.strftime('%A')
+        meals_by_day[day_name].append(meal)
+
+    return meals_by_day

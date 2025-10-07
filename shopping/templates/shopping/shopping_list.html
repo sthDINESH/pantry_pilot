@@ -157,25 +157,38 @@
                     <div class="category-section-heading">
                         <h2 class="sub-heading">
                             Planned Meals
-                            <span>
-                               ({{ detail_for.planned_meals.count|default:"0" }})
-                            </span>
                         </h2>
                     </div>
                     <div class="planned-meals-list row-cols-1 g-3">
                         {% if detail_for %}
-                        {% for meal in detail_for.planned_meals %}
-                        <div class="col">
-                            <div class="meal-card">
-                                <div class="card-title">{{ meal.recipe.title }}</div>
-                                <div class="card-body"></div>
-                                <div class="card-footer"></div>
+                        {% for day, meals in detail_for.planned_meals_by_day.items %}
+                            {% if meals %}
+                            <div class="col">
+                                <div class="day-section">
+                                    <h4 class="day-heading">{{ day }}</h4>
+                                    {% for meal in meals %}
+                                    <div class="meal-card mb-2">
+                                        <div class="card-title">{{ meal.recipe.title }}</div>
+                                        <div class="card-body">
+                                            <small class="text-muted">
+                                                {{ meal.start_time|time:"H:i" }} - {{ meal.get_meal_type_display }}
+                                            </small>
+                                        </div>
+                                        <div class="card-footer"></div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
                             </div>
-                        </div>
+                            {% endif %}
                         {% empty %}
-                        <em>No meals planned for selected week.</em>
+                        <div class="col">
+                            <em>No meals planned for selected week.</em>
+                        </div>
                         {% endfor %}
                         {% else %}
+                        <div class="col">
+                            <em>No meals planned for selected week.</em>
+                        </div>
                         {% endif %}
 
                     </div>
