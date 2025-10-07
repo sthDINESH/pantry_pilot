@@ -40,48 +40,48 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
+                    <li class="nav-item px-1">
                         <a class="nav-link {% if request.path == home_url %} active {% endif %}" aria-current='page'
                             href="{{ home_url }}">Home</a>
                     </li>
                     {% if user.is_authenticated %}
-                    <li class="nav-item">
+                    <li class="nav-item px-1">
                         <a class="nav-link {% if request.path == pantry_url %} active {% endif %}" aria-current='page'
                             href="{{ pantry_url }}">Pantry</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item px-1">
                         <a class="nav-link {% if request.path == recipes_url %} active {% endif %}" aria-current='page'
                             href="{{ recipes_url }}">Recipes</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item px-1">
                         <a class="nav-link {% if request.path == meals_url %} active {% endif %}" aria-current='page'
                             href="{{ meals_url }}">Meals</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.path == meals_url %} active {% endif %}" aria-current='page'
+                    <li class="nav-item px-1">
+                        <a class="nav-link {% if request.path == shopping_url %} active {% endif %}" aria-current='page'
                             href="{{ shopping_url }}">Shopping</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link {% if request.path == logout_url %} active {% endif %}" aria-current='page'
-                            href="{{ logout_url }}">Logout</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle user-profile ms-lg-5" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-solid fa-user"></i>
+                            {{ user.username }}
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{ logout_url }}">Logout</a></li>
+                        </ul>
                     </li>
                     {% else %}
-                    <li class="nav-item">
+                    <li class="nav-item px-1">
                         <a class="nav-link {% if request.path == login_url %} active {% endif %}" aria-current='page'
                             href="{{ login_url }}">Login</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item px-1">
                         <a class="nav-link {% if request.path == signup_url %} active {% endif %}" aria-current='page'
                             href="{{ signup_url }}">SignUp</a>
                     </li>
                     {% endif %}
                 </ul>
-                {% if user.is_authenticated %}
-                <div class="user-profile ms-5">
-                    <i class="fa-solid fa-user"></i>
-                    {{ user.username }}
-                </div>
-                {% endif %}
             </div>
         </div>
     </nav>

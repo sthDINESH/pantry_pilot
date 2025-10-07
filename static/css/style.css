@@ -62,11 +62,22 @@ h1,
 }
 
 .nav-link,
+.dropdown-item,
 .user-profile,
 .sub-heading {
     font-family: var(--secondary-accent-font);
     text-transform: uppercase;
     font-size: var(--nav-link-font-size);
+}
+
+.navbar .dropdown-toggle:hover,
+.navbar .nav-link.active {
+    color: var(--accent-color);
+}
+
+.navbar .nav-link:hover {
+    letter-spacing: 0.2rem;
+    transition: 0.2s ease-in-out;
 }
 
 .user-profile {
