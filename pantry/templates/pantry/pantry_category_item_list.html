@@ -74,8 +74,8 @@ Pantry
                         {% for pantry_item in category.pantry_items.all %}
                         <div id="item-{{ pantry_item.id }}" class="pantry-item col list-view-card">
                             <div class="card">
-                                <img src="{% static 'images/pantry_item_placeholder.webp' %}" class="card-img-top"
-                                    alt="...">
+                                <img src="{% static 'images/pantry_placeholder.webp' %}" class="card-img-top placeholder-item"
+                                    alt="placeholder pantry item">
                                 <div class="card-body">
                                     <div class="pantry-item-name card-title">{{ pantry_item.name }}</div>
                                     <div class="card-text">

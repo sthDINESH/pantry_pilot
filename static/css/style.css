@@ -613,6 +613,13 @@ a {
     height: max(25vh, 25vw);
 }
 
+
+#my-pantry-page .right-screen {
+    background: 
+        linear-gradient(to top, transparent, var(--light-color), var(--light-color)),
+        url('../images/texture_background.webp') center bottom / cover;
+}
+
 /* Pantry carousel styling */
 #pantry-carousel {
     width: 100%;
@@ -636,6 +643,10 @@ a {
 
 #pantry-section.section-wrapper {
     padding-bottom: 4rem;
+}
+
+.card-img-top.placeholder-item {
+    border-bottom: 1px solid rgba(var(--secondary-light-color-rgb), 0.5);
 }
 
 .pantry-item-details {
