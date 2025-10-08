@@ -777,3 +777,123 @@ The serif-dominant approach reinforces the warm, traditional cooking aesthetic w
 The imagery for PantryPilot was carefully curated from [Pexels.com](https://pexels.com/) to reinforce the website's core functionality and create an inviting, food-focused atmosphere. The visual strategy emphasizes fresh ingredients, organized kitchen spaces, and the joy of home cooking to align with the application's pantry management and meal planning features.
 
 </details>
+
+
+## Features
+
+### General features of the site
+
+Each page of the site shares the following features:
+
+#### Favicon
+<details>
+    <summary>(Expand for details)</summary>
+
+[Favicon.io](https://favicon.io/) was used to create a comprehensive favicon package for the site. 
+The PantryPilot logo serves as the base design for all favicon variations, ensuring consistent brand recognition across different devices and platforms.
+
+The favicon package includes:
+
+| Favicon File | Size | Purpose | Image |
+|--------------|------|---------|-------|
+| `favicon.ico` | 16x16, 32x32 | Standard favicon for browsers | ![favicon.ico](static/images/favicon_io/favicon.ico) |
+| `favicon-16x16.png` | 16x16 | 16x16 pixel PNG favicon | ![favicon-16x16](static/images/favicon_io/favicon-16x16.png) |
+| `favicon-32x32.png` | 32x32 | 32x32 pixel PNG favicon | ![favicon-32x32](static/images/favicon_io/favicon-32x32.png) |
+| `apple-touch-icon.png` | 180x180 | iOS devices touch icon | ![apple-touch-icon](static/images/favicon_io/apple-touch-icon.png) |
+| `android-chrome-192x192.png` | 192x192 | Android devices icon | ![android-chrome-192](static/images/favicon_io/android-chrome-192x192.png) |
+| `android-chrome-512x512.png` | 512x512 | Android devices high-res icon | ![android-chrome-512](static/images/favicon_io/android-chrome-512x512.png) |
+| `site.webmanifest` | N/A | Web app manifest file for PWA | N/A |
+
+</details>
+
+#### Navbar
+
+<details>
+    <summary>(Expand for details)</summary>
+
+The navigation bar provides access to all main application features across every page. 
+It features a responsive Bootstrap design that adapts seamlessly to different screen sizes.
+
+**Key Features:**
+- **Brand Logo**: PantryPilot logo and name linking to the dashboard
+- **Fixed Position**: Stays at the top during scrolling for easy access
+- **Responsive Design**: Collapses to hamburger menu on mobile devices
+- **Active State Indicators**: Highlights the current page for clear navigation context
+- **Nav link transitions**: CSS transitions on navigation links for user feedback
+- **Authentication-Aware**: Shows different navigation options based on user login status
+
+**Navigation Links (Authenticated Users):**
+- Home - Landing page with user's personalized dashboard
+- Pantry - Page for User's pantry inventory management
+- Recipes - Recipe discovery and saved recipes
+- Meals - Weekly meal planning calendar
+- Shopping - Shopping list generation and management
+- User Login status - Username display with dropdown menu to logout
+
+<figure>
+  <img src="documentation/screenshots/navbar_desktop_authenticated.png" 
+       alt="Desktop navbar for authenticated users showing all navigation links" 
+       width="800">
+  <figcaption><strong>Figure:</strong> Mobile navbar for authenticated users with full navigation menu</figcaption>
+</figure>
+
+<figure>
+  <img src="documentation/screenshots/navbar_mobile_authenticated.gif" 
+       alt="Mobile navbar for authenticated users showing all navigation links" 
+       width="300">
+  <figcaption><strong>Figure:</strong> Mobile navbar for authenticated users with full navigation menu</figcaption>
+</figure>
+
+**Navigation Links (Unauthenticated Users):**
+- Home - Landing page with site introduction
+- Sign In - User authentication page
+- Sign Up - New user registration page
+
+<figure>
+  <img src="documentation/screenshots/navbar_desktop_unauthenticated.png" 
+       alt="Desktop navbar for unauthenticated users showing login and signup options" 
+       width="800">
+  <figcaption><strong>Figure:</strong> Desktop navbar for unauthenticated users with authentication links</figcaption>
+</figure>
+
+<figure>
+  <img src="documentation/screenshots/navbar_mobile_unauthenticated.gif" 
+       alt="Mobile navbar for unauthenticated users showing all navigation links" 
+       width="300">
+  <figcaption><strong>Figure:</strong> Mobile navbar for unauthenticated users with full navigation menu</figcaption>
+</figure>
+
+</details>
+
+#### Footer
+
+<details>
+    <summary>(Expand for details)</summary>
+
+#### Footer
+
+The footer provides site information and maintains consistent branding across all pages. 
+It features a responsive design that adapts to different screen sizes.
+
+**Key Features:**
+- **Brand Identity**: PantryPilot logo text and tagline reinforcing the site's purpose
+- **Site Description**: Concise explanation of the platform's value proposition
+- **Social Media Links**: Access to site socials - Facebook, YouTube, Twitter, and Instagram home pages
+- **Quick Navigation Links**: Easy access to main site features and pages, redirects to authentication pages for unauthorised users
+- **Responsive Layout**: Adapts from single-column mobile to multi-column desktop layout
+- **Consistent Styling**: Brand accent color background with light text for visual hierarchy
+- **Copyright Information**: Legal footer with current year and rights statement
+
+**Responsive Behavior:**
+- **Mobile**: Single-column vertical layout with centered content
+- **Desktop**: Two-column horizontal layout with left-aligned content
+- **Social Icons**: Maintains consistent spacing and accessibility across all screen sizes
+
+<figure>
+  <img src="documentation/screenshots/footer_desktop.png" 
+       alt="Desktop footer showing site branding, social links, and quick navigation" 
+       width="800">
+  <figcaption><strong>Figure:</strong> Desktop footer with site details, social media links, and quick navigation menu</figcaption>
+</figure>
+
+</details>
