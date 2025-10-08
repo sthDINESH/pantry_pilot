@@ -842,7 +842,9 @@ It features a responsive Bootstrap design that adapts seamlessly to different sc
 <figure>
   <img src="documentation/screenshots/navbar_mobile_authenticated.gif" 
        alt="Mobile navbar for authenticated users showing all navigation links">
-  <figcaption><strong>Figure:</strong> Mobile navbar for authenticated users with full navigation menu</figcaption>
+  <figcaption style="display: block; text-align: left; margin-top: 10px;">
+     <strong>Figure:</strong> Mobile navbar for authenticated users with full navigation menu
+  </figcaption>
 </figure>
 
 **Navigation Links (Unauthenticated Users):**
@@ -862,7 +864,9 @@ It features a responsive Bootstrap design that adapts seamlessly to different sc
 <figure>
   <img src="documentation/screenshots/navbar_mobile_unauthenticated.gif" 
        alt="Mobile navbar for unauthenticated users showing all navigation links">
-  <figcaption><strong>Figure:</strong> Mobile navbar for unauthenticated users with full navigation menu</figcaption>
+  <figcaption style="display: block; text-align: left; margin-top: 10px;">
+     <strong>Figure:</strong> Mobile navbar for unauthenticated users with full navigation menu
+</figcaption>
 </figure>
 
 </details>
@@ -886,16 +890,24 @@ It features a responsive design that adapts to different screen sizes.
 - **Consistent Styling**: Brand accent color background with light text for visual hierarchy
 - **Copyright Information**: Legal footer with current year and rights statement
 
+<figure>
+  <img src="documentation/screenshots/footer_desktop.png" 
+       alt="Desktop footer showing site branding, social links, and quick navigation" 
+       width="800">
+  <figcaption><strong>Figure:</strong> Desktop footer with site details, social media links, and quick navigation menu</figcaption>
+</figure>
+
 **Responsive Behavior:**
 - **Mobile**: Single-column vertical layout with centered content
 - **Desktop**: Two-column horizontal layout with left-aligned content
 - **Social Icons**: Maintains consistent spacing and accessibility across all screen sizes
 
 <figure>
-  <img src="documentation/screenshots/footer_desktop.png" 
-       alt="Desktop footer showing site branding, social links, and quick navigation" 
-       width="800">
-  <figcaption><strong>Figure:</strong> Desktop footer with site details, social media links, and quick navigation menu</figcaption>
+  <img src="documentation/screenshots/footer_responsiveness.gif" 
+       alt="Footer responsive design showing layout changes from desktop to mobile">
+  <figcaption style="display: block; text-align: left; margin-top: 10px;">
+     <strong>Figure:</strong> Footer responsive behavior across different screen sizes
+</figcaption>
 </figure>
 
 </details>
