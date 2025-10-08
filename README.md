@@ -786,11 +786,12 @@ The imagery for PantryPilot was carefully curated from [Pexels.com](https://pexe
 Each page of the site shares the following features:
 
 #### Favicon
-<details>
-    <summary>(Expand for details)</summary>
 
 [Favicon.io](https://favicon.io/) was used to create a comprehensive favicon package for the site. 
 The PantryPilot logo serves as the base design for all favicon variations, ensuring consistent brand recognition across different devices and platforms.
+
+<details>
+    <summary>(Expand for details)</summary>
 
 The favicon package includes:
 
@@ -808,11 +809,11 @@ The favicon package includes:
 
 #### Navbar
 
-<details>
-    <summary>(Expand for details)</summary>
-
 The navigation bar provides access to all main application features across every page. 
 It features a responsive Bootstrap design that adapts seamlessly to different screen sizes.
+
+<details>
+    <summary>(Expand for details)</summary>
 
 **Key Features:**
 - **Brand Logo**: PantryPilot logo and name linking to the dashboard
@@ -914,16 +915,11 @@ It features a responsive design that adapts to different screen sizes.
 
 #### Authorized Access Control
 
-<details>
-    <summary>(Expand for details)</summary>
-
 Defensive programming measures have been implemented to ensure only authorized users can access their personal data. 
 All authenticated views use Django's `@login_required` decorator or `LoginRequiredMixin` class-based view mixin to prevent unauthorized access. 
 User-specific data isolation is enforced through ownership validation before any CRUD operations. 
 These measures ensure users can only access and modify their own pantry items, recipes, meal plans, and shopping lists, 
 providing data privacy and security across all application features.
-
-</details>
 
 
 ### Home Page
