@@ -177,38 +177,92 @@ a {
 /* Authentication form styling */
 /* ---------------------------------------------------------- */
 .auth-grid-container {
-    height: calc(100vh - var(--navbar-height));
+    min-height: calc(100vh - var(--navbar-height));
     width: 100vw;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 3fr 4fr 1.5fr 1fr;
+    grid-template-rows: 1fr 1fr;
     grid-template-areas:
-        "image-area header-area"
-        "image-area form-area"
-        "image-area footer-area"
-        "image-area ps-area";
-    column-gap: 2rem;
+        "image-area"
+        "background-area";
+    position: relative;
 }
 
 .auth-image-container {
     grid-area: image-area;
+    background: url('../images/hero_carousel_pantry_1.webp') no-repeat center center / cover;
 }
 
-.auth-header {
-    grid-area: header-area;
+.auth-background {
+    background:
+        linear-gradient(to bottom, transparent, (--light-color)),
+        url('../images/texture_background.webp') no-repeat center center / cover;
+    grid-area: background-area;
+}
+
+.auth-content-wrapper {
+    position: absolute;
+    width: 80%;
+    min-height: 80%;
+    top: 10%;
+    left: 10%;
+    background-color: rgba(var(--light-color-rgb), 0.4);
+    backdrop-filter: blur(2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: grid;
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+        "site-logo"
+        "auth-content";
+}
+
+.auth-content {
+    grid-area: auth-content;
+    padding: 1rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* border: 2px dotted coral; */
+}
+
+.auth-content-wrapper .site-logo-container {
+    grid-area: site-logo;
+    justify-self: center;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 2rem;
+}
+
+.auth-content-wrapper .site-logo {
+    width: 80%;
+    aspect-ratio: 1;
+    background: url('../images/pantry_pilot_logo.png') no-repeat center center / contain;
+}
+
+.auth-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.site-logo-container h1 {
+    margin: 0;
+}
+
+.auth-header h2 {
+    font-size: calc(1.5 * var(--nav-link-font-size));
+    margin: calc(1 * var(--nav-link-font-size)) 0
 }
 
 .auth-form {
-    grid-area: form-area;
+    width: 100%;
 }
 
 .auth-form form {
-    height: 100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -220,25 +274,12 @@ a {
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-.auth-footer {
-    grid-area: footer-area;
-}
-
-.auth-ps {
-    grid-area: ps-area;
-}
-
-.auth-form-cta {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+    gap: 1.5rem;
 }
 
 .auth-form .btn-primary {
     width: 60%;
+
 }
 
 /* Cards styling */
@@ -257,68 +298,6 @@ a {
     background-color: var(--accent-color);
 }
 
-
-/* Sign-up section styling */
-/* ---------------------------------------------------------- */
-.auth-grid-container .auth-image-container {
-    /* border: 2px dotted coral; */
-    position: relative;
-}
-
-.auth-grid-container .square-card {
-    position: absolute;
-}
-
-.auth-grid-container .square-card:nth-child(1) {
-    --card-width: calc(0.4 * var(--auth-main-image-card-height));
-    width: var(--card-width);
-    right: min(calc(100% - var(--card-width)), calc(var(--auth-main-image-card-height) * 0.55));
-    top: calc(50% - (var(--card-width)) * 2.5);
-}
-
-.auth-grid-container .square-card:nth-child(2) {
-    --card-width: calc(0.6 * var(--auth-main-image-card-height));
-    width: var(--card-width);
-    top: calc(50% - (var(--card-width)) * 1.25);
-    right: min(calc(100% - var(--card-width)), calc(var(--auth-main-image-card-height) * 0.9));
-}
-
-.auth-grid-container .square-card:nth-child(3) {
-    width: var(--auth-main-image-card-height);
-    top: calc(50% - (var(--auth-main-image-card-height) * 0.5));
-    right: 0;
-
-}
-
-.auth-grid-container .square-card:nth-child(4) {
-    --card-width: calc(0.38 * var(--auth-main-image-card-height));
-    width: var(--card-width);
-    right: min(calc(100% - var(--card-width)), calc(var(--auth-main-image-card-height) * 0.8));
-    top: calc(50% + (var(--card-width)) * 1.25);
-}
-
-.auth-grid-container .square-card-image.feature-image-1 {
-    background: url('../images/meal-planning.webp') no-repeat center center / cover;
-}
-
-.auth-grid-container .square-card-image.feature-image-2 {
-    background: url('../images/recipes.webp') no-repeat center center / cover;
-}
-
-.auth-grid-container .square-card-image.feature-image-3 {
-    background: url('../images/pantry_tracking.webp') no-repeat center center / cover;
-}
-
-.auth-grid-container .square-card-image.feature-image-4 {
-    background: url('../images/shopping_list.webp') no-repeat center center / cover;
-}
-
-
-#sign-up-form .auth-footer {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
 
 /* Common styling across pages
 /* ---------------------------------------------------------- */
@@ -542,18 +521,6 @@ a {
     width: 100%;
     object-fit: cover;
     object-position: center;
-}
-
-#hero-carousel .carousel-caption {
-    position: relative;
-    z-index: 2;
-    /* Ensure text appears above the overlay */
-    background: transparent;
-    /* Remove the existing background */
-    border-radius: 0;
-    padding: 1rem;
-    color: white;
-    /* Ensure text is white for contrast */
 }
 
 #home-page .tag-line-container {
@@ -956,12 +923,10 @@ a {
 
 #shopping-lists-page .split-screen {
     width: 100%;
-    /* background-color: rgba(var(--accent-color-light-rgb), 0.8); */
 }
 
 #shopping-lists-page .split-screen.left {
     order: 2;
-    /* background-color: rgba(var(--secondary-light-color-rgb), 0.5); */
 }
 
 #shopping-lists-page .split-screen.center {
@@ -1030,13 +995,6 @@ a {
     padding: 1rem;
     border-bottom: 1px dotted var(--accent-color);
 }
-
-/* #shopping-lists-page .banner {
-    height: max(20vh, 20vw);
-    width:100%;
-    order: 2;
-    border: 2px solid coral;
-} */
 
 /* Footer styling */
 /* ---------------------------------------------------------- */
@@ -1211,6 +1169,26 @@ footer a {
 
     #home-page .end-banner {
         height: min(40vw, 40vh);
+    }
+
+    /* Auth pages styling     */
+    .auth-grid-container {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+        grid-template-areas:
+            "image-area background-area";
+    }
+
+    .auth-background {
+        background:
+            linear-gradient(to bottom, var(--light-color), transparent),
+            url('../images/texture_background.webp') no-repeat center center / cover;
+    }
+
+    .auth-content-wrapper {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+        grid-template-areas: "site-logo auth-content";
     }
 
     /* Pantry page styling */

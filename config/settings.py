@@ -84,6 +84,11 @@ ACCOUNT_EMAIL_VERIFICATION = "none"
 ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD = "username"
 ACCOUNT_SESSION_REMEMBER = True
+# Allauth form customization
+ACCOUNT_FORMS = {
+    'login': 'dashboard.forms.CustomLoginForm',
+    'signup': 'dashboard.forms.CustomSignupForm',
+}
 
 AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',

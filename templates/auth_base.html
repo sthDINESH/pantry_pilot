@@ -7,30 +7,29 @@
 {% block main_content %}
 <section id="{% block section_id %}{% endblock section_id %}" class="auth-grid-container">
   <div class="auth-image-container">
-    <div class="square-card">
-      <div class="square-card-image feature-image-1"></div>
-    </div>
-    <div class="square-card">
-      <div class="square-card-image feature-image-2"></div>
-    </div>
-    <div class="square-card">
-      <div class="square-card-image feature-image-3"></div>
-    </div>
-    <div class="square-card">
-      <div class="square-card-image feature-image-4"></div>
-    </div>
   </div>
-  <div class="auth-header">
-    {% block auth_section_title %}
-    {% endblock auth_section_title %}
-  </div>
-  <div class="auth-form">
-    {% block auth_section_form %}
-    {% endblock auth_section_form %}
-  </div>
-  <div class="auth-footer">
-    {% block auth_section_footer %}
-    {% endblock auth_section_footer %}
+  <div class="auth-background"></div>
+  <div class="auth-content-wrapper">
+    <div class="site-logo-container">
+      <div class="site-logo"></div>
+      <div class="site-brand text-center">
+        <h1>Pantry Pilot</h1>
+      </div>
+    </div>
+    <div class="auth-content">
+      <div class="auth-header">
+        {% block auth_section_title %}
+        {% endblock auth_section_title %}
+      </div>
+      <div class="auth-form">
+        {% block auth_section_form %}
+        {% endblock auth_section_form %}
+      </div>
+      <div class="auth-footer">
+        {% block auth_section_footer %}
+        {% endblock auth_section_footer %}
+      </div>
+    </div>
   </div>
 </section>
 {% endblock main_content %}
