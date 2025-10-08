@@ -987,3 +987,33 @@ The sign up page allows new users to create their account.
 </figure>
 
 </details>
+
+
+### Sign In Page
+
+The sign in page authenticates returning users and allows access to their personalized account and website features.
+
+<details>
+    <summary>(Expand for details)</summary>
+
+**Key Features:**
+
+- **Required Credentials**: Username and password authentication
+- **Form Validation**: Real-time client-side and server-side validation with clear error messaging
+- **Responsive Layout**: Optimized for both desktop and mobile authentication
+- **Registration Link**: Direct link to signup page for new users
+- **Authentication Integration**: Seamless integration with Django Allauth for secure login
+- **CSRF Protection**: Django CSRF tokens for secure form submission
+- **Password Security**: Secure password handling and validation
+- **Failed Login Handling**: Clear error messages for authentication failures
+- **Dashboard Redirect**: Direct redirect to personalized dashboard after successful login
+- **Welcome Experience**: Seamless transition to authenticated user interface
+
+<figure>
+  <img src="documentation/screenshots/signin_page.png" 
+       alt="Sign in page showing login form for registered users" 
+       width="800">
+  <figcaption><strong>Figure:</strong> Sign in page for registered users to log in</figcaption>
+</figure>
+
+</details>
