@@ -957,3 +957,33 @@ The home page serves as both a landing page for new users and a personalized das
 </figure>
 
 </details>
+
+
+### Sign Up Page
+
+The sign up page allows new users to create their account.
+
+<details>
+    <summary>(Expand for details)</summary>
+
+**Key Features**
+- **Required Information**: Username, email address, and secure password confirmation
+- **Form Validation**: Real-time client-side and server-side validation with clear error messaging
+- **Responsive Layout**: Optimized for both desktop and mobile registration
+- **Authentication Integration**: Seamless integration with Django Allauth for secure account creation
+- **Login Redirect**: Displays direct link to login page for existing users
+- **Password Requirements**: Enforced password complexity through Django with user-friendly guidance
+- **CSRF Protection**: Django CSRF tokens for secure form submission
+- **Duplicate Prevention**: Username and email uniqueness validation
+- **Automatic Login**: Users are automatically logged in after successful registration
+- **Dashboard Redirect**: Direct redirect to personalized dashboard upon successful registration
+
+<figure>
+  <img src="documentation/screenshots/signup_page.png" 
+       alt="Sign up page for new user registration" 
+       width="800">
+  <figcaption><strong>Figure:</strong> Sign up page for new user registration
+  </figcaption>
+</figure>
+
+</details>
