@@ -874,13 +874,11 @@ It features a responsive Bootstrap design that adapts seamlessly to different sc
 
 #### Footer
 
-<details>
-    <summary>(Expand for details)</summary>
-
-#### Footer
-
 The footer provides site information and maintains consistent branding across all pages. 
 It features a responsive design that adapts to different screen sizes.
+
+<details>
+    <summary>(Expand for details)</summary>
 
 **Key Features:**
 - **Brand Identity**: PantryPilot logo text and tagline reinforcing the site's purpose
