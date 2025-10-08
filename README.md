@@ -16,7 +16,7 @@
 
 PantryPilot is a comprehensive full-stack web application designed to help users efficiently manage their pantry inventory, discover recipes based on available ingredients, plan weekly meals, and generate smart shopping lists. The application combines intelligent ingredient tracking with meal planning capabilities to reduce food waste, save money, and streamline cooking experiences.
 
-### Technology Stack
+### Technology Stack Overview
 - **Frontend**: HTML5, CSS3, JavaScript (ES6+)
 - **Backend**: Django Framework (Python)
 - **Database**: PostgreSQL
@@ -1044,3 +1044,61 @@ The sign out page provides a secure confirmation step for users to safely termin
 </figure>
 
 </details>
+
+
+## Technologies used
+
+### Languages
+- **HTML5** 
+- **CSS3** 
+- **JavaScript** 
+- **Python**
+
+### Database
+- **PostgreSQL**
+
+### Frameworks
+- **[Django](https://docs.djangoproject.com/en/4.2/)** - Version 4.2.24 - Used as the website's framework providing user authentication, database ORM, template rendering, and MVC architecture for all application features.
+
+- **[Bootstrap](https://getbootstrap.com/docs/5.3/getting-started/introduction/)** - Version 5.3.8 - Used to implement responsive design system, navigation components, form styling, and mobile-first layout across all pages.
+
+### Libraries and packages
+
+**Django Extensions & Authentication:**
+- **[Django Allauth](https://django-allauth.readthedocs.io/en/latest/)** - Version 0.57.2 - Used to implement complete user authentication system including registration, login, logout, and account management features.
+- **[Django Crispy Forms](https://django-crispy-forms.readthedocs.io/en/latest/)** - Version 2.4 - Used to render website forms with Bootstrap styling.
+- **[Crispy Bootstrap 5](https://github.com/django-crispy-forms/crispy-bootstrap5)** - Version 0.7 - Used to integrate Bootstrap 5 components with crispy forms for modern, responsive form layouts.
+
+**Database & Cloud Storage:**
+- **[psycopg2](https://www.psycopg.org/docs/)** - Version 2.9.10 - Used to connect website's Django application to PostgreSQL database for all data operations and queries.
+- **[dj-database-url](https://github.com/jazzband/dj-database-url)** - Version 0.5.0 - Used to configure website's database connection using environment variables for development and production deployments.
+- **[Cloudinary](https://cloudinary.com/documentation/django_integration)** - Version 1.36.0 - Used to store and serve user uploaded static files and media assets with cloud-based optimization and CDN delivery.
+- **[dj3-cloudinary-storage](https://github.com/klis87/dj3-cloudinary-storage)** - Version 0.0.6 - Used to integrate Cloudinary storage backend with Django for user media management.
+
+**Deployment & Production:**
+- **[Gunicorn](https://docs.gunicorn.org/en/latest/)** - Version 20.1.0 - Used as WSGI HTTP server for production deployment on Heroku.
+- **[WhiteNoise](https://whitenoise.readthedocs.io/en/latest/)** - Version 5.3.0 - Used to serve static files directly from Django in production without requiring separate web server configuration.
+
+**Text Processing & Algorithms:**
+- **[RapidFuzz](https://rapidfuzz.github.io/RapidFuzz/)** - Version 3.14.1 - Used in ingredient matching system to find similar pantry items and suggest recipe ingredient substitutions with fuzzy string matching.
+
+**Javascript libraries**
+- **[FullCalendar](https://fullcalendar.io/)** - Version 6.1.19 - Used to implement PantryPilot's interactive meal planning calendar for scheduling recipes to specific dates and meal times.
+
+### Programs Used
+
+- **[Am I Responsive](https://ui.dev/amiresponsive)** - Used to create the responsive mockup images showing PantryPilot displayed across multiple device sizes for the README documentation.
+
+- **[Balsamiq](https://balsamiq.com/)** - Used to create wireframes for all pages  during the UX design phase.
+
+- **[Lucidchart](https://www.lucidchart.com/)** - Used to design and document the database schema, entity-relationship diagrams, and system architecture for data models and relationships.
+
+- **[Favicon.io](https://favicon.io/)** - Used to generate the complete favicon package creating multiple sizes and formats from the site logo for cross-platform browser compatibility.
+
+- **[Git](https://git-scm.com/)** - Used for version control throughout development.
+
+- **[GitHub](https://github.com/)** - Used as the primary repository hosting service for source code, managing version control, issue tracking, and project documentation storage.
+
+- **[Google Chrome DevTools](https://developer.chrome.com/docs/devtools/)** - Used extensively for debugging JavaScript functionality, testing responsive design across device sizes, troubleshooting CSS styling issues, and optimizing performance.
+
+- **[Pip](https://pip.pypa.io/en/stable/)** - Used to install and manage all Python packages and dependencies for PantryPilot's Django project.
