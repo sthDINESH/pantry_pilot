@@ -1102,3 +1102,14 @@ The sign out page provides a secure confirmation step for users to safely termin
 - **[Google Chrome DevTools](https://developer.chrome.com/docs/devtools/)** - Used extensively for debugging JavaScript functionality, testing responsive design across device sizes, troubleshooting CSS styling issues, and optimizing performance.
 
 - **[Pip](https://pip.pypa.io/en/stable/)** - Used to install and manage all Python packages and dependencies for PantryPilot's Django project.
+
+
+## Deployment
+
+
+## Testing
+
+Please refer to [TESTING.md](TESTING.md) for comprehensive testing performed.
+
+
+## Credits
