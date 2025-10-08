@@ -717,7 +717,7 @@ pantry_pilot/
 **Color Selection Process:**
 Color combinations were evaluated using [Colormind.io](http://colormind.io/) to ensure optimal contrast ratios, brand consistency, and accessibility compliance. 
 
-The warm red accent paired with earthy green creates a natural, food-focused aesthetic.
+The warm red accent paired with vibrant blue creates a natural, food-focused aesthetic.
 
 <figure>
   <img src="documentation/ux_surface_plane/color_palette.png" 
@@ -731,7 +731,7 @@ The warm red accent paired with earthy green creates a natural, food-focused aes
 **Primary Colors:**
 - **Light Color**: `#FFFFFF` (White) - Primary background and text
 - **Accent Color**: `#D64040` - Primary brand color for buttons and highlights
-- **Secondary Accent**: `#448260` - Supporting accent for success states and secondary actions
+- **Secondary Accent**: `#0DCAF0` - Supporting accent for success states and secondary actions
 
 **Supporting Colors:**
 - **Secondary Light**: `#D6D5D0` - Subtle backgrounds and borders
@@ -739,7 +739,7 @@ The warm red accent paired with earthy green creates a natural, food-focused aes
 
 **Color Usage:**
 - Primary navigation and key interactive elements use the main accent color
-- Success messages and confirmations use the secondary accent green
+- Secondary buttons use the secondary accent
 - Backgrounds maintain high contrast with white and light gray variations
 - Color-blind friendly palette ensuring accessibility compliance
 
@@ -769,5 +769,11 @@ The serif-dominant approach reinforces the warm, traditional cooking aesthetic w
 - **Headings**: Andada Pro for clear content hierarchy
 - **Body Text**: Pridi for optimal readability
 - **Navigation**: Andada Pro with custom sizing using CSS variables
+
+#### Imagery
+
+**Visual Strategy and Selection:**
+
+The imagery for PantryPilot was carefully curated from [Pexels.com](https://pexels.com/) to reinforce the website's core functionality and create an inviting, food-focused atmosphere. The visual strategy emphasizes fresh ingredients, organized kitchen spaces, and the joy of home cooking to align with the application's pantry management and meal planning features.
 
 </details>
