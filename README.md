@@ -1017,3 +1017,30 @@ The sign in page authenticates returning users and allows access to their person
 </figure>
 
 </details>
+
+
+### Sign Out Page
+
+The sign out page provides a secure confirmation step for users to safely terminate their authenticated session and log out of their account.
+
+<details>
+    <summary>(Expand for details)</summary>
+
+**Key Features:**
+
+- **Confirmation Required**: Prevents accidental logout with explicit confirmation step
+- **CSRF Protection**: Django CSRF tokens ensure secure logout process
+- **Landing Redirect**: Returns users to the home page after successful logout
+- **State Reset**: Clears all user-specific data from the interface
+- **Success Feedback**: Toast notification confirming successful logout
+- **Django Allauth**: Seamless integration with authentication system
+- **Form Validation**: Proper form handling and CSRF validation
+
+<figure>
+  <img src="documentation/screenshots/signout_page.png" 
+       alt="Sign out page showing logout confirmation for authenticated users" 
+       width="800">
+  <figcaption><strong>Figure:</strong> Sign out page with logout confirmation</figcaption>
+</figure>
+
+</details>
