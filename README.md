@@ -911,3 +911,55 @@ It features a responsive design that adapts to different screen sizes.
 </figure>
 
 </details>
+
+#### Authorized Access Control
+
+<details>
+    <summary>(Expand for details)</summary>
+
+Defensive programming measures have been implemented to ensure only authorized users can access their personal data. 
+All authenticated views use Django's `@login_required` decorator or `LoginRequiredMixin` class-based view mixin to prevent unauthorized access. 
+User-specific data isolation is enforced through ownership validation before any CRUD operations. 
+These measures ensure users can only access and modify their own pantry items, recipes, meal plans, and shopping lists, 
+providing data privacy and security across all application features.
+
+</details>
+
+
+### Home Page
+The home page serves as both a landing page for new users and a personalized dashboard for authenticated users, providing a welcoming introduction to the site's features and quick access to core functionality.
+
+<details>
+    <summary>(Expand for details)</summary>
+
+**Key Features:**
+
+**For Unauthenticated Users:**
+- **Hero Carousel**: Dynamic image carousel showcasing key features (pantry management, recipes, meal planning, shopping)
+- **Site Introduction**: Clear value proposition with tagline
+- **Feature Overview Cards**: Visual introduction to four main features with descriptive text
+- **Call-to-Action Buttons**: Prominent Sign Up and Login buttons for easy registration
+
+<figure>
+  <img src="documentation/screenshots/home_page_unauthenticated.gif" 
+       alt="Home page for unauthenticated users showing hero carousel, feature overview, and authentication options" 
+       width="800">
+  <figcaption><strong>Figure:</strong> Home page for unauthenticated users with site introduction and feature overview</figcaption>
+</figure>
+
+**For Authenticated Users:**
+- **Personalized Welcome**: Greeting with username and personalized dashboard message
+- **Feature Access Cards**: Direct links to main application areas with current status:
+  - **Your Pantry**: Shows available items count with "View All" link
+  - **Discover Recipes**: Recipe search functionality access
+  - **Upcoming Meal**: Displays next planned meal status
+  - **Your Shopping Lists**: Shopping list management access
+
+<figure>
+  <img src="documentation/screenshots/home_page_authenticated.gif" 
+       alt="Home page for authenticated users showing personalized dashboard with quick stats and feature access" 
+       width="800">
+  <figcaption><strong>Figure:</strong> Home page for authenticated users with personalized dashboard and quick access to main features</figcaption>
+</figure>
+
+</details>
