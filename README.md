@@ -837,10 +837,11 @@ It features a responsive Bootstrap design that adapts seamlessly to different sc
   <figcaption><strong>Figure:</strong> Mobile navbar for authenticated users with full navigation menu</figcaption>
 </figure>
 
+<br clear="all">
+
 <figure>
   <img src="documentation/screenshots/navbar_mobile_authenticated.gif" 
-       alt="Mobile navbar for authenticated users showing all navigation links" 
-       width="300">
+       alt="Mobile navbar for authenticated users showing all navigation links">
   <figcaption><strong>Figure:</strong> Mobile navbar for authenticated users with full navigation menu</figcaption>
 </figure>
 
@@ -856,10 +857,11 @@ It features a responsive Bootstrap design that adapts seamlessly to different sc
   <figcaption><strong>Figure:</strong> Desktop navbar for unauthenticated users with authentication links</figcaption>
 </figure>
 
+<br clear="all">
+
 <figure>
   <img src="documentation/screenshots/navbar_mobile_unauthenticated.gif" 
-       alt="Mobile navbar for unauthenticated users showing all navigation links" 
-       width="300">
+       alt="Mobile navbar for unauthenticated users showing all navigation links">
   <figcaption><strong>Figure:</strong> Mobile navbar for unauthenticated users with full navigation menu</figcaption>
 </figure>
 
