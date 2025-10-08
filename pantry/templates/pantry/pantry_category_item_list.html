@@ -10,7 +10,25 @@ Pantry
 
 {% block main_content %}
 <div id="my-pantry-page" class="split-screen">
-    <div class="screen left-screen"></div>
+    <div class="screen left-screen">
+        <div id="pantry-carousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="4000">
+            <!-- Carousel slides -->
+            <div class="carousel-inner">
+                <div class="carousel-item active" data-bs-interval="6000">
+                    <img src="{% static 'images/pantry_carousel_dairy.webp' %}" class="d-block w-100 h-100" alt="Pantry organization">
+                </div>
+                <div class="carousel-item" data-bs-interval="6000">
+                    <img src="{% static 'images/pantry_carousel_grains.webp' %}" class="d-block w-100 h-100" alt="Kitchen storage">
+                </div>
+                <div class="carousel-item" data-bs-interval="6000">
+                    <img src="{% static 'images/pantry_carousel_spices.webp' %}" class="d-block w-100 h-100" alt="Food inventory">
+                </div>
+                <div class="carousel-item" data-bs-interval="6000">
+                    <img src="{% static 'images/pantry_carousel_vegetables.webp' %}" class="d-block w-100 h-100" alt="Pantry management">
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="screen right-screen">
         <div id="pantry-section" class="section-wrapper">
             <div class="container">
@@ -46,13 +64,13 @@ Pantry
                             <i class="fa-solid fa-trash"></i>
                         </button>
                         <button type="button" class="btn btn-info btn-sm circle" data-bs-toggle="collapse"
-                            data-bs-target="#category-body-{{ category.id }}" aria-expanded="true"
+                            data-bs-target="#category-body-{{ category.id }}" aria-expanded="false"
                             aria-controls="category-body-{{ category.id }}" data-type="collapse-trigger">
                             <i class="fa-solid fa-chevron-down"></i>
                         </button>
                     </div>
                     <div id="category-body-{{ category.id }}"
-                        class="category-section-body row row-cols-1 row-cols-md-2 row-cols-xl-3 g-3 collapse show">
+                        class="category-section-body row row-cols-1 row-cols-md-2 row-cols-xl-3 g-3 collapse">
                         {% for pantry_item in category.pantry_items.all %}
                         <div id="item-{{ pantry_item.id }}" class="pantry-item col list-view-card">
                             <div class="card">
