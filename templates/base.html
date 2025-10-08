@@ -142,7 +142,7 @@
         <div class="container">
             <div class="footer-column-wrapper">
                 <div class="site-details footer-column">
-                    <a href="" class="footer-site-logo">Pantry Pilot</a>
+                    <a href="{{ home_url }}" class="footer-site-logo">Pantry Pilot</a>
                     <div class="site-details-paragraph">
                         Your smart kitchen companion for tracking pantry inventory, discovering recipes
                         with your ingredients, and reducing food waste.
@@ -151,19 +151,19 @@
                         intelligent shopping lists.
                     </div>
                     <div class="site-socials">
-                        <a href="https://www.facebook.com/pantrypilot" target="_blank" rel="noopener noreferrer"
+                        <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer"
                             aria-label="Follow us on Facebook">
                             <i class="fab fa-facebook-f"></i>
                         </a>
-                        <a href="https://www.youtube.com/c/pantrypilot" target="_blank" rel="noopener noreferrer"
+                        <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer"
                             aria-label="Subscribe to our YouTube channel">
                             <i class="fab fa-youtube"></i>
                         </a>
-                        <a href="https://twitter.com/pantrypilot" target="_blank" rel="noopener noreferrer"
+                        <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer"
                             aria-label="Follow us on Twitter">
                             <i class="fab fa-twitter"></i>
                         </a>
-                        <a href="https://www.instagram.com/pantrypilot" target="_blank" rel="noopener noreferrer"
+                        <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer"
                             aria-label="Follow us on Instagram">
                             <i class="fab fa-instagram"></i>
                         </a>
@@ -172,11 +172,11 @@
                 <div class="footer-menus footer-column">
                     <h3 class="sub-heading">Quick Links</h3>
                     <ul>
-                        <li>Home</li>
-                        <li>Track Pantry</li>
-                        <li>Search Recipes</li>
-                        <li>Plan Meals</li>
-                        <li>Smart Shopping</li>
+                        <li><a href="{{ home_url }}" aria-label="Dashboard">Home</a></li>
+                        <li><a href="{{ pantry_url }}" aria-label="Pantry management">Track Pantry</a></li>
+                        <li><a href="{{ recipes_url }}" aria-label="Recipe search">Search Recipes</a></li>
+                        <li><a href="{{ meals_url }}" aria-label="Meal planning">Plan Meals</a></li>
+                        <li><a href="{{ shopping_url }}" aria-label="Shopping lists">Smart Shopping</a></li>
                     </ul>
                 </div>
             </div>
