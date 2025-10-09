@@ -276,7 +276,8 @@ PantryPilot is a comprehensive full-stack web application designed to help users
 |---------|--------|----------|-------------|-------------------|------------|
 | User Authentication (US001-US003) | 1 | High | High | Medium | ✅ Must Have |
 | Basic Pantry Management (US004-US007) | 1 | High | High | Medium | ✅ Must Have |
-| Help & Basic Mobile (US008-US009) | 1 | High | Medium | Low | ✅ Must Have |
+| Help (US008) | 1 | Future | Low | Low | ❌ Won't Have |
+| Basic Mobile (US009) | 1 | High | Medium | Low | ✅ Must Have |
 | Recipe Discovery (US010-US012) | 2 | High | High | High | ✅ Must Have |
 | Recipe Management (US013-US014) | 2 | Medium | Medium | Medium | ✅ Should Have |
 | Meal Planning (US015-US016) | 3 | High | High | High | ✅ Must Have |

@@ -212,7 +212,8 @@ Google Lighthouse was used to test performance, accessibility, best practices an
                 <li>✅ Confirmation message displayed after successful addition</li>
                 <li>✅ New item appears in pantry list immediately after addition</li>
                 <li>✅ Form validates all required fields before submission</li>
-                <li>✅ Dialog appears if item already exits - users can add to or replace existing quantity</li>
+                <li>✅ Checks if item already exits - users can add to or replace existing quantity if units match</li>
+                <li>✅ Checks if item already exits - users can replace existing quantity if units don't match</li>
             </ul>
         </td>
         <td> Pass </td>
@@ -260,25 +261,34 @@ Google Lighthouse was used to test performance, accessibility, best practices an
         <td> Pass </td>
     </tr>
     <tr>
-      <td><strong>US007</strong></td>
-      <td><strong>AS A</strong> logged in user <strong>I WANT TO</strong> delete items from my pantry <strong>SO THAT I CAN</strong> remove ingredients I no longer have</td>
-      <td>Test <code>delete_pantry_item</code> function</td>
-      <td>Deletion with confirmation modal implemented</td>
-      <td>✅ Pass</td>
-    </tr>
-    <tr>
-      <td><strong>US008</strong></td>
-      <td><strong>AS A</strong> new user <strong>I WANT TO</strong> see website help and navigation guidance <strong>SO THAT I CAN</strong> understand how to use PantryPilot effectively</td>
-      <td>Test navigation and help content in <code>templates/base.html</code></td>
-      <td>Clear navigation structure with responsive design</td>
-      <td>✅ Pass</td>
+        <td><strong>US007</strong></td>
+        <td><strong>AS A</strong> logged in user <strong>I WANT TO</strong> delete items from my pantry <strong>SO THAT I CAN</strong> remove ingredients I no longer have</td>
+        <td>
+            <ul>
+                <li>Click the Delete item button(bin icon) on pantry item card</li>
+                <li>Click the Delete button in dialog to confirm deletion</li>
+            </ul>
+        </td>
+        <td>
+            <ul>
+                <li>✅ Delete button/link is available for each pantry item</li>
+                <li>✅ Confirmation dialog appears before deletion</li>
+                <li>✅ User can confirm or cancel deletion</li>
+                <li>✅ Item is permanently removed after confirmation</li>
+                <li>✅ Confirmation message displayed after successful deletion</li>
+                <li>✅ Pantry list updates immediately after deletion</li>
+                <li>✅ Only item owner can delete their items</li>
+                <li>✅ Deleted items cannot be recovered</li>
+            </ul>
+        </td>
+        <td> Pass </td>
     </tr>
     <tr>
       <td><strong>US009</strong></td>
       <td><strong>AS A</strong> mobile user <strong>I WANT TO</strong> access basic pantry features on my phone <strong>SO THAT I CAN</strong> manage my pantry while shopping</td>
-      <td>Test responsive design with mobile viewport</td>
-      <td>Bootstrap 5 responsive framework implemented</td>
-      <td>✅ Pass</td>
+      <td>Check using Google Development tools</td>
+      <td>Results in TODO </td>
+      <td> Pass </td>
     </tr>
     <tr>
       <td><strong>US010</strong></td>
