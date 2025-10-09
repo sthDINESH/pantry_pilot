@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+{% spaceless %}
 {% load static %}
 {% url 'account_login' as login_url %}
 {% url 'account_signup' as signup_url %}
@@ -7,10 +9,8 @@
 {% url 'meals' as meals_url %}
 {% url 'shopping' as shopping_url %}
 {% url 'dashboard' as home_url %}
-
-<!DOCTYPE html>
+{% endspaceless %}
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
