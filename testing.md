@@ -214,14 +214,28 @@ Google Lighthouse was used to test performance, accessibility, best practices an
                 <li>✅ Form validates all required fields before submission</li>
             </ul>
         </td>
-        <td>✅ Pass</td>
+        <td> Pass </td>
     </tr>
     <tr>
-      <td><strong>US005</strong></td>
-      <td><strong>AS A</strong> logged in user <strong>I WANT TO</strong> see all my pantry items in a list <strong>SO THAT I CAN</strong> quickly review what ingredients I have</td>
-      <td>Test <code>CategoryList</code> view rendering pantry items</td>
-      <td>Items displayed by category with proper filtering</td>
-      <td>✅ Pass</td>
+        <td><strong>US005</strong></td>
+        <td><strong>AS A</strong> logged in user <strong>I WANT TO</strong> see all my pantry items in a list <strong>SO THAT I CAN</strong> quickly review what ingredients I have</td>
+        <td>
+            <ul>
+                <li>Access Pantry page from navigation</li>
+            </ul>
+        </td>
+        <td>
+        <ul>
+            <li>✅ Pantry page displays all user's items</li>
+            <li>✅ Each item shows name, quantity, unit</li>
+            <li>✅ Items are sectioned by category</li>
+            <li>✅ Page displays item count per category</li>
+            <li>✅ Message displayed for empty pantry</li>
+            <li>✅ Add new item button is prominently displayed</li>
+            <li>✅ User data is isolated - Only personal items are displayed</li>
+        </ul>
+        </td>
+        <td> Pass </td>
     </tr>
     <tr>
       <td><strong>US006</strong></td>
