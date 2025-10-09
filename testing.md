@@ -91,4 +91,259 @@ Flake8 extension for vsCode from Mircosoft was used during the development to he
 
 </details>
 
+### Lighthouse Testing
+
+Google Lighthouse was used to test performance, accessibility, best practices and SEO for the site.
+
+<details>
+    <summary>Expand to view the results</summary>
+</details>
+
+### Manual Testing
+
+#### Testing User Stories
+
+<details>
+    <summary>Expand to view the results</summary>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>User Story</th>
+      <th>Testing</th>
+      <th>Comments</th>
+      <th>Results</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+        <td><strong>US001</strong></td>
+        <td>
+            <strong>AS A</strong> new user <strong>I WANT TO</strong> create an account with email and password <strong>SO THAT I CAN</strong> save my pantry data and access personalized features
+        </td>
+        <td>
+            <ul>
+                <li>Click on the SignUp link accessible through the navbar</li>
+                <li>Fill in the username, email and password fields</li>
+                <li>Click the Start button to register</li>
+            </ul>
+        </td>
+        <td>
+            <ul>
+                <li>✅ User can access registration page from the navbar</li>
+                <li>✅ Registration form includes username, email, password, and confirm password fields</li>
+                <li>✅ Users can't submit empty form</li>
+                <li>✅ Email field validates proper email format</li>
+                <li>✅ Uniqueness for username checked</li>
+                <li>✅ Password requirements are checked</li>
+                <li>✅ Matching password and confirm password field checked</li>
+                <li>✅ success message displayed upon successful registration</li>
+                <li>✅ User is automatically logged in after registration</li>
+                <li>✅ User redirected to dashboard after successful registration</li>
+                <li>✅ Error messages display for invalid inputs</li>
+                <li>✅ Duplicate email addresses are prevented with clear error message</li>
+            </ul>
+        </td>
+        <td> Pass </td>
+    </tr>
+    <tr>
+        <td><strong>US002</strong></td>
+        <td><strong>AS A</strong> returning user <strong>I WANT TO</strong> log into my account <strong>SO THAT I CAN</strong> access my personal pantry</td>
+        <td>
+            <ul>
+                <li>Click on the Login link in navbar</li>
+                <li>Fill in the username and password, and click the button</li>
+            </ul>
+        </td>
+        <td>
+            <ul>
+                <li>✅ Login form accessible from navigation</li>
+                <li>✅ Login form accepts username and password</li>
+                <li>✅ Username displayed in navbar after login</li>
+                <li>✅ User redirected to dashboard after successful login</li>
+                <li>✅ Error message displayed for invalid credentials</li>
+                <li>✅ User stays on login page if credentials are invalid</li>
+                <li>✅ Users can login without email verification</li>
+            </ul>
+        </td>
+        <td> Pass </td>
+    </tr>
+    <tr>
+        <td><strong>US003</strong></td>
+        <td><strong>AS A</strong> logged in user <strong>I WANT TO</strong> log out of my account <strong>SO THAT I CAN</strong> secure my data when finished</td>
+        <td>
+            <ul>
+                <li>When logged in, click on logout link accessible from dropdown link under username in navigation</li>
+                <li>Click on the Sign Out button to confirm</li>
+            </ul>
+        </td>
+        <td>
+            <ul>
+            <li>✅ Logout accessible from navigation for authenticated users</li>
+            <li>✅ Clicking logout confirmation ends user session</li>
+            <li>✅ User redirected to landing page after logout</li>
+            <li>✅ Navigation bar changes to indicate logout state</li>
+            <li>✅ Success message confirms successful logout</li>
+            <li>✅ User cannot access protected pages after logout without re-authenticating</li>
+            <li>✅ Logout works consistently across all pages</li>
+            <li>✅ Logout link only appears for authenticated users</li>
+            </ul>
+        </td>
+        <td> Pass </td>
+    </tr>
+    <tr>
+      <td><strong>US004</strong></td>
+      <td><strong>AS A</strong> logged in user <strong>I WANT TO</strong> add ingredients to my pantry with name and quantity <strong>SO THAT I CAN</strong> track what I have available</td>
+      <td>Test <code>PantryItemForm</code> submission via <code>CategoryList.post</code></td>
+      <td>Form validation and duplicate handling working</td>
+      <td>✅ Pass</td>
+    </tr>
+    <tr>
+      <td><strong>US005</strong></td>
+      <td><strong>AS A</strong> logged in user <strong>I WANT TO</strong> see all my pantry items in a list <strong>SO THAT I CAN</strong> quickly review what ingredients I have</td>
+      <td>Test <code>CategoryList</code> view rendering pantry items</td>
+      <td>Items displayed by category with proper filtering</td>
+      <td>✅ Pass</td>
+    </tr>
+    <tr>
+      <td><strong>US006</strong></td>
+      <td><strong>AS A</strong> logged in user <strong>I WANT TO</strong> update ingredient quantities <strong>SO THAT I CAN</strong> keep my pantry inventory accurate</td>
+      <td>Test <code>update_pantry_item</code> function with form submission</td>
+      <td>CRUD operations working with user validation</td>
+      <td>✅ Pass</td>
+    </tr>
+    <tr>
+      <td><strong>US007</strong></td>
+      <td><strong>AS A</strong> logged in user <strong>I WANT TO</strong> delete items from my pantry <strong>SO THAT I CAN</strong> remove ingredients I no longer have</td>
+      <td>Test <code>delete_pantry_item</code> function</td>
+      <td>Deletion with confirmation modal implemented</td>
+      <td>✅ Pass</td>
+    </tr>
+    <tr>
+      <td><strong>US008</strong></td>
+      <td><strong>AS A</strong> new user <strong>I WANT TO</strong> see website help and navigation guidance <strong>SO THAT I CAN</strong> understand how to use PantryPilot effectively</td>
+      <td>Test navigation and help content in <code>templates/base.html</code></td>
+      <td>Clear navigation structure with responsive design</td>
+      <td>✅ Pass</td>
+    </tr>
+    <tr>
+      <td><strong>US009</strong></td>
+      <td><strong>AS A</strong> mobile user <strong>I WANT TO</strong> access basic pantry features on my phone <strong>SO THAT I CAN</strong> manage my pantry while shopping</td>
+      <td>Test responsive design with mobile viewport</td>
+      <td>Bootstrap 5 responsive framework implemented</td>
+      <td>✅ Pass</td>
+    </tr>
+    <tr>
+      <td><strong>US010</strong></td>
+      <td><strong>AS A</strong> home cook <strong>I WANT TO</strong> find recipes using ingredients I have in my pantry <strong>SO THAT I CAN</strong> cook meals without additional shopping</td>
+      <td>Test <code>RecipeSearchForm</code> and <code>SpoonacularApiService</code></td>
+      <td>API integration with pantry matching working</td>
+      <td>✅ Pass</td>
+    </tr>
+    <tr>
+      <td><strong>US011</strong></td>
+      <td><strong>AS A</strong> cook <strong>I WANT TO</strong> see detailed recipe information including ingredients, instructions, and prep time <strong>SO THAT I CAN</strong> understand what's needed</td>
+      <td>Test <code>recipe_detail</code> view with API data</td>
+      <td>Detailed recipe view with ingredient comparison</td>
+      <td>✅ Pass</td>
+    </tr>
+    <tr>
+      <td><strong>US012</strong></td>
+      <td><strong>AS A</strong> home cook <strong>I WANT TO</strong> filter recipes by how many pantry ingredients they use <strong>SO THAT I CAN</strong> prioritize recipes requiring minimal shopping</td>
+      <td>Test recipe filtering by matched ingredients count</td>
+      <td>Recipe results show matched vs missing ingredients</td>
+      <td>✅ Pass</td>
+    </tr>
+    <tr>
+      <td><strong>US013</strong></td>
+      <td><strong>AS A</strong> cook <strong>I WANT TO</strong> save recipes I like to a favorites list <strong>SO THAT I CAN</strong> easily find them again for future cooking</td>
+      <td>Test <code>recipe_save</code> function and <code>SavedRecipe</code> model</td>
+      <td>Recipe saving with duplicate prevention working</td>
+      <td>✅ Pass</td>
+    </tr>
+    <tr>
+      <td><strong>US014</strong></td>
+      <td><strong>AS A</strong> cook <strong>I WANT TO</strong> see all my saved recipes in one place <strong>SO THAT I CAN</strong> browse my personal recipe collection</td>
+      <td>Test saved recipes view in <code>recipes_list</code></td>
+      <td>Saved recipes tab displaying user's collection</td>
+      <td>✅ Pass</td>
+    </tr>
+    <tr>
+      <td><strong>US015</strong></td>
+      <td><strong>AS A</strong> organized cook <strong>I WANT TO</strong> see a weekly meal calendar interface <strong>SO THAT I CAN</strong> plan my meals for the week ahead</td>
+      <td>Test <code>meal_planning</code> view with FullCalendar integration</td>
+      <td>Interactive calendar with meal slots implemented</td>
+      <td>✅ Pass</td>
+    </tr>
+    <tr>
+      <td><strong>US016</strong></td>
+      <td><strong>AS A</strong> meal planner <strong>I WANT TO</strong> add specific recipes to calendar days and meal times <strong>SO THAT I CAN</strong> organize my weekly cooking schedule</td>
+      <td>Test <code>MealPlanItemForm</code> and <code>get_meal_plan</code></td>
+      <td>Recipe assignment to calendar working</td>
+      <td>✅ Pass</td>
+    </tr>
+    <tr>
+      <td><strong>US017</strong></td>
+      <td><strong>AS A</strong> meal planner <strong>I WANT TO</strong> automatically generate shopping lists based on my planned meals <strong>SO THAT I CAN</strong> buy ingredients needed for my weekly menu</td>
+      <td>Test <code>generate_shopping_list_items</code> function</td>
+      <td>Shopping list generation from meal plans working</td>
+      <td>✅ Pass</td>
+    </tr>
+    <tr>
+      <td><strong>US018</strong></td>
+      <td><strong>AS A</strong> meal planner <strong>I WANT TO</strong> see which recipe ingredients I already have <strong>SO THAT I CAN</strong> only buy what I need</td>
+      <td>Test pantry vs recipe ingredient comparison in <code>PantrySearch</code></td>
+      <td>Ingredient matching logic separating needed vs available</td>
+      <td>✅ Pass</td>
+    </tr>
+    <tr>
+      <td><strong>US019</strong></td>
+      <td><strong>AS A</strong> shopper <strong>I WANT TO</strong> view and modify my generated shopping list <strong>SO THAT I CAN</strong> customize it before shopping</td>
+      <td>Test <code>ShoppingListForm</code> and list editing</td>
+      <td>Shopping list display and management working</td>
+      <td>✅ Pass</td>
+    </tr>
+    <tr>
+      <td><strong>US020</strong></td>
+      <td><strong>AS A</strong> user with many ingredients <strong>I WANT TO</strong> search my pantry by name <strong>SO THAT I CAN</strong> quickly find specific items</td>
+      <td>Test search functionality in pantry views</td>
+      <td>Search filtering implemented in pantry management</td>
+      <td>✅ Pass</td>
+    </tr>
+    <tr>
+      <td><strong>US021</strong></td>
+      <td><strong>AS A</strong> organized user <strong>I WANT TO</strong> view my pantry items organized by categories <strong>SO THAT I CAN</strong> easily find ingredients by type</td>
+      <td>Test <code>Category</code> model and categorized display</td>
+      <td>Category-based organization with <code>CATEGORY_CHOICES</code></td>
+      <td>✅ Pass</td>
+    </tr>
+    <tr>
+      <td><strong>US022</strong></td>
+      <td><strong>AS A</strong> mobile user <strong>I WANT TO</strong> access all PantryPilot features on my phone <strong>SO THAT I CAN</strong> manage pantry, recipes, and meal planning while mobile</td>
+      <td>Test full responsive design across all features</td>
+      <td>Mobile-first responsive design implemented</td>
+      <td>✅ Pass</td>
+    </tr>
+    <tr>
+      <td><strong>US023</strong></td>
+      <td><strong>AS A</strong> cook <strong>I WANT TO</strong> remove recipes from my favorites list <strong>SO THAT I CAN</strong> keep my saved recipes relevant</td>
+      <td>Test recipe deletion from saved collection</td>
+      <td>Recipe removal functionality working</td>
+      <td>✅ Pass</td>
+    </tr>
+    <tr>
+      <td><strong>US024</strong></td>
+      <td><strong>AS A</strong> cook <strong>I WANT TO</strong> search recipes by name, cuisine, or dietary restrictions <strong>SO THAT I CAN</strong> find specific types of meals</td>
+      <td>Test advanced search filters in <code>RecipeSearchForm</code></td>
+      <td>Cuisine, diet, and meal type filtering implemented</td>
+      <td>✅ Pass</td>
+    </tr>
+  </tbody>
+</table>
+
+</details>
+
+
+
 
