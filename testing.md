@@ -212,6 +212,7 @@ Google Lighthouse was used to test performance, accessibility, best practices an
                 <li>✅ Confirmation message displayed after successful addition</li>
                 <li>✅ New item appears in pantry list immediately after addition</li>
                 <li>✅ Form validates all required fields before submission</li>
+                <li>✅ Dialog appears if item already exits - users can add to or replace existing quantity</li>
             </ul>
         </td>
         <td> Pass </td>
@@ -238,11 +239,25 @@ Google Lighthouse was used to test performance, accessibility, best practices an
         <td> Pass </td>
     </tr>
     <tr>
-      <td><strong>US006</strong></td>
-      <td><strong>AS A</strong> logged in user <strong>I WANT TO</strong> update ingredient quantities <strong>SO THAT I CAN</strong> keep my pantry inventory accurate</td>
-      <td>Test <code>update_pantry_item</code> function with form submission</td>
-      <td>CRUD operations working with user validation</td>
-      <td>✅ Pass</td>
+        <td><strong>US006</strong></td>
+        <td><strong>AS A</strong> logged in user <strong>I WANT TO</strong> update ingredient quantities <strong>SO THAT I CAN</strong> keep my pantry inventory accurate</td>
+        <td>
+            <ul>
+                <li>Click on the edit button(pencil icon) on the pantry item card</li>
+                <li>Update the quantity, units, or other details in the populated form</li>
+                <li>Click Update button to confirm changes</li>
+            </ul>
+        </td>
+        <td>
+            <ul>
+                <li>✅ Edit button is visible on each pantry item</li>
+                <li>✅ Form pre-populates with current item values</li>
+                <li>✅ Changes are saved and immediately reflected</li>
+                <li>✅ Success message confirms update</li>
+                <li>✅ Form validation prevents invalid entries</li>
+            </ul>
+        </td>
+        <td> Pass </td>
     </tr>
     <tr>
       <td><strong>US007</strong></td>
