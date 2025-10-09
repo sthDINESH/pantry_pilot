@@ -9,7 +9,7 @@ Recipes
 {% endblock title %}
 
 {% block main_content %}
-<div id="recipes-page" class="split-screen">
+<section id="recipes-page" class="split-screen">
     <div class="screen left-screen">
         <div id="recipes-section" class="section-wrapper">
             <div class="container">
@@ -20,7 +20,7 @@ Recipes
                         adventures!</strong>
                     <br>
                     <br>
-                    Search by ingredients, save your family
+                    Search by recipes based on ingredients on hand, save your family
                     favorites, and discover the joy of cooking with confidence – because the best recipes start with
                     what's already in your kitchen.
                 </p>
@@ -65,7 +65,13 @@ Recipes
                                     Choose what you fancy and find perfect recipes to match based on ingredients
                                     already on hand!
                                 </p>
-                                {% crispy recipe_search_form %}
+                                <form action="{% url 'recipes' %}" method="POST" id="recipe-search-form">
+                                    {% crispy recipe_search_form %}
+                                    <div class="form-button-controls">
+                                        <button type="submit" class="btn btn-primary form-button">Search</button>
+                                    </div>
+                                </form>
+
                                 <!-- Search results list will be added here -->
                                 <div class="container">
                                     <div id="recipe-search-results" class="category-section">
@@ -181,11 +187,12 @@ Recipes
                                                                 <em>
                                                                     Ingredients:
                                                                     <span>
-                                                                    {{ recipe.missing_ingredients|length }} missing,
+                                                                        {{ recipe.missing_ingredients|length }} missing,
                                                                     </span>
                                                                     ,
                                                                     <span>
-                                                                    {{ recipe.matched_ingredients|length }} in pantry
+                                                                        {{ recipe.matched_ingredients|length }} in
+                                                                        pantry
                                                                     </span>
                                                                 </em>
                                                                 <button type="button"
@@ -290,7 +297,7 @@ Recipes
         <div class="section-image">
         </div>
     </div>
-</div>
+</section>
 {% endblock main_content %}
 
 <!-- Pop-up modal to display matched/missing ingredients for recipe
