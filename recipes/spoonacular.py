@@ -267,7 +267,7 @@ class SpoonacularApiService:
             formatted_recipe = {
                 'api_recipe_id': recipe.get('id'),
                 'title': recipe.get('title'),
-                'image': recipe.get('image'),
+                'image': self._correct_image_url(recipe.get('image')),
                 'matched_ingredients_count': recipe.get('usedIngredientCount'),
                 'missing_ingredients_count': (
                     recipe.get('missedIngredientCount')
@@ -291,11 +291,13 @@ class SpoonacularApiService:
             'is_external': True,
             'api_recipe_id': raw_data.get('id'),
             'title': raw_data.get('title'),
-            'api_image_url': raw_data.get('image'),
+            'api_image_url': self._correct_image_url(raw_data.get('image')),
             'summary': strip_tags(raw_data.get('summary', '')),
             'cook_time': raw_data.get('readyInMinutes'),
             'servings': raw_data.get('servings'),
-            'instructions': raw_data.get('instructions'),
+            'instructions': self._format_analyzed_instructions(
+                raw_data.get('analyzedInstructions')
+            ),
             'ingredients': [
                 {
                     'name': ing.get('name'),
@@ -315,11 +317,6 @@ class SpoonacularApiService:
                         if ing.get('meta') else ""
                     ),
                     'metric': ing.get('measures').get('metric'),
-                    # API response: "metric": {
-                    #     "amount": 56.75,
-                    #     "unitShort": "g",
-                    #     "unitLong": "grams"
-                    # },
                 }
                 for ing in raw_data.get('extendedIngredients', [])
             ],
@@ -327,14 +324,31 @@ class SpoonacularApiService:
             'source': 'spoonacular'
         }
 
+    def _format_analyzed_instructions(self, raw_data: List) -> str:
+        """
+        Covert analyzedInstructions field of recipe details response
+        to standard format
+        """
+        html_ol = ""
+        html_li = ""
+        for step in raw_data[0]["steps"]:
+            html_li += f"<li>{step["step"]}</li>"
+        html_ol = f"<ol>{html_li}</ol>"
 
-if __name__ == "__main__":
-    APIConfig.MOCK_API_CALL = True
-    print(SpoonacularApiService().search_recipes(
-        ingredients=[
-            'cheese', 'tomatoes', 'potatoes', 'salt', 'milk', 'onions'
-        ],
-        cuisine="european",
-        diet="vegetarian",
-        meal_type='',
-    ))
+        return html_ol
+
+    def _correct_image_url(self, raw_data: str) -> str:
+        """
+        Correct the image url if needed
+        Some api responses seem to have image extensions missing
+        """
+        if not raw_data:
+            return raw_data
+
+        # Check if URL ends with a period (indicating missing extension)
+        if raw_data.endswith('.'):
+            # Add default .jpg extension for Spoonacular recipe images
+            return raw_data + 'jpg'
+
+        # Return original URL if it appears to be properly formatted
+        return raw_data

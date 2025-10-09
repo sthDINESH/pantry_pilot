@@ -4,18 +4,16 @@ from cloudinary.models import CloudinaryField
 import config.constants as constants
 
 
-# Create your models here.
-
 class SavedRecipe(models.Model):
     """
-    Stores a single recipe
+    Stores a single recipe related to :model:`auth/User`
     """
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         related_name="saved_recipes"
     )
-    # Populated with Spoonacular API response details for favorited recipes
+    # Populated with Spoonacular API response details for favorite recipes
     # Default for custom recipes
     api_recipe_id = models.IntegerField("Spoonacular Recipe Id", default=0)
     api_image_url = models.URLField(default="")
@@ -64,7 +62,7 @@ class RecipeIngredient(models.Model):
             "ingredients"
         )
     )
-    ingredient_name = models.CharField("Ingredient", max_length=100)
+    ingredient_name = models.CharField("Ingredient", max_length=200)
     original_name = models.CharField(
         "Full ingredient",
         max_length=200,
@@ -91,16 +89,7 @@ class RecipeIngredient(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
 
     class Meta:
-        # unique_together = ['recipe_id', 'ingredient_name', 'quantity', 'units']
         ordering = ['ingredient_name']
 
     def __str__(self):
         return f"{self.ingredient_name}"
-
-
-
-
-
-
-
-
