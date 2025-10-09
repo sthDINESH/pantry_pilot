@@ -18,9 +18,9 @@ urlpatterns = [
         name="pantry_item_update"
     ),
     path(
-        'item/<int:item_id>/resolve',
+        'item/<int:item_id>/handle',
         views.resolve_duplicate_pantry_item,
-        name="pantry_item_resolve"
+        name="pantry_item_handle"
     ),
     path('', views.CategoryList.as_view(), name="pantry"),
 ]

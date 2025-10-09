@@ -155,7 +155,7 @@ Pantry
 
                 {% if add_quantity_form %}
                 <!-- Update quantity form -->
-                <form method="post" action="{% url 'pantry_item_resolve' existing_item.id %}" style="display: inline;">
+                <form method="post" action="{% url 'pantry_item_handle' existing_item.id %}" style="display: inline;">
                     {% csrf_token %}
                     {{ add_quantity_form }}
                     <button type="submit" class="btn btn-success">Add to Existing</button>
@@ -164,7 +164,7 @@ Pantry
 
                 {% if replace_quantity_form %}
                 <!-- Replace quantity form -->
-                <form method="post" action="{% url 'pantry_item_resolve' existing_item.id %}" style="display: inline;">
+                <form method="post" action="{% url 'pantry_item_handle' existing_item.id %}" style="display: inline;">
                     {% csrf_token %}
                     {{ replace_quantity_form }}
                     <button type="submit" class="btn btn-warning">Replace Existing</button>
