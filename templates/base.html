@@ -126,9 +126,10 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="base-modal-label">
+                        <div class="modal-title" id="base-modal-label">
                             {% block modal_title %}
-                            {% endblock modal_title %}</h5>
+                            {% endblock modal_title %}
+                        </div>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -201,10 +202,6 @@
 
     <!-- Fontawesome JS -->
     <script src="https://kit.fontawesome.com/a46681dd6d.js" crossorigin="anonymous"></script>
-
-    <!-- GSAP JS -->
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
 
     <!-- Full Calender JS -->
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.19/index.global.min.js'></script>

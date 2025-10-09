@@ -61,6 +61,10 @@ h1,
     margin: calc(2 * var(--nav-link-font-size)) 0;
 }
 
+h3 {
+    font-size: calc(0.8rem + .6vw);
+}
+
 .nav-link,
 .dropdown-item,
 .user-profile,
@@ -584,6 +588,7 @@ a {
 .site-features i {
     color: var(--accent-color);
     font-size: calc(5 * var(--nav-link-font-size));
+    padding: 1rem;
 }
 
 #home-page .end-banner {
@@ -615,7 +620,7 @@ a {
 
 
 #my-pantry-page .right-screen {
-    background: 
+    background:
         linear-gradient(to top, transparent, var(--light-color), var(--light-color)),
         url('../images/texture_background.webp') center bottom / cover;
 }
@@ -1212,6 +1217,10 @@ footer li>a:hover {
 
     .section-body-text {
         text-align: left;
+    }
+
+    .site-features i {
+        font-size: calc(3.25 * var(--nav-link-font-size));
     }
 
 

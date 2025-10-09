@@ -5,7 +5,7 @@
 {% block title %}Dashboard{% endblock title %}
 
 {% block main_content %}
-<div id="home-page">
+<section id="home-page">
     <div class="page-hero-container">
         <div class="sticky-container">
             <div class="carousel-container">
@@ -93,13 +93,13 @@
             <div class="tag-line-content container">
                 <div class="site-logo">
                 </div>
-                <p class="sub-heading text-center">
+                <h2 class="sub-heading text-center">
                     Welcome to PantryPilot!
                     <br>
                     <br>
                     Transform the way you cook - reduce food waste, and
                     make every meal a delightful experience.
-                </p>
+                </h2>
             </div>
 
         </div>
@@ -126,7 +126,7 @@
                         </div>
                         {% if user.is_authenticated %}
                         <div class="card-body text-center d-flex flex-column justify-content-between">
-                            <h5 class="card-title">Your Pantry</h5>
+                            <h3 class="card-title">Your Pantry</h3>
                             <div class="d-flex justify-content-center g-1">
                                 <span><em>Available Items:</em></span>
                                 <span>{{ pantry_items_count }}</span>
@@ -134,7 +134,7 @@
                             <a href="{% url 'pantry' %}">View All</a>
                         {% else %}
                         <div class="card-body text-center d-flex flex-column justify-content-start">
-                            <h5 class="card-title">Manage Pantry</h5>
+                            <h3 class="card-title">Manage Pantry</h3>
                             <p class="card-text">Keep track of your ingredients and never run out again</p>
                         {% endif %}
                         </div>
@@ -147,7 +147,7 @@
                         </div>
                         {% if user.is_authenticated %}
                         <div class="card-body text-center d-flex flex-column justify-content-between">
-                            <h5 class="card-title">Your Recipes</h5>
+                            <h3 class="card-title">Your Recipes</h3>
                             <div class="d-flex justify-content-center g-1">
                                 <span><em>Saved Searches:</em></span>
                                 <span>{{ saved_search_count }}</span>
@@ -159,7 +159,7 @@
                             <a href="{% url 'recipes' %}">View All</a>
                         {% else %}
                         <div class="card-body text-center d-flex flex-column justify-content-start">
-                            <h5 class="card-title">Discover Recipes</h5>
+                            <h3 class="card-title">Discover Recipes</h3>
                             <p class="card-text">Find recipes using ingredients on hand or build your
                                 own cookbook with treasured family recipes
                             </p>
@@ -174,7 +174,7 @@
                         </div>
                         {% if user.is_authenticated %}
                         <div class="card-body text-center d-flex flex-column justify-content-between">
-                            <h5 class="card-title">Upcoming Meal</h5>
+                            <h3 class="card-title">Upcoming Meal</h3>
                             {% if upcoming_meal_title %}
                             <em>{{ upcoming_meal_title }}</em>
                             {% else %}
@@ -183,7 +183,7 @@
                             <a href="{% url 'meals' %}">View Calendar</a>
                         {% else %}
                         <div class="card-body text-center d-flex flex-column justify-content-start">
-                            <h5 class="card-title">Plan Meals</h5>
+                            <h3 class="card-title">Plan Meals</h3>
                             <p class="card-text">Plan and visualize your weekly meals with ease with interactive
                                 calendar
                             </p>
@@ -198,7 +198,7 @@
                         </div>
                         {% if user.is_authenticated %}
                         <div class="card-body text-center d-flex flex-column justify-content-between">
-                            <h5 class="card-title">Your shopping lists</h5>
+                            <h3 class="card-title">Your shopping lists</h3>
                             <div class="d-flex justify-content-center g-1">
                                 <span><em>Next shopping:</em></span>
                                 <span>....</span>
@@ -206,7 +206,7 @@
                             <a href="">View All</a>
                         {% else %}
                         <div class="card-body text-center d-flex flex-column justify-content-start">
-                            <h5 class="card-title">Simplify shopping</h5>
+                            <h3 class="card-title">Simplify shopping</h3>
                             <p class="card-text">Automatically generate weekly shopping lists for missing ingredients
                             </p>
                         {% endif %}
@@ -232,6 +232,6 @@
             </div>
         </div>
     </div>
-</div>
+</section>
 
 {% endblock main_content %}
