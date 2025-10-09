@@ -1109,7 +1109,7 @@ The sign out page provides a secure confirmation step for users to safely termin
 
 ## Testing
 
-Please refer to [TESTING.md](TESTING.md) for comprehensive testing performed.
+Please refer to [TESTING.md](testing.md) for comprehensive testing performed.
 
 
 ## Credits
