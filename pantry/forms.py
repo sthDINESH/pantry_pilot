@@ -1,7 +1,7 @@
 from django import forms
 from .models import PantryItem, Category
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Row, Column
+from crispy_forms.layout import Layout, Row, Column, Div, Field, HTML
 from crispy_bootstrap5.bootstrap5 import FloatingField
 
 
@@ -11,13 +11,27 @@ class PantryItemForm(forms.ModelForm):
     """
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        
         self.helper = FormHelper(self)
         self.helper.form_tag = False
         self.helper.layout = Layout(
             FloatingField("name"),
             Row(
-                Column(FloatingField("quantity"), css_class="col-6"),
-                Column(FloatingField("units"), css_class="col-6"),
+                # Column(FloatingField("quantity"), css_class="col-6"),
+                Column(
+                    Div(
+                        Field("quantity", css_class="form-select"),
+                        css_class="form-floating mb-3"
+                    ),
+                    css_class="col-6"
+                ),
+                Column(
+                    Div(
+                        Field("units", css_class="form-select"),
+                        css_class="form-floating mb-3"
+                    ),
+                    css_class="col-6"
+                ),
             )
         )
 
@@ -49,7 +63,11 @@ class CategoryForm(forms.ModelForm):
         self.helper = FormHelper(self)
         self.helper.form_tag = False
         self.helper.layout = Layout(
-            FloatingField("category_name"),
+            Div(
+                Field("category_name", css_class="form-select"),
+                css_class="form-floating mb-3"
+            ),
+                
         )
 
     class Meta:

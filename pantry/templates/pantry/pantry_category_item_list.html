@@ -40,7 +40,7 @@ Pantry
                         <i class="fa-solid fa-plus"></i>
                     </button>
                 </div>
-                <p class="section-body-text">Track quantities, organize by category, and stay on top of your kitchen
+                <p class="section-body-text">Track quantities, organize by category, and stay on top of kitchen
                     inventory.</p>
 
                 <form id="pantry-item-form" method="post" class="collapse {% if not categories.count %}show{% endif %}">
@@ -64,13 +64,13 @@ Pantry
                             <i class="fa-solid fa-trash"></i>
                         </button>
                         <button type="button" class="btn btn-info btn-sm circle" data-bs-toggle="collapse"
-                            data-bs-target="#category-body-{{ category.id }}" aria-expanded="false"
+                            data-bs-target="#category-body-{{ category.id }}" aria-expanded="true"
                             aria-controls="category-body-{{ category.id }}" data-type="collapse-trigger">
                             <i class="fa-solid fa-chevron-down"></i>
                         </button>
                     </div>
                     <div id="category-body-{{ category.id }}"
-                        class="category-section-body row row-cols-1 row-cols-md-2 row-cols-xl-3 g-3 collapse">
+                        class="category-section-body row row-cols-1 row-cols-md-2 row-cols-xl-3 g-3 collapse show">
                         {% for pantry_item in category.pantry_items.all %}
                         <div id="item-{{ pantry_item.id }}" class="pantry-item col list-view-card">
                             <div class="card">
@@ -112,9 +112,7 @@ Pantry
             </div>
 
         </div>
-
     </div>
-</div>
 </div>
 
 {% if show_duplicate_modal %}
@@ -124,7 +122,7 @@ Pantry
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="duplicate-item-modal-label">Item Already Exists</h5>
+                <h3 class="modal-title" id="duplicate-item-modal-label">Item Already Exists</h3>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">

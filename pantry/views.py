@@ -240,10 +240,8 @@ def resolve_duplicate_pantry_item(request, item_id):
                     (
                         (
                             f"Updated {pantry_item.name} - added "
-                            (
-                                f"{additional_quantity} "
-                                f"{pantry_item.get_units_display()}"
-                            )
+                            f"{additional_quantity} "
+                            f"{pantry_item.get_units_display()}"
                         )
                     )
                 )
