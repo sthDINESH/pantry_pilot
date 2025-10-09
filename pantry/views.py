@@ -49,9 +49,16 @@ class CategoryList(LoginRequiredMixin, ListView):
 
     def post(self, request, *args, **kwargs):
         category_form = CategoryForm(data=request.POST)
-        pantry_item_form = PantryItemForm(data=request.POST)
+        pantry_item_form = PantryItemForm(
+            data=request.POST,
+            files=request.FILES,
+        )
+        print(request.POST)
 
         if category_form.is_valid() and pantry_item_form.is_valid():
+            # Add this debug line
+            print(f"Image data: {pantry_item_form.cleaned_data.get('image')}")
+            
             category = get_category_instance(
                 self.request,
                 category_form.cleaned_data['category_name']
@@ -175,6 +182,7 @@ def update_pantry_item(request, item_id):
 
         pantry_item_form = PantryItemForm(
             data=request.POST,
+            files=request.FILES,
             instance=pantry_item
         )
         category_form = CategoryForm(data=request.POST)

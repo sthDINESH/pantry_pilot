@@ -42,6 +42,23 @@ UNIT_CHOICES = [
         ('portion', 'Portions'),
     ]
 
+CATEGORY_CHOICES = [
+        ('vegetables', 'Vegetables'),
+        ('fruits', 'Fruits'),
+        ('grains', 'Grains'),
+        ('proteins', 'Proteins'),
+        ('dairy', 'Dairy'),
+        ('spices', 'Spices & Seasonings'),
+        ('condiments', 'Condiments & Sauces'),
+        ('oils', 'Oils & Vinegars'),
+        ('canned', 'Canned Goods'),
+        ('frozen', 'Frozen Items'),
+        ('snacks', 'Snacks'),
+        ('beverages', 'Beverages'),
+        ('baking', 'Baking Supplies'),
+        ('other', 'Other'),
+    ]
+
 TIME_UNIT_CHOICES = [
     ('min', 'Minutes'),
     ('hr', 'Hours'),

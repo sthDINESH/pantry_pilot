@@ -43,7 +43,8 @@ Pantry
                 <p class="section-body-text">Track quantities, organize by category, and stay on top of kitchen
                     inventory.</p>
 
-                <form id="pantry-item-form" method="post" class="collapse {% if not categories.count %}show{% endif %}">
+                <form id="pantry-item-form" method="post" class="collapse {% if not categories.count %}show{% endif %}"
+                enctype="multipart/form-data">
                     {% crispy pantry_item_form %}
                     {% crispy category_form %}
                     {% csrf_token %}
@@ -74,8 +75,13 @@ Pantry
                         {% for pantry_item in category.pantry_items.all %}
                         <div id="item-{{ pantry_item.id }}" class="pantry-item col list-view-card">
                             <div class="card">
+                                {% if "placeholder" in pantry_item.image.url %}
                                 <img src="{% static 'images/pantry_placeholder.webp' %}" class="card-img-top placeholder-item"
                                     alt="placeholder pantry item">
+                                {% else %}
+                                <img src="{{ pantry_item.image.url }}" class="card-img-top"
+                                    alt="pantry item {{ pantry_item.name }}">
+                                {% endif %}
                                 <div class="card-body">
                                     <div class="pantry-item-name card-title">{{ pantry_item.name }}</div>
                                     <div class="card-text">
