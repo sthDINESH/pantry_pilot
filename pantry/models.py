@@ -41,7 +41,7 @@ class PantryItem(models.Model):
     category = models.ForeignKey(
         Category, on_delete=models.CASCADE, related_name="pantry_items"
     )
-    image = CloudinaryField('image', default="placeholder")
+    image = CloudinaryField('image', default="placeholder", blank=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 

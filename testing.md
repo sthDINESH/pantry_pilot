@@ -193,11 +193,28 @@ Google Lighthouse was used to test performance, accessibility, best practices an
         <td> Pass </td>
     </tr>
     <tr>
-      <td><strong>US004</strong></td>
-      <td><strong>AS A</strong> logged in user <strong>I WANT TO</strong> add ingredients to my pantry with name and quantity <strong>SO THAT I CAN</strong> track what I have available</td>
-      <td>Test <code>PantryItemForm</code> submission via <code>CategoryList.post</code></td>
-      <td>Form validation and duplicate handling working</td>
-      <td>✅ Pass</td>
+        <td><strong>US004</strong></td>
+        <td><strong>AS A</strong> logged in user <strong>I WANT TO</strong> add ingredients to my pantry with name and quantity <strong>SO THAT I CAN</strong> track what I have available</td>
+        <td>
+            <ul>
+                <li>Access Pantry page from navigation</li> 
+                <li>Fill in form with required name, quantity, units and category</li> 
+                <li>Upload item image(optional)</li>
+                <li>Click Add</li> 
+            </ul>
+        </td>
+        <td>
+            <ul>
+                <li>✅ Form is accessible from pantry page</li>
+                <li>✅ Form includes fields for name, quantity, unit, category and image</li>
+                <li>✅ Item, quantity, units and category inputs are mandatory</li>
+                <li>✅ Quantity entered must be a positive</li>
+                <li>✅ Confirmation message displayed after successful addition</li>
+                <li>✅ New item appears in pantry list immediately after addition</li>
+                <li>✅ Form validates all required fields before submission</li>
+            </ul>
+        </td>
+        <td>✅ Pass</td>
     </tr>
     <tr>
       <td><strong>US005</strong></td>
