@@ -11,7 +11,7 @@ class PantryItemForm(forms.ModelForm):
     """
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        
+
         self.helper = FormHelper(self)
         self.helper.form_tag = False
         self.helper.layout = Layout(
@@ -67,7 +67,6 @@ class CategoryForm(forms.ModelForm):
                 Field("category_name", css_class="form-select"),
                 css_class="form-floating mb-3"
             ),
-                
         )
 
     class Meta:

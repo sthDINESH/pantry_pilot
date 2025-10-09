@@ -3,16 +3,16 @@ from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-
 from .models import Category, PantryItem
 from .forms import PantryItemForm, CategoryForm, ResolveDuplicateItemForm
-
-# Create your views here.
+import config.constants as constants
 
 
 def get_category_instance(request, name):
-    # Get or create a category for the user depending on
-    # whether the category already exists
+    """
+    Get or create a category for the user depending on
+    whether the category already exists
+    """
     category, category_created = Category.objects.get_or_create(
         user=request.user,
         category_name=name,
@@ -31,14 +31,22 @@ def get_category_instance(request, name):
 
 class CategoryList(LoginRequiredMixin, ListView):
     """
-    Display Pantry item categories for the currently logged in user
+    List Pantry items per category associated with currently logged in user
+    related to
+    :model:`auth/User`
+    :model:`Category`
+
+    **Context**
+        `pantry_item_form`: instance of :form:`PantryItemForm`
+        `category_form`: instance of :form:`CategoryForm`
+
+    **Template**
+        :template:`pantry/pantry_category_item_list.html`
     """
     context_object_name = "categories"
     template_name = "pantry/pantry_category_item_list.html"
 
     def get_queryset(self):
-        """
-        """
         return Category.objects.filter(user=self.request.user)
 
     def get_context_data(self, **kwargs):
@@ -53,12 +61,8 @@ class CategoryList(LoginRequiredMixin, ListView):
             data=request.POST,
             files=request.FILES,
         )
-        print(request.POST)
 
         if category_form.is_valid() and pantry_item_form.is_valid():
-            # Add this debug line
-            print(f"Image data: {pantry_item_form.cleaned_data.get('image')}")
-            
             category = get_category_instance(
                 self.request,
                 category_form.cleaned_data['category_name']
@@ -84,7 +88,7 @@ class CategoryList(LoginRequiredMixin, ListView):
                             pantry_item_form.cleaned_data['quantity']
                         ),
                         'units_display': (
-                            dict(PantryItem.UNIT_CHOICES)[
+                            dict(constants.UNIT_CHOICES)[
                                 pantry_item_form.cleaned_data['units']
                             ]
                         ),

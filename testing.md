@@ -65,12 +65,11 @@ Flake8 extension for vsCode from Mircosoft was used during the development to he
 | **dashboard** | `dashboard/views.py` | ✅ Pass | [no errors or warnings](documentation/testing/python_validation/dashboard_views_py.png) |
 | **dashboard** | `dashboard/forms.py` | ✅ Pass | [no errors or warnings](documentation/testing/python_validation/dashboard_forms_py.png) |
 | **dashboard** | `dashboard/urls.py` | ✅ Pass | [no errors or warnings](documentation/testing/python_validation/dashboard_urls_py.png) |
-| **pantry** | `pantry/apps.py` | ✅ Pass | Standard Django app configuration file |
-| **pantry** | `pantry/models.py` | ✅ Pass | `PantryItem` and `Category` models with UNIT_CHOICES validation |
-| **pantry** | `pantry/views.py` | ✅ Pass | CRUD operations for pantry items including `resolve_duplicate_pantry_item` |
-| **pantry** | `pantry/forms.py` | ✅ Pass | `PantryItemForm` with manual floating labels and validation methods |
-| **pantry** | `pantry/admin.py` | ✅ Pass | Admin registration for `PantryItemAdmin` and `CategoryAdmin` |
-| **pantry** | `pantry/urls.py` | ✅ Pass | URL patterns for pantry CRUD operations and duplicate resolution |
+| **pantry** | `pantry/models.py` | ✅ Pass | [no errors or warnings](documentation/testing/python_validation/pantry_models_py.png) |
+| **pantry** | `pantry/views.py` | ✅ Pass | [no errors or warnings](documentation/testing/python_validation/pantry_views_py.png)|
+| **pantry** | `pantry/forms.py` | ✅ Pass | [no errors or warnings](documentation/testing/python_validation/pantry_forms_py.png) |
+| **pantry** | `pantry/admin.py` | ✅ Pass | [no errors or warnings](documentation/testing/python_validation/pantry_admin_py.png) |
+| **pantry** | `pantry/urls.py` | ✅ Pass | [no errors or warnings](documentation/testing/python_validation/pantry_urls_py.png) |
 | **recipes** | `recipes/apps.py` | ✅ Pass | Standard Django app configuration file |
 | **recipes** | `recipes/models.py` | ✅ Pass | `SavedRecipe` and `RecipeIngredient` models with external API integration |
 | **recipes** | `recipes/views.py` | ✅ Pass | Recipe search, save, and detail views with `SpoonacularApiService` integration |
