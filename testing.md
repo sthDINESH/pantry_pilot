@@ -18,7 +18,8 @@ HTML was checked by running the deployed page url through the validator.
 | Sign Out Page | ✅ Pass | [No errors or warnings](documentation/testing/html_validation/signout_page.png)<sup>1</sup> |
 | Pantry Management | ✅ Pass | [No errors or warnings](documentation/testing/html_validation/pantry_page_uri.png)<sup>2</sup>|
 | Pantry Management | ✅ Pass | [No errors or warnings](documentation/testing/html_validation/pantry_page_source.png)<sup>2</sup>|
-| Recipe Discovery | ✅ Pass | No errors or warnings found in HTML validation |
+| Recipe Discovery | ✅ Pass | [No errors or warnings](documentation/testing/html_validation/recipes_page_uri.png)<sup>2</sup>|
+| Recipe Discovery | ✅ Pass | [No errors or warnings](documentation/testing/html_validation/recipes_page_source.png)<sup>2</sup>|
 | Recipe Detail | ✅ Pass | No errors or warnings found in HTML validation |
 | Meal Planning | ✅ Pass | No errors or warnings found in HTML validation |
 | Shopping Lists | ✅ Pass | No errors or warnings found in HTML validation |
