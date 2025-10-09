@@ -70,7 +70,7 @@ class RecipeIngredient(models.Model):
     )
     quantity = models.DecimalField(max_digits=10, decimal_places=2)
     units = models.CharField(
-        max_length=10,
+        max_length=20,
         choices=constants.UNIT_CHOICES,
         default='piece'
     )
@@ -81,7 +81,7 @@ class RecipeIngredient(models.Model):
         default=0
     )
     metric_units = models.CharField(
-        max_length=10,
+        max_length=20,
         choices=constants.UNIT_CHOICES,
         default='piece'
     )
