@@ -882,10 +882,8 @@ document.addEventListener("DOMContentLoaded", function () {
         center: "title",
         end: "dayGridWeek,dayGridMonth",
       },
-      aspectRatio: 2.5,
       themeSystem: "bootstrap5",
       initialView: "dayGridWeek",
-      // firstDay: 1, // Monday
       slotMinTime: "06:00:00",
       slotMaxTime: "24:00:00",
       slotDuration: "6:00:00",
@@ -895,6 +893,14 @@ document.addEventListener("DOMContentLoaded", function () {
       eventDisplay: "block",
       eventClick: calendarWeekEventClick,
       dateClick: calendarWeekDateClick,
+      views: {
+        dayGridWeek: {
+          aspectRatio: 4.5,
+        },
+        dayGridMonth: {
+          aspectRatio: 2,
+        }
+      },
     });
     calendarWeek.render();
   }
