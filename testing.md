@@ -55,6 +55,10 @@ CSS was validated by running the validator with direct CSS source input.
 
 <details>
     <summary>Expand to view the results</summary>
+
+| File | Result | Evidence |
+|------|--------|----------|
+| `static/js/script.js` | ✅ Pass | [no errors or warnings](documentation/testing/javascript_validation/js_no_error.png) |
 </details>
 
 
