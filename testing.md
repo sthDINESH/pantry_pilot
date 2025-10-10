@@ -26,7 +26,8 @@ HTML was checked by running the validator with deployed page urls.
 | Recipe Detail | ✅ Pass | [No errors or warnings](documentation/testing/html_validation/recipe_detail_source.png)<sup>2</sup>|
 | Meal Planning | ✅ Pass | [No errors or warnings](documentation/testing/html_validation/meals_page_uri.png)<sup>1</sup>|
 | Meal Planning | ✅ Pass | [No errors or warnings](documentation/testing/html_validation/meals_page_source.png)<sup>2</sup>|
-| Shopping Lists | ✅ Pass | No errors or warnings found in HTML validation |
+| Shopping Lists | ✅ Pass | [No errors or warnings](documentation/testing/html_validation/shopping_page_uri.png)<sup>1</sup> |
+| Shopping Lists | ✅ Pass | [No errors or warnings](documentation/testing/html_validation/shopping_page_source.png)<sup>2</sup> |
 
 Note:
 - <sup>1</sup> Validation by deployed website URI.
