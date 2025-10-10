@@ -202,7 +202,12 @@ def toggle_recipe_selection(request, recipe_id):
 @login_required
 def recipe_detail(request, api_recipe_id):
     """
-    Display recipe details
+    Display recipe details from API or session data
+    **Context**
+        `recipe_detail`: dict with recipe details populated
+            from API call
+    **Template**
+        :template:`recipes/recipe_detail.html`
     """
     recipe_detail = fetch_recipe_detail(request, api_recipe_id)
 
@@ -218,8 +223,15 @@ def recipe_detail(request, api_recipe_id):
 @login_required
 def saved_recipe_detail(request, recipe_id):
     """
-    Fetch saved recipe related to :model:`SavedRecipe` with pk=recipe_id
-    and render using recipe_detail.html template
+    Display saved recipe related to
+    :model:`SavedRecipe` with pk=recipe_id
+    :model:`auth/User`
+    render using recipe_detail.html template
+    **Context**
+        `recipe_detail`: dict with recipe details populated
+        `saved_recipe`: bool to indicate saved recipe
+    **Template**
+        :template:`recipes/recipe_detail.html`
     """
     queryset = SavedRecipe.objects.filter(
         user=request.user,
@@ -244,41 +256,66 @@ def saved_recipe_detail(request, recipe_id):
 def recipe_save(request, api_recipe_id):
     """
     Save recipe details for recipe_id for the user
+    related to :model:`SavedRecipe` and :model:`auth/User`
+    redirects to `recipes` for `recipe_detail`
     """
     recipe_detail = fetch_recipe_detail(request, api_recipe_id)
 
-    saved_recipe, created = SavedRecipe.objects.get_or_create(
-        user=request.user,
-        api_recipe_id=api_recipe_id,
-        defaults={
-            # All other fields go in defaults
-            'api_image_url': recipe_detail['recipe']['api_image_url'],
-            'api_source_url': recipe_detail['recipe']['api_source_url'],
-            'is_external': True,
-            'title': recipe_detail['recipe']['title'],
-            'summary': recipe_detail['recipe']['summary'],
-            'cook_time': recipe_detail['recipe']['cook_time'],
-            'cook_time_units': "min",
-            'servings': recipe_detail['recipe']['servings'],
-            'instructions': recipe_detail['recipe']['instructions'],
-            'status': 1,
-        }
-    )
+    created = None
+    try:
+        saved_recipe, created = SavedRecipe.objects.get_or_create(
+            user=request.user,
+            api_recipe_id=api_recipe_id,
+            defaults={
+                # All other fields go in defaults
+                'api_image_url': recipe_detail['recipe']['api_image_url'],
+                'api_source_url': recipe_detail['recipe']['api_source_url'],
+                'is_external': True,
+                'title': recipe_detail['recipe']['title'],
+                'summary': recipe_detail['recipe']['summary'],
+                'cook_time': recipe_detail['recipe']['cook_time'],
+                'cook_time_units': "min",
+                'servings': recipe_detail['recipe']['servings'],
+                'instructions': recipe_detail['recipe']['instructions'],
+                'status': 1,
+            }
+        )
+    except Exception:
+        messages.add_message(
+            request,
+            messages.ERROR,
+            "Unexpected error - unable to save the recipe"
+        )
+        return redirect('recipes')
 
     # Save ingredients for the recipe
     if created:
         for ingredient in recipe_detail['recipe']['ingredients']:
-            RecipeIngredient.objects.create(
-                recipe=saved_recipe,
-                ingredient_name=ingredient['name'],
-                original_name=ingredient['original_name'],
-                quantity=ingredient['amount'],
-                units=ingredient['unit'],
-                note=ingredient['note'],
-                metric_quantity=ingredient['metric']['amount'],
-                metric_units=ingredient['metric']['unitShort'],
-            )
-
+            try:
+                RecipeIngredient.objects.create(
+                    recipe=saved_recipe,
+                    ingredient_name=(
+                        ingredient['name'][:200]
+                    ),  # Truncated if needed
+                    original_name=(
+                        ingredient['original_name'][:200]
+                    ),  # Truncate if needed
+                    quantity=ingredient['amount'],
+                    units=ingredient['unit'],
+                    note=ingredient['note'],
+                    metric_quantity=ingredient['metric']['amount'],
+                    metric_units=ingredient['metric']['unitShort'],
+                )
+            except Exception:
+                messages.add_message(
+                    request,
+                    messages.ERROR,
+                    (
+                        f"Error saving ingredient - {ingredient['name']}, "
+                        "skipped."
+                    )
+                )
+                continue
         messages.add_message(
             request,
             messages.SUCCESS,
@@ -286,7 +323,6 @@ def recipe_save(request, api_recipe_id):
                 f"Recipe saved - {saved_recipe.title}"
             )
         )
-
     else:
         messages.add_message(
             request,
@@ -308,6 +344,7 @@ def recipe_save(request, api_recipe_id):
 @login_required
 def recipe_delete(request, recipe_id):
     """
+    Delete a single instance of :model:`SavedRecipe`
     """
     queryset = SavedRecipe.objects.filter(user=request.user)
     saved_recipe = get_object_or_404(queryset, pk=recipe_id)
@@ -330,6 +367,8 @@ def recipe_delete(request, recipe_id):
 
 def fetch_recipe_detail(request, api_recipe_id):
     """
+    Fetch recipe details from session data if available
+    Else returns makes the API call
     """
     session_key = str(api_recipe_id)
     recipe_detail = None
@@ -346,7 +385,6 @@ def fetch_recipe_detail(request, api_recipe_id):
                 'recipe_detail'
             ]
         )
-        print("Fetched from session")
     else:
         # Make an API call
         recipe_detail = SpoonacularApiService().get_recipe_details(

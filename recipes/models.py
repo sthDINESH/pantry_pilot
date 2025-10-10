@@ -53,7 +53,7 @@ class SavedRecipe(models.Model):
 class RecipeIngredient(models.Model):
     """
     Stores a single recipe ingredient (with quantity and units)
-    related to :model:`Recipe`
+    related to :model:`SavedRecipe`
     """
     recipe = models.ForeignKey(
         SavedRecipe,
