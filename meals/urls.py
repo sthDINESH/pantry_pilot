@@ -13,5 +13,10 @@ urlpatterns = [
         views.update_meal_plan_item,
         name='update_meal_item'
     ),
+    path(
+        'clear_selection/',
+        views.clear_meal_selection,
+        name='clear_selection'
+    ),
     path('', views.meal_planning, name='meals'),
 ]

@@ -1,8 +1,9 @@
 from datetime import datetime, timedelta
 from dateutil.parser import parse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from django.contrib import messages
 from recipes.models import SavedRecipe
 from shopping.forms import ShoppingListForm
 from .models import MealPlanItem
@@ -228,3 +229,20 @@ def update_meal_plan_item(request, meal_plan_item_id):
                 },
                 status=405
             )
+
+
+@login_required
+def clear_meal_selection(request):
+    """
+    Clear recipes from the user's meal planning selection
+    (session-based).
+    """
+    request.session['selected_for_meal_plan'] = []
+    request.session.modified = True
+
+    messages.add_message(
+        request,
+        messages.SUCCESS,
+        'Cleared selection'
+    )
+    return redirect('meals')

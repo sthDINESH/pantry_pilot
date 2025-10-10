@@ -744,6 +744,16 @@ document.addEventListener("DOMContentLoaded", function () {
           baseModal.show();
         }
       });
+    } else if (buttonType === "clear-recipe-selection"){
+      button.addEventListener("click", function (event) {
+        baseModalBody.innerHTML = `
+            <p>
+            Are you sure you want to clear selected meals?
+            </p>
+        `;
+        deleteConfirm.href = `/meals/clear_selection`;
+        baseModal.show();
+      });
     }
   });
 
@@ -812,7 +822,7 @@ document.addEventListener("DOMContentLoaded", function () {
           form.submit();
         }
       });
-    }
+    } 
   });
 
   // Recipes page - extract the tab parameter from URL

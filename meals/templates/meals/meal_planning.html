@@ -37,6 +37,11 @@ Meal Planning
                                 ({{ selected_count }})
                             </span>
                         </h2>
+                        {% if selected_count %}
+                        <button type="button" class="btn btn-primary" data-type="clear-recipe-selection">
+                            Clear
+                        </button>
+                        {% endif %}
                     </div>
                     <div class="selected-meals-list row-cols-1 g-3">
                         {% if selected_recipes %}
@@ -142,3 +147,11 @@ Meal Planning
     </div>
 </div>
 {% endblock main_content %}
+
+{% block modal_title %}
+Clear meal selection?
+{% endblock modal_title %}
+
+{% block modal_action %}
+<a id="delete-confirm" href="#" class="btn btn-danger">Clear</a>
+{% endblock modal_action %}
