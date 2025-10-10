@@ -1,5 +1,5 @@
 from django import forms
-from .models import MealPlanItem
+from .models import MealPlanItem, SavedRecipe
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Row, Column, HTML
 from crispy_bootstrap5.bootstrap5 import FloatingField
@@ -11,7 +11,23 @@ class MealPlanItemForm(forms.ModelForm):
     related to :model:`MealPLanItem`
     """
     def __init__(self, *args, **kwargs):
+        # Extract custom parameters
+        user = kwargs.pop('user', None)
+        selected_recipe_ids = kwargs.pop('selected_recipe_ids', None)
+
         super().__init__(*args, **kwargs)
+
+        # Limit recipe choices to selected recipes only
+        if user and selected_recipe_ids:
+            self.fields['recipe'].queryset = SavedRecipe.objects.filter(
+                id__in=selected_recipe_ids,
+                user=user
+            )
+        elif user:
+            # Fallback to user's saved recipes if no selection
+            self.fields['recipe'].queryset = SavedRecipe.objects.filter(
+                user=user
+            )
 
         # Add Bootstrap classes to widgets WITHOUT placeholder
         # fix the issue with FloatingField in crispy forms adding

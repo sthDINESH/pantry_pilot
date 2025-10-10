@@ -56,7 +56,12 @@ def meal_planning(request):
         user=request.user
     )
 
-    meal_plan_item_form = MealPlanItemForm()
+    # Limit form choices to selected recipes
+    # if selection is available
+    meal_plan_item_form = MealPlanItemForm(
+        user=request.user,
+        selected_recipe_ids=selected_recipe_ids
+    )
 
     shopping_list_form = ShoppingListForm()
 
