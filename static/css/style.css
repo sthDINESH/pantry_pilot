@@ -705,6 +705,7 @@ a {
     display: flex;
     justify-content: center;
     aspect-ratio: 1 / 0.5;
+    max-height: 180px;
 }
 
 #recipes-form-tabs .nav-link {
