@@ -319,9 +319,26 @@ Google Lighthouse was used to test performance, accessibility, best practices an
     <tr>
       <td><strong>US011</strong></td>
       <td><strong>AS A</strong> cook <strong>I WANT TO</strong> see detailed recipe information including ingredients, instructions, and cooking time <strong>SO THAT I CAN</strong> understand what's needed</td>
-      <td>Test <code>recipe_detail</code> view with API data</td>
-      <td>Detailed recipe view with ingredient comparison</td>
-      <td>✅ Pass</td>
+      <td>
+        <ul>
+            <li>Navigate to Recipes page from main navigation</li>
+            <li>Click on View button in recipe card from search results or saved recipes</li>
+            <li>View detailed recipe information including ingredients list, instructions, and cooking time</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+            <li>✅ Recipe detail page displays complete recipe information for API results</li>
+            <li>✅ Recipe detail page displays complete recipe information for saved recipes</li>
+            <li>✅ Ingredients list shows quantities, units, and ingredient names</li>
+            <li>✅ Step-by-step cooking instructions are clearly displayed</li>
+            <li>✅ Cooking time and serving information is visible</li>
+            <li>✅ Recipe images are properly displayed for valid urls</li>
+            <li>✅ Matched ingredients are marked with a tick icon</li>
+            <li>✅ External recipe source link is displayed when available</li>
+        </ul>
+      </td>
+      <td> Pass </td>
     </tr>
     <tr>
       <td><strong>US012</strong></td>
