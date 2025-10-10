@@ -1,7 +1,7 @@
 from django import forms
 from .models import MealPlanItem
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Row, Column
+from crispy_forms.layout import Layout, Row, Column, HTML
 from crispy_bootstrap5.bootstrap5 import FloatingField
 
 
@@ -12,18 +12,61 @@ class MealPlanItemForm(forms.ModelForm):
     """
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+        # Add Bootstrap classes to widgets WITHOUT placeholder
+        # fix the issue with FloatingField in crispy forms adding
+        # placeholder attribute for select element
+        self.fields['recipe'].widget.attrs.update({
+            'class': 'form-select'
+        })
+        self.fields['meal_type'].widget.attrs.update({
+            'class': 'form-select'
+        })
+
         self.helper = FormHelper(self)
         self.helper.form_tag = False
         self.helper.layout = Layout(
-            FloatingField("recipe"),
+            HTML('''
+                <div class="form-floating mb-3">
+                    <select name="recipe" class="form-select"
+                            id="id_recipe" required>
+                        {% for value, label in form.recipe.field.choices %}
+                            <option value="{{ value }}"
+                                    {% if value == form.recipe.value %}
+                                    selected{% endif %}>
+                                {{ label }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                    <label for="id_recipe">Recipe*</label>
+                </div>
+            '''),
             Row(
-                Column(FloatingField("meal_type"), css_class="col-8"),
+                Column(
+                    HTML('''
+                    <div class="form-floating mb-3">
+                        <select name="meal_type" class="form-select"
+                                id="id_meal_type">
+                        {% for value, label in form.meal_type.field.choices %}
+                            <option value="{{ value }}"
+                                {% if value == form.meal_type.value %}
+                                selected
+                                {% endif %}>
+                                {{ label }}
+                            </option>
+                        {% endfor %}
+                        </select>
+                        <label for="id_meal_type">Meal Type</label>
+                    </div>
+                    '''),
+                    css_class="col-8"
+                ),
                 Column(FloatingField("servings"), css_class="col-4"),
             ),
             Row(
                 Column(
-                    FloatingField("start_time"), 
-                    css_class="col-6", 
+                    FloatingField("start_time"),
+                    css_class="col-6",
                 ),
                 Column(
                     FloatingField("end_time"),
