@@ -211,11 +211,22 @@ def recipe_detail(request, api_recipe_id):
     """
     recipe_detail = fetch_recipe_detail(request, api_recipe_id)
 
+    # Compare ingredients with items in pantry
+    matched_ingredients, _, missing_ingredients = (
+        PantrySearch().find_match(
+            recipe_ingredients=recipe_detail['recipe']['ingredients'],
+            pantry_items=PantryItem.objects.filter(
+                user=request.user,
+            )
+        )
+    )
+
     return render(
         request=request,
         template_name="recipes/recipe_detail.html",
         context={
             'recipe_detail': recipe_detail,
+            'matched_ingredients': [ing[0] for ing in matched_ingredients],
         }
     )
 

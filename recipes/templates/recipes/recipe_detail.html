@@ -74,6 +74,9 @@ Recipe
                             <em>({{ ingredient.note }})</em>
                             {% endif %}
                             {% endif %}
+                            {% if matched_ingredients and ingredient in matched_ingredients %}
+                            <i class="fa-solid fa-square-check text-success"></i>
+                            {% endif %}
                         </span>
                         {% endfor %}
                         {% endif %}

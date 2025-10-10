@@ -65,9 +65,14 @@ class PantrySearch:
         pantry_names = list(normalized_pantry.keys())
 
         for recipe_ingredient in recipe_ingredients:
-            normalized_ingredient = self._normalize(
-                recipe_ingredient.ingredient_name
-            )
+            if isinstance(recipe_ingredient, dict):
+                normalized_ingredient = self._normalize(
+                    recipe_ingredient['name']
+                )
+            else:
+                normalized_ingredient = self._normalize(
+                    recipe_ingredient.ingredient_name
+                )
 
             if not normalized_ingredient:
                 missing_ingredients.append(recipe_ingredient)
