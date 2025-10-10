@@ -722,6 +722,10 @@ a {
     font-size: calc(1.5 * var(--nav-link-font-size));
 }
 
+#recipes-form-tabs .nav-link > span:nth-of-type(1){
+    color: var(--accent-color);
+}
+
 #recipes-form-tabContent {
     background-color: var(--light-color);
     border: 1px solid var(--secondary-light-color);
