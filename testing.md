@@ -43,6 +43,10 @@ CSS was validated by running the validator with direct CSS source input.
 <details>
     <summary>Expand to view the results</summary>
 
+| File | Result | Evidence |
+|------|--------|----------|
+| `static/css/style.css` | ✅ Pass | [no errors](documentation/testing/css_validation/css_no_error.png), [warnings - imported style sheets, CSS variables, same background and border color](documentation/testing/css_validation/css_warnings.png) |
+
 </details>
 
 
