@@ -34,22 +34,22 @@ Recipes
                                 data-bs-target="#discover-pane" type="button" role="tab" aria-controls="discover-pane"
                                 aria-selected="true">
                                 <i class="fa-solid fa-magnifying-glass"></i>
-                                <span class="hide">Discover New Recipes</span>
+                                <span class="">Discover</span>
                             </button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="saved-tab" data-bs-toggle="tab" data-bs-target="#saved-pane"
-                                type="button" role="tab" aria-controls="saved-pane" aria-selected="false">
-                                <i class="fa-solid fa-bookmark"></i>({{ saved_recipes_json|length }})
-                                <span class="hide">View Saved Recipes</span>
-                            </button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="my-recipes-tab" data-bs-toggle="tab"
-                                data-bs-target="#my-recipes-pane" type="button" role="tab"
-                                aria-controls="my-recipes-pane" aria-selected="false">
-                                <i class="fa-solid fa-book-open-reader"></i>
-                                <span class="hide">My Recipes</span>
+                            <button class="nav-link position-relative" id="saved-tab" data-bs-toggle="tab"
+                                data-bs-target="#saved-pane" type="button" role="tab" aria-controls="saved-pane"
+                                aria-selected="false">
+                                <i class="fa-solid fa-bookmark"></i>
+                                <span>
+                                    Saved
+                                </span>
+                                <span
+                                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-info">
+                                    {{ saved_recipes_json|length }}
+                                </span>
+
                             </button>
                         </li>
                     </ul>
@@ -247,13 +247,6 @@ Recipes
                                     </div>
 
                                 </div>
-                            </div>
-                        </div>
-
-                        <div class="tab-pane fade" id="my-recipes-pane" role="tabpanel" aria-labelledby="my-recipes-tab"
-                            tabindex="0">
-                            <div class="p-2 p-md-4">
-                                <!-- Your shopping list content here -->
                             </div>
                         </div>
                     </div>
