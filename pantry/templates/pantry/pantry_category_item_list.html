@@ -158,7 +158,7 @@ Pantry
                 <form method="post" action="{% url 'pantry_item_handle' existing_item.id %}" style="display: inline;">
                     {% csrf_token %}
                     {{ add_quantity_form }}
-                    <button type="submit" class="btn btn-success">Add to Existing</button>
+                    <button type="submit" class="btn btn-info">Add to Existing</button>
                 </form>
                 {% endif %}
 
@@ -167,7 +167,7 @@ Pantry
                 <form method="post" action="{% url 'pantry_item_handle' existing_item.id %}" style="display: inline;">
                     {% csrf_token %}
                     {{ replace_quantity_form }}
-                    <button type="submit" class="btn btn-warning">Replace Existing</button>
+                    <button type="submit" class="btn btn-danger">Replace Existing</button>
                 </form>
                 {% endif %}
             </div>
