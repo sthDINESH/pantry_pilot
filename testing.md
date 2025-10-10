@@ -106,9 +106,9 @@ Google Lighthouse was used to test performance, accessibility, best practices an
     <summary>Expand to view the results</summary>
 </details>
 
-### Manual Testing
+## Manual Testing
 
-#### Testing User Stories
+### Testing User Stories
 
 <details>
     <summary>Expand to view the results</summary>
