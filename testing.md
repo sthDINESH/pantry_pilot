@@ -291,14 +291,34 @@ Google Lighthouse was used to test performance, accessibility, best practices an
     </tr>
     <tr>
       <td><strong>US010</strong></td>
-      <td><strong>AS A</strong> home cook <strong>I WANT TO</strong> find recipes using ingredients I have in my pantry <strong>SO THAT I CAN</strong> cook meals without additional shopping</td>
-      <td>Test <code>RecipeSearchForm</code> and <code>SpoonacularApiService</code></td>
-      <td>API integration with pantry matching working</td>
-      <td>✅ Pass</td>
+      <td><strong>AS A</strong> home cook <strong>I WANT TO</strong> find recipes using ingredients I have in my pantry <strong>SO THAT I CAN</strong> cook meals maximizing what I have available</td>
+      <td>
+        <ul>
+                <li>Go to Recipes page from navigation bar</li>
+                <li>Click on the Discover pane in Recipes</li>
+                <li>Select cuisine, diet and meal type preferences</li>
+                <li>Click Search</li>
+            </ul>
+      </td>
+      <td>
+        <ul>
+            <li>✅ Recipe search form is accessible from Recipes page</li>
+            <li>✅ Search filters include cuisine, diet, and meal type options</li>
+            <li>✅ API integration with Spoonacular working correctly</li>
+            <li>✅ Search results display recipes matching selected criteria</li>
+            <li>✅ Recipe card displays title and recipe image for correct url from API response</li>
+            <li>✅ Recipe cards show number of matched and missing ingredients</li>
+            <li>✅ Clicking on the info button on each recipe card displays dialog with matched and missing ingredient names</li>
+            <li>✅ Message displayed for empty search results</li>
+            <li>✅ Search results persists for active session</li>
+            <li>✅ Search results are cleared out upon session end or sign out</li>
+        </ul>
+      </td>
+      <td> Pass </td>
     </tr>
     <tr>
       <td><strong>US011</strong></td>
-      <td><strong>AS A</strong> cook <strong>I WANT TO</strong> see detailed recipe information including ingredients, instructions, and prep time <strong>SO THAT I CAN</strong> understand what's needed</td>
+      <td><strong>AS A</strong> cook <strong>I WANT TO</strong> see detailed recipe information including ingredients, instructions, and cooking time <strong>SO THAT I CAN</strong> understand what's needed</td>
       <td>Test <code>recipe_detail</code> view with API data</td>
       <td>Detailed recipe view with ingredient comparison</td>
       <td>✅ Pass</td>
