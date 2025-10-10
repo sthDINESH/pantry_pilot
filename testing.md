@@ -394,37 +394,133 @@ Google Lighthouse was used to test performance, accessibility, best practices an
     <tr>
       <td><strong>US015</strong></td>
       <td><strong>AS A</strong> organized cook <strong>I WANT TO</strong> see a weekly meal calendar interface <strong>SO THAT I CAN</strong> plan my meals for the week ahead</td>
-      <td>Test <code>meal_planning</code> view with FullCalendar integration</td>
-      <td>Interactive calendar with meal slots implemented</td>
-      <td>✅ Pass</td>
+      <td>
+        <ul>
+            <li>Navigate to Meals page from main navigation</li>
+            <li>View the weekly, monthly and day view calendar interfaces</li>
+            <li>Switch between week and month views using toolbar buttons</li>
+            <li>Verify clicking on a day slot in weekly/monthly calendar switches day view calendar to that date</li>
+            <li>Verify calendar displays current week by default</li>
+            <li>Verify calendar displays planned meals</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+            <li>✅ FullCalendar integration working with Bootstrap5 theme</li>
+            <li>✅ Weekly calendar view displays 7 days horizontally</li>
+            <li>✅ Monthly calendar view shows full month grid</li>
+            <li>✅ Calendar toolbar allows switching between week/month views</li>
+            <li>✅ Navigation buttons (prev/next/today) function correctly</li>
+            <li>✅ Responsive design adapts to different screen sizes</li>
+            <li>✅ Calendar events load from meal plan data</li>
+            <li>✅ Date click on week and month view progresses the day view to the selected date</li>
+            <li>✅ Clicking in empty time slots in day view pops up dialog to add meals</li>
+        </ul>
+      </td>
+      <td> Pass </td>
     </tr>
     <tr>
       <td><strong>US016</strong></td>
       <td><strong>AS A</strong> meal planner <strong>I WANT TO</strong> add specific recipes to calendar days and meal times <strong>SO THAT I CAN</strong> organize my weekly cooking schedule</td>
-      <td>Test <code>MealPlanItemForm</code> and <code>get_meal_plan</code></td>
-      <td>Recipe assignment to calendar working</td>
-      <td>✅ Pass</td>
+      <td>
+        <ul>
+            <li>Select recipes from saved tab in recipes page for meal planning</li>
+            <li>Navigate to Meals page from main navigation</li>
+            <li>Click on empty time slots in day view calendar</li>
+            <li>Fill in MealPlanItemForm with recipe, meal type, servings and time</li>
+            <li>Submit form to add meal to calendar</li>
+            <li>Verify meal appears on calendar at scheduled time</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+            <li>✅ "Select for Meal Plan" button on recipe cards in saved tab selects recipes for planning</li>
+            <li>✅ Button state changes to indicate selection success</li>
+            <li>✅ "Selected(Remove)" Button removes recipe from meal plan</li>
+            <li>✅ Selected recipes listed in meals page</li>
+            <li>✅ Click in empty time slot opens dialog with form</li>
+            <li>✅ Form accepts recipe, meal type, servings and time inputs</li>
+            <li>✅ Time inputs are pre-populated from calendar time slots</li>
+            <li>✅ Form validation ensures required fields are filled</li>
+            <li>✅ User can assign same recipe to multiple time slots</li>
+            <li>✅ All Calendar views displays scheduled meals correctly</li>
+            <li>✅ Meal plan items are stored with proper relationships</li>
+            <li>✅ Recipe assignment to specific calendar dates and times works</li>
+        </ul>
+      </td>
+      <td> Pass </td>
     </tr>
     <tr>
       <td><strong>US017</strong></td>
-      <td><strong>AS A</strong> meal planner <strong>I WANT TO</strong> automatically generate shopping lists based on my planned meals <strong>SO THAT I CAN</strong> buy ingredients needed for my weekly menu</td>
-      <td>Test <code>generate_shopping_list_items</code> function</td>
-      <td>Shopping list generation from meal plans working</td>
-      <td>✅ Pass</td>
+      <td><strong>AS A</strong> meal planner <strong>I WANT TO</strong> modify existing meal plan items <strong>SO THAT I CAN</strong> adjust my weekly schedule as needed</td>
+      <td>
+        <ul>
+            <li>Navigate to Meals page from main navigation</li>
+            <li>Click on an existing meal event in the calendar</li>
+            <li>Update meal details in the edit form (recipe, time, servings, meal type)</li>
+            <li>Submit the updated form</li>
+            <li>Verify changes are reflected in the calendar</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+            <li>✅ Existing meal events clickable in calendar views</li>
+            <li>✅ Edit form displayed on clicking on meal plan events</li>
+            <li>✅ Edit form pre-populated with current meal plan data</li>
+            <li>✅ All meal plan fields can be modified (recipe, time, servings, meal type)</li>
+            <li>✅ Form validation ensures required fields are filled</li>
+            <li>✅ Updated meal plan items displayed correctly in calendar</li>
+            <li>✅ Success message confirms meal plan update</li>
+            <li>✅ Only meal plan owner allowed to edit their items</li>
+        </ul>
+      </td>
+      <td> Pass </td>
     </tr>
     <tr>
       <td><strong>US018</strong></td>
-      <td><strong>AS A</strong> meal planner <strong>I WANT TO</strong> see which recipe ingredients I already have <strong>SO THAT I CAN</strong> only buy what I need</td>
-      <td>Test pantry vs recipe ingredient comparison in <code>PantrySearch</code></td>
-      <td>Ingredient matching logic separating needed vs available</td>
-      <td>✅ Pass</td>
+      <td><strong>AS A</strong> meal planner <strong>I WANT TO</strong> remove meals from my calendar <strong>SO THAT I CAN</strong> clear unwanted or changed plans</td>
+      <td>
+        <ul>
+            <li>Navigate to Meals page from main navigation</li>
+            <li>Click on an existing meal event in the calendar</li>
+            <li>Click the Delete button in the meal plan modal</li>
+            <li>Confirm deletion in the confirmation dialog</li>
+            <li>Verify meal is removed from calendar</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+            <li>✅ Clicking on existing meal event displays delete option in modal</li>
+            <li>✅ Confirmation dialog prevents accidental deletion</li>
+            <li>✅ Meal plan items are permanently removed after confirmation</li>
+            <li>✅ Calendar updates immediately after deletion</li>
+            <li>✅ Success message confirms meal plan deletion</li>
+            <li>✅ Only meal plan owner can delete their items</li>
+        </ul>
+      </td>
+      <td> Pass </td>
     </tr>
     <tr>
       <td><strong>US019</strong></td>
-      <td><strong>AS A</strong> shopper <strong>I WANT TO</strong> view and modify my generated shopping list <strong>SO THAT I CAN</strong> customize it before shopping</td>
-      <td>Test <code>ShoppingListForm</code> and list editing</td>
-      <td>Shopping list display and management working</td>
-      <td>✅ Pass</td>
+      <td><strong>AS A</strong> meal planner <strong>I WANT TO</strong> easily distinguish different meal types in my calendar <strong>SO THAT I CAN</strong> quickly understand my meal schedule</td>
+      <td>
+        <ul>
+            <li>Navigate to Meals page from main navigation</li>
+            <li>Add different meal types (breakfast, lunch, dinner) to calendar</li>
+            <li>View calendar events and verify visual distinctions</li>
+            <li>Check color coding and styling for different meal types</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+            <li>✅ Calendar events display meal type information clearly</li>
+            <li>✅ Different meal types have distinct visual styling</li>
+            <li>✅ Color coding distinguishes breakfast, lunch, dinner</li>
+            <li>✅ Responsive design maintains readability across devices</li>
+            <li>✅ Meal plan events are easily scannable in weekly/monthly views</li>
+        </ul>
+      </td>
+      <td> Pass </td>
     </tr>
     <tr>
       <td><strong>US020</strong></td>
