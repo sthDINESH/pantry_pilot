@@ -82,11 +82,10 @@ Flake8 extension for vsCode from Mircosoft was used during the development to he
 | **meals** | `meals/forms.py` | ✅ Pass | [no errors or warnings](documentation/testing/python_validation/meals_forms_py.png) |
 | **meals** | `meals/admin.py` | ✅ Pass | [no errors or warnings](documentation/testing/python_validation/meals_admin_py.png) |
 | **meals** | `meals/urls.py` | ✅ Pass | [no errors or warnings](documentation/testing/python_validation/meals_urls_py.png) |
-| **shopping** | `shopping/apps.py` | ✅ Pass | Standard Django app configuration file |
-| **shopping** | `shopping/models.py` | ✅ Pass | `ShoppingList` and `ShoppingListItem` models |
-| **shopping** | `shopping/views.py` | ✅ Pass | Shopping list generation with `generate_shopping_list_items` function |
-| **shopping** | `shopping/forms.py` | ✅ Pass | `ShoppingListForm` for creating shopping lists |
-| **shopping** | `shopping/urls.py` | ✅ Pass | URL patterns for shopping list operations |
+| **shopping** | `shopping/models.py` | ✅ Pass | [no errors or warnings](documentation/testing/python_validation/shopping_models_py.png) |
+| **shopping** | `shopping/views.py` | ✅ Pass | [no errors or warnings](documentation/testing/python_validation/shopping_views_py.png) |
+| **shopping** | `shopping/forms.py` | ✅ Pass | [no errors or warnings](documentation/testing/python_validation/shopping_forms_py.png) |
+| **shopping** | `shopping/urls.py` | ✅ Pass | [no errors or warnings](documentation/testing/python_validation/shopping_urls_py.png) |
 
 
 </details>
