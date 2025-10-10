@@ -238,6 +238,15 @@ def saved_recipe_detail(request, recipe_id):
     )
     saved_recipe = get_object_or_404(queryset, id=recipe_id)
 
+    # Compare ingredients with items in pantry
+    matched_ingredients, _, missing_ingredients = (
+        PantrySearch().find_match(
+            recipe_ingredients=saved_recipe.ingredients.all(),
+            pantry_items=PantryItem.objects.filter(
+                user=request.user,
+            )
+        )
+    )
     recipe_detail = {}
     recipe_detail['success'] = True
     recipe_detail['recipe'] = saved_recipe
@@ -247,6 +256,7 @@ def saved_recipe_detail(request, recipe_id):
         template_name="recipes/recipe_detail.html",
         context={
             'recipe_detail': recipe_detail,
+            'matched_ingredients': [ing[0] for ing in matched_ingredients],
             'saved_recipe': True,
         }
     )

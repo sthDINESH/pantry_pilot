@@ -300,6 +300,6 @@ Use base modal -->
 {% block json_data %}
 {% if search_results.response.success %}
 {{ search_results.response.recipes|json_script:"search-data" }}
-{{ saved_recipes_json|json_script:"saved-recipes-data" }}
 {% endif %}
+{{ saved_recipes_json|json_script:"saved-recipes-data" }}
 {% endblock json_data%}

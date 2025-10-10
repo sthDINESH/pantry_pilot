@@ -25,7 +25,12 @@ Recipe
                 {% if recipe_detail.recipe.is_external %}
                 <img src="{{ recipe_detail.recipe.api_image_url }}" alt="{{ recipe_detail.recipe.title }}">
                 {% else %}
-                <img src="{{ recipe_detail.recipe.image }}" alt="{{ recipe_detail.recipe.title }}">
+                {% if "placeholder" in recipe_detail.recipe.image.url %}
+                <img src="{% static 'images/recipe_image_placeholder.webp' %}" 
+                    alt="recipe_detail.recipe.title">
+                {% else %}
+                <img src="{{ recipe_detail.recipe.image.url }}" alt="{{ recipe_detail.recipe.title }}">
+                {% endif %}
                 {% endif %}
             </div>
             <div class="col-12 col-md-8 recipe-summary d-flex align-items-center py-2 ps-md-5">
@@ -37,7 +42,6 @@ Recipe
                     <em>Source: {{ recipe_detail.recipe.api_source_url }}</em>
                     {% endif %}
                 </div>
-                <!-- <a href="" class="btn btn-primary form-button">Save</a> -->
             </div>
             <div class="col-12 col-md-4 recipe-additional-section py-2 pt-md-5">
                 <div class="category-section ingredients">
@@ -53,6 +57,9 @@ Recipe
                             {% if ingredient.note %}
                             <em>({{ ingredient.note }})</em>
                             {% endif %}
+                            {% endif %}
+                            {% if matched_ingredients and ingredient in matched_ingredients %}
+                            <i class="fa-solid fa-square-check text-success"></i>
                             {% endif %}
                         </span>
                         {% endfor %}
