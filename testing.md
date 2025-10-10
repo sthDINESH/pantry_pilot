@@ -70,12 +70,11 @@ Flake8 extension for vsCode from Mircosoft was used during the development to he
 | **pantry** | `pantry/forms.py` | ✅ Pass | [no errors or warnings](documentation/testing/python_validation/pantry_forms_py.png) |
 | **pantry** | `pantry/admin.py` | ✅ Pass | [no errors or warnings](documentation/testing/python_validation/pantry_admin_py.png) |
 | **pantry** | `pantry/urls.py` | ✅ Pass | [no errors or warnings](documentation/testing/python_validation/pantry_urls_py.png) |
-| **recipes** | `recipes/apps.py` | ✅ Pass | Standard Django app configuration file |
-| **recipes** | `recipes/models.py` | ✅ Pass | `SavedRecipe` and `RecipeIngredient` models with external API integration |
-| **recipes** | `recipes/views.py` | ✅ Pass | Recipe search, save, and detail views with `SpoonacularApiService` integration |
-| **recipes** | `recipes/forms.py` | ✅ Pass | `RecipeSearchForm` with manual floating labels to avoid HTML validation errors |
-| **recipes** | `recipes/urls.py` | ✅ Pass | URL patterns for recipe operations including save and toggle selection |
-| **recipes** | `recipes/spoonacular.py` | ✅ Pass | External API service class for recipe search and details |
+| **recipes** | `recipes/models.py` | ✅ Pass | [no errors or warnings](documentation/testing/python_validation/recipes_models_py.png) |
+| **recipes** | `recipes/views.py` | ✅ Pass | [no errors or warnings](documentation/testing/python_validation/recipes_views_py.png) |
+| **recipes** | `recipes/forms.py` | ✅ Pass | [no errors or warnings](documentation/testing/python_validation/recipes_forms_py.png) |
+| **recipes** | `recipes/urls.py` | ✅ Pass | [no errors or warnings](documentation/testing/python_validation/recipes_urls_py.png) |
+| **recipes** | `recipes/spoonacular.py` | ✅ Pass | [no errors or warnings](documentation/testing/python_validation/recipes_spoonacular_py.png) |
 | **meals** | `meals/apps.py` | ✅ Pass | Standard Django app configuration file |
 | **meals** | `meals/models.py` | ✅ Pass | `MealPlanItem` model for meal planning functionality |
 | **meals** | `meals/views.py` | ✅ Pass | Meal planning views including `meal_planning` and calendar operations |

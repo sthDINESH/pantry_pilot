@@ -19,23 +19,6 @@ class APIConfig:
     - Supports different limits for different types of operations
     """
 
-    # Daily limits per user (conservative to support multiple users)
-    # DAILY_USER_LIMITS = {
-    #     'recipe_searches': 10,    # Max 10 searches per user per day
-    #     'recipe_details': 15,     # Max 15 detailed views per user per day
-    # }
-
-    # Application-wide limits (Spoonacular free tier)
-    # DAILY_APP_LIMIT = 150        # Total requests per day for entire app
-
-    # Cache timeouts (in seconds)
-    # CACHE_TIMEOUTS = {
-    #     'recipe_search': 86400,      # 24 hours for search results
-    #     'recipe_details': 604800,    # 7 days for detailed recipe info
-    #     'popular_searches': 172800,  # 48 hours for popular combinations
-    #     'user_quota': 3600,         # 1 hour for user quota info
-    # }
-
     # Spoonacular API configuration
     SPOONACULAR_BASE_URL = "https://api.spoonacular.com/recipes"
     SPOONACULAR_API_KEY = (

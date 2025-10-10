@@ -44,7 +44,7 @@ class SavedRecipe(models.Model):
 
     class Meta:
         unique_together = ['user', 'title', 'slug']
-        ordering = ["-created_on",]
+        ordering = ["-created_on", ]
 
     def __str__(self):
         return f"{self.title}"
