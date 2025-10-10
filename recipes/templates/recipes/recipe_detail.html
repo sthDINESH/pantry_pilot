@@ -112,8 +112,13 @@ Recipe
                     class="btn btn-primary form-button">Save</a>
                 {% endif %}
                 {% endif %}
+                {% if request.GET.from and request.GET.from == 'meals' %}
+                <a href="{% url 'meals' %}"
+                    class="btn btn-secondary form-button">Back</a>
+                {% else %}
                 <a href="{% url 'recipes' %}{% if request.GET.from %}?tab={{ request.GET.from }}{% endif %}"
                     class="btn btn-secondary form-button">Back</a>
+                {% endif %}
             </div>
             {% else %}
             <p>Oops - Details for the recipe not found!. Please, try a different recipe or check saved recipes instead.
