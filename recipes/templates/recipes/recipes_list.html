@@ -45,11 +45,12 @@ Recipes
                                 <span>
                                     Saved
                                 </span>
+                                {% if saved_recipes_json|length %}
                                 <span
                                     class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-info">
                                     {{ saved_recipes_json|length }}
                                 </span>
-
+                                {% endif %}
                             </button>
                         </li>
                     </ul>
