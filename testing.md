@@ -76,12 +76,11 @@ Flake8 extension for vsCode from Mircosoft was used during the development to he
 | **recipes** | `recipes/forms.py` | ✅ Pass | [no errors or warnings](documentation/testing/python_validation/recipes_forms_py.png) |
 | **recipes** | `recipes/urls.py` | ✅ Pass | [no errors or warnings](documentation/testing/python_validation/recipes_urls_py.png) |
 | **recipes** | `recipes/spoonacular.py` | ✅ Pass | [no errors or warnings](documentation/testing/python_validation/recipes_spoonacular_py.png) |
-| **meals** | `meals/apps.py` | ✅ Pass | Standard Django app configuration file |
-| **meals** | `meals/models.py` | ✅ Pass | `MealPlanItem` model for meal planning functionality |
-| **meals** | `meals/views.py` | ✅ Pass | Meal planning views including `meal_planning` and calendar operations |
-| **meals** | `meals/forms.py` | ✅ Pass | `MealPlanItemForm` for adding meals to calendar |
-| **meals** | `meals/admin.py` | ✅ Pass | Admin registration for `MealPlanItemAdmin` |
-| **meals** | `meals/urls.py` | ✅ Pass | URL patterns for meal planning CRUD operations |
+| **meals** | `meals/models.py` | ✅ Pass | [no errors or warnings](documentation/testing/python_validation/meals_models_py.png)|
+| **meals** | `meals/views.py` | ✅ Pass | [no errors or warnings](documentation/testing/python_validation/meals_views_py.png) |
+| **meals** | `meals/forms.py` | ✅ Pass | [no errors or warnings](documentation/testing/python_validation/meals_forms_py.png) |
+| **meals** | `meals/admin.py` | ✅ Pass | [no errors or warnings](documentation/testing/python_validation/meals_admin_py.png) |
+| **meals** | `meals/urls.py` | ✅ Pass | [no errors or warnings](documentation/testing/python_validation/meals_urls_py.png) |
 | **shopping** | `shopping/apps.py` | ✅ Pass | Standard Django app configuration file |
 | **shopping** | `shopping/models.py` | ✅ Pass | `ShoppingList` and `ShoppingListItem` models |
 | **shopping** | `shopping/views.py` | ✅ Pass | Shopping list generation with `generate_shopping_list_items` function |
