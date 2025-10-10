@@ -17,7 +17,7 @@
 PantryPilot is a comprehensive full-stack web application designed to help users efficiently manage their pantry inventory, discover recipes based on available ingredients, plan weekly meals, and generate smart shopping lists. The application combines intelligent ingredient tracking with meal planning capabilities to reduce food waste, save money, and streamline cooking experiences.
 
 ### Technology Stack Overview
-- **Frontend**: HTML5, CSS3, JavaScript (ES6+)
+- **Frontend**: HTML5, CSS3, JavaScript 
 - **Backend**: Django Framework (Python)
 - **Database**: PostgreSQL
 - **Architecture**: Full-stack web application

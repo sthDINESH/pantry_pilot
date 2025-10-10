@@ -1,3 +1,5 @@
+/*jshint esversion: 8 */
+/*global bootstrap, FullCalendar */
 document.addEventListener("DOMContentLoaded", function () {
   // Utility functions
   // ---------------------------------------------------------------
@@ -118,31 +120,33 @@ document.addEventListener("DOMContentLoaded", function () {
    * instance in :template:`recipes/recipes_list.html`
    */
   class jsonDataHandler {
-    // Private elements
-    #searchResultsDataEl;
-    #savedRecipesDataEl;
-
-    searchResultsData;
-    savedRecipesData;
-
     constructor() {
-      this.#searchResultsDataEl = document.querySelector("#search-data");
-      this.#savedRecipesDataEl = document.querySelector("#saved-recipes-data");
+      // Private elements (using underscore convention)
+      this._searchResultsDataEl = null;
+      this._savedRecipesDataEl = null;
+      
+      // Public properties
+      this.searchResultsData = null;
+      this.savedRecipesData = null;
+      
+      // Initialize DOM elements
+      this._searchResultsDataEl = document.querySelector("#search-data");
+      this._savedRecipesDataEl = document.querySelector("#saved-recipes-data");
 
-      if (this.#searchResultsDataEl) {
+      if (this._searchResultsDataEl) {
         try {
           this.searchResultsData = JSON.parse(
-            this.#searchResultsDataEl.textContent
+            this._searchResultsDataEl.textContent
           );
         } catch (e) {
           console.error("Error parsing search results:", e);
         }
       }
 
-      if (this.#savedRecipesDataEl) {
+      if (this._savedRecipesDataEl) {
         try {
           this.savedRecipesData = JSON.parse(
-            this.#savedRecipesDataEl.textContent
+            this._savedRecipesDataEl.textContent
           );
         } catch (e) {
           console.error("Error parsing search results:", e);
@@ -167,67 +171,69 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  recipesJson = new jsonDataHandler();
+  const recipesJson = new jsonDataHandler();
 
   /**
    * Class definition for handling mealPlanModal
    * instance in :template:`meals/meal_planning.html`
    */
   class mealPlanModalHandler {
-    // Private fields
-    // Handles to DOM elements
-    #modalEl;
-    #modalTitle;
-    #modalForm;
-    #formCRSFToken;
-    #submitButton;
-    #deleteItemButton;
-    #startTime;
-    #endTime;
-    #recipe;
-    #mealType;
-    #servings;
-    // BS5 object to control the modal
-    bsObject;
-
-    // External Calendar objects
-    calendarDay;
-    calendarWeek;
-
     constructor() {
-      this.#modalEl = document.querySelector("#meal-plan-modal");
-      if (this.#modalEl) {
-        this.#modalTitle = this.#modalEl.querySelector(".modal-title");
-        this.#modalForm = this.#modalEl.querySelector("form");
-        this.#formCRSFToken = this.#modalForm.querySelector(
+      // Private fields (using underscore convention)
+      // Handles to DOM elements
+      this._modalEl = null;
+      this._modalTitle = null;
+      this._modalForm = null;
+      this._formCRSFToken = null;
+      this._submitButton = null;
+      this._deleteItemButton = null;
+      this._startTime = null;
+      this._endTime = null;
+      this._recipe = null;
+      this._mealType = null;
+      this._servings = null;
+      
+      // BS5 object to control the modal
+      this.bsObject = null;
+      
+      // External Calendar objects
+      this.calendarDay = null;
+      this.calendarWeek = null;
+      
+      // Initialize DOM elements
+      this._modalEl = document.querySelector("#meal-plan-modal");
+      if (this._modalEl) {
+        this._modalTitle = this._modalEl.querySelector(".modal-title");
+        this._modalForm = this._modalEl.querySelector("form");
+        this._formCRSFToken = this._modalForm.querySelector(
           "input[name='csrfmiddlewaretoken']"
         ).value;
-        this.#submitButton = this.#modalEl.querySelector(
+        this._submitButton = this._modalEl.querySelector(
           "button[type='submit']"
         );
-        this.#deleteItemButton = this.#modalEl.querySelector(
+        this._deleteItemButton = this._modalEl.querySelector(
           "button[data-type='meal-plan-item-delete'"
         );
-        this.#startTime = this.#modalForm.querySelector("#id_start_time");
-        this.#endTime = this.#modalForm.querySelector("#id_end_time");
-        this.#recipe = this.#modalForm.querySelector("#id_recipe");
-        this.#mealType = this.#modalForm.querySelector("#id_meal_type");
-        this.#servings = this.#modalForm.querySelector("#id_servings");
+        this._startTime = this._modalForm.querySelector("#id_start_time");
+        this._endTime = this._modalForm.querySelector("#id_end_time");
+        this._recipe = this._modalForm.querySelector("#id_recipe");
+        this._mealType = this._modalForm.querySelector("#id_meal_type");
+        this._servings = this._modalForm.querySelector("#id_servings");
       }
 
-      if (this.#modalEl) {
-        this.bsObject = new bootstrap.Modal(this.#modalEl);
+      if (this._modalEl) {
+        this.bsObject = new bootstrap.Modal(this._modalEl);
       }
       // Attach handler to form submit
-      if (this.#modalForm) {
-        this.#modalForm.addEventListener(
+      if (this._modalForm) {
+        this._modalForm.addEventListener(
           "submit",
           this.submitHandler.bind(this)
         );
       }
       // Attach Handler to delete Button
-      if (this.#deleteItemButton) {
-        this.#deleteItemButton.addEventListener(
+      if (this._deleteItemButton) {
+        this._deleteItemButton.addEventListener(
           "click",
           this.deleteHandler.bind(this)
         );
@@ -236,17 +242,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Helper methods
     title(text) {
-      if (this.#modalTitle) {
-        this.#modalTitle.innerText = text;
+      if (this._modalTitle) {
+        this._modalTitle.innerText = text;
       }
     }
 
     time(type, text) {
-      if (type === "start" && this.#startTime) {
-        this.#startTime.value = text;
+      if (type === "start" && this._startTime) {
+        this._startTime.value = text;
       }
-      if (type === "end" && this.#endTime) {
-        this.#endTime.value = text;
+      if (type === "end" && this._endTime) {
+        this._endTime.value = text;
       }
     }
 
@@ -260,22 +266,22 @@ document.addEventListener("DOMContentLoaded", function () {
      * Disables the form fields for edit
      */
     disableFormFields() {
-      if (this.#recipe) this.#recipe.setAttribute("disabled", "disabled");
-      if (this.#mealType) this.#mealType.setAttribute("disabled", "disabled");
-      if (this.#servings) this.#servings.setAttribute("disabled", "disabled");
-      if (this.#startTime) this.#startTime.setAttribute("disabled", "disabled");
-      if (this.#endTime) this.#endTime.setAttribute("disabled", "disabled");
+      if (this._recipe) this._recipe.setAttribute("disabled", "disabled");
+      if (this._mealType) this._mealType.setAttribute("disabled", "disabled");
+      if (this._servings) this._servings.setAttribute("disabled", "disabled");
+      if (this._startTime) this._startTime.setAttribute("disabled", "disabled");
+      if (this._endTime) this._endTime.setAttribute("disabled", "disabled");
     }
 
     /**
      * Enables form fields to allow edit
      */
     enableFormFields() {
-      if (this.#recipe) this.#recipe.removeAttribute("disabled");
-      if (this.#mealType) this.#mealType.removeAttribute("disabled");
-      if (this.#servings) this.#servings.removeAttribute("disabled");
-      if (this.#startTime) this.#startTime.removeAttribute("disabled");
-      if (this.#endTime) this.#endTime.removeAttribute("disabled");
+      if (this._recipe) this._recipe.removeAttribute("disabled");
+      if (this._mealType) this._mealType.removeAttribute("disabled");
+      if (this._servings) this._servings.removeAttribute("disabled");
+      if (this._startTime) this._startTime.removeAttribute("disabled");
+      if (this._endTime) this._endTime.removeAttribute("disabled");
     }
 
     /**
@@ -284,10 +290,10 @@ document.addEventListener("DOMContentLoaded", function () {
      */
     submitHandler(event) {
       event.preventDefault();
-      const formData = new FormData(this.#modalForm);
+      const formData = new FormData(this._modalForm);
 
       // AJAX POST request to update the server
-      fetch(this.#modalForm.action, {
+      fetch(this._modalForm.action, {
         method: "POST",
         headers: {
           "X-Requested-With": "XMLHttpRequest",
@@ -336,14 +342,14 @@ document.addEventListener("DOMContentLoaded", function () {
         event.currentTarget.classList.add("btn-primary");
         event.currentTarget.innerText = "Confirm Delete";
 
-        this.#submitButton.classList.add("hide");
+        this._submitButton.classList.add("hide");
       } else {
         // AJAX request to delete post confirmation
         fetch(`/meals/delete/${mealPlanItemId}/`, {
           method: "POST",
           headers: {
             "X-Requested-With": "XMLHttpRequest",
-            "X-CSRFToken": this.#formCRSFToken,
+            "X-CSRFToken": this._formCRSFToken,
           },
         })
           .then((response) => response.json())
@@ -384,11 +390,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // Prepare modal
       this.enableFormFields();
-      this.#submitButton.innerText = "Add to Plan";
-      this.#submitButton.classList.remove("hide");
-      this.#modalForm.action = `/meals/`;
+      this._submitButton.innerText = "Add to Plan";
+      this._submitButton.classList.remove("hide");
+      this._modalForm.action = `/meals/`;
 
-      this.#deleteItemButton.classList.add("hide");
+      this._deleteItemButton.classList.add("hide");
       this.bsObject.show();
     }
 
@@ -408,40 +414,38 @@ document.addEventListener("DOMContentLoaded", function () {
       const { meal_type, servings, recipe_id } = event.extendedProps;
 
       // Set form field values in the modal
-      if (this.#startTime) {
-        this.#startTime.value = event.start
-          ? event.start.toISOString().slice(0, 19).replace("T", " ")
-          : "";
+      if (this._startTime) {
+        this._startTime.value = event.start ? 
+          event.start.toISOString().slice(0, 19).replace("T", " ") : "";
       }
-      if (this.#endTime) {
-        this.#endTime.value = event.end
-          ? event.end.toISOString().slice(0, 19).replace("T", " ")
-          : "";
+      if (this._endTime) {
+        this._endTime.value = event.end ? 
+          event.end.toISOString().slice(0, 19).replace("T", " ") : "";
       }
-      if (this.#mealType && meal_type) {
-        this.#mealType.value = meal_type;
+      if (this._mealType && meal_type) {
+        this._mealType.value = meal_type;
       }
-      if (this.#servings && servings) {
-        this.#servings.value = servings;
+      if (this._servings && servings) {
+        this._servings.value = servings;
       }
-      if (this.#recipe && recipe_id) {
-        this.#recipe.value = recipe_id;
+      if (this._recipe && recipe_id) {
+        this._recipe.value = recipe_id;
       }
 
       // Prepare modal buttons
-      this.#submitButton.innerText = "Update";
-      this.#submitButton.classList.remove("hide");
-      this.#modalForm.action = `/meals/update/${mealPlanItemId}/`;
+      this._submitButton.innerText = "Update";
+      this._submitButton.classList.remove("hide");
+      this._modalForm.action = `/meals/update/${mealPlanItemId}/`;
 
-      this.#deleteItemButton.setAttribute(
+      this._deleteItemButton.setAttribute(
         "data-meal-plan-item-id",
         mealPlanItemId
       );
-      this.#deleteItemButton.setAttribute("data-state", "confirm");
-      this.#deleteItemButton.innerText = "Delete from Plan";
-      this.#deleteItemButton.classList.remove("hide");
-      this.#deleteItemButton.classList.add("btn-secondary");
-      this.#deleteItemButton.classList.remove("btn-primary");
+      this._deleteItemButton.setAttribute("data-state", "confirm");
+      this._deleteItemButton.innerText = "Delete from Plan";
+      this._deleteItemButton.classList.remove("hide");
+      this._deleteItemButton.classList.add("btn-secondary");
+      this._deleteItemButton.classList.remove("btn-primary");
       this.bsObject.show();
     }
   }
@@ -799,12 +803,12 @@ document.addEventListener("DOMContentLoaded", function () {
           // Full Calender returns date in local timezone
           // .toISOString converts to UTC(GMT+0000)
           // So, use custom function to format dates without timezone conversion
-          function formatDateLocal(date) {
+          const formatDateLocal = function(date) {
             const year = date.getFullYear();
             const month = String(date.getMonth() + 1).padStart(2, "0");
             const day = String(date.getDate()).padStart(2, "0");
             return `${year}-${month}-${day}`;
-          }
+          };
 
           const weekStartStr = formatDateLocal(weekStart);
           const weekEndStr = formatDateLocal(weekEnd);
@@ -1006,48 +1010,4 @@ document.addEventListener("DOMContentLoaded", function () {
   function calendarDayEventClick(info) {
     mealPlanModal.displayMealPlanItem(info);
   }
-
-  // GSAP for animations
-  // Register ScrollTrigger plugin
-  // gsap.registerPlugin(ScrollTrigger);
-
-  // // Scroll trigger animation for pantry item category images
-  // console.log(document.querySelector("#pantry-section"));
-
-  // // Create an object to animate
-  // let imageSequence = { frame: 0 };
-
-  // gsap.timeline(
-  //   {
-  //     onUpdate: updateCount,
-  //     ScrollTrigger: {
-  //       trigger: document.querySelector("#pantry-section"),
-  //       start: "top 5%",
-  //       end: "bottom 95%",
-  //       scrub:1,
-  //       pin:false,
-  //       markers:true,
-  //       onUpdate: self => {
-  //         console.log("Progress:",self.progress);
-  //       }
-  //     }
-  //   }
-  // ).to(
-  //   imageSequence,
-  //   {
-  //     frame: 5,
-  //     ease: "none",
-  //     duration: 1
-  //   }
-  // );
-
-  // function updateCount (){
-  //   console.log(Math.round(imageSequence.frame));
-  // }
-
-  // gsap.from(".auth-grid-container .square-card", {
-  //   y: 1000,
-  //   duration: 1,
-  //   stagger: 0.1,
-  // });
 });
