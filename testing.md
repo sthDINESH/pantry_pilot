@@ -341,25 +341,55 @@ Google Lighthouse was used to test performance, accessibility, best practices an
       <td> Pass </td>
     </tr>
     <tr>
-      <td><strong>US012</strong></td>
-      <td><strong>AS A</strong> home cook <strong>I WANT TO</strong> filter recipes by how many pantry ingredients they use <strong>SO THAT I CAN</strong> prioritize recipes requiring minimal shopping</td>
-      <td>Test recipe filtering by matched ingredients count</td>
-      <td>Recipe results show matched vs missing ingredients</td>
-      <td>✅ Pass</td>
-    </tr>
-    <tr>
       <td><strong>US013</strong></td>
       <td><strong>AS A</strong> cook <strong>I WANT TO</strong> save recipes I like to a favorites list <strong>SO THAT I CAN</strong> easily find them again for future cooking</td>
-      <td>Test <code>recipe_save</code> function and <code>SavedRecipe</code> model</td>
-      <td>Recipe saving with duplicate prevention working</td>
-      <td>✅ Pass</td>
+      <td>
+        <ul>
+            <li>Navigate to recipes page and search for recipes</li>
+            <li>Navigate to recipe detail page by clicking View button on recipe card</li>
+            <li>In the recipe detail page, click the Save button</li>
+            <li>Verify "saved" indicator appears on recipe detail page</li>
+            <li>Verify recipe appears in saved recipes tab in recipes page</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+            <li>✅ Save button is visible on recipe detail pages</li>
+            <li>✅ Confirmation message for save is displayed</li>
+            <li>✅ "Saved" indicator appears above recipe image in recipe detail view</li>
+            <li>✅ "Saved" indicator below the recipe card in search results list view</li>
+            <li>✅ Recipe card appears in the saved tab in recipes page</li>
+            <li>✅ Save Button is removed for saved recipes to prevent duplicate saves</li>
+            <li>✅ SavedRecipe model properly stores recipe data</li>
+            <li>✅ Recipe ingredients are saved with proper relationships</li>
+            <li>✅ User is redirected to the recipe detail page after save from recipe detail page</li>
+            <li>✅ User is redirected to the recipe list view after save from recipe list view</li>
+        </ul>
+      </td>
+      <td> Pass </td>
     </tr>
     <tr>
       <td><strong>US014</strong></td>
       <td><strong>AS A</strong> cook <strong>I WANT TO</strong> see all my saved recipes in one place <strong>SO THAT I CAN</strong> browse my personal recipe collection</td>
-      <td>Test saved recipes view in <code>recipes_list</code></td>
-      <td>Saved recipes tab displaying user's collection</td>
-      <td>✅ Pass</td>
+      <td>
+        <ul>
+            <li>Navigate to Recipes page from main navigation</li>
+            <li>Click on the "Saved" tab in the recipes page</li>
+            <li>View all saved recipes in the collection</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+            <li>✅ Saved recipes tab is accessible from recipes page</li>
+            <li>✅ All saved recipes are displayed in a organized list</li>
+            <li>✅ Recipe cards show title, image, and basic information</li>
+            <li>✅ Each saved recipe has View, Delete, and meal planning options</li>
+            <li>✅ Only user's own saved recipes are displayed</li>
+            <li>✅ Empty state message shown when no recipes are saved</li>
+            <li>✅ Recipe collection persists across sessions</li>
+        </ul>
+      </td>
+      <td> Pass </td>
     </tr>
     <tr>
       <td><strong>US015</strong></td>
