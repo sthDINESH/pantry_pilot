@@ -116,8 +116,13 @@ Recipe
                 <a href="{% url 'meals' %}"
                     class="btn btn-secondary form-button">Back</a>
                 {% else %}
+                {% if request.GET.from and request.GET.from == 'dashboard' %}
+                <a href="{% url 'dashboard' %}"
+                    class="btn btn-secondary form-button">Back</a>
+                {% else %}
                 <a href="{% url 'recipes' %}{% if request.GET.from %}?tab={{ request.GET.from }}{% endif %}"
                     class="btn btn-secondary form-button">Back</a>
+                {% endif %}
                 {% endif %}
             </div>
             {% else %}

@@ -152,11 +152,7 @@
                                 <span><em>Saved Searches:</em></span>
                                 <span>{{ saved_search_count }}</span>
                             </div>
-                            <div class="d-flex justify-content-center g-1">
-                                <span><em>Personal:</em></span>
-                                <span>10</span>
-                            </div>
-                            <a href="{% url 'recipes' %}">View All</a>
+                            <a href="{% url 'recipes' %}?tab=saved">View All</a>
                         {% else %}
                         <div class="card-body text-center d-flex flex-column justify-content-start">
                             <h3 class="card-title">Discover Recipes</h3>
@@ -175,8 +171,8 @@
                         {% if user.is_authenticated %}
                         <div class="card-body text-center d-flex flex-column justify-content-between">
                             <h3 class="card-title">Upcoming Meal</h3>
-                            {% if upcoming_meal_title %}
-                            <em>{{ upcoming_meal_title }}</em>
+                            {% if upcoming_meal %}
+                            <a href="{% url 'saved_recipe_detail' upcoming_meal.recipe.id %}?from=dashboard">{{ upcoming_meal.recipe.title }}</a>
                             {% else %}
                             <em>No Meal planned for today</em>
                             {% endif %}
@@ -200,8 +196,13 @@
                         <div class="card-body text-center d-flex flex-column justify-content-between">
                             <h3 class="card-title">Your shopping lists</h3>
                             <div class="d-flex justify-content-center g-1">
-                                <span><em>Next shopping:</em></span>
-                                <span>....</span>
+                                <span>
+                                {% if next_shopping_list %}
+                                <a href="{% url 'shopping_detail' next_shopping_list.id %}">{{ next_shopping_list.week_start_date }}-{{ next_shopping_list.week_end_date }}</a>
+                                {% else %}
+                                <em>No lists yet.</em>
+                                {% endif %}
+                                </span>
                             </div>
                             <a href="">View All</a>
                         {% else %}

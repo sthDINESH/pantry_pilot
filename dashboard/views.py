@@ -1,8 +1,9 @@
-from datetime import datetime, time
+from datetime import datetime, date
 from django.views.generic import TemplateView
 from pantry.models import PantryItem
 from recipes.models import SavedRecipe
 from meals.models import MealPlanItem
+from shopping.models import ShoppingList
 
 
 class DashboardView(TemplateView):
@@ -34,23 +35,23 @@ class DashboardView(TemplateView):
             context['pantry_items_count'] = PantryItem.objects.filter(
                 user=self.request.user
             ).count()
+
             context['saved_search_count'] = SavedRecipe.objects.filter(
                 user=self.request.user,
                 is_external=True,
             ).count()
-            today = datetime.now().date()
-            start_of_today = datetime.combine(today, time.min)
-            end_of_today = datetime.combine(today, time.max)
+
             upcoming_meal = MealPlanItem.objects.filter(
                 user=self.request.user,
-                start_time__range=(start_of_today, end_of_today),
                 start_time__gte=datetime.now()
             ).order_by('start_time').first()
-            context['upcoming_meal_title'] = (
-                upcoming_meal.recipe.title
-                if upcoming_meal and upcoming_meal.recipe
-                else None
-            )
+            context['upcoming_meal'] = upcoming_meal
+
+            next_shopping_list = ShoppingList.objects.filter(
+                user=self.request.user,
+                week_end_date__gte=date.today(),
+            ).order_by('week_start_date').first()
+            context['next_shopping_list'] = next_shopping_list
         else:
             pass
 
