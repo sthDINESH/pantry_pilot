@@ -16,7 +16,10 @@ class PantryItemForm(forms.ModelForm):
         self.helper.form_tag = False
         self.helper.layout = Layout(
             FloatingField("name"),
-            FloatingField("image"),
+            Div(
+                Field("image", css_class="form-control"),
+                css_class="mb-3"
+            ),
             Row(
                 Column(
                     Div(
