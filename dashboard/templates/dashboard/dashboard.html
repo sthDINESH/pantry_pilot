@@ -79,13 +79,10 @@
                             {% endif %}
                         </div>
                     </div>
-                    {% if user.is_authenticated%}
-                    {% else %}
-                    <div id="scroll-down">
-                        <div>Learn More</div>
+                    <div id="scroll-down" class="d-flex flex-column justify-content-center align-items-center">
                         <i class="fa-solid fa-chevron-down"></i>
+                        <div>Scroll</div>
                     </div>
-                    {% endif %}
                 </div>
             </div>
         </div>
@@ -219,10 +216,17 @@
     </div>
     <div class="section-wrapper end-banner d-flex justify-content-center align-items-center">
         <div class="container text-center">
+            {% if user.is_authenticated %}
+            <div class="heading">Thanks for being part of PantryPilot</div>
+            <p>
+                Keep your pantry up to date, discover new recipes, and make meal planning effortless. You're making a difference in reducing food waste!
+            </p>
+            {% else %}
             <div class="heading">Ready to get started?</div>
             <p>
                 Begin your journey - start reducing food waste and start saving money.
             </p>
+            {% endif %}
             <div class="form-button-controls">
                 {% if user.is_authenticated %}
                 <a href="{{ logout_url }}" class="btn btn-primary form-button">Logout</a>
