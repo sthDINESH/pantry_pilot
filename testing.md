@@ -140,6 +140,112 @@ The tests were run on the deployed site.
 
 </details>
 
+## Responsiveness
+
+Chrome Development tools was used to test the responsiveness of the website throughout development.
+
+<details>
+    <summary>Expand to view the results</summary>
+
+| Page | Responsiveness (320px - 1440px) |
+|------|--------------------------------|
+| Home | <img src="documentation/screenshots/responsiveness_home.gif" alt="Home page responsiveness testing from 320px to 2560px" width="600"> |
+| Pantry Page | <img src="documentation/screenshots/responsiveness_pantry.gif" alt="Pantry page responsiveness testing from 320px to 2560px" width="600"> |
+| Recipe List | <img src="documentation/screenshots/responsiveness_recipes.gif" alt="Recipe List page responsiveness testing from 320px to 2560px" width="600"> |
+| Recipe detail | <img src="documentation/screenshots/responsiveness_recipe_detail.gif" alt="Recipe detail page responsiveness testing from 320px to 2560px" width="600"> |
+| Meal planning | <img src="documentation/screenshots/responsiveness_meals.gif" alt="Meal planning page responsiveness testing from 320px to 2560px" width="600"> |
+| Shopping Lists | <img src="documentation/screenshots/responsiveness_shopping.gif" alt="Shopping Lists page responsiveness testing from 320px to 2560px" width="600"> |
+| Signup | <img src="documentation/screenshots/responsiveness_signup.gif" alt="Signup page responsiveness testing from 320px to 2560px" width="600"> |
+| Login | <img src="documentation/screenshots/responsiveness_login.gif" alt="Login page responsiveness testing from 320px to 2560px" width="600"> |
+| Sign Out | <img src="documentation/screenshots/responsiveness_logout.gif" alt="Sign Out page responsiveness testing from 320px to 2560px" width="600"> |
+
+</details>
+
+### Responsiveness Summary
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="9">Responsiveness</th>
+      <th rowspan="1">Notes</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>Galaxy S9+</th>
+      <th>Galaxy S5</th>
+      <th>iPhone 6/7/8</th>
+      <th>iPhone X</th>
+      <th>iPad Air</th>
+      <th>iPad Pro</th>
+      <th>Desktop 1024px</th>
+      <th>Desktop > 1200px</th>
+      <th>Personal phone: iphone 15. All others tested virtually</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Site is responsive >=700px</td>
+      <td>n/a</td>
+      <td>n/a</td>
+      <td>n/a</td>
+      <td>n/a</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Site is responsive < 699px </td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>n/a</td>
+      <td>n/a</td>
+      <td>n/a</td>
+      <td>n/a</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Images work</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Links/ URLs work</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Renders as expected</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td>✅</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
 ## Manual Testing
 
 ### Testing User Stories
