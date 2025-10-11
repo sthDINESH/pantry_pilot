@@ -112,11 +112,13 @@
                             </div>
                         </div>
                         <div class="shopping-list-detail">
+                            {% csrf_token %}
                             {% for item in detail_for.items_to_buy %}
                             <div class="shopping-item d-flex align-items-center mb-2">
                                 <input type="checkbox" class="form-check-input me-2" id="item_{{ item.id }}"
-                                    name="completed_items" value="{{ item.id }}">
-                                <label for="item_{{ item.id }}" class="form-check-label flex-grow-1">
+                                    name="completed_items" value="{{ item.id }}"
+                                    {% if item.picked_up %}checked{% endif %}>
+                                <label for="item_{{ item.id }}" class="form-check-label flex-grow-1{% if item.picked_up %} purchased-item{% endif %}">
                                     {{ item.item_name }}
                                 </label>
                             </div>

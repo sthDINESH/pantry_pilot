@@ -835,14 +835,49 @@ document.addEventListener("DOMContentLoaded", function () {
     const checkBoxType = checkBox.getAttribute("name");
     if (checkBoxType === "completed_items") {
       checkBox.addEventListener("change", function (event) {
+        const originalState = checkBox.checked;
+        const itemId = checkBox.value;
         const label = document.querySelector(`label[for="${checkBox.id}"]`);
-        if (label) {
-          if (checkBox.checked) {
-            label.classList.add("purchased-item");
+        
+        // Get CSRF token directly
+        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        
+        // Make AJAX call to update server
+        fetch(`/shopping/item/${itemId}/toggle/`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken, // Use the variable directly
+          },
+          body: JSON.stringify({
+            picked_up: originalState
+          })
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            // Update UI only after successful server update
+            if (label) {
+              if (data.picked_up) {
+                label.classList.add("purchased-item");
+              } else {
+                label.classList.remove("purchased-item");
+              }
+            }
           } else {
-            label.classList.remove("purchased-item");
+            // Revert checkbox state if server update failed
+            checkBox.checked = !originalState;
+            console.error('Failed to update item:', data.message);
+            // Optionally show user feedback
+            showToast('Error updating item: ' + data.message, 'error');
           }
-        }
+        })
+        .catch(error => {
+          // Revert checkbox state if network error
+          checkBox.checked = !originalState;
+          console.error('Network error:', error);
+          showToast('Network error. Please try again.', 'error');
+        });
       });
     }
   });

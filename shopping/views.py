@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.contrib import messages
+from django.http import JsonResponse
 from meals.models import MealPlanItem
 from pantry.models import PantryItem
 from pantry.pantry_search import PantrySearch
@@ -255,6 +256,52 @@ def generate_shopping_list_items(request, shopping_list_id):
                 f"Error adding ingredients to shopping list- {e}"
             )
             break
+
+
+@login_required
+def mark_purchased_item(request, item_id):
+    """
+    Mark the status of a shopping list item
+    related to :model:ShoppingListItem and :model:`ShoppingList`
+    supports AJAX calls
+    """
+    if request.method != 'POST':
+        return JsonResponse({
+            'success': False,
+            'message': "Only POST requests are allowed"
+        }, status=405)
+
+    try:
+        shopping_list_item = ShoppingListItem.objects.get(
+            pk=item_id,
+            shopping_list__user=request.user
+        )
+    except ShoppingListItem.DoesNotExist:
+        return JsonResponse({
+            'success': False,
+            'message': "Shopping list item not found or no permission"
+        }, status=404)
+
+    # Get the state from request body
+    import json
+    try:
+        data = json.loads(request.body)
+        picked_up_state = data.get('picked_up', False)
+    except (json.JSONDecodeError, KeyError):
+        return JsonResponse({
+            'success': False,
+            'message': "Invalid JSON data"
+        }, status=400)
+
+    # Update the picked_up field
+    shopping_list_item.picked_up = picked_up_state
+    shopping_list_item.save()
+
+    return JsonResponse({
+        'success': True,
+        'picked_up': shopping_list_item.picked_up,
+        'item_id': shopping_list_item.id
+    })
 
 
 @login_required

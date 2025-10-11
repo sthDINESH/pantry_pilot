@@ -18,4 +18,9 @@ urlpatterns = [
         views.refresh_shopping_list,
         name='refresh_list'
     ),
+    path(
+        'item/<int:item_id>/toggle/',
+        views.mark_purchased_item,
+        name='mark_purchased_item'
+    ),
 ]
