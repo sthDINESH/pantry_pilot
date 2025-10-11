@@ -101,9 +101,31 @@ Flake8 extension for vsCode from Mircosoft was used during the development to he
 ### Lighthouse Testing
 
 Google Lighthouse was used to test performance, accessibility, best practices and SEO for the site.
+The tests were run on the deployed site.
+
+#### Desktop Results
+<details>
+    <summary>Expand to view the results</summary>
+
+| Page | Results |
+|------|---------|
+| Sign Up Page | <img src="documentation/testing/lighthouse/signup_desktop.png" alt="Lighthouse Desktop Results - Sign Up" width="400"> |
+| Sign In Page | <img src="documentation/testing/lighthouse/login_desktop.png" alt="Lighthouse Desktop Results - Sign In" width="400"> |
+| Sign Out Page | <img src="documentation/testing/lighthouse/signout_desktop.png" alt="Lighthouse Desktop Results - Sign Out" width="400"> |
+
+</details>
+
+#### Mobile Results
 
 <details>
     <summary>Expand to view the results</summary>
+
+| Page | Results |
+|------|---------|
+| Sign Up Page | <img src="documentation/testing/lighthouse/signup_mobile.png" alt="Lighthouse Mobile Results - Sign Up" width="400"> |
+| Sign In Page | <img src="documentation/testing/lighthouse/login_mobile.png" alt="Lighthouse Mobile Results - Sign In" width="400"> |
+| Sign Out Page | <img src="documentation/testing/lighthouse/signout_mobile.png" alt="Lighthouse Mobile Results - Sign Out" width="400"> |
+
 </details>
 
 ## Manual Testing
