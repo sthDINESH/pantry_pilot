@@ -693,7 +693,7 @@ a {
 }
 
 #recipes-page .right-screen {
-    height: 25vh;
+    height: max(30vh, 30vw);
 }
 
 #recipes-page .carousel-container {

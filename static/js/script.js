@@ -899,7 +899,7 @@ document.addEventListener("DOMContentLoaded", function () {
       dateClick: calendarWeekDateClick,
       views: {
         dayGridWeek: {
-          aspectRatio: 4.5,
+          aspectRatio: 3,
         },
         dayGridMonth: {
           aspectRatio: 2,
