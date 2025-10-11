@@ -159,7 +159,7 @@ a {
 .btn.btn-primary.active {
     background-color: var(--accent-color-light);
     border-color: var(--accent-color-light);
-    color: var(--light-color);
+    color: black;
 }
 
 .btn.btn-primary:disabled,

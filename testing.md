@@ -113,6 +113,7 @@ The tests were run on the deployed site.
 | Pantry Page | <img src="documentation/testing/lighthouse/pantry_desktop.png" alt="Lighthouse Desktop Results - Pantry Page" width="600"> |
 | Recipes List Page | <img src="documentation/testing/lighthouse/recipes_list_desktop.png" alt="Lighthouse Desktop Results - Recipes List Page" width="600"> |
 | Recipe Detail Page | <img src="documentation/testing/lighthouse/recipe_detail_desktop.png" alt="Lighthouse Desktop Results - Recipe Detail Page" width="600"> |
+| Meal Planning Page | <img src="documentation/testing/lighthouse/meals_desktop.png" alt="Lighthouse Desktop Results - Meal Planning Page" width="600"> |
 | Sign Up Page | <img src="documentation/testing/lighthouse/signup_desktop.png" alt="Lighthouse Desktop Results - Sign Up" width="600"> |
 | Sign In Page | <img src="documentation/testing/lighthouse/login_desktop.png" alt="Lighthouse Desktop Results - Sign In" width="600"> |
 | Sign Out Page | <img src="documentation/testing/lighthouse/signout_desktop.png" alt="Lighthouse Desktop Results - Sign Out" width="600"> |
@@ -130,6 +131,7 @@ The tests were run on the deployed site.
 | Pantry Page | <img src="documentation/testing/lighthouse/pantry_mobile.png" alt="Lighthouse Mobile Results - Pantry Page" width="600"> |
 | Recipes List Page | <img src="documentation/testing/lighthouse/recipes_list_mobile.png" alt="Lighthouse Mobile Results - Recipes List Page" width="600"> |
 | Recipe Detail Page | <img src="documentation/testing/lighthouse/recipe_detail_mobile.png" alt="Lighthouse Mobile Results - Recipe Detail Page" width="600"> |
+| Meal Planning Page | <img src="documentation/testing/lighthouse/meals_mobile.png" alt="Lighthouse Mobile Results - Meal Planning Page" width="600"> |
 | Sign Up Page | <img src="documentation/testing/lighthouse/signup_mobile.png" alt="Lighthouse Mobile Results - Sign Up" width="600"> |
 | Sign In Page | <img src="documentation/testing/lighthouse/login_mobile.png" alt="Lighthouse Mobile Results - Sign In" width="600"> |
 | Sign Out Page | <img src="documentation/testing/lighthouse/signout_mobile.png" alt="Lighthouse Mobile Results - Sign Out" width="600"> |
