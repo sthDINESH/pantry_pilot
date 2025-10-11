@@ -14,6 +14,7 @@
     --secondary-light-color-rgb: 214, 213, 208;
     /* Add this line */
     --accent-color: #D64040;
+    --accent-color-dark: #b53636;
     --accent-color-rgb: 214, 64, 64;
     --accent-color-light: #EEABA9;
     --accent-color-light-rgb: 238, 171, 169;
@@ -34,6 +35,7 @@
 * {
     box-sizing: border-box;
     font-family: var(--primary-font);
+    font-display: swap;
 }
 
 body {
@@ -95,7 +97,7 @@ h3 {
 }
 
 a {
-    color: var(--accent-color);
+    color: var(--accent-color-dark);
 }
 
 .flex-container {
@@ -572,7 +574,7 @@ a {
 }
 
 .tag-line-container .site-logo {
-    background: url('../images/pantry_pilot_logo.png') no-repeat center center / contain;
+    background: url('../images/pantry_pilot_logo.webp') no-repeat center center / contain;
     height: 50%;
 }
 
@@ -588,7 +590,7 @@ a {
     aspect-ratio: 1;
     height: 100%;
     border-radius: 0;
-    background-color: var(--secondary-light-color);
+    background-color: rgba(var(--secondary-light-color-rgb),0.5);
 }
 
 .site-features .card-icon {
