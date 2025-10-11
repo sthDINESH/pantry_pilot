@@ -35,7 +35,6 @@
 * {
     box-sizing: border-box;
     font-family: var(--primary-font);
-    font-display: swap;
 }
 
 body {
@@ -707,7 +706,7 @@ a {
 }
 
 #recipe-search-forms {
-    background-color: var(--secondary-light-color);
+    background-color: rgba(var(--secondary-light-color-rgb),0.5);
     padding-left: 0;
     padding-right: 0;
 }
@@ -735,12 +734,12 @@ a {
 }
 
 #recipes-form-tabs i {
-    color: var(--accent-color);
+    color: var(--accent-color-dark);
     font-size: calc(1.5 * var(--nav-link-font-size));
 }
 
 #recipes-form-tabs .nav-link > span:nth-of-type(1){
-    color: var(--accent-color);
+    color: var(--accent-color-dark);
 }
 
 #recipes-form-tabContent {

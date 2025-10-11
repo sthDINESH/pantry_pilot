@@ -47,7 +47,7 @@ Recipes
                                 </span>
                                 {% if saved_recipes_json|length %}
                                 <span
-                                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-info">
+                                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-info text-black">
                                     {{ saved_recipes_json|length }}
                                 </span>
                                 {% endif %}
@@ -270,7 +270,17 @@ Recipes
                 </div>
                 <div class="carousel-inner">
                     <div class="carousel-item active" data-bs-interval="5000">
-                        <img src="{% static 'images/recipes.webp'%}" class="d-block w-100" alt="...">
+                        <picture>
+                        <!-- Mobile -->
+                        <source media="(max-width: 576px)"
+                            srcset="{% static 'images/hero_carousel_recipe_576_2.webp' %}">
+                        <!-- Tablet -->
+                        <source media="(max-width: 992px)"
+                            srcset="{% static 'images/hero_carousel_recipe_768_2.webp' %}">
+                        <!-- Desktop -->
+                        <img src="{% static 'images/hero_carousel_recipe_2.webp' %}" class="d-block w-100 h-100"
+                            alt="Pantry organization" loading="lazy">
+                    </picture>
                         <div class="carousel-caption d-block">
                             <p>Discover new recipes based on what's in your pantry</p>
                         </div>
