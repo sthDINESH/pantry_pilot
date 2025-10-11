@@ -11,9 +11,13 @@
 {% url 'dashboard' as home_url %}
 {% endspaceless %}
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="PantryPilot - Your smart kitchen companion for pantry management, recipe discovery, and meal planning. Track ingredients, find recipes using what you have, plan meals, and generate smart shopping lists to reduce food waste and save money.">
+    <meta name="keywords" content="pantry, pantry tracking, pantry management, recipes, meal plan, shopping lists">
     <title>Pantry Pilot | {% block title %}{% endblock title %}</title>
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/favicon_io/apple-touch-icon.png' %}">
@@ -35,7 +39,7 @@
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ home_url }}">
-                <img src="{% static 'images/pantry_pilot_logo.png' %}" alt="Website logo">
+                <img src="{% static 'images/pantry_pilot_logo_100x100.webp' %}" alt="Website logo">
                 Pantry Pilot
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -46,30 +50,20 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item px-1">
-                        <a class="nav-link {% if request.path == home_url %} active {% endif %}" 
-                           {% if request.path == home_url %}aria-current='page'{% endif %}
-                           href="{{ home_url }}">Home</a>
+                        <a class="nav-link {% if request.path == home_url %} active {% endif %}" {% if request.path == home_url %}aria-current='page'{% endif %} href="{{ home_url }}">Home</a>
                     </li>
                     {% if user.is_authenticated %}
                     <li class="nav-item px-1">
-                        <a class="nav-link {% if request.path == pantry_url %} active {% endif %}" 
-                           {% if request.path == pantry_url %}aria-current='page'{% endif %}
-                           href="{{ pantry_url }}">Pantry</a>
+                        <a class="nav-link {% if request.path == pantry_url %} active {% endif %}" {% if request.path == pantry_url %}aria-current='page'{% endif %} href="{{ pantry_url }}">Pantry</a>
                     </li>
                     <li class="nav-item px-1">
-                        <a class="nav-link {% if request.path == recipes_url %} active {% endif %}" 
-                           {% if request.path == recipes_url %}aria-current='page'{% endif %}
-                           href="{{ recipes_url }}">Recipes</a>
+                        <a class="nav-link {% if request.path == recipes_url %} active {% endif %}" {% if request.path == recipes_url %}aria-current='page'{% endif %} href="{{ recipes_url }}">Recipes</a>
                     </li>
                     <li class="nav-item px-1">
-                        <a class="nav-link {% if request.path == meals_url %} active {% endif %}" 
-                           {% if request.path == meals_url %}aria-current='page'{% endif %}
-                           href="{{ meals_url }}">Meals</a>
+                        <a class="nav-link {% if request.path == meals_url %} active {% endif %}" {% if request.path == meals_url %}aria-current='page'{% endif %} href="{{ meals_url }}">Meals</a>
                     </li>
                     <li class="nav-item px-1">
-                        <a class="nav-link {% if request.path == shopping_url %} active {% endif %}" 
-                           {% if request.path == shopping_url %}aria-current='page'{% endif %}
-                           href="{{ shopping_url }}">Shopping</a>
+                        <a class="nav-link {% if request.path == shopping_url %} active {% endif %}" {% if request.path == shopping_url %}aria-current='page'{% endif %} href="{{ shopping_url }}">Shopping</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle user-profile ms-lg-5" href="#" role="button"
@@ -83,14 +77,10 @@
                     </li>
                     {% else %}
                     <li class="nav-item px-1">
-                        <a class="nav-link {% if request.path == login_url %} active {% endif %}" 
-                           {% if request.path == login_url %}aria-current='page'{% endif %}
-                           href="{{ login_url }}">Login</a>
+                        <a class="nav-link {% if request.path == login_url %} active {% endif %}" {% if request.path == login_url %}aria-current='page'{% endif %} href="{{ login_url }}">Login</a>
                     </li>
                     <li class="nav-item px-1">
-                        <a class="nav-link {% if request.path == signup_url %} active {% endif %}" 
-                           {% if request.path == signup_url %}aria-current='page'{% endif %}
-                           href="{{ signup_url }}">SignUp</a>
+                        <a class="nav-link {% if request.path == signup_url %} active {% endif %}" {% if request.path == signup_url %}aria-current='page'{% endif %} href="{{ signup_url }}">SignUp</a>
                     </li>
                     {% endif %}
                 </ul>

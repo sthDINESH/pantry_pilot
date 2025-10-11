@@ -207,7 +207,7 @@ a {
 
 .auth-image-container {
     grid-area: image-area;
-    background: url('../images/hero_carousel_pantry_1.webp') no-repeat center center / cover;
+    background: url('../images/hero_carousel_pantry_1000_1.webp') no-repeat center center / cover;
 }
 
 .auth-background {
@@ -256,7 +256,7 @@ a {
 .auth-content-wrapper .site-logo {
     width: 80%;
     aspect-ratio: 1;
-    background: url('../images/pantry_pilot_logo.png') no-repeat center center / contain;
+    background: url('../images/pantry_pilot_logo.webp') no-repeat center center / contain;
 }
 
 .auth-header {
@@ -1142,11 +1142,15 @@ footer li>a:hover {
 /* ---------------------------------------------------------- */
 /* For medium devices and larger (>=768px) */
 @media screen and (min-width:768px) {
-
-
     .list-view-card {
         min-height: 360px;
     }
+
+    /* Auth styling */
+    .auth-image-container {
+        background: url('../images/hero_carousel_pantry_1.webp') no-repeat center center / cover;
+    }
+
 
     /* Home page styling */
     #home-page .heading {
