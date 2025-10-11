@@ -15,16 +15,32 @@ Pantry
             <!-- Carousel slides -->
             <div class="carousel-inner">
                 <div class="carousel-item active" data-bs-interval="6000">
-                    <img src="{% static 'images/pantry_carousel_dairy.webp' %}" class="d-block w-100 h-100" alt="Pantry organization">
+                    <!-- <img src="{% static 'images/pantry_carousel_dairy.webp' %}" class="d-block w-100 h-100"
+                        alt="Pantry organization"> -->
+                    <picture>
+                        <!-- Mobile -->
+                        <source media="(max-width: 576px)"
+                            srcset="{% static 'images/pantry_carousel_dairy_768.webp' %}">
+                        <!-- Tablet -->
+                        <source media="(max-width: 992px)"
+                            srcset="{% static 'images/pantry_carousel_dairy_768.webp' %}">
+                        <!-- Desktop -->
+                        <img src="{% static 'images/pantry_carousel_dairy.webp' %}" class="d-block w-100 h-100"
+                            alt="Pantry organization" loading="lazy">
+                    </picture>
+                </div>
+
+                <div class="carousel-item" data-bs-interval="6000">
+                    <img src="{% static 'images/pantry_carousel_grains.webp' %}" class="d-block w-100 h-100"
+                        alt="Kitchen storage">
                 </div>
                 <div class="carousel-item" data-bs-interval="6000">
-                    <img src="{% static 'images/pantry_carousel_grains.webp' %}" class="d-block w-100 h-100" alt="Kitchen storage">
+                    <img src="{% static 'images/pantry_carousel_spices.webp' %}" class="d-block w-100 h-100"
+                        alt="Food inventory">
                 </div>
                 <div class="carousel-item" data-bs-interval="6000">
-                    <img src="{% static 'images/pantry_carousel_spices.webp' %}" class="d-block w-100 h-100" alt="Food inventory">
-                </div>
-                <div class="carousel-item" data-bs-interval="6000">
-                    <img src="{% static 'images/pantry_carousel_vegetables.webp' %}" class="d-block w-100 h-100" alt="Pantry management">
+                    <img src="{% static 'images/pantry_carousel_vegetables.webp' %}" class="d-block w-100 h-100"
+                        alt="Pantry management">
                 </div>
             </div>
         </div>
@@ -35,9 +51,9 @@ Pantry
                 <div class="section-heading">
                     <h1>My Pantry</h1>
                     <button type="button" class="btn btn-primary circle" data-bs-toggle="collapse"
-                            data-bs-target="#pantry-item-form" {% if categories.count %} aria-expanded="false" {% else %}
-                            aria-expanded="true" {% endif %} aria-controls="pantry-item-form" data-type="collapse-trigger"
-                            aria-label="Add new pantry item">
+                        data-bs-target="#pantry-item-form" {% if categories.count %} aria-expanded="false" {% else %}
+                        aria-expanded="true" {% endif %} aria-controls="pantry-item-form" data-type="collapse-trigger"
+                        aria-label="Add new pantry item">
                         <i class="fa-solid fa-plus"></i>
                     </button>
                 </div>
@@ -45,7 +61,7 @@ Pantry
                     inventory.</p>
 
                 <form id="pantry-item-form" method="post" class="collapse {% if not categories.count %}show{% endif %}"
-                enctype="multipart/form-data">
+                    enctype="multipart/form-data">
                     {% crispy pantry_item_form %}
                     {% crispy category_form %}
                     {% csrf_token %}
@@ -79,8 +95,8 @@ Pantry
                         <div id="item-{{ pantry_item.id }}" class="pantry-item col list-view-card">
                             <div class="card">
                                 {% if "placeholder" in pantry_item.image.url %}
-                                <img src="{% static 'images/pantry_placeholder.webp' %}" class="card-img-top placeholder-item"
-                                    alt="placeholder pantry item">
+                                <img src="{% static 'images/pantry_placeholder.webp' %}"
+                                    class="card-img-top placeholder-item" alt="placeholder pantry item">
                                 {% else %}
                                 <img src="{{ pantry_item.image.url }}" class="card-img-top"
                                     alt="pantry item {{ pantry_item.name }}">
@@ -96,8 +112,7 @@ Pantry
                                         <div class="button-controls">
                                             <!-- Edit button -->
                                             <button type="button" class="btn btn-info btn-sm circle"
-                                                data-type="pantry-item-update" 
-                                                data-item-id="{{ pantry_item.id }}"
+                                                data-type="pantry-item-update" data-item-id="{{ pantry_item.id }}"
                                                 data-category-id="{{ category.id }}"
                                                 aria-label="Edit {{ pantry_item.name }}">
                                                 <i class="fa-solid fa-pen"></i>
@@ -105,8 +120,7 @@ Pantry
 
                                             <!-- Delete button -->
                                             <button type="button" class="btn btn-secondary btn-sm circle"
-                                                data-type="pantry-item-delete" 
-                                                data-item-id="{{ pantry_item.id }}"
+                                                data-type="pantry-item-delete" data-item-id="{{ pantry_item.id }}"
                                                 data-item-name="{{ pantry_item.name }}"
                                                 aria-label="Delete {{ pantry_item.name }}">
                                                 <i class="fa-solid fa-trash"></i>
