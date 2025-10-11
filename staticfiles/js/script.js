@@ -829,8 +829,28 @@ document.addEventListener("DOMContentLoaded", function () {
     } 
   });
 
+  // Event listener for checkboxes
+  const checkBoxes = document.querySelectorAll("input[type='checkbox']");
+  checkBoxes.forEach((checkBox) => {
+    const checkBoxType = checkBox.getAttribute("name");
+    if (checkBoxType === "completed_items") {
+      checkBox.addEventListener("change", function (event) {
+        const label = document.querySelector(`label[for="${checkBox.id}"]`);
+        if (label) {
+          if (checkBox.checked) {
+            label.classList.add("purchased-item");
+          } else {
+            label.classList.remove("purchased-item");
+          }
+        }
+      });
+    }
+  });
+
+
   // Recipes page - extract the tab parameter from URL
   // To support return to the same tab from where the details were viewed
+  // ---------------------------------------------------------------
   const urlParams = new URLSearchParams(window.location.search);
   const activeTab = urlParams.get("tab");
 

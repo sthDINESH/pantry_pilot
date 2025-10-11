@@ -1035,6 +1035,11 @@ a {
     border-bottom: 1px dotted rgba(var(--accent-color-light-rgb), 0.4);
 }
 
+.purchased-item {
+    text-decoration: line-through;
+    opacity: 0.6;
+}
+
 .meals-this-week {
     height: 100%;
     width: 100%;
