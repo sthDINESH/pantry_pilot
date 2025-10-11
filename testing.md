@@ -246,6 +246,21 @@ Chrome Development tools was used to test the responsiveness of the website thro
   </tbody>
 </table>
 
+## Browser Compatibility
+
+The deployed site was tested with Google Chrome, Microsoft Firefox and Safari for browser compatibility.
+
+<details>
+    <summary>Expand to view the results</summary>
+
+| Browser | Evidence | Intended Appearance | Intended Responsiveness |
+|---------|----------|-------------------|----------------------|
+| Google Chrome | <img src="documentation/screenshots/compatibility_chrome.gif" alt="Browser compatibility testing on Google Chrome" width="600"> | ✅ | ✅ |
+| Microsoft Firefox | <img src="documentation/screenshots/compatibility_firefox.gif" alt="Browser compatibility testing on Microsoft Firefox" width="600"> | ✅ | ✅ |
+| Safari | <img src="documentation/screenshots/compatibility_safari.gif" alt="Browser compatibility testing on Safari" width="600"> | ✅ | ✅ |
+
+</details>
+
 ## Manual Testing
 
 ### Testing User Stories
