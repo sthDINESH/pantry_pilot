@@ -880,11 +880,17 @@ All the site features were manually tested on the deployed website.
 | Discover/ Saved tab links | Should display the correct tabs | Click on the tab links while in other tabs | Navigates to correct tab | Pass |
 | Search Button in Discover tab | Should list search results based on preferences selected in form | Click the button with different preferences selected | Recipe cards displayed in the tab based on search parameters | Pass |
 | Info button on recipe cards | Display a modal with list of available and missing ingredients for the recipe | Click the button on a recipe card | Works as expected | Pass |
-| View button on Recipe cards | Display detail view for the selected recipe | Click the button on a recipe card | Works as expected | Pass |
+| View button on Recipe cards | Display detail view for the selected recipe | Click the button on a recipe card | Works as expected. Toast message displayed from API call failures | Pass |
 | Save button for Search Results | Save the recipe and display a toast message. Saved recipe should appear in saved tab | Click the button on a recipe card | Toast displayed for status. Saved Recipes appears in Saved tab | Pass |
 | Delete button on Saved Recipe card | Delete the recipe for the user. Remove the recipe from saved tab and display confirmation in toast | Click the button on a saved recipe card | Recipe removed from saved tab. Toast message displayed | Pass |
 | "Select for Meal Plan" button in Saved Recipe card | Recipe should appear in Selected Meals section of Meals page. Button state should change to "Selected (Remove)". Should not reload the page from server. Selection should persist over a session | Click the button on a saved recipe card | Works as expected. Selection persists over a user session and is cleared when signed out | Pass |
 | "Selected (Remove)" button in Saved recipe card | Recipe should be removed from Selected Meals section of Meals page. Button state should change to "Select for Meal Plan". Page should not reload | Works as expected | Pass |
+| RECIPE DETAIL PAGE | | | | |
+| Recipe details | Page should display image, summary, ingredients with tick marks for available in pantry, cook time, servings, and instructions | Click on view button to open a recipe detail | Works as expected. Some responses from API call have malformed or non existent image urls. This is not handled as part of MVP and is displayed as is. | Pass |
+| Save button in recipe detail | Save the recipe and display status message in toast. For successful save, add a "Saved| label above recipe image. Remove Save button and add a Delete button | Click the button on a recipe detail page | Works as expected | Pass |
+| Back button | Redirect to from where View was clicked | View the recipes from Discover and Saved tab in recipes page, View button in Meals page, widget link in Upcoming Meals in Dashboard widget | Redirection to correct page/tabs as expected | Pass |
+
+
 
 
 
