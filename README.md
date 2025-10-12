@@ -1018,7 +1018,59 @@ The recipe detail page provides users with comprehensive information about a sel
   <img src="documentation/screenshots/recipe_detail_page.gif" 
        alt="Recipe detail page showing ingredients, pantry match, and instructions" 
        width="800">
-  <figcaption><strong>Figure:</strong> Recipe detail page with ingredient matching and step-by-step instructions.</figcaption>
+</figure>
+
+</details>
+
+
+### Meal Planning Page
+
+The meal planning page provides an interactive weekly calendar for users to plan their meals using saved recipes. Users can assign recipes to specific days and meal times, update or remove planned meals, and visualize their weekly meal schedule. The calendar interface is fully responsive and integrates seamlessly with the shopping list generation workflow.
+
+<details>
+    <summary>(Expand for details)</summary>
+
+**Key Features:**
+- **Weekly Calendar View**: Visual calendar interface for planning meals by day and meal type.
+- **Add Meals**: Assign saved recipes to specific dates and meal slots (breakfast, lunch, dinner, etc.).
+- **Update & Delete Meals**: Edit or remove planned meals directly from the calendar modal.
+- **Selected Meals Section**: Quickly select recipes for planning from your saved collection.
+- **Meal Type & Servings**: Specify meal type and number of servings for each plan entry.
+- **Clear Selection**: Remove all selected meals or clear the entire week's plan with one click.
+- **Responsive Layout**: Optimized for both desktop and mobile devices.
+- **Integration with Shopping Lists**: Generate shopping lists based on the current meal plan.
+
+<figure>
+  <img src="documentation/screenshots/meals_page.gif" 
+       alt="Meals page showing weekly meal planning calendar and selected recipes" 
+       width="800">
+</figure>
+
+</details>
+
+### Shopping Lists Page
+
+The shopping lists page allows users to automatically generate, view, and manage shopping lists based on their weekly meal plans and current pantry inventory. 
+The page clearly separates items that need to be purchased from those already in the pantry, supports interactive check-off functionality, and provides options to refresh or delete lists as meal plans or pantry contents change.
+
+<details>
+    <summary>(Expand for details)</summary>
+
+**Key Features:**
+- **Auto-Generated Lists**: Instantly create shopping lists from planned meals, factoring in pantry stock.
+- **Need to Buy vs. In Pantry**: Clearly separates missing ingredients from those already available.
+- **Interactive Check-Off**: Check off items as you shop; checked state persists across sessions.
+- **Refresh List**: Regenerate the list to reflect updates in meal plans or pantry inventory.
+- **Delete List**: Remove outdated shopping lists with confirmation modal.
+- **Planned Meals Overview**: Displays the meals associated with each shopping list for context.
+- **Responsive Layout**: Optimized for both desktop and mobile devices.
+- **Visual Feedback**: Toast notifications for actions like list creation, refresh, and item check-off.
+
+<figure>
+  <img src="documentation/screenshots/shopping_page.gif" 
+       alt="Shopping lists page showing generated list, check-off, and planned meals" 
+       width="800">
+  <figcaption><strong>Figure:</strong> Shopping lists page with generated list, pantry comparison, and planned meals overview.</figcaption>
 </figure>
 
 </details>
