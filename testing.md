@@ -822,6 +822,42 @@ The deployed site was tested with Google Chrome, Microsoft Firefox and Safari fo
 
 </details>
 
+## Features
 
+All the site features were manually tested on the deployed website.
+
+<details>
+    <summary>Expand to view the results</summary>
+
+| Feature | Expected Outcome | Testing | Result | Pass/Fail |
+|---------|-----------------|---------|--------|-----------|
+| NAVBAR  |                 |         |        |           |
+| Logo    | Click should redirect to Home Page | Clicked the logo from all pages | Redirection to Home page | Pass |
+| Brand name | Click should redirect to Home Page | Clicked the logo from all pages | Redirection to Home page | Pass | 
+| Home menu | Click should redirect to Home Page | Clicked from all pages | Redirection to Home page | Pass |
+| Pantry menu | Click should redirect to My Pantry page | Clicked from all pages | Redirected to My Pantry page | Pass |
+| Recipes menu | Click should redirect to Recipes page | Clicked from all pages | Redirected to Recipes page | Pass |
+| Meals menu   | Click should redirect to Meals page   | Clicked from all pages | Redirected to Meals page   | Pass |
+| Shopping menu| Click should redirect to Shopping Lists page | Clicked from all pages | Redirected to Shopping Lists page | Pass |
+| User name display | Click should show dropdown menu with Logout menu | Clicked from all pages | Dropdown menu with Logout menu displayed | Pass|
+| Logout dropdown menu | Click should redirect to Sign Out page | Clicked from all pages | Redirection to SignOut Page | Pass |
+| SignUp Menu (in unauthenticated state) | Click should redirect to SignUp page | Clicked from available pages | Redirected to SignUp page | Pass |
+| Login Menu (in unauthenticated state) | Click should redirect to Login page | Clicked from available pages | Redirected to Login page | Pass |
+| FOOTER |
+| Brand name | Click should redirect to Home Page | Clicked from all pages | Redirection to Home Page | Pass |
+| Footer Home link | Click should redirect to Home Page | Clicked from all pages | Redirection to Home Page | Pass |
+| Footer Track Pantry link | Click should redirect to Pantry page for authenticated Users. It should redirect to Sign In page for unauthenticated users | Clicked as authenticated and unauthenticated user | Redirection works correctly | Pass |
+| Footer Recipes link | Click should redirect to Recipes page for authenticated users. It should redirect to Sign In page for unauthenticated users | Clicked as authenticated and unauthenticated user | Redirection works correctly | Pass |
+| Footer Meals link | Click should redirect to Meals page for authenticated users. It should redirect to Sign In page for unauthenticated users | Clicked as authenticated and unauthenticated user | Redirection works correctly | Pass |
+| Footer Shopping link | Click should redirect to Shopping Lists page for authenticated users. It should redirect to Sign In page for unauthenticated users | Clicked as authenticated and unauthenticated user | Redirection works correctly | Pass |
+| Footer Facebook icon | Click should open Facebook in new tab | Clicked from all pages | Facebook opens in new tab | Pass |
+| Footer YouTube icon | Click should open YouTube in new tab | Clicked from all pages | YouTube opens in new tab | Pass |
+| Footer Twitter icon | Click should open Twitter in new tab | Clicked from all pages | Twitter opens in new tab | Pass |
+| Footer Instagram icon | Click should open Instagram in new tab | Clicked from all pages | Instagram opens in new tab | Pass |
+
+| HOME PAGE | | | | |
+
+
+</details>
 
 
