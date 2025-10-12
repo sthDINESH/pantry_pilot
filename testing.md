@@ -687,34 +687,92 @@ The deployed site was tested with Google Chrome, Microsoft Firefox and Safari fo
     </tr>
     <tr>
       <td><strong>US020</strong></td>
-      <td><strong>AS A</strong> user with many ingredients <strong>I WANT TO</strong> search my pantry by name <strong>SO THAT I CAN</strong> quickly find specific items</td>
-      <td>Test search functionality in pantry views</td>
-      <td>Search filtering implemented in pantry management</td>
-      <td>✅ Pass</td>
+      <td><strong>AS A</strong> meal planner <strong>I WANT TO</strong> automatically generate shopping lists based on my planned meals <strong>SO THAT I CAN</strong> buy ingredients needed for my weekly menu</td>
+      <td>Test shopping list generation from meal plans</td>
+        <ul>
+          <li>Navigate to the meals page from navigation bar</li>
+          <li>Add meals using meal planner calender interface</li>
+          <li>Click on "Shopping List" button in Meal Planner section</li>
+          <li>Check redirection to shopping page with generated list displayed</li>
+          <li>Check missed ingredients from planned meals are listed in "need to buy" section</li>
+          <li>Confirm pantry items already in stock are listed in "in pantry" section of the list</li>
+          <li>Reload the page and log out/log in to ensure the list persists</li>
+          <li>Ensure success message after list generation</li>
+        </ul>
+      <td>
+        <ul>
+          <li>✅ "Shopping List" button accessible in meal planner</li>
+          <li>✅ Shopping list created for the correct week after meal planning</li>
+          <li>✅ Redirect to Shopping list page</li>
+          <li>✅ All planned meal ingredients included in the generated list</li>
+          <li>✅ Planned Meals for the week listed categorized by days of the week</li>
+          <li>✅ Pantry items already in stock listed in "already in pantry section"</li>
+          <li>✅ Missing ingredients listed in "need to buy"</li>
+          <li>✅ Shopping list accessible from the dashboard and shopping page</li>
+          <li>✅ Shopping list persists after page reload and user logout/login</li>
+          <li>✅ Success message displayed after generation</li>
+        </ul>
+      </td>
+      <td> Pass</td>
     </tr>
     <tr>
       <td><strong>US021</strong></td>
-      <td><strong>AS A</strong> organized user <strong>I WANT TO</strong> view my pantry items organized by categories <strong>SO THAT I CAN</strong> easily find ingredients by type</td>
-      <td>Test <code>Category</code> model and categorized display</td>
-      <td>Category-based organization with <code>CATEGORY_CHOICES</code></td>
+      <td><strong>AS A</strong> meal planner <strong>I WANT TO</strong> see which recipe ingredients I already have <strong>SO THAT I CAN</strong> only buy what I need</td>
+      <td>Test pantry vs recipe ingredient comparison</td>
+      <td>Available and missing ingredients separated in shopping list</td>
       <td>✅ Pass</td>
     </tr>
     <tr>
       <td><strong>US022</strong></td>
-      <td><strong>AS A</strong> mobile user <strong>I WANT TO</strong> access all PantryPilot features on my phone <strong>SO THAT I CAN</strong> manage pantry, recipes, and meal planning while mobile</td>
-      <td>Test full responsive design across all features</td>
-      <td>Mobile-first responsive design implemented</td>
+      <td><strong>AS A</strong> shopper <strong>I WANT TO</strong> view and check off items from my generated shopping list <strong>SO THAT I CAN</strong> track my shopping progress</td>
+      <td>Test shopping list item check-off and state persistence</td>
+      <td>Check-off and progress tracking implemented</td>
       <td>✅ Pass</td>
     </tr>
     <tr>
       <td><strong>US023</strong></td>
+      <td><strong>AS A</strong> meal planner <strong>I WANT TO</strong> see quantity comparisons between recipe requirements and pantry stock <strong>SO THAT I CAN</strong> know exactly how much more I need to buy</td>
+      <td>Test quantity comparison and calculation in shopping list</td>
+      <td>Quantity comparison and shortage calculation implemented</td>
+      <td>✅ Pass</td>
+    </tr>
+    <tr>
+      <td><strong>US024</strong></td>
+      <td><strong>AS A</strong> shopper <strong>I WANT TO</strong> adjust quantities and add additional items to my shopping list <strong>SO THAT I CAN</strong> customize my shopping list for my specific needs</td>
+      <td>Test editing and adding custom items to shopping list</td>
+      <td>Custom item addition and quantity editing implemented</td>
+      <td>✅ Pass</td>
+    </tr>
+    <tr>
+      <td><strong>US025</strong></td>
+      <td><strong>AS A</strong> user with many ingredients <strong>I WANT TO</strong> search my pantry by name <strong>SO THAT I CAN</strong> quickly find specific items</td>
+      <td>Test advanced search in pantry</td>
+      <td>Advanced search implemented for pantry items</td>
+      <td>✅ Pass</td>
+    </tr>
+    <tr>
+      <td><strong>US026</strong></td>
+      <td><strong>AS A</strong> organized user <strong>I WANT TO</strong> view my pantry items organized by categories (spices, grains, proteins, etc.) <strong>SO THAT I CAN</strong> easily find ingredients by type</td>
+      <td>Test category-based filtering in pantry</td>
+      <td>Category filtering and organization implemented</td>
+      <td>✅ Pass</td>
+    </tr>
+    <tr>
+      <td><strong>US027</strong></td>
+      <td><strong>AS A</strong> mobile user <strong>I WANT TO</strong> access all PantryPilot features on my phone <strong>SO THAT I CAN</strong> manage pantry, recipes, and meal planning while mobile</td>
+      <td>Test full responsive design across all features</td>
+      <td>Full responsive design implemented</td>
+      <td>✅ Pass</td>
+    </tr>
+    <tr>
+      <td><strong>US028</strong></td>
       <td><strong>AS A</strong> cook <strong>I WANT TO</strong> remove recipes from my favorites list <strong>SO THAT I CAN</strong> keep my saved recipes relevant</td>
       <td>Test recipe deletion from saved collection</td>
       <td>Recipe removal functionality working</td>
       <td>✅ Pass</td>
     </tr>
     <tr>
-      <td><strong>US024</strong></td>
+      <td><strong>US029</strong></td>
       <td><strong>AS A</strong> cook <strong>I WANT TO</strong> search recipes by name, cuisine, or dietary restrictions <strong>SO THAT I CAN</strong> find specific types of meals</td>
       <td>Test advanced search filters in <code>RecipeSearchForm</code></td>
       <td>Cuisine, diet, and meal type filtering implemented</td>
