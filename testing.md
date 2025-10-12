@@ -884,7 +884,7 @@ All the site features were manually tested on the deployed website.
 | Save button for Search Results | Save the recipe and display a toast message. Saved recipe should appear in saved tab | Click the button on a recipe card | Toast displayed for status. Saved Recipes appears in Saved tab | Pass |
 | Delete button on Saved Recipe card | Delete the recipe for the user. Remove the recipe from saved tab and display confirmation in toast | Click the button on a saved recipe card | Recipe removed from saved tab. Toast message displayed | Pass |
 | "Select for Meal Plan" button in Saved Recipe card | Recipe should appear in Selected Meals section of Meals page. Button state should change to "Selected (Remove)". Should not reload the page from server. Selection should persist over a session | Click the button on a saved recipe card | Works as expected. Selection persists over a user session and is cleared when signed out | Pass |
-| "Selected (Remove)" button in Saved recipe card | Recipe should be removed from Selected Meals section of Meals page. Button state should change to "Select for Meal Plan". Page should not reload | Works as expected | Pass |
+| "Selected (Remove)" button in Saved recipe card | Recipe should be removed from Selected Meals section of Meals page. Button state should change to "Select for Meal Plan". Page should not reload | Click on the button | Works as expected | Pass |
 | RECIPE DETAIL PAGE | | | | |
 | Recipe details | Page should display image, summary, ingredients with tick marks for available in pantry, cook time, servings, and instructions | Click on view button to open a recipe detail | Works as expected. Some responses from API call have malformed or non existent image urls. This is not handled as part of MVP and is displayed as is. | Pass |
 | Save button in recipe detail | Save the recipe and display status message in toast. For successful save, add a "Saved| label above recipe image. Remove Save button and add a Delete button | Click the button on a recipe detail page | Works as expected | Pass |
@@ -901,19 +901,11 @@ All the site features were manually tested on the deployed website.
 | Update button on modal when clicked on existing meal plan item | Validates and displays form errors if any. Updates the meal plan item, displays toast message and instantly updates calendar views without page reloads | Click on the button | Works as expected | Pass |
 | Delete button on Meal plan modal when clicked on existing meal plan item | Asks reconfirmation for deletion, upon second click deletes teh item, displays toast message and refreshes the calendar views without page reload | Click teh button and confirm deletion | Works as expected | Pass |
 | Shopping List button on Meal planner section | Generates shopping list for the week if not yet generated and redirects to shopping page to show the list. Displays existing shopping list if present | Click the button to generate new shopping list for a new week, click the button to view existing shopping list | Works as expected | Pass |
-
-
-
-
-
-
-
-
-
-
-
-
-
+|SHOPPING LISTS PAGE | | | |
+| Delete Button on Shopping List card | Pop up a confirmation modal. Delete the shopping list with all associated shopping list items. Display a toast message with status | Click the button on a shopping list card | Works as expected. Confirmation modal displayed and Toast message displayed after deletion | Pass | 
+| View Button on Shopping list card | Displays the saved shopping list for that week along with Planned meals  | Click the button on a saved shopping list | Works as expected | Pass | 
+| Refresh button on shopping list for this week | Regenerate the shopping list based on pantry updates or meal plan updates | Change the meal plan for the week and click the button. Update pantry items and click the button. Verify generated shopping list reflects the updates | Works as expected. Meal plan updates and pantry item updates are reflected "in need to buy" and "in pantry" sections along with updates to "planned meals" section | Pass |
+| Check mark buttons on shopping list items | Checked items should be crossed off, server should be updated without page reload, checked state should persist, unchecking uncrosses the items | Check an item and ensure item is crossed off, uncheck to see crossing is removed, sign in/out to see state persists | Works as expected, state persist over sign in/sign out | Pass |
 
 </details>
 
