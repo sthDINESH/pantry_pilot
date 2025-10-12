@@ -698,10 +698,13 @@ The imagery for PantryPilot was carefully curated from [Pexels.com](https://pexe
 
 
 ## Agile Methodology
+Agile development flow was used for the project. 
+The MVP for the project was organized into five focused sprints, each targeting a specific set of user stories and features. 
+Regular sprint reviews, backlog refinement, and user testing were conducted to validate progress and prioritize enhancements, resulting in a user-centered application.
 
 **Sprint Breakdown:**
 
-**Sprint 1 (Foundation)**: Authentication + Basic Pantry + Help
+**Sprint 1 (Foundation)**: Authentication + Basic Pantry
 - Focus: Core user account management and basic pantry CRUD operations
 - Deliverable: Users can register, login, and manage basic pantry inventory
 
@@ -719,8 +722,44 @@ The imagery for PantryPilot was carefully curated from [Pexels.com](https://pexe
 
 **Sprint 5 (Polish & Enhancement)**: Advanced Pantry + Full Responsive + UX Improvements
 - Focus: Advanced pantry features, mobile optimization and user experience enhancements
-- Deliverable: MVP application with critical feature set
+- Deliverable: MVP application with user-centered critical feature set
 
+Github Project was used to manage and track project progress.
+### User stories
+Github issues were created to capture each User Story. Task breakdown and Acceptance Criteria for each user story were also captured in the issues.
+
+### MoSCoW prioritization
+User stories were labelled as must-have, should-have, could-have and wont-have. Github labels were created for these prioritization and assigned to each user story.
+
+### Sprints
+The sprints were defined using Github Milestones. The user stories for core MVP features were assigned to five Sprints and the future enhancement user stories were assigned to a single Post-MVP sprint.
+
+[Link to Project Sprints view](https://github.com/users/sthDINESH/projects/9/views/5)
+
+<details>
+     <summary>Expand to See Sprint View</summary>
+<figure>
+  <img src="documentation/screenshots/project_sprints.png" 
+       alt="Sprint view showing user stories and sprint" 
+       width="100%" 
+       style="max-width: 900px; height: auto; border: 1px solid #ddd; border-radius: 8px; margin: 20px 0;">
+</figure>
+</details>
+
+
+### Kanban board
+Kanban board was then created to provide a visual representation of project progress.
+
+[Link to Kanban board](https://github.com/users/sthDINESH/projects/9/views/1)
+<details>
+     <summary>Expand to See Kanban board</summary>
+<figure>
+  <img src="documentation/screenshots/kanban.png" 
+       alt="Kanban board showing user stories and sprint progress" 
+       width="100%" 
+       style="max-width: 900px; height: auto; border: 1px solid #ddd; border-radius: 8px; margin: 20px 0;">
+</figure>
+</details>
 
 ## Entity Relationship Diagram for Database
 
