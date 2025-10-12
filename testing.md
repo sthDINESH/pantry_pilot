@@ -876,6 +876,22 @@ All the site features were manually tested on the deployed website.
 | Delete button on pantry item card | display delete confirmation modal | Click on a pantry item card | Working as expected | Pass |
 | Delete button in Delete confirmation modal | Should delete category/pantry item. Toast message displayed for success | Click delete for pantry item delete. Click delete for Category delete | Deletes pantry item/ category with tost message displayed | Pass |
 | Close button in delete confirmation modal | Dismiss the modal | Click the button | Working as expected | Pass | 
+| RECIPES PAGE | | | | |
+| Discover/ Saved tab links | Should display the correct tabs | Click on the tab links while in other tabs | Navigates to correct tab | Pass |
+| Search Button in Discover tab | Should list search results based on preferences selected in form | Click the button with different preferences selected | Recipe cards displayed in the tab based on search parameters | Pass |
+| Info button on recipe cards | Display a modal with list of available and missing ingredients for the recipe | Click the button on a recipe card | Works as expected | Pass |
+| View button on Recipe cards | Display detail view for the selected recipe | Click the button on a recipe card | Works as expected | Pass |
+| Save button for Search Results | Save the recipe and display a toast message. Saved recipe should appear in saved tab | Click the button on a recipe card | Toast displayed for status. Saved Recipes appears in Saved tab | Pass |
+| Delete button on Saved Recipe card | Delete the recipe for the user. Remove the recipe from saved tab and display confirmation in toast | Click the button on a saved recipe card | Recipe removed from saved tab. Toast message displayed | Pass |
+| "Select for Meal Plan" button in Saved Recipe card | Recipe should appear in Selected Meals section of Meals page. Button state should change to "Selected (Remove)". Should not reload the page from server. Selection should persist over a session | Click the button on a saved recipe card | Works as expected. Selection persists over a user session and is cleared when signed out | Pass |
+| "Selected (Remove)" button in Saved recipe card | Recipe should be removed from Selected Meals section of Meals page. Button state should change to "Select for Meal Plan". Page should not reload | Works as expected | Pass |
+
+
+
+
+
+
+
 
 
 
