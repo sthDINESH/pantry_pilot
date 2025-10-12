@@ -172,6 +172,34 @@ A possible solution to the limitations of fuzzy matching is to use NLP-based ing
 - **Waste Reporting**: Monitor and report food waste reduction
 - **Cost Tracking**: Track grocery spending and budget adherence
 
+### AI assistance within the project
+
+This project leveraged advanced AI tools(ChatGPT/Claude AI) to significantly enhance productivity, code quality, and development speed throughout the entire development lifecycle.
+
+#### Development Productivity Enhancement
+
+- **Planning**: AI guidance during the ideation and planning phase of the project to identify target audience, relevant user stories, feature prioritization, sprint planning, information architecture design, interaction design and crude wireframe generation
+- **Problem Solving and Debugging**: Rapid solutions for complex technical challenges and implementation roadblocks, debug assistance for bug fixing
+- **Code Optimization**: Performance improvement suggestions and refactoring recommendations
+- **Documentation**: AI-assisted markup generation for README documentation
+
+#### Code Quality & Testing Enhancement
+
+- **Syntax Validation**: AI tools identified potential syntax errors before runtime testing
+- **Performance Analysis**: Suggestions for optimizing implementation for performance
+- **Accessibility Compliance**: AI guidance for implementing WCAG accessibility standards
+
+#### Development Speed Improvements
+
+- **API Integration**: Guidance for accelerated implementation of external service connections
+- **Accelerated Debugging**: Root-cause bugs faster for accelerated bug fixes
+- **Responsive Design**: Efficient development of cross-device compatibility
+
+#### **Knowledge Transfer**
+- **Learning Acceleration**: AI tutoring for new technologies and frameworks
+- **Best Practice Implementation**: Real-time guidance on industry standards and conventions
+- **Technical Research**: Rapid exploration of solutions for complex technical requirements
+
 ## UX Design
 
 ### Strategy plane
