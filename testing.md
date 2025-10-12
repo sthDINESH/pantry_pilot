@@ -1,7 +1,23 @@
 # Pantry Pilot - Testing
-# ![PantryPilot Responsive Mockup](documentation/screenshots/pantry_pilot_amiresponsive.png)
 
+# ![PantryPilot Responsive Mockup](documentation/screenshots/pantry_pilot_amiresponsive.png)
 [Go back to Readme](README.md)
+
+## Table of Contents
+
+1. [Validation Testing](#validation-testing)
+  - [HTML Validation](#html-validation)
+  - [CSS Validation](#css-validation)
+  - [Python Validation](#python-validation)
+  - [Accessibility Testing](#accessibility-testing)
+  - [Lighthouse Testing](#lighthouse-testing)
+2. [Responsiveness](#responsiveness)
+  - [Responsiveness Summary](#responsiveness-summary)
+3. [Browser Compatibility](#browser-compatibility)
+4. [Manual Testing](#manual-testing)
+  - [Testing User Stories](#testing-user-stories)
+5. [Features](#features)
+6. [Bugs](#bugs)
 
 ## Validation Testing
 
