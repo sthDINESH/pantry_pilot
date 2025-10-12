@@ -909,4 +909,7 @@ All the site features were manually tested on the deployed website.
 
 </details>
 
+## Bugs
 
+Github Projects was used to capture the bugs identified during development and testing.
+[Bug list](https://github.com/users/sthDINESH/projects/9/views/2?pane=issue&itemId=133280591&issue=sthDINESH%7Cpantry_pilot%7C34&sliceBy%5BcolumnId%5D=Labels&sortedBy%5Bdirection%5D=asc&sortedBy%5BcolumnId%5D=Milestone&sliceBy%5Bvalue%5D=bug) for issues that were identified and resolved.
