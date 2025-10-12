@@ -839,7 +839,6 @@ It features a responsive Bootstrap design that adapts seamlessly to different sc
   <img src="documentation/screenshots/navbar_desktop_authenticated.png" 
        alt="Desktop navbar for authenticated users showing all navigation links" 
        width="800">
-  <figcaption><strong>Figure:</strong> Mobile navbar for authenticated users with full navigation menu</figcaption>
 </figure>
 
 <br clear="all">
@@ -847,9 +846,6 @@ It features a responsive Bootstrap design that adapts seamlessly to different sc
 <figure>
   <img src="documentation/screenshots/navbar_mobile_authenticated.gif" 
        alt="Mobile navbar for authenticated users showing all navigation links">
-  <figcaption style="display: block; text-align: left; margin-top: 10px;">
-     <strong>Figure:</strong> Mobile navbar for authenticated users with full navigation menu
-  </figcaption>
 </figure>
 
 **Navigation Links (Unauthenticated Users):**
@@ -861,7 +857,6 @@ It features a responsive Bootstrap design that adapts seamlessly to different sc
   <img src="documentation/screenshots/navbar_desktop_unauthenticated.png" 
        alt="Desktop navbar for unauthenticated users showing login and signup options" 
        width="800">
-  <figcaption><strong>Figure:</strong> Desktop navbar for unauthenticated users with authentication links</figcaption>
 </figure>
 
 <br clear="all">
@@ -869,9 +864,6 @@ It features a responsive Bootstrap design that adapts seamlessly to different sc
 <figure>
   <img src="documentation/screenshots/navbar_mobile_unauthenticated.gif" 
        alt="Mobile navbar for unauthenticated users showing all navigation links">
-  <figcaption style="display: block; text-align: left; margin-top: 10px;">
-     <strong>Figure:</strong> Mobile navbar for unauthenticated users with full navigation menu
-</figcaption>
 </figure>
 
 </details>
@@ -897,7 +889,6 @@ It features a responsive design that adapts to different screen sizes.
   <img src="documentation/screenshots/footer_desktop.png" 
        alt="Desktop footer showing site branding, social links, and quick navigation" 
        width="800">
-  <figcaption><strong>Figure:</strong> Desktop footer with site details, social media links, and quick navigation menu</figcaption>
 </figure>
 
 **Responsive Behavior:**
@@ -908,9 +899,6 @@ It features a responsive design that adapts to different screen sizes.
 <figure>
   <img src="documentation/screenshots/footer_responsiveness.gif" 
        alt="Footer responsive design showing layout changes from desktop to mobile">
-  <figcaption style="display: block; text-align: left; margin-top: 10px;">
-     <strong>Figure:</strong> Footer responsive behavior across different screen sizes
-</figcaption>
 </figure>
 
 </details>
@@ -942,7 +930,6 @@ The home page serves as both a landing page for new users and a personalized das
   <img src="documentation/screenshots/home_page_unauthenticated.gif" 
        alt="Home page for unauthenticated users showing hero carousel, feature overview, and authentication options" 
        width="800">
-  <figcaption><strong>Figure:</strong> Home page for unauthenticated users with site introduction and feature overview</figcaption>
 </figure>
 
 **For Authenticated Users:**
@@ -957,10 +944,36 @@ The home page serves as both a landing page for new users and a personalized das
   <img src="documentation/screenshots/home_page_authenticated.gif" 
        alt="Home page for authenticated users showing personalized dashboard with quick stats and feature access" 
        width="800">
-  <figcaption><strong>Figure:</strong> Home page for authenticated users with personalized dashboard and quick access to main features</figcaption>
 </figure>
 
 </details>
+
+### Pantry Page
+
+The pantry page allows users to view, add, update, and organize their pantry inventory. Items are grouped by category for easy navigation, and users can track quantities, units, and images for each ingredient. The interface supports quick edits, duplicate detection, and responsive design for seamless use on any device.
+
+<details>
+    <summary>(Expand for details)</summary>
+
+**Key Features:**
+- **Category Organization**: Items are grouped and displayed by user-defined categories.
+- **Add/Update/Delete Items**: Easily manage pantry inventory with intuitive forms.
+- **Quantity & Units Tracking**: Monitor exact amounts and measurement units for each item.
+- **Image Upload**: Attach images to pantry items for visual reference.
+- **Duplicate Detection**: Prevents duplicate entries and allows merging or updating quantities.
+- **Responsive Layout**: Optimized for both desktop and mobile devices.
+- **Validation & Feedback**: Real-time form validation and toast notifications for user actions.
+
+<figure>
+  <img src="documentation/screenshots/pantry_page.gif" 
+       alt="Pantry page showing categorized inventory and add item form" 
+       width="800">
+</figure>
+
+</details>
+
+### Recipes Page
+
 
 
 ### Sign Up Page
@@ -986,7 +999,6 @@ The sign up page allows new users to create their account.
   <img src="documentation/screenshots/signup_page.png" 
        alt="Sign up page for new user registration" 
        width="800">
-  <figcaption><strong>Figure:</strong> Sign up page for new user registration
   </figcaption>
 </figure>
 
@@ -1017,7 +1029,6 @@ The sign in page authenticates returning users and allows access to their person
   <img src="documentation/screenshots/signin_page.png" 
        alt="Sign in page showing login form for registered users" 
        width="800">
-  <figcaption><strong>Figure:</strong> Sign in page for registered users to log in</figcaption>
 </figure>
 
 </details>
@@ -1044,7 +1055,6 @@ The sign out page provides a secure confirmation step for users to safely termin
   <img src="documentation/screenshots/signout_page.png" 
        alt="Sign out page showing logout confirmation for authenticated users" 
        width="800">
-  <figcaption><strong>Figure:</strong> Sign out page with logout confirmation</figcaption>
 </figure>
 
 </details>
