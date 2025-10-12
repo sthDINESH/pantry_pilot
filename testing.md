@@ -854,10 +854,17 @@ All the site features were manually tested on the deployed website.
 | Footer YouTube icon | Click should open YouTube in new tab | Clicked from all pages | YouTube opens in new tab | Pass |
 | Footer Twitter icon | Click should open Twitter in new tab | Clicked from all pages | Twitter opens in new tab | Pass |
 | Footer Instagram icon | Click should open Instagram in new tab | Clicked from all pages | Instagram opens in new tab | Pass |
-
 | HOME PAGE | | | | |
-
-
+| Hero Sign Up button (unauthenticated state) | Click should redirect to Sign Up page | Clicked on the button | Redirection to Sign Up page | Pass |
+| Hero Login button (unauthenticated state) | Click should redirect to Login Page | Clicked the button | Redirection to Login Page | Pass |
+| Hero Logout button (authenticated state) | Click should redirect to Sign Out page | Clicked on the button | Redirection to Sign Out page | Pass |
+| Ready to Get Started Banner Sign Up button (unauthenticated state) | Click should redirect to Sign Up page | Clicked on the button | Redirection to Sign Up page | Pass |
+| Ready to Get Started Banner Login button (unauthenticated state) | Click should redirect to Login Page | Clicked the button | Redirection to Login Page | Pass |
+| Thank you Banner Logout button (authenticated state) | Click should redirect to Sign Out Page | Clicked the button | Redirection to Sign Out Page | Pass |
+| Your Pantry Widget (authenticated state) | Should display count of items in Pantry. View All button should redirect to My Pantry page | Checked item count against pantry listing. Clicked the link | Count matches pantry items. Redirection works correctly | Pass |
+| Your Recipes Widget (authenticated state) | Should display count of saved recipes. View All link should redirect to saved recipes tab in Recipes page | Checked saved recipe count against displayed value. Clicked the View All link | Displayed count matches number of saved recipes. Link redirection to correct tab | Pass |
+| Upcoming Meal Widget (authenticated state) | Display next meal title with link to view recipe detail. View Calendar link redirects to Meals page | Compare displayed meal title with calendar, click the links | Upcoming Meal title displayed. Link opens recipe detail view. View Calendar link redirects to Meals page | Pass |
+| Your Shopping Lists Widget (authenticated state) | Displays link to available shopping list for this week(message if not available). View All redirects to Shopping page | Checked message display for no list generated. Generated a list for the week and checked the widget display. Clicked View All | Message displayed for no lists. Correct list displayed when present and link displays the shopping list. View All redirects to Shopping page | Pass | 
 </details>
 
 
