@@ -865,6 +865,21 @@ All the site features were manually tested on the deployed website.
 | Your Recipes Widget (authenticated state) | Should display count of saved recipes. View All link should redirect to saved recipes tab in Recipes page | Checked saved recipe count against displayed value. Clicked the View All link | Displayed count matches number of saved recipes. Link redirection to correct tab | Pass |
 | Upcoming Meal Widget (authenticated state) | Display next meal title with link to view recipe detail. View Calendar link redirects to Meals page | Compare displayed meal title with calendar, click the links | Upcoming Meal title displayed. Link opens recipe detail view. View Calendar link redirects to Meals page | Pass |
 | Your Shopping Lists Widget (authenticated state) | Displays link to available shopping list for this week(message if not available). View All redirects to Shopping page | Checked message display for no list generated. Generated a list for the week and checked the widget display. Clicked View All | Message displayed for no lists. Correct list displayed when present and link displays the shopping list. View All redirects to Shopping page | Pass | 
+| PANTRY PAGE | | | |
+| Add item button (Plus/Chevron icon) | Should open form if form not displayed. Should collapse form if form in display | Click the button with the form collapsed/not collapsed | Form Collapse/ Un-collapse working as expected | Pass |
+| Add button in form | Click should display validation error for incorrect fields; add item to pantry for valid form with a Toast for successful addition | Test click with valid and invalid form entries. Check toast message | Form validation working as expected. Valid item added and displayed immediately in correct category. Toast message displayed for success | Pass |
+| Delete Category button alongside category header | Click should display delete confirmation modal | Click the button | confirmation modal displayed | Pass |
+| Category Collapse/ Un-collapse button alongside category header | Collapse/ Un-collapse category section | Click in category collapsed/un-collapsed state | Collapse/Un-collapse behavior as expected | Pass |
+| Update Button on pantry item card | Should scroll to pre-populated form with item values. Update button should appear in the form | Click on the button | Working expected | Pass |
+| Update button on Pantry item form | Display form validation errors in form if present else update the pantry item fields. Status message displayed in toast | Clicked with valid/invalid form entries | Validation errors displayed in form for invalid entries. Item updated for valid entries. Status message displayed | Pass |
+| Cancel button in Pantry item form | Cancel item update. Remove Cancel button, clear the form and change Update button to Add | Click the button | Working as expected | Pass |
+| Delete button on pantry item card | display delete confirmation modal | Click on a pantry item card | Working as expected | Pass |
+| Delete button in Delete confirmation modal | Should delete category/pantry item. Toast message displayed for success | Click delete for pantry item delete. Click delete for Category delete | Deletes pantry item/ category with tost message displayed | Pass |
+| Close button in delete confirmation modal | Dismiss the modal | Click the button | Working as expected | Pass | 
+
+
+
+
 </details>
 
 
