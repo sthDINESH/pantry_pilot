@@ -763,6 +763,25 @@ Kanban board was then created to provide a visual representation of project prog
 
 ## Entity Relationship Diagram for Database
 
+The websites includes the following ORM Models
+
+- **Category**: Represents a user-defined category for organizing pantry items (e.g., Dairy, Grains).
+- **PantryItem**: Stores an individual pantry inventory item with quantity, units, and category for a user.
+- **SavedRecipe**: Stores a recipe saved by a user, including details from external APIs or custom entries.
+- **RecipeIngredient**: Represents a single ingredient (with quantity and units) belonging to a saved recipe.
+- **MealPlanItem**: Represents a planned meal event, linking a user, a recipe, and a scheduled date/time.
+- **ShoppingList**: Represents a shopping list generated for a user, typically for a specific week or meal plan.
+- **ShoppingListItem**: Stores an individual item on a shopping list, including quantity, units, and status.
+
+<details>
+     <summary>Expand to View the Entity Relationship diagram for the website</summary>
+<figure>
+  <img src="documentation/erd_pantry_pilot.png" 
+       alt="ERD showing database relationships" 
+       width="100%" 
+       style="max-width: 900px; height: auto; border: 1px solid #ddd; border-radius: 8px; margin: 20px 0;">
+</figure>
+</details>
 
 ## Features
 
