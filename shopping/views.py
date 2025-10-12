@@ -179,8 +179,10 @@ def generate_shopping_list_items(request, shopping_list_id):
             pantry_items=pantry_items,
         )
         for ingredient in missing:
-            if ingredient in ingredients_to_shop:
-                ingredients_to_shop[ingredient]['recipe'].append(meal.recipe)
+            if ingredient.ingredient_name in [
+                ing.ingredient_name for ing in ingredients_to_shop.keys()
+            ]:
+                continue
             else:
                 ingredients_to_shop[ingredient] = {
                     'quantity': meal_ingredients.filter(
@@ -193,8 +195,10 @@ def generate_shopping_list_items(request, shopping_list_id):
                 }
 
         for ingredient, pantry_item, _ in matched:
-            if ingredient in ingredients_in_pantry:
-                ingredients_in_pantry[ingredient]['recipe'].append(meal.recipe)
+            if ingredient.ingredient_name in [
+                ing.ingredient_name for ing in ingredients_in_pantry.keys()
+            ]:
+                continue
             else:
                 ingredients_in_pantry[ingredient] = {
                     'quantity': meal_ingredients.filter(

@@ -89,7 +89,6 @@ class PantrySearch:
 
             number_matches = len(matches)
             if number_matches:
-                print("***", recipe_ingredient, matches)
                 for match in matches:
                     matched_name, score, _ = match
                     pantry_item = normalized_pantry[matched_name]

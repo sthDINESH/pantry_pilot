@@ -43,8 +43,6 @@ def meal_planning(request):
                 'message': f"Added {meal_plan_item.recipe.title} to meal plan",
             })
         else:
-            print("Form data has errors")
-            print(meal_plan_item_form.errors)
             return JsonResponse({
                 'success': False,
                 'error': meal_plan_item_form.errors,
