@@ -14,7 +14,7 @@
 
 ## Project Summary
 
-PantryPilot is a comprehensive full-stack web application designed to help users efficiently manage their pantry inventory, discover recipes based on available ingredients, plan weekly meals, and generate smart shopping lists. The application combines intelligent ingredient tracking with meal planning capabilities to reduce food waste, save money, and streamline cooking experiences.
+PantryPilot is a comprehensive full-stack web application designed to help users efficiently manage their pantry inventory, discover recipes based on available ingredients, plan weekly meals, and generate smart shopping lists. The application combines ingredient tracking with meal planning capabilities to reduce food waste, save money, and streamline cooking experiences.
 
 ### Technology Stack Overview
 - **Frontend**: HTML5, CSS3, JavaScript 
@@ -22,21 +22,22 @@ PantryPilot is a comprehensive full-stack web application designed to help users
 - **Database**: PostgreSQL
 - **Architecture**: Full-stack web application
 
-### Website Preview
+### Deployed link
 
-### Core Features
+[Pantry Pilot](https://pantry-pilot-745736b33f31.herokuapp.com/) hosted on Heroku.
+
+### Core Features Overview
 
 #### 1. Pantry Inventory Management
 - **Add/Remove Items**: Simple interface for managing pantry contents
 - **Quantity Tracking**: Monitor exact quantities of ingredients
 - **Categories**: Organize items by type (spices, grains, proteins, etc.)
-- **Search and Filter**: Quickly find specific ingredients
 
 #### 2. Recipe Management System
-- **Recipe Search**: Find recipes based on available pantry ingredients
-- **Custom Recipe Storage**: Save, edit, and organize personal recipes
+- **Recipe Search**: Find recipes based on available pantry ingredients powered by Spoonacular API
+- **Save Favorite Recipes Storage**: Save and organize favorite recipes
 - **Cooking Instructions**: Step-by-step cooking guidance
-- **Photo Integration**: Add images to recipes for visual reference
+- **Photo Integration**:  Recipe images for visual reference
 
 #### 3. Meal Planning Tools
 - **Weekly Meal Planner**: Plan breakfast, lunch, and dinner for the week
@@ -50,41 +51,44 @@ PantryPilot is a comprehensive full-stack web application designed to help users
 - **Responsive Design**: Works seamlessly on desktop, tablet, and mobile devices
 - **Intuitive Navigation**: Easy-to-use interface with logical flow
 - **Quick Actions**: Fast access to common tasks (add item, plan meal, create list)
-- **Search Functionality**: Global search across ingredients, recipes, and meals
 - **Dashboard**: Overview of pantry status, upcoming meal plans, and shopping needs
 
 ### Future Enhancements
 
-#### 1. Advanced Pantry Management
+#### 1. Personal Recipe Management
+- **Create Personal Recipes**: Create and save your own recipes
+- **Edit Personal Recipes**: Edit and update your personal recipes over time
+
+#### 2. Advanced Pantry Management
 - **Expiration Dates**: Track and receive alerts for expiring items
 - **Barcode Scanning**: Quick item addition via barcode
-- **Receipt Scanning** *(Could-Have Feature)*: Scan uploaded receipts to automatically update pantry items
-- **Camera Receipt Scan** *(Could-Have Feature)*: Use mobile camera to scan receipts for instant updates
+- **Receipt Scanning**: Scan uploaded receipts to automatically update pantry items
+- **Camera Receipt Scan**: Use mobile camera to scan receipts for instant updates
 
-#### 2. Enhanced Recipe Features
+#### 3. Enhanced Recipe Features
 - **Recipe Categories**: Organize recipes by meal type, cuisine, dietary restrictions
 - **Ingredient Substitutions**: Suggest alternatives for missing ingredients
 
-#### 3. Advanced Meal Planning
+#### 4. Advanced Meal Planning
 - **Family Preferences**: Account for different family member preferences
 - **Portion Planning**: Calculate serving sizes and quantities needed
 - **Batch Planning**: Plan multiple weeks in advance
 
-#### 4. Enhanced Shopping Features
+#### 5. Enhanced Shopping Features
 - **Store Organization**: Organize lists by store sections (produce, dairy, etc.)
 - **Quantity Calculations**: Calculate exact quantities needed
 - **Multiple Stores**: Manage different lists for different stores
 - **Sharing Capability**: Share shopping lists with family members
 - **Cost Tracking**: Monitor estimated and actual costs
 
-#### 5. Nutritional Information System
+#### 6. Nutritional Information System
 - **Recipe Nutrition**: Display nutritional facts for each recipe
 - **Weekly Nutrition Summary**: Overview of planned weekly nutrition
 - **Dietary Tracking**: Track calories, macronutrients, vitamins, and minerals
 - **Dietary Restrictions**: Filter recipes by dietary needs (vegetarian, gluten-free, etc.)
 - **Health Goals**: Set and monitor nutritional goals
 
-#### 6. Data Management and Insights
+#### 7. Data Management and Insights
 - **Usage Analytics**: Track ingredient usage patterns and trends
 - **Export Options**: Export data for external use or backup
 - **Data Backup**: Secure cloud storage of user data
@@ -100,88 +104,88 @@ PantryPilot is a comprehensive full-stack web application designed to help users
     Strategy plane considerations(Expand for details)
     </summary>
 
-### Target Audience
+#### Target Audience
 
-#### Primary Personas
+##### Primary Personas
 
-##### Busy Family Manager (35-45 years)
+###### Busy Family Manager (35-45 years)
 **Profile**: Working parent managing household groceries for family of 3-5
 - **Pain Points**: Forgetting what's in pantry, duplicate purchases, meal planning stress
 - **Goals**: Save time and money, reduce food waste, feed family well
 - **Tech Comfort**: Moderate (uses smartphone apps regularly)
 - **Frequency**: Daily pantry checks, weekly meal planning
 
-##### Budget-Conscious Home Cook (30-50 years)
+###### Budget-Conscious Home Cook (30-50 years)
 **Profile**: Price-sensitive shopper, enjoys cooking, wants to maximize value
 - **Pain Points**: Overspending on groceries, food expiration waste
 - **Goals**: Stretch grocery budget, use all purchased ingredients
 - **Tech Comfort**: Moderate (uses apps for deals and coupons)
 - **Frequency**: Weekly planning, daily pantry monitoring
 
-##### College Student/Young Adult (18-25 years)
+###### College Student/Young Adult (18-25 years)
 **Profile**: Learning to cook independently, limited budget
 - **Pain Points**: Food management inexperience, tight budget
 - **Goals**: Learn cooking skills, avoid food waste, eat well cheaply
 - **Tech Comfort**: Very High (digital native)
 - **Frequency**: Learning-based usage, irregular planning
 
-### Secondary Personas
+##### Secondary Personas
 
-##### Health-Conscious Professional (25-35 years)
+###### Health-Conscious Professional (25-35 years)
 **Profile**: Single or couple, career-focused, health and nutrition aware
 - **Pain Points**: Limited cooking time, ingredient waste, nutritional tracking
 - **Goals**: Eat healthily, maximize ingredient usage, efficient meal prep
 - **Tech Comfort**: High (early adopter of productivity apps)
 - **Frequency**: Multiple daily interactions, batch meal planning
 
-##### Empty Nester Couple (50-65 years)
+###### Empty Nester Couple (50-65 years)
 **Profile**: Cooking for two, downsizing food purchases
 - **Pain Points**: Adjusting portion sizes, avoiding overbuying
 - **Goals**: Maintain cooking enjoyment, manage smaller quantities
 - **Tech Comfort**: Moderate (selective app adoption)
 - **Frequency**: Regular but relaxed usage
 
-### Business Goals
+#### Business Goals
 
-#### Primary Business Objectives
+##### Primary Business Objectives
 1. **Reduce Food Waste**: Help users track ingredients to minimize food spoilage and environmental impact
 2. **Cost Optimization**: Enable smart shopping decisions by avoiding duplicate purchases and maximizing ingredient usage
 3. **Time Efficiency**: Streamline meal planning and grocery shopping processes to save users valuable time
 4. **User Engagement**: Create an engaging, habit-forming application that users return to regularly
 
-#### Secondary Business Objectives
+##### Secondary Business Objectives
 5. **Health Awareness**: Provide nutritional insights for informed dietary decisions and healthier eating habits
 6. **Market Positioning**: Position as a solution for modern household food management
 7. **Portfolio Value**: Demonstrate full-stack development capabilities and UX design skills
 8. **Scalability**: Build foundation for potential future enhancements or enterprise features
 
-### User Goals
+#### User Goals
 
-#### Primary User Goals
+##### Primary User Goals
 
-##### Inventory Management Goals
+###### Inventory Management Goals
 - **Real-time Tracking**: Maintain accurate, up-to-date inventory of pantry items
 - **Quantity Management**: Monitor ingredient quantities and usage patterns
 - **Easy Updates**: Simple interface for adding, removing, and updating items
 - **Search & Filter**: Quickly find specific ingredients in their pantry
 - **Visual Organization**: See pantry contents at a glance with clear categorization
 
-##### Recipe Discovery Goals
+###### Recipe Discovery Goals
 - **Ingredient-Based Search**: Find recipes using available pantry ingredients
 - **Recipe Variety**: Discover new recipes and cooking ideas
 - **Custom Recipe Storage**: Save and organize personal favorite recipes
 
-##### Meal Planning Goals
+###### Meal Planning Goals
 - **Weekly Planning**: Plan balanced meals for the entire week
 - **Visual Calendar**: See meal plans in an organized calendar format
 - **Preparation Coordination**: Plan meals considering prep time and complexity
 
-##### Shopping Efficiency Goals
+###### Shopping Efficiency Goals
 - **Smart Shopping Lists**: Generate lists for missing ingredients
 - **Store Organization**: Shopping lists organized by store sections
 - **Duplicate Prevention**: Avoid buying items already in pantry
 
-#### Secondary User Goals
+##### Secondary User Goals
 - **Nutritional Information**: Access nutritional data for recipes and ingredients
 - **Nutritional Balance**: Ensure variety and nutrition across planned meals
 - **Learning**: Improve cooking skills and food management knowledge
@@ -302,28 +306,6 @@ PantryPilot is a comprehensive full-stack web application designed to help users
 | Advanced Planning (US037-US038) | Future | Low | Low | High | ❌ Won't Have |
 | Expiration Tracking (US039-US040) | Future | Low | Low | Medium | ❌ Won't Have |
 
-**Sprint Breakdown:**
-
-**Sprint 1 (Foundation)**: Authentication + Basic Pantry + Help
-- Focus: Core user account management and basic pantry CRUD operations
-- Deliverable: Users can register, login, and manage basic pantry inventory
-
-**Sprint 2 (Recipe Discovery)**: Recipe Search + Recipe Management  
-- Focus: Recipe discovery using pantry ingredients and basic recipe saving
-- Deliverable: Users can find recipes based on available ingredients
-
-**Sprint 3 (Planning Foundation)**: Meal Planning
-- Focus: Meal calendar foundation and meal scheduling
-- Deliverable: Users can plan weekly meals using saved recipes
-
-**Sprint 4 (Shopping Integration)**: Shopping List Generation
-- Focus: Generate shopping lists from meal plans with pantry comparison
-- Deliverable: Complete meal planning to shopping workflow
-
-**Sprint 5 (Polish & Enhancement)**: Advanced Pantry + Full Responsive + UX Improvements
-- Focus: Advanced pantry features, mobile optimization and user experience enhancements
-- Deliverable: MVP application with critical feature set
-
 </details>
 
 ### Structure Plane
@@ -337,8 +319,8 @@ PantryPilot is a comprehensive full-stack web application designed to help users
 
 ```
 PantryPilot (Root)
-├── Authentication
-│   ├── Registration (/accounts/register/)
+├── Authentication (/accounts/)
+│   ├── Sign Up (/accounts/signup/)
 │   ├── Login (/accounts/login/)
 │   └── Logout (/accounts/logout/)
 ├── Dashboard (/)
@@ -347,26 +329,30 @@ PantryPilot (Root)
 │   └── Upcoming Meals Widget
 ├── Pantry Management (/pantry/)
 │   ├── View All Items (/pantry/)
-│   ├── Add Item (/pantry/)
-│   ├── Edit Item (/pantry/item/<id>/update/)
-│   ├── Delete Item (/pantry/item/<id>/delete/)
-│   ├── Handle duplicates while adding (/pantry/item/<id>/resolve/)
-│   └── Search & Filter (/pantry/?search=<term>&category=<cat>)
+│   ├── Edit Item (/pantry/item/<item_id>/update)
+│   ├── Delete Item (/pantry/item/<item_id>/delete)
+│   ├── Handle Duplicate (/pantry/item/<item_id>/handle)
+│   ├── Delete Category (/pantry/category/<category_id>/delete)
 ├── Recipe Discovery (/recipes/)
-│   ├── Recipe Search (/recipes/)
-│   ├── Recipe Details (/recipes/<id>/)
-│   ├── Saved Recipes (/recipes/saved/)
-│   └── Recipe by Ingredients (/recipes/search-by-ingredients/)
+│   ├── Recipe List (/recipes/)
+│   ├── Recipe Details (/recipes/recipe/<api_recipe_id>)
+│   ├── Saved Recipe Details (/recipes/recipe/saved/<recipe_id>)
+│   ├── Save Recipe (/recipes/recipe/<api_recipe_id>/save)
+│   ├── Delete Saved Recipe (/recipes/recipe/<recipe_id>/delete)
+│   └── Toggle Recipe Selection (/recipes/toggle-selection/<recipe_id>/)
 ├── Meal Planning (/meals/)
 │   ├── Weekly Calendar (/meals/)
-│   ├── Add Meal (/meals/add/)
-│   └── Edit Meal Plan (/meals/<week>/edit/)
+│   ├── Get Meal Plan (/meals/plan/)
+│   ├── Add Meal (via POST to /meals/plan/)
+│   ├── Update Meal (/meals/update/<meal_plan_item_id>/)
+│   ├── Delete Meal (/meals/delete/<meal_plan_item_id>/)
+│   └── Clear Selection (/meals/clear_selection/)
 ├── Shopping Lists (/shopping/)
-│   ├── View Lists (/shopping/)
-│   ├── Generate from Meals (/shopping/generate/)
-│   └── Edit List (/shopping/<id>/edit/)
-└── Help & Support (/help/)
-    └── Getting Started Guide
+    ├── View Lists (/shopping/)
+    ├── Shopping List Details (/shopping/<shopping_list_id>/)
+    ├── Delete Shopping List (/shopping/<shopping_list_id>/delete)
+    ├── Refresh Shopping List (/shopping/<shopping_list_id>/refresh)
+    └── Mark Item Purchased (/shopping/item/<item_id>/toggle/)
 ```
 
 ##### Content Hierarchy and Relationships
@@ -386,7 +372,7 @@ User (1) ──→ (Many) MealPlan
 User (1) ──→ (Many) ShoppingList
 
 MealPlan (Many) ──→ (1) Recipe
-Recipe (Many) ──→ (Many) Ingredient
+Recipe (1) ──→ (Many) RecipeIngredient
 PantryItem (Many) ──→ (1) Category
 ShoppingList (1) ──→ (Many) MealPlan
 ```
@@ -394,9 +380,8 @@ ShoppingList (1) ──→ (Many) MealPlan
 ##### Information Grouping Strategy
 
 **Sprint 1 - Foundation Architecture:**
-- User authentication and profile management
+- User authentication
 - Basic pantry CRUD operations with simple list/detail views
-- Help documentation and onboarding flows
 
 **Sprint 2 - Recipe Integration:**
 - Recipe discovery with external API integration
@@ -424,7 +409,7 @@ ShoppingList (1) ──→ (Many) MealPlan
 
 **1. New User Onboarding Flow**
 ```
-Landing Page → Registration → Welcome Tour → Add First Pantry Items → Dashboard
+Landing Page → Registration → Personalized Dashboard
 ```
 
 **2. Daily Pantry Management Flow**
@@ -434,7 +419,7 @@ Dashboard → Pantry View → [Add/Edit/Remove Items] → Updated Dashboard
 
 **3. Recipe Discovery and Saving Flow**
 ```
-Dashboard → Recipe Search → Filter by Available Ingredients → View Recipe Details → Save to Favorites
+Dashboard → Recipe Search → Search by Available Ingredients and Preferences → View Recipe Details → Save to Favorites
 ```
 
 **4. Weekly Meal Planning Flow**
@@ -444,79 +429,39 @@ Dashboard → Meal Calendar → Select Day/Meal → Browse Saved Recipes → Ass
 
 **5. Shopping List Generation Flow**
 ```
-Meal Calendar → Generate Shopping List → Review Missing Ingredients → Edit List → Shopping Mode
+Meal Calendar → Generate Shopping List → Review Missing Ingredients → Update List → Shopping Mode
 ```
 
 ##### Navigation Patterns
 
 **Primary Navigation (Always Visible):**
-- Dashboard (Home icon)
-- Pantry (Pantry icon)
-- Recipes (Recipe book icon)
-- Meal Planning (Calendar icon)
-- Shopping Lists (Shopping cart icon)
+- Dashboard (Home)
+- Pantry
+- Recipes
+- Meals
+- Shopping
 
 **Secondary Navigation (Contextual):**
-- Search functionality (Global header)
-- User account menu (Profile dropdown)
-- Help/Support (Question mark icon)
 - Mobile hamburger menu (Responsive)
 
-**Breadcrumb Navigation:**
-- Enabled for deep content paths
-- Format: Dashboard > Pantry > Add Item
-- Skip for single-level pages
-
-##### Interaction Patterns
-
-**Quick Actions (Dashboard):**
-- "Add Pantry Item" floating action button
-- "Find Recipes" based on available ingredients
-- "Plan Today's Meal" quick calendar access
-- "Generate Shopping List" if meals planned
-
-**Search and Filter Interactions:**
-- Real-time search with debounced input
-- Filter chips for categories, dietary restrictions
-- Sort options for alphabetical, date added, quantity
-- Clear all filters option
-
-**Form Interactions:**
-- Inline validation with immediate feedback
-- Auto-save for lengthy forms (meal planning)
-- Confirmation dialogs for destructive actions
-- Progress indicators for multi-step processes
-
-**Mobile-Specific Interactions:**
-- Swipe gestures for delete/edit actions
-- Pull-to-refresh for data updates
-- Touch-friendly button sizing (44px minimum)
-- Bottom navigation for primary actions
 
 ##### Progressive Disclosure Strategy
 
 **Dashboard Information Hierarchy:**
 ```
-Level 1: Critical alerts (low stock, expiring items)
-Level 2: Quick stats (pantry count, planned meals)
-Level 3: Recent activity and recommendations
-Level 4: Detailed insights and analytics
+Level 1: Quick stats (pantry count, planned meals)
 ```
 
 **Pantry Management Hierarchy:**
 ```
 Level 1: Item name, quantity, basic category
-Level 2: Last updated date, usage frequency
-Level 3: Detailed nutrition info, expiration dates
-Level 4: Purchase history, cost tracking
 ```
 
 **Recipe Information Hierarchy:**
 ```
-Level 1: Recipe title, image, cook time, difficulty
+Level 1: Recipe title, image, missing and matched ingredient count
 Level 2: Ingredient list with pantry match indicators
-Level 3: Detailed instructions and tips
-Level 4: Nutritional information and user reviews
+Level 3: Detailed instructions
 ```
 
 ##### Error Handling and Feedback
@@ -524,28 +469,11 @@ Level 4: Nutritional information and user reviews
 **Error Prevention:**
 - Form validation before submission
 - Confirmation dialogs for destructive actions
-- Auto-save drafts for complex forms
-- Offline capability with sync notifications
-
-**Error Recovery:**
-- Clear error messages with suggested actions
-- Undo functionality for accidental deletions
-- Form state preservation after errors
-- Alternative paths for failed operations
 
 **Success Feedback:**
 - Toast notifications for completed actions
-- Visual state changes (checkmarks, color updates)
-- Progress indicators for ongoing processes
-- Achievement badges for milestones
 
 ##### Accessibility Considerations
-
-**Keyboard Navigation:**
-- Tab order follows logical content flow
-- Skip links for main content areas
-- Keyboard shortcuts for frequent actions
-- Focus indicators clearly visible
 
 **Screen Reader Support:**
 - Semantic HTML structure with proper headings
@@ -555,35 +483,25 @@ Level 4: Nutritional information and user reviews
 
 **Visual Accessibility:**
 - High contrast color schemes
-- Scalable text up to 200% zoom
 - Clear visual hierarchy with sufficient spacing
-- Color-blind friendly design choices
 
 #### Technical Architecture Considerations
 
 ##### Django App Structure
 ```
 pantry_pilot/
-├── accounts/          # User authentication and profiles
+├── accounts/         # User authentication
 ├── pantry/           # Pantry inventory management
 ├── recipes/          # Recipe discovery and management
 ├── meals/            # Meal planning functionality
 ├── shopping/         # Shopping list generation
-├── core/             # Shared utilities and base templates
+├── dashboard/        # Shared utilities and base templates
 └── static/           # CSS, JavaScript, images
 ```
 
-##### Database Relationship Design
-- User-centric data isolation for privacy
-- Optimized queries for dashboard widgets
-- Efficient filtering for recipe searches
-- Scalable architecture for future features
-
 ##### API Integration Points
-- External recipe API for discovery
-- Potential barcode scanning integration
-- Future nutritional data services
-- Shopping list sharing capabilities
+- External Spoonacular API integration for recipe discovery
+- Potential Future nutritional data services via Spoonacular API
 
 </details>
 
@@ -593,20 +511,6 @@ pantry_pilot/
     <summary>Skeleton plane considerations (Expand for details)</summary>
 
 #### Interface Design and Wireframes
-
-##### Layout Principles
-
-**Grid System:**
-- 12-column responsive grid for desktop layouts
-- Mobile-first approach with breakpoints at 768px, 992px, and 1200px
-- Consistent spacing using 8px baseline grid
-- Maximum content width of 1200px with centered alignment
-
-**Navigation Architecture:**
-- Fixed top navigation bar with brand logo and primary navigation
-- Breadcrumb navigation for deep content paths
-- Mobile hamburger menu for responsive navigation
-- Persistent user account and logout options in header
 
 ##### Core Page Wireframes
 
@@ -788,9 +692,37 @@ The serif-dominant approach reinforces the warm, traditional cooking aesthetic w
 
 **Visual Strategy and Selection:**
 
-The imagery for PantryPilot was carefully curated from [Pexels.com](https://pexels.com/) to reinforce the website's core functionality and create an inviting, food-focused atmosphere. The visual strategy emphasizes fresh ingredients, organized kitchen spaces, and the joy of home cooking to align with the application's pantry management and meal planning features.
+The imagery for PantryPilot was carefully curated from [Pexels.com](https://pexels.com/) and [Freepik](https://www.freepik.com/free-photos-vectors/png) to reinforce the website's core functionality and create an inviting, food-focused atmosphere. The visual strategy emphasizes fresh ingredients, organized kitchen spaces, and the joy of home cooking to align with the application's pantry management and meal planning features.
 
 </details>
+
+
+## Agile Methodology
+
+**Sprint Breakdown:**
+
+**Sprint 1 (Foundation)**: Authentication + Basic Pantry + Help
+- Focus: Core user account management and basic pantry CRUD operations
+- Deliverable: Users can register, login, and manage basic pantry inventory
+
+**Sprint 2 (Recipe Discovery)**: Recipe Search + Recipe Management  
+- Focus: Recipe discovery using pantry ingredients and basic recipe saving
+- Deliverable: Users can find recipes based on available ingredients
+
+**Sprint 3 (Planning Foundation)**: Meal Planning
+- Focus: Meal calendar foundation and meal scheduling
+- Deliverable: Users can plan weekly meals using saved recipes
+
+**Sprint 4 (Shopping Integration)**: Shopping List Generation
+- Focus: Generate shopping lists from meal plans with pantry comparison
+- Deliverable: Complete meal planning to shopping workflow
+
+**Sprint 5 (Polish & Enhancement)**: Advanced Pantry + Full Responsive + UX Improvements
+- Focus: Advanced pantry features, mobile optimization and user experience enhancements
+- Deliverable: MVP application with critical feature set
+
+
+## Entity Relationship Diagram for Database
 
 
 ## Features
