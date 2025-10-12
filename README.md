@@ -1,5 +1,7 @@
 # PantryPilot - Smart Pantry Management System
 
+# ![PantryPilot Responsive Mockup](documentation/screenshots/pantry_pilot_amiresponsive.png)
+
 ## Table of Contents
 1. [Project Summary](#project-summary)
    - [Technology Stack](#technology-stack)

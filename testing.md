@@ -1,4 +1,5 @@
 # Pantry Pilot - Testing
+# ![PantryPilot Responsive Mockup](documentation/screenshots/pantry_pilot_amiresponsive.png)
 
 [Go back to Readme](README.md)
 
