@@ -725,13 +725,13 @@ Regular sprint reviews, backlog refinement, and user testing were conducted to v
 - Deliverable: MVP application with user-centered critical feature set
 
 Github Project was used to manage and track project progress.
-### User stories
+### GitHub issues for User stories
 Github issues were created to capture each User Story. Task breakdown and Acceptance Criteria for each user story were also captured in the issues.
 
 ### MoSCoW prioritization
 User stories were labelled as must-have, should-have, could-have and wont-have. Github labels were created for these prioritization and assigned to each user story.
 
-### Sprints
+### Github milestones for Sprints
 The sprints were defined using Github Milestones. The user stories for core MVP features were assigned to five Sprints and the future enhancement user stories were assigned to a single Post-MVP sprint.
 
 [Link to Project Sprints view](https://github.com/users/sthDINESH/projects/9/views/5)
