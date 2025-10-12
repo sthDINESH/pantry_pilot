@@ -974,7 +974,54 @@ The pantry page allows users to view, add, update, and organize their pantry inv
 
 ### Recipes Page
 
+The recipes page enables users to discover new recipes based on their pantry ingredients, search by cuisine or dietary preferences, and manage their personal collection of saved recipes. Users can view detailed recipe instructions, ingredient lists with pantry match indicators, and save or remove recipes for future use.
 
+<details>
+    <summary>(Expand for details)</summary>
+
+**Key Features:**
+- **Recipe Search**: Find recipes using available pantry ingredients, cuisine, or dietary filters.
+- **Ingredient Matching**: Instantly see which ingredients are already in your pantry and which are missing.
+- **Recipe Details**: View comprehensive recipe information including images, instructions, cook time, and servings.
+- **Save & Remove Recipes**: Easily save favorite recipes to your personal collection or remove them as needed.
+- **Tabbed Interface**: Switch between search results and your saved recipes for streamlined navigation.
+- **Responsive Layout**: Optimized for both desktop and mobile devices.
+- **API Integration**: Recipes are sourced from the Spoonacular API for variety and freshness.
+- **Visual Feedback**: Toast notifications for save/remove actions and error handling for API issues.
+
+<figure>
+  <img src="documentation/screenshots/recipes_page.gif" 
+       alt="Recipes page showing search results, ingredient matching, and saved recipes tab" 
+       width="800">
+</figure>
+
+</details>
+
+### Recipe Detail page
+
+The recipe detail page provides users with comprehensive information about a selected recipe, including an ingredient list with pantry match indicators, step-by-step cooking instructions, and recipe metadata such as cook time and servings. Users can save or remove recipes, and view which ingredients are already available in their pantry.
+
+<details>
+    <summary>(Expand for details)</summary>
+
+**Key Features:**
+- **Recipe Overview**: Displays recipe title, summary, and image.
+- **Ingredient List**: Shows all required ingredients, with visual indicators for those already in the user's pantry.
+- **Cooking Instructions**: Step-by-step instructions for preparing the recipe.
+- **Cook Time & Servings**: Clearly displays preparation time and number of servings.
+- **Save/Remove Recipe**: Allows users to save recipes to their collection or remove them if already saved.
+- **Source Attribution**: Provides a link to the original recipe source when available.
+- **Responsive Layout**: Optimized for both desktop and mobile viewing.
+- **Visual Feedback**: Toast notifications for save/remove actions and error handling.
+
+<figure>
+  <img src="documentation/screenshots/recipe_detail_page.gif" 
+       alt="Recipe detail page showing ingredients, pantry match, and instructions" 
+       width="800">
+  <figcaption><strong>Figure:</strong> Recipe detail page with ingredient matching and step-by-step instructions.</figcaption>
+</figure>
+
+</details>
 
 ### Sign Up Page
 
