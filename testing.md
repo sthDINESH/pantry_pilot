@@ -889,6 +889,19 @@ All the site features were manually tested on the deployed website.
 | Recipe details | Page should display image, summary, ingredients with tick marks for available in pantry, cook time, servings, and instructions | Click on view button to open a recipe detail | Works as expected. Some responses from API call have malformed or non existent image urls. This is not handled as part of MVP and is displayed as is. | Pass |
 | Save button in recipe detail | Save the recipe and display status message in toast. For successful save, add a "Saved| label above recipe image. Remove Save button and add a Delete button | Click the button on a recipe detail page | Works as expected | Pass |
 | Back button | Redirect to from where View was clicked | View the recipes from Discover and Saved tab in recipes page, View button in Meals page, widget link in Upcoming Meals in Dashboard widget | Redirection to correct page/tabs as expected | Pass |
+| MEAL PLANNING PAGE | | | | |
+| View button on Recipe cards in Selected Meals section| Open recipe detail page| Click the button on a recipe list card | Works as expected | Pass |
+| Clear button in section header for Selected Meals | Clear recipe selection, Change should be reflected in Saved Recipe cards in Recipes page | Click the button and check the meals page as well as saved tab pane in recipes page | Works as expected | Pass |
+| Previous and Next buttons in calendar titles | Should advance the view to next/previous week/month | Click and verify the calendar views | Works as expected | Pass |
+| week/month toggle buttons in calendar title | toggle the calendar views to week/month view | Click the buttons and verify calendar views | Works as expected | Pass |
+| "today" button in calendar title | Move the calendar views to today's date | Click the button when not calendars not showing this week | works as expected | Pass |
+| Date click on week/month view| Advance the day view calendar to that date with meal plans for that day listed | click on an empty space on a day in week/month view calendar / Works as expected | Pass |
+| Meal Plan item click in week/month or day calendar views | Open a modal to update or delete the meal plan item | Click on an existing meal plan item in all the calendar views | Work as expected - modal pops up with meal plan details and allows meal plan item delete or update options | Pass |
+| Empty Time slot click on day view calendar | Pop up a modal with time fields pre-populated to add new meal plan item. If meals are selected, allows choosing between selected meals. If not allows choice between all saved meals for a user.| Click/press and drag on an empty time slot in day view calendar | Works as expected - allows addition of meal plan item, displays toast message on completion and the views are updated immediately. | Pass |
+| Update button on modal when clicked on existing meal plan item | Validates and displays form errors if any. Updates the meal plan item, displays toast message and instantly updates calendar views without page reloads | Click on the button | Works as expected | Pass |
+| Delete button on Meal plan modal when clicked on existing meal plan item | Asks reconfirmation for deletion, upon second click deletes teh item, displays toast message and refreshes the calendar views without page reload | Click teh button and confirm deletion | Works as expected | Pass |
+| Shopping List button on Meal planner section | Generates shopping list for the week if not yet generated and redirects to shopping page to show the list. Displays existing shopping list if present | Click the button to generate new shopping list for a new week, click the button to view existing shopping list | Works as expected | Pass |
+
 
 
 
