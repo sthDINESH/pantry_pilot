@@ -449,7 +449,7 @@ The deployed site was tested with Google Chrome, Microsoft Firefox and Safari fo
       <td><strong>US009</strong></td>
       <td><strong>AS A</strong> mobile user <strong>I WANT TO</strong> access basic pantry features on my phone <strong>SO THAT I CAN</strong> manage my pantry while shopping</td>
       <td>Check using Google Development tools</td>
-      <td>Results in TODO </td>
+      <td>✅ [See Responsiveness](#responsiveness) </td>
       <td> Pass </td>
     </tr>
     <tr>
@@ -718,65 +718,104 @@ The deployed site was tested with Google Chrome, Microsoft Firefox and Safari fo
     <tr>
       <td><strong>US021</strong></td>
       <td><strong>AS A</strong> meal planner <strong>I WANT TO</strong> see which recipe ingredients I already have <strong>SO THAT I CAN</strong> only buy what I need</td>
-      <td>Test pantry vs recipe ingredient comparison</td>
-      <td>Available and missing ingredients separated in shopping list</td>
-      <td>✅ Pass</td>
+      <td>
+        <ul>
+          <li>Generate a shopping list from planned meals</li>
+          <li>Review the shopping list page</li>
+          <li>Check that ingredients already in the pantry are listed in an "in pantry" section</li>
+          <li>Check that missing ingredients are listed in a "need to buy" section</li>
+          <li>Verify that ingredient names match between pantry and recipes</li>
+          <li>Update pantry inventory and regenerate the list to confirm updates</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li>✅ Available and missing ingredients are clearly separated in the shopping list</li>
+          <li>✅ "In pantry" and "need to buy" sections are visually distinct</li>
+          <li>✅ Ingredient names match between pantry and recipes</li>
+          <li>✅ List updates correctly upon clicking "Refresh" when pantry inventory changes</li>
+          <li>✅ Visual indicators distinguish ingredient categories</li>
+        </ul>
+      </td>
+      <td> Pass </td>
     </tr>
     <tr>
       <td><strong>US022</strong></td>
       <td><strong>AS A</strong> shopper <strong>I WANT TO</strong> view and check off items from my generated shopping list <strong>SO THAT I CAN</strong> track my shopping progress</td>
-      <td>Test shopping list item check-off and state persistence</td>
-      <td>Check-off and progress tracking implemented</td>
-      <td>✅ Pass</td>
-    </tr>
-    <tr>
-      <td><strong>US023</strong></td>
-      <td><strong>AS A</strong> meal planner <strong>I WANT TO</strong> see quantity comparisons between recipe requirements and pantry stock <strong>SO THAT I CAN</strong> know exactly how much more I need to buy</td>
-      <td>Test quantity comparison and calculation in shopping list</td>
-      <td>Quantity comparison and shortage calculation implemented</td>
-      <td>✅ Pass</td>
-    </tr>
-    <tr>
-      <td><strong>US024</strong></td>
-      <td><strong>AS A</strong> shopper <strong>I WANT TO</strong> adjust quantities and add additional items to my shopping list <strong>SO THAT I CAN</strong> customize my shopping list for my specific needs</td>
-      <td>Test editing and adding custom items to shopping list</td>
-      <td>Custom item addition and quantity editing implemented</td>
-      <td>✅ Pass</td>
-    </tr>
-    <tr>
-      <td><strong>US025</strong></td>
-      <td><strong>AS A</strong> user with many ingredients <strong>I WANT TO</strong> search my pantry by name <strong>SO THAT I CAN</strong> quickly find specific items</td>
-      <td>Test advanced search in pantry</td>
-      <td>Advanced search implemented for pantry items</td>
-      <td>✅ Pass</td>
-    </tr>
-    <tr>
-      <td><strong>US026</strong></td>
-      <td><strong>AS A</strong> organized user <strong>I WANT TO</strong> view my pantry items organized by categories (spices, grains, proteins, etc.) <strong>SO THAT I CAN</strong> easily find ingredients by type</td>
-      <td>Test category-based filtering in pantry</td>
-      <td>Category filtering and organization implemented</td>
-      <td>✅ Pass</td>
+      <td>
+        <ul>
+          <li>Open the generated shopping list page</li>
+          <li>Check off items as you purchase them</li>
+          <li>Reload the page and verify checked items remain checked</li>
+          <li>Log out and log back in to verify checked state persists</li>
+          <li>Uncheck an item and verify the state updates</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li>✅ Checkboxes are present for each shopping list item</li>
+          <li>✅ Checked items are visually crossed out</li>
+          <li>✅ Checked state persists after page reload</li>
+          <li>✅ Checked state persists after logout/login</li>
+          <li>✅ Unchecking an item updates the visual state and server</li>
+        </ul>
+      </td>
+      <td> Pass </td>
     </tr>
     <tr>
       <td><strong>US027</strong></td>
       <td><strong>AS A</strong> mobile user <strong>I WANT TO</strong> access all PantryPilot features on my phone <strong>SO THAT I CAN</strong> manage pantry, recipes, and meal planning while mobile</td>
       <td>Test full responsive design across all features</td>
-      <td>Full responsive design implemented</td>
-      <td>✅ Pass</td>
+      <td>✅ Full responsive design [See Responsiveness](#responsiveness)</td>
+      <td> Pass </td>
     </tr>
     <tr>
       <td><strong>US028</strong></td>
       <td><strong>AS A</strong> cook <strong>I WANT TO</strong> remove recipes from my favorites list <strong>SO THAT I CAN</strong> keep my saved recipes relevant</td>
-      <td>Test recipe deletion from saved collection</td>
-      <td>Recipe removal functionality working</td>
-      <td>✅ Pass</td>
+      <td>
+        <ul>
+          <li>Navigate to the Saved Recipes tab in the Recipes page</li>
+          <li>Locate a recipe in the saved list</li>
+          <li>Click the Delete button on a saved recipe card</li>
+          <li>Confirm the deletion in the confirmation dialog</li>
+          <li>Verify the recipe is removed from the saved list</li>
+          <li>Reload the page and ensure the recipe remains deleted</li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li>✅ Delete button visible on each saved recipe</li>
+          <li>✅ Confirmation dialog appears before deletion</li>
+          <li>✅ Recipe removed from the saved list after confirmation</li>
+          <li>✅ Saved recipes list updates immediately after deletion</li>
+          <li>✅ Deleted recipes do not reappear after page reload</li>
+          <li>✅ Only the user's own saved recipes can be deleted</li>
+        </ul>
+      </td>
+      <td> Pass </td>
     </tr>
     <tr>
       <td><strong>US029</strong></td>
       <td><strong>AS A</strong> cook <strong>I WANT TO</strong> search recipes by name, cuisine, or dietary restrictions <strong>SO THAT I CAN</strong> find specific types of meals</td>
-      <td>Test advanced search filters in <code>RecipeSearchForm</code></td>
-      <td>Cuisine, diet, and meal type filtering implemented</td>
-      <td>✅ Pass</td>
+      <td>
+        <ul>
+      <li>Go to the Recipes page from the main navigation</li>
+      <li>Select cuisine, or choose dietary restrictions in the search form</li>
+      <li>Click the Search button</li>
+      <li>Verify that search results match the entered criteria</li>
+      <li>Check that the results update when changing filters</li>
+      <li>Test with no results and verify appropriate message is shown</li>
+    </ul>
+      </td>
+      <td>
+        <ul>
+          <li>✅ RecipeSearchForm includes fields for cuisine, meal_type and dietary restrictions</li>
+          <li>✅ Search returns recipes matching the selected filters</li>
+          <li>✅ Results update when filters are changed</li>
+          <li>✅ No results message displays when no recipes match</li>
+        </ul>
+      </td>
+      <td> Pass </td>
     </tr>
   </tbody>
 </table>
