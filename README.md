@@ -1258,5 +1258,34 @@ This website is deployed to Heroku from a GitHub repository, the following steps
 
 Please refer to [TESTING.md](testing.md) for comprehensive testing performed.
 
-
 ## Credits
+
+### Code
+Code for navigation bar and different cards were copied and further refined using [Bootstrap 5](https://getbootstrap.com/docs/5.3/getting-started/introduction/) example code.
+
+[Spoonacular API Docs](https://spoonacular.com/food-api/docs) was used to get the details for API integration with the project.
+
+[Full Calendar Documentation](https://fullcalendar.io/docs) was used to get the details required to integrated Full Calendar JS library and calendar components.
+
+[RapidFuzz documentation](https://rapidfuzz.github.io/RapidFuzz/index.html) was used to get the details required to implement a fuzzy search algorithm for fuzzy ingredient matching.
+
+### Content
+
+The text contents for the website was generated initially with the help of AI prompts and refined to suit the needs.
+
+### Imagery
+
+The imagery for the website was carefully curated from stock images from [Pexels.com](https://pexels.com/) and [Freepik](https://www.freepik.com/free-photos-vectors/png) to reinforce the website's core functionality and create an inviting, food-focused atmosphere.
+
+### Iconography
+
+All iconography in the website is picked from [FontAwesome](https://fontawesome.com/).
+
+### Typography
+
+The fonts in the website are imported from [Google Fonts](https://fonts.google.com/)
+
+
+
+
+
