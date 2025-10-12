@@ -1221,8 +1221,38 @@ The sign out page provides a secure confirmation step for users to safely termin
 
 - **[Figma](https://www.figma.com/)** - Used to design test page mockups, ensuring a consistent and user-friendly interface before implementation.
 
+
 ## Deployment
 
+This website is deployed to Heroku from a GitHub repository, the following steps were taken:
+
+### Creating Repository on GitHub
+- First, make sure you are signed into [GitHub](https://github.com/).
+- Click **New repository** from your GitHub dashboard.
+- Enter the name for your new repository and an optional description.
+- **Check the box to "Add a README file"** to initialize your repository with a README.
+- Click **Create repository** to finish.
+- Once the repository is created, you can clone it to your local machine using the **Code** button and selecting HTTPS, SSH, or GitHub CLI. Then, open the project in your preferred code editor to begin development.
+
+### Creating an app on Heroku
+- After creating the repository on GitHub, head over to [heroku](https://www.heroku.com/) and sign in.
+- On the home page, click **New** and **Create new app** from the drop down.
+- Give the app a name(this must be unique) and select a **region** I chose **Europe** as I am in Europe, Then click **Create app**.
+
+### Create a database 
+- Log into [CIdatabase maker](https://www.heroku.com/](https://dbs.ci-dbs.net/))
+- add your email address in input field and submit the form
+- open database link in your email
+- paste database URL in your DATABASE_URL variable in env.py file and in Heroku config vars
+
+### Deploying to Heroku.
+- Head back over to [heroku](https://www.heroku.com/) and click on your **app** and then go to the **Settings tab**
+- On the **settings page** scroll down to the **config vars** section and enter the **DATABASE_URL** which you will set equal to the DATABASE URL from previous step, create **Secret key** this can be anything,
+**CLOUDINARY_URL** this will be set to your cloudinary url.
+- Then scroll to the top and go to the **deploy tab** and go down to the **Deployment method** section and select **Github** and then sign into your account.
+- Below that in the **search for a repository to connect to** search box enter the name of your repository that you created on **GitHub** and click **connect**
+- Once it has been connected scroll down to the **Manual Deploy** and click **Deploy branch** when it has deployed you will see a **view app** button below and this will bring you to your newly deployed app.
+- Please note that when deploying manually you will have to deploy after each change you make to your repository.
 
 ## Testing
 
