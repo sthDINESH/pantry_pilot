@@ -1070,7 +1070,6 @@ The page clearly separates items that need to be purchased from those already in
   <img src="documentation/screenshots/shopping_page.gif" 
        alt="Shopping lists page showing generated list, check-off, and planned meals" 
        width="800">
-  <figcaption><strong>Figure:</strong> Shopping lists page with generated list, pantry comparison, and planned meals overview.</figcaption>
 </figure>
 
 </details>
@@ -1171,7 +1170,7 @@ The sign out page provides a secure confirmation step for users to safely termin
 - **PostgreSQL**
 
 ### Frameworks
-- **[Django](https://docs.djangoproject.com/en/4.2/)** - Version 4.2.24 - Used as the website's framework providing user authentication, database ORM, template rendering, and MVC architecture for all application features.
+- **[Django](https://docs.djangoproject.com/en/4.2/)** - Version 4.2.24 - Used as the website's framework providing user authentication, database ORM, template rendering, and MVT architecture for all application features.
 
 - **[Bootstrap](https://getbootstrap.com/docs/5.3/getting-started/introduction/)** - Version 5.3.8 - Used to implement responsive design system, navigation components, form styling, and mobile-first layout across all pages.
 
@@ -1216,6 +1215,11 @@ The sign out page provides a secure confirmation step for users to safely termin
 
 - **[Pip](https://pip.pypa.io/en/stable/)** - Used to install and manage all Python packages and dependencies for PantryPilot's Django project.
 
+- **[GIMP](https://www.gimp.org/)** - Used for image resizing, cropping, and conversion to webP format for optimized web performance.
+
+- **[Ezgif](https://ezgif.com/)** - Used for image compression and optimization to reduce file size for faster page loads.
+
+- **[Figma](https://www.figma.com/)** - Used to design test page mockups, ensuring a consistent and user-friendly interface before implementation.
 
 ## Deployment
 
