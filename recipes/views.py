@@ -211,6 +211,14 @@ def recipe_detail(request, api_recipe_id):
     """
     recipe_detail = fetch_recipe_detail(request, api_recipe_id)
 
+    if not recipe_detail['success']:
+        messages.add_message(
+            request,
+            messages.ERROR,
+            "Apologies, unexpected error fetching recipe details."
+        )
+        return redirect('recipes')
+
     # Compare ingredients with items in pantry
     matched_ingredients, _, missing_ingredients = (
         PantrySearch().find_match(
