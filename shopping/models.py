@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 import config.constants as constants
+from meals.models import MealPlanItem
 
 
 class ShoppingList(models.Model):
@@ -14,6 +15,12 @@ class ShoppingList(models.Model):
     )
     week_start_date = models.DateField()
     week_end_date = models.DateField()
+    meal_plan_items = models.ManyToManyField(
+        MealPlanItem,
+        related_name="shopping_lists",
+        blank=True,
+        help_text="Meal plan items included in this shopping list"
+    )
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
 

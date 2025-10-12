@@ -41,6 +41,7 @@ def shopping_list(request, shopping_list_id=None):
             )
 
             if created:
+                # Add shopping list items
                 generate_shopping_list_items(
                     request=request,
                     shopping_list_id=shopping_list.id,
@@ -88,11 +89,7 @@ def shopping_list(request, shopping_list_id=None):
     if shopping_list_id:
         shopping_list = shopping_lists.filter(id=shopping_list_id).first()
 
-        planned_meals = get_planned_meals(
-            request,
-            shopping_list.week_start_date,
-            shopping_list.week_end_date,
-        )
+        planned_meals = shopping_list.meal_plan_items.all()
 
         # Group planned meals by day of the week
         planned_meals_by_day = group_meals_by_day(planned_meals)
@@ -165,6 +162,10 @@ def generate_shopping_list_items(request, shopping_list_id):
         shopping_list.week_start_date,
         shopping_list.week_end_date,
     )
+
+    # Add meal plans to the list
+    # no issue if meal plan item already exists
+    shopping_list.meal_plan_items.add(*planned_meals)
 
     pantry_items = PantryItem.objects.filter(
         user=request.user,
@@ -371,8 +372,8 @@ def group_meals_by_day(planned_meals):
     """
     # Initialize dictionary with all days of the week
     days_of_week = [
-        'Monday', 'Tuesday', 'Wednesday', 'Thursday',
-        'Friday', 'Saturday', 'Sunday'
+        'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday',
+        'Friday', 'Saturday',
     ]
     meals_by_day = {}
 
