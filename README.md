@@ -55,6 +55,23 @@ PantryPilot is a comprehensive full-stack web application designed to help users
 - **Quick Actions**: Fast access to common tasks (add item, plan meal, create list)
 - **Dashboard**: Overview of pantry status, upcoming meal plans, and shopping needs
 
+### MVP Limitations
+
+- **Spoonacular Free Tier API**: The recipe discovery feature of the website is powered by Spoonacular free tier API plan. Each recipe search or query for recipe details incurs points and the free tier of the Spoonacular API enforces daily request limit of 50 points/day, 1 request/s. It restricts access to certain advanced endpoints (such as detailed nutrition data), and may occasionally return incomplete or delayed responses due to quota exhaustion. As a result, some recipe search or nutrition features may be temporarily unavailable or limited in scope for users when the quota is exceeded.
+
+- **Fairshare distribution of API points**: The MVP does not implement any kind of fair-share distribution of the API points to limit Denial of Service to users.
+The points are consumed from a common pool, hence service can be denied to all users when the quota is reached.
+This could be overcome by implementing fair-share allocation policies per user based on concurrent user support plans.
+
+- **No caching of API results**: The application does not implement caching of API responses. Concurrent usage and denial of service limitations could be mitigated by implementing caching strategy so that requests are served from cache first. The MVP does however implement saving responses in user sessions so that for a single user unsaved results can be fetched from sessions if available.
+
+- **Sanitization of API responses**: The responses for recipe search and recipe details using the API can include responses with malformed data - for example, malformed image links, links to non-existent images, inconsistent units for recipe ingredients or repeated ingredients for a single recipe. Alternate APIs, thorough testing, analysis and sanitization strategy for the responses from the API is something that could be explored post MVP.
+
+- **Fuzzy ingredient matching**: The MVP uses the RapidFuzz Python library to implement a fuzzy search strategy for ingredient matching between recipes and pantry items. While this approach helps account for typos, alternate spellings, and minor naming differences, it can also introduce ambiguity. Occasionally, ingredients with similar names but different meanings (e.g., "onion" vs. "spring onion") may be incorrectly matched, or true matches may be missed if the similarity score is not high enough. This can result in inaccurate pantry matches, leading to missing or extra items in shopping lists and recipe suggestions.
+A possible solution to the limitations of fuzzy matching is to use NLP-based ingredient matching. This approach leverages natural language processing techniques to better understand the meaning and context of ingredient names, rather than relying solely on string similarity.
+
+- **Account for ingredient quantities**: The MVP does not account for quantities of ingredients and pantry items while generating shopping lists for missed ingredients. This feature could be implemented post MVP.
+
 ### Future Enhancements
 
 #### 1. Personal Recipe Management
