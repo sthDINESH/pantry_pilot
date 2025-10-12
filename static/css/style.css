@@ -883,6 +883,7 @@ a {
 
 #meals-page .section-wrapper {
     width: 100%;
+    padding-bottom: 0;
 }
 
 #meal-planner h2 {
@@ -890,8 +891,12 @@ a {
 }
 
 .selected-meals-list {
-    max-height: 30vh;
+    max-height: 50vh;
     overflow-y: scroll;
+}
+
+.selected-meal-card > .card {
+    border-radius: 0;
 }
 
 .selected-meal-card img {
