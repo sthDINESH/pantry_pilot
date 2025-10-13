@@ -491,6 +491,7 @@ The deployed site was tested with Google Chrome, Microsoft Firefox and Safari fo
             <li>✅ API integration with Spoonacular working correctly</li>
             <li>✅ Search results display recipes matching selected criteria</li>
             <li>✅ Recipe card displays title and recipe image for correct url from API response</li>
+            <li>⚠️ Some API responses can be malformed - non-existent/malformed image urls</li>
             <li>✅ Recipe cards show number of matched and missing ingredients</li>
             <li>✅ Clicking on the info button on each recipe card displays dialog with matched and missing ingredient names</li>
             <li>✅ Message displayed for empty search results</li>
@@ -514,6 +515,7 @@ The deployed site was tested with Google Chrome, Microsoft Firefox and Safari fo
         <ul>
             <li>✅ Recipe detail page displays complete recipe information for API results</li>
             <li>✅ Recipe detail page displays complete recipe information for saved recipes</li>
+            <li>⚠️ Some API responses can be malformed - non-existent/malformed recipe detail urls, malformed/non-existent image urls, duplicate ingredients, etc.</li>
             <li>✅ Ingredients list shows quantities, units, and ingredient names</li>
             <li>✅ Step-by-step cooking instructions are clearly displayed</li>
             <li>✅ Cooking time and serving information is visible</li>
@@ -709,7 +711,7 @@ The deployed site was tested with Google Chrome, Microsoft Firefox and Safari fo
     <tr>
       <td><strong>US020</strong></td>
       <td><strong>AS A</strong> meal planner <strong>I WANT TO</strong> automatically generate shopping lists based on my planned meals <strong>SO THAT I CAN</strong> buy ingredients needed for my weekly menu</td>
-      <td>Test shopping list generation from meal plans</td>
+      <td>
         <ul>
           <li>Navigate to the meals page from navigation bar</li>
           <li>Add meals using meal planner calender interface</li>
@@ -720,6 +722,7 @@ The deployed site was tested with Google Chrome, Microsoft Firefox and Safari fo
           <li>Reload the page and log out/log in to ensure the list persists</li>
           <li>Ensure success message after list generation</li>
         </ul>
+      </td>
       <td>
         <ul>
           <li>✅ "Shopping List" button accessible in meal planner</li>
