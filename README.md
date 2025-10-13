@@ -407,7 +407,7 @@ This project leveraged advanced AI tools(ChatGPT/Claude AI) to significantly enh
 | Advanced Pantry (US025-US026) | 5 | Medium | High | Medium | ❌ Wont Have |
 | Enhanced UX (US027) | 5 | High | High | Medium | ✅ Must Have |
 | Enhanced UX (US028) | 5 | Medium | High | Medium | ✅ Could Have |
-| Enhanced UX (US029) | 5 -> Future | Medium | High | Medium | ✅ Should Have |
+| Enhanced UX (US029) | 5 | Medium | High | Medium | ✅ Should Have |
 | Personal Recipes (US030-US031) | Future | Low | Medium | High | ❌ Won't Have |
 | Nutritional Information (US032-US036) | Future | Low | Medium | High | ❌ Won't Have |
 | Advanced Planning (US037-US038) | Future | Low | Low | High | ❌ Won't Have |
@@ -623,111 +623,111 @@ pantry_pilot/
 
 **1. Dashboard (Home Page) - Sprint 1**
 
+Home page view for unauthenticated users introducing site features
+<em>Only for unauthenticated users.</em>
+
 <figure>
   <img src="documentation/wireframes/home_page_unauthenticated.png" 
        alt="Home page for unauthenticated users" 
        width="800">
-  <figcaption><strong>Figure 1:</strong> Home page view for unauthenticated users introducing site features
-  <em>Only for unauthenticated users.</em>
-  </figcaption>
 </figure>
+
+Home page view for authenticated users showing dashboard widgets
+<em>Only for authenticated users.</em>
 
 <figure>
   <img src="documentation/wireframes/home_page_authenticated.png" 
        alt="Home page for authenticated users" 
        width="800">
-  <figcaption><strong>Figure 1:</strong> Home page view for authenticated users showing dashboard widgets
-  <em>Only for authenticated users.</em>
-  </figcaption>
 </figure>
 
 **2. Sign Up Page - Sprint 1**
+
+Signup page for user registration
+  <em>Only for unauthenticated users.</em>
 
 <figure>
   <img src="documentation/wireframes/signup_page.png" 
        alt="Signup page for user registration" 
        width="800">
-  <figcaption><strong>Figure 1:</strong> Signup page for user registration
-  <em>Only for unauthenticated users.</em>
-  </figcaption>
 </figure>
 
 **2. Login Page - Sprint 1**
+
+Login page for user sign in
+<em>Only for unauthenticated users.</em>
 
 <figure>
   <img src="documentation/wireframes/login_page.png" 
        alt="Login page for user sign in" 
        width="800">
-  <figcaption><strong>Figure 1:</strong> Login page for user sign in
-  <em>Only for unauthenticated users.</em>
-  </figcaption>
 </figure>
 
 **2. Logout Page - Sprint 1**
+
+Logout page for user sign out
+<em>Only for authenticated users.</em>
 
 <figure>
   <img src="documentation/wireframes/log_out_page.png" 
        alt="Logout page for user sign out" 
        width="800">
-  <figcaption><strong>Figure 1:</strong> Logout page for user sign out
-  <em>Only for authenticated users.</em>
-  </figcaption>
 </figure>
 
 **2. Pantry List View - Sprint 1**
+
+Pantry page wireframe showing the inventory management interface with category organization and item cards and Add/Update Form.
+<em>Only available to authenticated users.</em>
 
 <figure>
   <img src="documentation/wireframes/pantry_page.png" 
        alt="Pantry page wireframe" 
        width="800">
-  <figcaption><strong>Figure 1:</strong> Pantry page wireframe showing the inventory management interface with category organization and item cards and Add/Update Form.
-  <em>Only available to authenticated users.</em>
-  </figcaption>
 </figure>
 
 **4. Recipe Search View - Sprint 2**
+
+Recipe page wireframe showing the recipe search tab and saved recipes tab.
+<em>Only available to authenticated users.</em>
 
 <figure>
   <img src="documentation/wireframes/recipes_page.png" 
        alt="Recipe search page wireframe" 
        width="800">
-  <figcaption><strong>Figure 1:</strong> Recipe page wireframe showing the recipe search tab and saved recipes tab.
-  <em>Only available to authenticated users.</em>
-  </figcaption>
 </figure>
 
 **5. Recipe Detail View - Sprint 2**
+
+Recipe details page wireframe showing the ingredients, cooking instructions and save option for a recipe.
+<em>Only available to authenticated users.</em>
 
 <figure>
   <img src="documentation/wireframes/recipe_detail_page.png" 
        alt="Recipe detail page wireframe" 
        width="800">
-  <figcaption><strong>Figure 1:</strong> Recipe details page wireframe showing the ingredients, cooking instructions and save option for a recipe.
-  <em>Only available to authenticated users.</em>
-  </figcaption>
 </figure>
 
 
 **6. Weekly Meal Calendar - Sprint 3**
 
+Meal planning page wireframe showing the selected recipes and meal planning calendar.
+<em>Only available to authenticated users.</em>
+
 <figure>
   <img src="documentation/wireframes/meal_plan_page.png" 
        alt="Meal planning page wireframe" 
        width="800">
-  <figcaption><strong>Figure 1:</strong> Meal planning page wireframe showing the selected recipes and meal planning calendar.
-  <em>Only available to authenticated users.</em>
-  </figcaption>
 </figure>
 
 **7. Shopping List View - Sprint 4**
+
+Shopping lists page wireframe showing the shopping list list view and detail view.
+<em>Only available to authenticated users.</em>
 
 <figure>
   <img src="documentation/wireframes/shopping_list_page.png" 
        alt="Shopping list page wireframe" 
        width="800">
-  <figcaption><strong>Figure 1:</strong> Shopping lists page wireframe showing the shopping list list view and detail view.
-  <em>Only available to authenticated users.</em>
-  </figcaption>
 </figure>
 
 </details>
