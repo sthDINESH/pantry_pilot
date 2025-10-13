@@ -749,7 +749,6 @@ The warm red accent paired with vibrant blue creates a natural, food-focused aes
        alt="PantryPilot color palette showing primary and supporting colors with hex codes" 
        width="100%" 
        style="max-width: 800px; height: auto; border: 1px solid #ddd; border-radius: 8px; margin: 20px 0;">
-  <figcaption><strong>Figure 3:</strong> Complete color palette for PantryPilot showing primary brand colors, supporting colors.</figcaption>
 </figure>
 
 **Color Usage:**
@@ -1383,6 +1382,9 @@ The text contents for the website was generated initially with the help of AI pr
 ### Imagery
 
 The imagery for the website was carefully curated from stock images from [Pexels.com](https://pexels.com/) and [Freepik](https://www.freepik.com/free-photos-vectors/png) to reinforce the website's core functionality and create an inviting, food-focused atmosphere.
+
+### Site Logo
+The logo for the site was generated using AI(ChatGPT).
 
 ### Iconography
 
