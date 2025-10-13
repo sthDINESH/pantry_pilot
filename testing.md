@@ -892,12 +892,12 @@ All the site features were manually tested on the deployed website.
 | PANTRY PAGE | | | |
 | Add item button (Plus/Chevron icon) | Should open form if form not displayed. Should collapse form if form in display | Click the button with the form collapsed/not collapsed | Form Collapse/ Un-collapse working as expected | Pass |
 | Add button in form | Click should display validation error for incorrect fields; add item to pantry for valid form with a Toast for successful addition | Test click with valid and invalid form entries. Check toast message | Form validation working as expected. Valid item added and displayed immediately in correct category. Toast message displayed for success | Pass |
-| Delete Category button alongside category header | Click should display delete confirmation modal | Click the button | confirmation modal displayed | Pass |
+| Delete Category button alongside category header | Click should display delete confirmation modal | Click the button | Confirmation modal displayed | Pass |
 | Category Collapse/ Un-collapse button alongside category header | Collapse/ Un-collapse category section | Click in category collapsed/un-collapsed state | Collapse/Un-collapse behavior as expected | Pass |
 | Update Button on pantry item card | Should scroll to pre-populated form with item values. Update button should appear in the form | Click on the button | Working expected | Pass |
 | Update button on Pantry item form | Display form validation errors in form if present else update the pantry item fields. Status message displayed in toast | Clicked with valid/invalid form entries | Validation errors displayed in form for invalid entries. Item updated for valid entries. Status message displayed | Pass |
 | Cancel button in Pantry item form | Cancel item update. Remove Cancel button, clear the form and change Update button to Add | Click the button | Working as expected | Pass |
-| Delete button on pantry item card | display delete confirmation modal | Click on a pantry item card | Working as expected | Pass |
+| Delete button on pantry item card | Display delete confirmation modal | Click on a pantry item card | Working as expected | Pass |
 | Delete button in Delete confirmation modal | Should delete category/pantry item. Toast message displayed for success | Click delete for pantry item delete. Click delete for Category delete | Deletes pantry item/ category with tost message displayed | Pass |
 | Close button in delete confirmation modal | Dismiss the modal | Click the button | Working as expected | Pass | 
 | RECIPES PAGE | | | | |
@@ -906,12 +906,12 @@ All the site features were manually tested on the deployed website.
 | Info button on recipe cards | Display a modal with list of available and missing ingredients for the recipe | Click the button on a recipe card | Works as expected | Pass |
 | View button on Recipe cards | Display detail view for the selected recipe | Click the button on a recipe card | Works as expected. Toast message displayed from API call failures | Pass |
 | Save button for Search Results | Save the recipe and display a toast message. Saved recipe should appear in saved tab | Click the button on a recipe card | Toast displayed for status. Saved Recipes appears in Saved tab | Pass |
-| Delete button on Saved Recipe card | Delete the recipe for the user. Remove the recipe from saved tab and display confirmation in toast | Click the button on a saved recipe card | Recipe removed from saved tab. Toast message displayed | Pass |
+| Delete button on Saved Recipe card | Delete the recipe for the user. Check for confirmation, remove the recipe from saved tab after confirmation and display status in toast | Click the button on a saved recipe card | Confirmation modal displayed, recipe removed after confirmation from saved tab. Toast message displayed | Pass |
 | "Select for Meal Plan" button in Saved Recipe card | Recipe should appear in Selected Meals section of Meals page. Button state should change to "Selected (Remove)". Should not reload the page from server. Selection should persist over a session | Click the button on a saved recipe card | Works as expected. Selection persists over a user session and is cleared when signed out | Pass |
 | "Selected (Remove)" button in Saved recipe card | Recipe should be removed from Selected Meals section of Meals page. Button state should change to "Select for Meal Plan". Page should not reload | Click on the button | Works as expected | Pass |
 | RECIPE DETAIL PAGE | | | | |
 | Recipe details | Page should display image, summary, ingredients with tick marks for available in pantry, cook time, servings, and instructions | Click on view button to open a recipe detail | Works as expected. Some responses from API call have malformed or non existent image urls. This is not handled as part of MVP and is displayed as is. | Pass |
-| Save button in recipe detail | Save the recipe and display status message in toast. For successful save, add a "Saved| label above recipe image. Remove Save button and add a Delete button | Click the button on a recipe detail page | Works as expected | Pass |
+| Save button in recipe detail | Save the recipe and display status message in toast. For successful save, add a "Saved" label above recipe image. Remove Save button and add a Delete button | Click the button on a recipe detail page | Works as expected | Pass |
 | Back button | Redirect to from where View was clicked | View the recipes from Discover and Saved tab in recipes page, View button in Meals page, widget link in Upcoming Meals in Dashboard widget | Redirection to correct page/tabs as expected | Pass |
 | MEAL PLANNING PAGE | | | | |
 | View button on Recipe cards in Selected Meals section| Open recipe detail page| Click the button on a recipe list card | Works as expected | Pass |
