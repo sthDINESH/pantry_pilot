@@ -111,6 +111,7 @@ Flake8 extension for vsCode from Mircosoft was used during the development to he
 | **shopping** | `shopping/views.py` | ✅ Pass | [no errors or warnings](documentation/testing/python_validation/shopping_views_py.png) |
 | **shopping** | `shopping/forms.py` | ✅ Pass | [no errors or warnings](documentation/testing/python_validation/shopping_forms_py.png) |
 | **shopping** | `shopping/urls.py` | ✅ Pass | [no errors or warnings](documentation/testing/python_validation/shopping_urls_py.png) |
+| **config** | `config/settings.py` | ✅ Pass | [no errors or warnings](documentation/testing/python_validation/config_settings_py.png) |
 
 
 </details>
