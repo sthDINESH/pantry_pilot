@@ -128,7 +128,7 @@ The tests were run on the deployed site.
 | Page | Results |
 |------|---------|
 | Home Page | <img src="documentation/testing/lighthouse/home_desktop.png" alt="Lighthouse Desktop Results - Home Page" width="600"> |
-| Pantry Page | <img src="documentation/testing/lighthouse/pantry_desktop.png" alt="Lighthouse Desktop Results - Pantry Page" width="600"> |
+| Pantry Page <sup>1</sup> | <img src="documentation/testing/lighthouse/pantry_desktop.png" alt="Lighthouse Desktop Results - Pantry Page" width="600"> |
 | Recipes List Page | <img src="documentation/testing/lighthouse/recipes_list_desktop.png" alt="Lighthouse Desktop Results - Recipes List Page" width="600"> |
 | Recipe Detail Page | <img src="documentation/testing/lighthouse/recipe_detail_desktop.png" alt="Lighthouse Desktop Results - Recipe Detail Page" width="600"> |
 | Meal Planning Page | <img src="documentation/testing/lighthouse/meals_desktop.png" alt="Lighthouse Desktop Results - Meal Planning Page" width="600"> |
@@ -138,6 +138,9 @@ The tests were run on the deployed site.
 | Sign Out Page | <img src="documentation/testing/lighthouse/signout_desktop.png" alt="Lighthouse Desktop Results - Sign Out" width="600"> |
 
 </details>
+
+Note:
+- <sup>1</sup> Analysis of best practices score documented in this [issue](https://github.com/sthDINESH/pantry_pilot/issues/27)
 
 #### Mobile Results
 
