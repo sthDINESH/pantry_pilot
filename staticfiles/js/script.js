@@ -791,8 +791,6 @@ document.addEventListener("DOMContentLoaded", function () {
         event.preventDefault();
         if (calendarWeek) {
           const view = calendarWeek.view;
-          console.log("Week start:", view.currentStart);
-          console.log("Week end:", view.currentEnd);
           // Use FullCalendar's week boundaries (respects firstDay: 1)
           const weekStart = view.currentStart;
           const weekEnd = new Date(view.currentEnd.getTime() - 1); // Subtract 1 day from currentEnd
@@ -809,9 +807,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
           const weekStartStr = formatDateLocal(weekStart);
           const weekEndStr = formatDateLocal(weekEnd);
-
-          console.log("Week start:", weekStartStr);
-          console.log("Week end:", weekEndStr);
 
           // Set the hidden form fields
           const weekStartField = form.querySelector("#id_week_start_date");
@@ -879,6 +874,16 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+  // Event listener for bootstrap modal when hidden
+  // Fixes the aria-hidden focus retained issue
+  document.querySelectorAll(".modal").forEach((modal)=>{
+    modal.addEventListener("hide.bs.modal", function (event){
+      const focusedElement = document.activeElement;
+      if (this.contains(focusedElement)) {
+        focusedElement.blur();
+      }
+    });
+  });
 
   // Recipes page - extract the tab parameter from URL
   // To support return to the same tab from where the details were viewed
