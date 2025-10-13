@@ -45,6 +45,8 @@ HTML was checked by running the validator with deployed page urls.
 | Meal Planning | ✅ Pass | [No errors or warnings](documentation/testing/html_validation/meals_page_source.png)<sup>2</sup>|
 | Shopping Lists | ✅ Pass | [No errors or warnings](documentation/testing/html_validation/shopping_page_uri.png)<sup>1</sup> |
 | Shopping Lists | ✅ Pass | [No errors or warnings](documentation/testing/html_validation/shopping_page_source.png)<sup>2</sup> |
+| 404 page | ✅ Pass | [No errors or warnings](documentation/testing/html_validation/custom_404_page.png)<sup>2</sup> |
+| 500 page | ✅ Pass | [No errors or warnings](documentation/testing/html_validation/custom_500_page.png)<sup>2</sup> |
 
 Note:
 - <sup>1</sup> Validation by deployed website URI.
