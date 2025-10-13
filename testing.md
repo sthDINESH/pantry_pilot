@@ -936,4 +936,5 @@ All the site features were manually tested on the deployed website.
 ## Bugs
 
 Github Projects was used to capture the bugs identified during development and testing.
-[Bug list](https://github.com/users/sthDINESH/projects/9/views/2?sliceBy%5Bvalue%5D=bug) for issues that were identified and resolved.
+
+See [Bug list](https://github.com/users/sthDINESH/projects/9/views/2?sliceBy%5Bvalue%5D=bug) for details of issues that were identified and how it was resolved.
