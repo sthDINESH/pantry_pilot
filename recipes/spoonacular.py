@@ -74,9 +74,6 @@ class SpoonacularApiService:
                 'fallback_suggestions': self._get_fallback_suggestions(
                     ingredients
                 ),
-                # 'quota_status': self.quota_manager.get_user_quota_status(
-                #     user_id
-                # )
             }
 
     def get_recipe_details(self, recipe_id: str, user_id: int) -> Dict:

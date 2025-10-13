@@ -594,9 +594,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const apiRecipeId =
           event.currentTarget.getAttribute("data-api-recipe-id");
         const recipeId = event.currentTarget.getAttribute("data-recipe-id");
-        // const recipe = searchResults.find(
-        //   (recipe) => recipe.api_recipe_id == recipeId
-        // );
         const recipe = recipesJson.get_recipe_data(recipeId, apiRecipeId);
         baseModalTitle.innerText = "Ingredients List";
 
