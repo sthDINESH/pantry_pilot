@@ -163,7 +163,7 @@ Note:
 
 ## Responsiveness
 
-Chrome Development tools was used to test the responsiveness of the website throughout development.
+Chrome Developer tool was used to test the responsiveness of the website throughout development.
 
 <details>
     <summary>Expand to view the results</summary>
@@ -470,7 +470,7 @@ The deployed site was tested with Google Chrome, Microsoft Firefox and Safari fo
       <td><strong>US009</strong></td>
       <td><strong>AS A</strong> mobile user <strong>I WANT TO</strong> access basic pantry features on my phone <strong>SO THAT I CAN</strong> manage my pantry while shopping</td>
       <td>Check using Google Development tools</td>
-      <td>✅ [See Responsiveness](#responsiveness) </td>
+      <td>✅ <a href="#responsiveness">See Responsiveness</a> </td>
       <td> Pass </td>
     </tr>
     <tr>
@@ -787,7 +787,7 @@ The deployed site was tested with Google Chrome, Microsoft Firefox and Safari fo
       <td><strong>US027</strong></td>
       <td><strong>AS A</strong> mobile user <strong>I WANT TO</strong> access all PantryPilot features on my phone <strong>SO THAT I CAN</strong> manage pantry, recipes, and meal planning while mobile</td>
       <td>Test full responsive design across all features</td>
-      <td>✅ Full responsive design [See Responsiveness](#responsiveness)</td>
+      <td>✅ Full responsive design <a href="#responsiveness">See Responsiveness</a></td>
       <td> Pass </td>
     </tr>
     <tr>
