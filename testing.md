@@ -46,7 +46,6 @@ HTML was checked by running the validator with deployed page urls.
 | Shopping Lists | ✅ Pass | [No errors or warnings](documentation/testing/html_validation/shopping_page_uri.png)<sup>1</sup> |
 | Shopping Lists | ✅ Pass | [No errors or warnings](documentation/testing/html_validation/shopping_page_source.png)<sup>2</sup> |
 | 404 page | ✅ Pass | [No errors or warnings](documentation/testing/html_validation/custom_404_page.png)<sup>2</sup> |
-| 500 page | ✅ Pass | [No errors or warnings](documentation/testing/html_validation/custom_500_page.png)<sup>2</sup> |
 
 Note:
 - <sup>1</sup> Validation by deployed website URI.
@@ -932,6 +931,9 @@ All the site features were manually tested on the deployed website.
 | View Button on Shopping list card | Displays the saved shopping list for that week along with Planned meals  | Click the button on a saved shopping list | Works as expected | Pass | 
 | Refresh button on shopping list for this week | Regenerate the shopping list based on pantry updates or meal plan updates | Change the meal plan for the week and click the button. Update pantry items and click the button. Verify generated shopping list reflects the updates | Works as expected. Meal plan updates and pantry item updates are reflected "in need to buy" and "in pantry" sections along with updates to "planned meals" section | Pass |
 | Check mark buttons on shopping list items | Checked items should be crossed off, server should be updated without page reload, checked state should persist, unchecking uncrosses the items | Check an item and ensure item is crossed off, uncheck to see crossing is removed, sign in/out to see state persists | Works as expected, state persist over sign in/sign out | Pass |
+| 404 PAGE | | | | |
+| Custom 404 page display | HTTP error 404 should display a custom 404 page, Back button should redirect to Home Page | Check with an invalid URL | Works as expected | Pass |
+
 
 </details>
 
