@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block main_content %}
+<section id="section-500" class="container text-center flex-column justify-content-center align-items-center">
+    <h1>Oops!</h1>
+    <h2 class="sub-heading">500 - Internal Server Error</h2>
+    <a href="{% url 'dashboard' %}" class="btn btn-primary">Go back</a>
+</section>
+
+{% endblock main_content %}
