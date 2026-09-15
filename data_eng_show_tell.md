@@ -6,12 +6,14 @@
 > *A simple question that becomes an interesting data problem.*
 
 <br>
+ 
+## 1. The problem
 
-**PantryPilot** is a smart pantry management application, but underneath the user-facing features is a small data engineering problem:
+**PantryPilot** is a smart pantry management application, but underneath the user-facing features is a small data engineering problem.
 
-**How do I take data from different sources, structure it, clean it, match it, and turn it into something useful?**
+<br>
 
-For example,
+Imagine I have got:
 <table>
   <tr>
     <td><strong>My Pantry</strong></td>
@@ -42,31 +44,46 @@ For example,
     <td>🥬 Spinach</td>
     <td>🧄 Garlic</td>
   </tr>
-
-  <tr>
-    <td colspan="2">
-      <strong>💡 The interesting question:</strong><br><br>
-      Can I make this recipe with what I already have, and what am I missing?
-    </td>
-  </tr>
-  <tr>
-    <td colspan="2">
-      <strong>That question drives the data flow behind PantryPilot.</strong>
-    </td>
-  </tr>
 </table>
 
+Now, before I start cooking, there's one thing I really want to know:
 
-### 🔄 The Data Flow
+> **Can I actually make this with what I've already got?**
 
-PantryPilot brings together two different sources of ingredient data. 
-- Pantry data stored as structured records in PostgreSQL.
-- Recipe information retrieved from the Spoonacular API and transformed into a format the application can work with.
+And if I can't:
 
-These two data sources are then compared through the ingredient-matching process.
-- The system normalises ingredient names, applies fuzzy matching, and identifies which ingredients are already available and which are missing.
+> **What do I need to buy?**
 
-The result is derived data — a **shopping list** containing the ingredients needed to make the selected recipe.
+**`That's the idea behind PantryPilot.`**
+
+But once I started building it, I realised there was a much more interesting problem underneath that simple question: 
+- my pantry data is in my database
+- the recipe information is coming from an external API
+- once a recipe is saved, I then need to compare those recipe ingredients against what's actually in my pantry
+- and generate shopping list for items I needed to buy.
+
+<br>
+
+This is a data-engineering problem:
+
+> **`How do I take data from different sources, structure it, clean it, match it, and turn it into something useful?`**
+
+<br>
+
+## 2. The Data Flow
+
+PantryPilot brings together recipe data from Spoonacular with pantry and saved recipe data stored in PostgreSQL.
+
+- 🌐 Recipe search → recipes are retrieved from Spoonacular
+- 💾 Save recipe → the selected recipe and its ingredients are stored in PostgreSQL
+- 🥫 Pantry data → user's ingredients are stored in PostgreSQL
+
+Pantry and saved recipe data are compared through the ingredient-matching process.
+- 🧹 Normalisation → saved recipe ingredients are cleaned before comparison
+- 🥊 Matching → RapidFuzz compares saved recipe ingredients with pantry items
+
+The result is:
+- 🛒 Derived data → a shopping list containing the ingredients needed to make the selected recipe.
 
 <figure>
   <img src="documentation/data_flow.png" 
@@ -75,47 +92,15 @@ The result is derived data — a **shopping list** containing the ingredients ne
        style="max-width: 900px; height: auto; border: 1px solid #ddd; border-radius: 8px; margin: 20px 0;">
 </figure>
 
-The interesting part isn't any individual technology in the flow.
-
-It's the **movement and transformation of data**.
+> **Note:** Spoonacular provides its own matched/missing ingredient information for recipe search results. PantryPilot's RapidFuzz matching is used later when comparing **saved recipe ingredients with pantry items**.
 
 <br>
 
----
+## 3. Giving the Ingredients a Home
 
-## 1. 🥕 The Problem
+The first step was figuring out how to represent all of this information.
 
-A pantry sounds simple, but from a data perspective there are several questions:
-
-- How should ingredients be stored?
-- How do I connect ingredients to a particular user?
-- How do I represent quantities and units?
-- How do I bring in recipe data from an external source?
-- How do I compare ingredients when different systems use different names?
-- How do I turn those comparisons into a useful shopping list?
-
-This gave me an opportunity to work with several concepts that overlap with data engineering:
-
-```text
-Ingest → Store → Clean → Transform → Match → Generate useful data
-```
-
-<br>
-<br>
-
----
-
-# 2. 🗃️ Giving the Ingredients a Home
-
-The first step was designing a relational data model.
-
-Instead of storing something like:
-
-```text
-"Tomatoes, rice, chickpeas, onions, spinach"
-```
-
-as one large piece of text, each pantry item becomes a structured record.
+`Users`, `pantry items`, `saved recipes`, `recipe ingredients` and `shopping lists`, are all modelled separately and connected through relationships.
 
 ### Entity Relationship Diagram(ERD)
 
@@ -158,37 +143,35 @@ This makes the data:
 
 <br>
 
----
 
-# 3. 🐍 From ERD to Python
+# 4. From ERD to Python
 
 The ERD became Django models backed by PostgreSQL.
+- [`pantry/models.py`](./pantry/models.py)
+- [`recipe/models.py`](./recipe/models.py)
 
 For example, a pantry item contains structured fields rather than just a name:
 
 ```python
 class PantryItem(models.Model):
+    """
+    Stores a single pantry item with quantity and units
+    related to :model:`auth.User` and :model:`Category`
+    """
     user = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE
+        User, on_delete=models.CASCADE, related_name="pantry_items"
     )
-
-    name = models.CharField(max_length=100)
-
-    quantity = models.DecimalField(
-        max_digits=8,
-        decimal_places=2
-    )
-
+    name = models.CharField("Item", max_length=200)
+    quantity = models.DecimalField(max_digits=10, decimal_places=2)
     units = models.CharField(
-        max_length=20,
-        choices=UNIT_CHOICES
+        max_length=20, choices=constants.UNIT_CHOICES, default='piece'
     )
-
     category = models.ForeignKey(
-        Category,
-        on_delete=models.CASCADE
+        Category, on_delete=models.CASCADE, related_name="pantry_items"
     )
+    image = CloudinaryField('image', default="placeholder", blank=True)
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
 ```
 
 The important idea here is:
@@ -205,53 +188,26 @@ Ingredient
 
 I'm not just storing information.
 
-I'm giving the information **structure and meaning**.
+I'm giving the information **`structure` and `meaning`**.
 
----
+<br>
 
-# 4. 🌐 Bringing in Data From Outside
+## 5. 🌐 Bringing in Data From Outside
 
-The next challenge was bringing recipe information into the application.
+The next piece is the recipe data.
 
-PantryPilot uses the **Spoonacular API** as an external recipe data source.
+> PantryPilot uses the **`Spoonacular API`** as an external recipe data source.
 
-The application sends a request:
+The application makes an API request, receives the recipe information, and then reshapes that response into something it can actually use.
 
-```text
-PantryPilot
-     │
-     │ HTTP request
-     ▼
-Spoonacular API
-     │
-     │ recipe data
-     ▼
-PantryPilot
-```
 
-The API response isn't necessarily in exactly the structure the application needs.
 
-So I added a service layer to:
+### Service layer:
+[`recipe/spoonacular.py`](./recipe/spoonacular.py)
 
-1. make the API request
-2. handle errors
-3. receive the external response
-4. transform it into the application's structure
+• `make the API request` • `handle errors` • `receive the external response` • `transform it into the application's structure`
 
-A simplified version of the request looks like:
-
-```python
-response = requests.get(
-    url,
-    params=params,
-    timeout=30
-)
-
-response.raise_for_status()
-data = response.json()
-```
-
-Then the API response is formatted into fields the application can work with, including:
+The API response is formatted into fields the application can work with, including:
 
 ```text
 Recipe
@@ -262,56 +218,30 @@ Recipe
 ├── Matched ingredient count
 └── Missing ingredient count
 ```
+<br>
 
-This is essentially a small **data ingestion and transformation pipeline**.
+> **Note**
+> - One useful thing Spoonacular gives is its own **matched and missing ingredient information** for recipe search results.
+> - So the application doesn't need to run its own matching algorithm just to display those search results.
+> - But once a user saves a recipe, its ingredients are stored in the database — and that's where it's own matching logic comes in.
 
-```text
-external API -> application -> structured data
-```
+<br>
 
----
-
-# 5. 🥊 The Interesting Problem: Are These the Same Ingredient?
+# 6. The Interesting Problem: Are These the Same Ingredient?
 
 This became the most interesting data problem in the project.
 
-The pantry might contain:
+> Once a recipe has been saved, I need to compare its ingredients against the ingredients in the user's pantry.
 
-```text
-Onions
-```
+For example:
 
-while the API might return:
+**My database:**  
+`Tomatoes`
 
-```text
-Spring onions
-```
+**Saved recipe:**  
+`Fresh tomatoes`
 
-Or:
-
-```text
-Fresh tomatoes
-```
-
-versus:
-
-```text
-Tomatoes
-```
-
-Or:
-
-```text
-Chickpea
-```
-
-versus:
-
-```text
-Chickpeas
-```
-
-A simple exact comparison would fail:
+If I compare those two strings directly, they're different.
 
 ```python
 "fresh tomatoes" == "tomatoes"
@@ -319,13 +249,12 @@ A simple exact comparison would fail:
 False
 ```
 
-But to a person, these may obviously be related.
+But if I showed them to a person, most people would immediately understand that they're referring to the same ingredient for this particular use case.
 
 So I needed a way to compare ingredient names.
 
----
 
-# 6. 🧹 Step One: Normalisation
+### 🧹 Step One: Normalisation
 
 Before comparing the ingredients, I clean the names.
 
@@ -349,7 +278,7 @@ This means I'm comparing cleaner data rather than whatever wording happened to c
 
 ---
 
-# 7. 🥊 Step Two: Fuzzy Matching
+### 🥊 Step Two: Fuzzy Matching
 
 Normalisation helps, but it doesn't solve everything.
 
@@ -401,9 +330,9 @@ This is a useful example of **entity resolution**:
 
 > Working out whether two differently written records refer to the same real-world thing.
 
----
+<br>
 
-# 8. ⚠️ The Catch: Similar Doesn't Always Mean the Same
+###. The Catch: when **`onion` meets `spring onion`**
 
 This is also where I discovered an important limitation.
 
@@ -440,175 +369,99 @@ It's useful, but it isn't perfect.
 
 And that's actually one of the things I would improve.
 
----
+<br>
 
-# 9. 🛒 Turning Data Into Something Useful
+## 7. Turning Data Into Something Useful
 
-Once the system knows which recipe ingredients are already in the pantry, the remaining ingredients can be turned into a shopping list.
+Once I've made those comparisons, I can actually do something useful with them.
 
-For example:
-
-```text
-🍲 Recipe
-├── Tomatoes       ✓ In pantry
-├── Chickpeas      ✓ In pantry
-├── Rice            ✓ In pantry
-├── Garlic          ✗ Missing
-└── Basil           ✗ Missing
-```
-
-Becomes:
+Let's say the saved recipe has five ingredients and I've managed to match three of them to things in the pantry.
 
 ```text
-🛒 Shopping List
-
-☐ Garlic
-☐ Basil
+🍅 Tomatoes       ✓
+🫘 Chickpeas      ✓
+🍚 Rice           ✓
+🧄 Garlic         ✗
+🌿 Basil          ✗
 ```
 
-This is an example of **derived data**.
+That leaves me with two ingredients that I probably need to buy.
 
-I'm not storing a completely new source of information.
+[`shopping/views.py`](./shopping/views.py)
 
-I'm calculating something useful from existing data:
+The shopping list is therefore **derived data** — information created from the pantry, saved recipe and matching results.
 
-```text
-Pantry data
-     +
-Recipe data
-     ↓
-Ingredient matching
-     ↓
-Missing ingredients
-     ↓
-Shopping list
-```
+I'm taking the data I've already got, processing it, and producing something useful from it.
 
----
+This is the point where the data stops being interesting just because it's structured, and actually becomes useful to the person using the application.
 
-# 10. 🚀 What I'd Do Next
+<br>
 
-The current matching approach works, but there is an obvious next step.
+## 8. 🚀 What I'd Do Next
 
-I've been learning about **semantic search**, and I think this would be a good fit for improving ingredient matching.
+## 🚀 7. What I'd Do Next
 
-Instead of only asking:
+There are a couple of things I'd improve if I continued developing this.
 
-> "How similar are these words?"
+The biggest one would probably be the ingredient matching.
 
-we could ask:
+At the moment, I'm largely working with the words themselves. But I've been learning about semantic search, and I think that could be a really interesting next step here.
 
-> "How similar are these ingredients in meaning?"
-
-A future approach could look like:
+Instead of only asking how similar two pieces of text are, I could represent ingredients based on their meaning and use that to find likely matches.
 
 ```text
 Ingredient
      │
      ▼
-Embedding
+ Embedding
      │
      ▼
-Semantic Search
+Semantic search
      │
      ▼
-Candidate Ingredients
+Possible matches
      │
      ▼
-Domain Rules
+Domain rules
      │
      ▼
-Match / No Match
+Final decision
 ```
 
-For example:
+I wouldn't rely on semantic search by itself, though.
+
+The onion and spring onion example is a good reason why. Two things can be very closely related semantically without being interchangeable.
+
+So I'd probably combine semantic search with a canonical ingredient database and some rules specific to the food domain.
+
+
+## 🎯 8. Why This Is Relevant to Data Engineering
+
+And that's really why I think this project is useful for demonstrating my data engineering skills.
+
+The application itself is a food application, but the problems underneath it are much more general.
+
+I'm bringing data in from an external source, deciding how to model it, cleaning it up, comparing records from different sources, dealing with imperfect data, and then producing something useful from the result.
+
+If this grew into a much larger application, I'd probably separate the external data ingestion from the main application as well — so I'd have something more like raw data coming in, then validation and cleaning, then structured data that the application and analytics could use.
 
 ```text
-"fresh tomatoes"
-        │
-        ▼
- semantic representation
-        │
-        ▼
- "tomatoes"
+External Sources
+       │
+       ▼
+   Raw Data
+       │
+       ▼
+Validation & Cleaning
+       │
+       ▼
+Structured Data
+       │
+   ┌───┴───┐
+   ▼       ▼
+Application Analytics
 ```
 
-This could help with variations in wording that simple string matching struggles with.
-
-However, semantic similarity alone wouldn't be enough.
-
-I'd combine it with a **canonical ingredient database and domain rules**, because:
-
-```text
-"onion"
-"spring onion"
-```
-
-can be semantically related without necessarily being interchangeable.
-
-I'd also want to evaluate the new approach using labelled examples and measure things like:
-
-- false positives
-- false negatives
-- precision
-- recall
-
----
-
-# 11. 🏗️ Scaling the Data Architecture
-
-If PantryPilot grew beyond a small application, I would separate the external data ingestion from the application itself.
-
-Instead of:
-
-```text
-Application → API → Database
-```
-
-I'd move towards something like:
-
-```text
-             Spoonacular API
-                    │
-                    ▼
-              Ingestion Job
-                    │
-                    ▼
-             Raw / Staging Data
-                    │
-                    ▼
-          Validation & Cleaning
-                    │
-                    ▼
-            Structured Data
-                    │
-             ┌──────┴──────┐
-             ▼             ▼
-        Application     Analytics
-```
-
-This would make the system easier to scale and would provide a cleaner separation between:
-
-**getting data** and **using data**.
-
----
-
-# 12. 🎯 Why This Is Relevant to Data Engineering
-
-Although PantryPilot is a food application, the underlying problems are familiar data engineering problems.
-
-| PantryPilot | Data Engineering Concept |
-|---|---|
-| Spoonacular API | Data ingestion |
-| PostgreSQL | Data storage |
-| Django models / ERD | Data modelling |
-| Normalisation | Data cleaning |
-| RapidFuzz | Entity resolution |
-| Ingredient matching | Data quality |
-| Shopping list generation | Derived data |
-| Future semantic search | Advanced data retrieval |
-| Raw/staging architecture | Scalable data pipeline |
-
-The biggest lesson for me was:
-
-> **Getting data into a database is only the beginning. The interesting part is making data from different sources reliable, comparable and useful.**
+> **The main thing I took away from building PantryPilot is that putting data into a database is only the starting point.**
+>
+> **The more interesting challenge is making data from different sources reliable, comparable and useful.**
