@@ -68,18 +68,22 @@ These two data sources are then compared through the ingredient-matching process
 
 The result is derived data — a **shopping list** containing the ingredients needed to make the selected recipe.
 
-![Data flow](./documentation/data_flow.png)
+figure>
+  <img src="documentation/data_flow.png" 
+       alt="Data flow diagram" 
+       width="100%" 
+       style="max-width: 900px; height: auto; border: 1px solid #ddd; border-radius: 8px; margin: 20px 0;">
+</figure>
 
 The interesting part isn't any individual technology in the flow.
 
 It's the **movement and transformation of data**.
 
+<br>
+
 ---
 
-<br>
-<br>
-
-# 1. 🥕 The Problem
+## 1. 🥕 The Problem
 
 A pantry sounds simple, but from a data perspective there are several questions:
 
@@ -96,6 +100,9 @@ This gave me an opportunity to work with several concepts that overlap with data
 Ingest → Store → Clean → Transform → Match → Generate useful data
 ```
 
+<br>
+<br>
+
 ---
 
 # 2. 🗃️ Giving the Ingredients a Home
@@ -110,32 +117,14 @@ Instead of storing something like:
 
 as one large piece of text, each pantry item becomes a structured record.
 
-### Simplified ERD
+### Entity Relationship Diagram(ERD)
 
-```text
-                         ┌──────────────┐
-                         │     User     │
-                         └──────┬───────┘
-                                │
-                 ┌──────────────┼──────────────┐
-                 │              │              │
-                 ▼              ▼              ▼
-          ┌─────────────┐ ┌─────────────┐ ┌─────────────┐
-          │ PantryItem  │ │ SavedRecipe │ │ ShoppingList│
-          └─────────────┘ └──────┬──────┘ └──────┬──────┘
-                                 │               │
-                                 ▼               ▼
-                         ┌───────────────┐ ┌─────────────────┐
-                         │RecipeIngredient│ │ShoppingListItem │
-                         └───────────────┘ └─────────────────┘
-
-                         User
-                           │
-                           ▼
-                    ┌─────────────┐
-                    │ MealPlanItem│
-                    └─────────────┘
-```
+<figure>
+  <img src="documentation/erd_pantry_pilot.png" 
+       alt="ERD showing database relationships" 
+       width="100%" 
+       style="max-width: 900px; height: auto; border: 1px solid #ddd; border-radius: 8px; margin: 20px 0;">
+</figure>
 
 This structure means the data has relationships rather than being one large collection of text.
 
@@ -166,6 +155,8 @@ This makes the data:
 - connected through relationships
 - easier to validate
 - easier to extend later
+
+<br>
 
 ---
 
