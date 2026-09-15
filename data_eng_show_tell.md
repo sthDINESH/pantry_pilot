@@ -1,5 +1,7 @@
 # Data Engineering Show & Tell
-<br>
+
+# ![PantryPilot Responsive Mockup](documentation/screenshots/pantry_pilot_amiresponsive.png)
+
 
 > ## 🍽️ Can I make dinner with what I've already got?
 >
@@ -7,11 +9,7 @@
 
 <br>
  
-## 1. The problem
-
-**PantryPilot** is a smart pantry management application, but underneath the user-facing features is a small data engineering problem.
-
-<br>
+## 🤔 The problem
 
 Imagine I have got:
 <table>
@@ -56,25 +54,58 @@ And if I can't:
 
 **`That's the idea behind PantryPilot.`**
 
-But once I started building it, I realised there was a much more interesting problem underneath that simple question: 
-- my pantry data is in my database
-- the recipe information is coming from an external API
-- once a recipe is saved, I then need to compare those recipe ingredients against what's actually in my pantry
-- and generate shopping list for items I needed to buy.
-
 <br>
 
-This is a data-engineering problem:
+But underneath this simple question is a data-engineering problem:
 
 > **`How do I take data from different sources, structure it, clean it, match it, and turn it into something useful?`**
 
+The answer to the simple question involves:
+
+- Modelling my pantry data in a structured database
+- Fetching and transforming recipe data from an external API
+- Storing the recipe and ingredient data I need
+- Matching saved recipe ingredients against my pantry
+- Generating a shopping list from the ingredients I don't have
+
 <br>
 
-## 2. The Data Flow
+## ⚡ So what did I build?
 
-PantryPilot brings together recipe data from Spoonacular with pantry and saved recipe data stored in PostgreSQL.
+**`PantryPilot`**
 
-- 🌐 Recipe search → recipes are retrieved from Spoonacular
+• full-stack pantry management application
+
+Features: 
+
+• `pantry management` • `discover recipes` • `plan meals` • `generate shopping lists`
+
+### 🛠️ Tech Stack
+
+| Technology | Why I used it |
+|---|---|
+| **Python / Django** | Build the backend and structure the application around reusable models and views |
+| **PostgreSQL** | Store structured relational data such as users, pantry items, recipes and ingredients |
+| **Spoonacular API** | Provide recipe data without having to build and maintain my own recipe database |
+| **RapidFuzz** | Compare differently named ingredients when matching saved recipes against pantry items |
+| **HTML / CSS / JavaScript** | Build the user-facing application |
+| **Heroku** | Deploy the finished application |
+
+### 🔑 Core Goals
+
+- Model pantry and recipe data in a structured relational database
+- Integrate and transform data from an external API
+- Match ingredients that may be represented differently
+- Turn the processed data into useful shopping-list information
+- Build a complete application that could be extended further
+
+<br>
+
+## The Data Flow
+
+PantryPilot brings together recipe data from Spoonacular API with pantry and saved recipe data stored in PostgreSQL.
+
+- 🌐 Recipe search → recipes are retrieved from external Spoonacular API
 - 💾 Save recipe → the selected recipe and its ingredients are stored in PostgreSQL
 - 🥫 Pantry data → user's ingredients are stored in PostgreSQL
 
@@ -96,9 +127,9 @@ The result is:
 
 <br>
 
-## 3. Giving the Ingredients a Home
+## 🗃️ Giving the Ingredients a Home
 
-The first step was figuring out how to represent all of this information.
+The first step was figuring out how to represent all of the different pieces of information.
 
 `Users`, `pantry items`, `saved recipes`, `recipe ingredients` and `shopping lists`, are all modelled separately and connected through relationships.
 
@@ -111,7 +142,7 @@ The first step was figuring out how to represent all of this information.
        style="max-width: 900px; height: auto; border: 1px solid #ddd; border-radius: 8px; margin: 20px 0;">
 </figure>
 
-This structure means the data has relationships rather than being one large collection of text.
+This relational structure means the data has relationships rather than being one large collection of text.
 
 For example:
 
@@ -144,7 +175,7 @@ This makes the data:
 <br>
 
 
-# 4. From ERD to Python
+## 🐍 From ERD to Python
 
 The ERD became Django models backed by PostgreSQL.
 - [`pantry/models.py`](./pantry/models.py)
@@ -186,13 +217,11 @@ Ingredient
    └── user
 ```
 
-I'm not just storing information.
-
-I'm giving the information **`structure` and `meaning`**.
+It's not just storing information - the information has **`structure` and `meaning`**.
 
 <br>
 
-## 5. 🌐 Bringing in Data From Outside
+## 🌐 Bringing in Data From Outside
 
 The next piece is the recipe data.
 
@@ -227,21 +256,55 @@ Recipe
 
 <br>
 
-# 6. The Interesting Problem: Are These the Same Ingredient?
+## 🧩 Are These Actually the Same Ingredient?
 
-This became the most interesting data problem in the project.
+This is probably the most interesting data problem in the project.
 
-> Once a recipe has been saved, I need to compare its ingredients against the ingredients in the user's pantry.
+By this point, there are two sets of structured data in the database:
+- 🥫 Ingredients in the user's pantry
+- 🍽️ Ingredients from a saved recipe
 
-For example:
+Now a deceptively simple question needs to be answered:
 
-**My database:**  
-`Tomatoes`
+> **Are these actually the same ingredient?**
 
-**Saved recipe:**  
-`Fresh tomatoes`
+Here's where things get interesting.
 
-If I compare those two strings directly, they're different.
+```text
+🌐 Spoonacular
+      │
+      ▼
+  Recipe Search
+      │
+      ▼
+ User saves recipe
+      │
+      ▼
+🗃️ PostgreSQL
+      │
+      │
+      ├───────────────┐
+      │               │
+      ▼               ▼
+Saved Recipe       🥫 Pantry
+Ingredients           │
+      │               │
+      └───────┬───────┘
+              ▼
+       🥊 Ingredient Matching
+              │
+              ▼
+        🛒 Shopping List
+```
+For example, my pantry might contain:
+
+**`Tomatoes`**
+
+while the saved recipe contains:
+
+**`Fresh tomatoes`**
+
+When compared directly these two strings are different.
 
 ```python
 "fresh tomatoes" == "tomatoes"
@@ -249,21 +312,38 @@ If I compare those two strings directly, they're different.
 False
 ```
 
-But if I showed them to a person, most people would immediately understand that they're referring to the same ingredient for this particular use case.
+But to a person, they're referring to the same ingredient for this particular use case.
 
-So I needed a way to compare ingredient names.
+So a better way to compare ingredient names is key requirement.
+
+<br>
+
+### 🧹 Step One: Normalising the data
+
+Before comparing the ingredients, the names are normalised for consistency by handling things like:
+
+- capitalisation
+- whitespace
+- unnecessary descriptive words
 
 
-### 🧹 Step One: Normalisation
+[`pantry/pantry_search.py`](./pantry/pantry_search.py)
 
-Before comparing the ingredients, I clean the names.
+```python
+# Normalize the arguments for better matching
+        normalized_pantry = {
+            self._normalize(item.name): item
+            for item in pantry_items
+        }
+```
 
-The project has a `_normalize()` function which:
-
-- converts text to lowercase
-- removes unnecessary whitespace
-- removes configured ignore terms
-- makes the strings more consistent
+```python
+for recipe_ingredient in recipe_ingredients:
+            if isinstance(recipe_ingredient, dict):
+                normalized_ingredient = self._normalize(
+                    recipe_ingredient['name']
+                )
+```
 
 Conceptually:
 
@@ -274,39 +354,55 @@ Conceptually:
 "fresh tomatoes"
 ```
 
-This means I'm comparing cleaner data rather than whatever wording happened to come from the API.
+This means comparing cleaner data rather than whatever wording happened to come from the API.
 
----
+<br>
 
 ### 🥊 Step Two: Fuzzy Matching
 
+
 Normalisation helps, but it doesn't solve everything.
 
-So PantryPilot uses **RapidFuzz** to calculate how similar two ingredient names are.
+PantryPilot uses **RapidFuzz** to calculate how similar two ingredient names are.
+
+Instead of requiring an exact text match, I get a **similarity score** and use thresholds to decide whether something looks like a good match.
 
 Conceptually:
 
 ```text
-Recipe ingredient
-       │
-       ▼
-   Normalise
-       │
-       ▼
-  RapidFuzz
-       │
-       ▼
-Similarity score
-       │
-       ▼
- ┌─────┴─────┐
- │           │
-Match     No Match
+Saved recipe ingredient
+          │
+          ▼
+      Normalise
+          │
+          ▼
+   Compare with pantry
+          │
+          ▼
+    Similarity score
+       ↙       ↘
+    Match     No match
 ```
 
-The implementation uses:
+[`pantry/pantry_search.py`](./pantry/pantry_search.py)
 
 ```python
+class PantrySearchConfig:
+    """
+    Configuration settings for the searches.
+    - This centralizes all the configuration settings in one place
+    """
+    
+    # Threshold value for matching(must be >= the value)
+    MATCH_THRESHOLD = 75        # to filter matched ingredients
+    SIMILAR_THRESHOLD = 70      # to filter similar ingredients
+
+    # Number of best matches to return
+    MATCH_LIMIT = 2
+```
+
+```python
+# Use process.extract to get best matches
 process.extract(
     query=normalized_ingredient,
     choices=pantry_names,
@@ -315,8 +411,6 @@ process.extract(
     score_cutoff=PantrySearchConfig.SIMILAR_THRESHOLD
 )
 ```
-
-Then a threshold is used to decide whether the result is considered a match.
 
 For example:
 
@@ -332,50 +426,33 @@ This is a useful example of **entity resolution**:
 
 <br>
 
-###. The Catch: when **`onion` meets `spring onion`**
+### ⚠️ But There's a Catch...
 
-This is also where I discovered an important limitation.
 
 Consider:
 
-```text
-"onion"
-"spring onion"
-```
+- **`onion`**  
+- **`spring onion`**
 
-A fuzzy matching algorithm can tell me that the words are similar.
+These are clearly similar words, so a fuzzy matching algorithm might give them a pretty good score.
 
-But similarity doesn't necessarily mean:
+> But should the application really tell the user they already have what they need?
 
-> "These ingredients are interchangeable."
+**Not necessarily.**
 
-That's an important **data quality problem**.
+And that's the interesting part.
 
-The current system therefore uses a relatively simple approach:
+This isn't just a question of finding similar strings. It's about really trying to work out whether **two records represent the same thing for my particular domain**.
 
-```text
-Text
- ↓
-Normalisation
- ↓
-Fuzzy similarity
- ↓
-Threshold
- ↓
-Match / No Match
-```
-
-It's useful, but it isn't perfect.
-
-And that's actually one of the things I would improve.
+That's where the **data-quality and entity-resolution** side of the problem comes in.
 
 <br>
 
-## 7. Turning Data Into Something Useful
+## 🛒 Turning Data Into Something Useful
 
-Once I've made those comparisons, I can actually do something useful with them.
+Once those comparisons have been made, something useful can actually be done with them.
 
-Let's say the saved recipe has five ingredients and I've managed to match three of them to things in the pantry.
+Let's say the saved recipe has five ingredients and we've managed to match three of them to things in the pantry.
 
 ```text
 🍅 Tomatoes       ✓
@@ -385,21 +462,19 @@ Let's say the saved recipe has five ingredients and I've managed to match three 
 🌿 Basil          ✗
 ```
 
-That leaves me with two ingredients that I probably need to buy.
+That leaves us with two ingredients that we probably need to buy.
 
 [`shopping/views.py`](./shopping/views.py)
 
-The shopping list is therefore **derived data** — information created from the pantry, saved recipe and matching results.
+The shopping list is therefore **`derived data`** — information created from the pantry, saved recipe and matching results.
 
-I'm taking the data I've already got, processing it, and producing something useful from it.
-
-This is the point where the data stops being interesting just because it's structured, and actually becomes useful to the person using the application.
+> `I'm taking the data I've already got, processing it, and producing something useful from it.
+This is the point where the data stops being interesting just because it's structured, and actually becomes useful to the person using the application.`
 
 <br>
 
-## 8. 🚀 What I'd Do Next
 
-## 🚀 7. What I'd Do Next
+## 🚀 What I'd Do Next
 
 There are a couple of things I'd improve if I continued developing this.
 
