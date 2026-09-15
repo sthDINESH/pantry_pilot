@@ -120,7 +120,7 @@ as one large piece of text, each pantry item becomes a structured record.
 ### Entity Relationship Diagram(ERD)
 
 <figure>
-  <img src="documentation/erd_pantry_pilot.png" 
+  <img src="documentation/erd_pantry_pilot_color.png" 
        alt="ERD showing database relationships" 
        width="100%" 
        style="max-width: 900px; height: auto; border: 1px solid #ddd; border-radius: 8px; margin: 20px 0;">
