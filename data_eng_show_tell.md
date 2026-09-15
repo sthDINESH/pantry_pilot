@@ -326,19 +326,18 @@ def _normalize(self, name):
 ```
 
 ```python
-# Normalize the arguments for better matching
-        normalized_pantry = {
-            self._normalize(item.name): item
-            for item in pantry_items
-        }
+normalized_pantry = {
+    self._normalize(item.name): item
+    for item in pantry_items
+}
 ```
 
 ```python
 for recipe_ingredient in recipe_ingredients:
-            if isinstance(recipe_ingredient, dict):
-                normalized_ingredient = self._normalize(
-                    recipe_ingredient['name']
-                )
+    if isinstance(recipe_ingredient, dict):
+        normalized_ingredient = self._normalize(
+            recipe_ingredient['name']
+        )
 ```
 
 Conceptually:
