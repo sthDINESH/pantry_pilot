@@ -13,7 +13,7 @@ For example,
 <table>
   <tr>
     <td><strong>My Pantry</strong></td>
-    <td><strong>Recipe Ingredients</strong></td>
+    <td><strong>Online Recipe Ingredients</strong></td>
   </tr>
 
   <tr>
