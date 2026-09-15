@@ -357,9 +357,9 @@ This means comparing cleaner data rather than whatever wording happened to come 
 
 Normalisation helps, but it doesn't solve everything.
 
-PantryPilot uses **RapidFuzz** to calculate how similar two ingredient names are.
+`PantryPilot` uses **`RapidFuzz`** library to calculate how similar two ingredient names are.
 
-Instead of requiring an exact text match, I get a **similarity score** from **RapidFuzz** and use thresholds to decide whether something looks like a good match.
+- Instead of requiring an exact text match, I get a **similarity score** from **RapidFuzz** and use thresholds to decide whether something looks like a good match.
 
 Conceptually:
 
@@ -378,7 +378,7 @@ Saved recipe ingredient
     Match     No match
 ```
 
-[`pantry/pantry_search.py`](./pantry/pantry_search.py)
+#### [`pantry/pantry_search.py`](./pantry/pantry_search.py)
 
 ```python
 class PantrySearchConfig:
@@ -397,13 +397,35 @@ class PantrySearchConfig:
 
 ```python
 # Use process.extract to get best matches
-process.extract(
+matches = process.extract(
     query=normalized_ingredient,
     choices=pantry_names,
     scorer=fuzz.token_set_ratio,
     limit=PantrySearchConfig.MATCH_LIMIT,
-    score_cutoff=PantrySearchConfig.SIMILAR_THRESHOLD
+    score_cutoff=PantrySearchConfig.SIMILAR_THRESHOLD,
 )
+```
+
+```python
+for match in matches:
+    matched_name, score, _ = match
+    pantry_item = normalized_pantry[matched_name]
+    if score >= PantrySearchConfig.MATCH_THRESHOLD:
+        matched_ingredients.append(
+            (
+                recipe_ingredient,
+                pantry_item,
+                score
+            )
+        )
+        continue
+    else:
+        # Record this as missing
+        missing_ingredients.append(recipe_ingredient)
+        # But also note this as similar items
+        similar_ingredients.append(
+            (recipe_ingredient, pantry_item, score)
+        )
 ```
 
 For example:
