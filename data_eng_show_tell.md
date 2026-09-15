@@ -93,32 +93,6 @@ Features:
 
 <br>
 
-## The Data Flow
-
-PantryPilot brings together recipe data from Spoonacular API with pantry and saved recipe data stored in PostgreSQL.
-
-- 🌐 Recipe search → recipes are retrieved from external Spoonacular API
-- 💾 Save recipe → the selected recipe and its ingredients are stored in PostgreSQL
-- 🥫 Pantry data → user's ingredients are stored in PostgreSQL
-
-Pantry and saved recipe data are compared through the ingredient-matching process.
-- 🧹 Normalisation → saved recipe ingredients are cleaned before comparison
-- 🥊 Matching → RapidFuzz compares saved recipe ingredients with pantry items
-
-The result is:
-- 🛒 Derived data → a shopping list containing the ingredients needed to make the selected recipe.
-
-<figure>
-  <img src="documentation/data_flow.png" 
-       alt="Data flow diagram" 
-       width="100%" 
-       style="max-width: 900px; height: auto; border: 1px solid #ddd; border-radius: 8px; margin: 20px 0;">
-</figure>
-
-> **Note:** Spoonacular provides its own matched/missing ingredient information for recipe search results. PantryPilot's RapidFuzz matching is used later when comparing **saved recipe ingredients with pantry items**.
-
-<br>
-
 ## 🗃️ Giving the Ingredients a Home
 
 The first step was figuring out how to represent all of the different pieces of information.
@@ -223,7 +197,7 @@ The application makes an API request, receives the recipe information, and then 
 
 
 
-### [`recipe/spoonacular.py`](./recipe/spoonacular.py)
+#### [`recipe/spoonacular.py`](./recipe/spoonacular.py)
 
 • `make the API request` • `handle errors` • `receive the external response` • `transform it into the application's structure`
 
@@ -282,8 +256,15 @@ Recipe
 This is probably the most interesting data problem in the project.
 
 By this point, there are two sets of structured data in the database:
-- 🥫 Ingredients in the user's pantry
-- 🍽️ Ingredients from a saved recipe
+- Ingredients in the user's pantry
+- Ingredients from a saved recipe
+
+<figure>
+  <img src="documentation/data_flow.svg" 
+       alt="Data flow diagram" 
+       width="100%" 
+       style="max-width: 900px; height: auto; border: 1px solid #ddd; border-radius: 8px; margin: 20px 0;">
+</figure>
 
 Now a deceptively simple question needs to be answered:
 
@@ -291,64 +272,58 @@ Now a deceptively simple question needs to be answered:
 
 Here's where things get interesting.
 
-```text
-🌐 Spoonacular
-      │
-      ▼
-  Recipe Search
-      │
-      ▼
- User saves recipe
-      │
-      ▼
-🗃️ PostgreSQL
-      │
-      │
-      ├───────────────┐
-      │               │
-      ▼               ▼
-Saved Recipe       🥫 Pantry
-Ingredients           │
-      │               │
-      └───────┬───────┘
-              ▼
-       🥊 Ingredient Matching
-              │
-              ▼
-        🛒 Shopping List
-```
 For example, my pantry might contain:
 
-**`Tomatoes`**
+| My Pantry contains | Saved Recipe has | 🔍 Exact String Match? | 🧠 Human Interpretation |
+|---|---|---|---|
+| `Tomatoes` | `Fresh tomatoes` | ❌ No | ✅ Same ingredient for this use case |
 
-while the saved recipe contains:
-
-**`Fresh tomatoes`**
-
-When compared directly these two strings are different.
-
-```python
-"fresh tomatoes" == "tomatoes"
-
-False
-```
-
-But to a person, they're referring to the same ingredient for this particular use case.
-
-So a better way to compare ingredient names is key requirement.
+> **That's the key problem to solve:** the data doesn't always have to be *identical* to represent the same thing.
 
 <br>
 
-### 🧹 Step One: Normalising the data
+### 🧹 Step One: Making the Names Consistent
 
 Before comparing the ingredients, the names are normalised for consistency by handling things like:
 
 - capitalisation
-- whitespace
+- whitespaces
 - unnecessary descriptive words
 
 
-[`pantry/pantry_search.py`](./pantry/pantry_search.py)
+#### [`pantry/pantry_search.py`](./pantry/pantry_search.py)
+
+```python
+class PantrySearchConfig:
+    # List of regex strings to match against items and ignore for normalization
+    IGNORE_TERMS = [
+        r'\b(fresh|dried|chopped|sliced|diced|minced|grated|ground)\b',
+        r'\b(organic|free-range|extra virgin|virgin)\b',
+        r'\b(large|medium|small|whole|half)\b',
+        r'\b(cups?|tbsp|tsp|oz|lbs?|grams?|kg)\b',
+        r'\b(red|green|yellow|orange|purple|brown)\b',
+        r'\b(bell|fuji|bramley|braeburn)\b',
+        r'\b(pink|blue|dark|light|golden|pale)\b',
+        r'\d+(\.\d+)?',  # Remove numbers
+        r'[^\w\s]',  # Remove punctuation
+    ]
+```
+
+```python
+def _normalize(self, name):
+        if not name:
+            return ""
+
+        # Convert to lowercase and remove extra whitespace
+        normalized = re.sub(r'\s+', ' ', name.lower().strip())
+
+        # Remove common cooking terms and quantities
+        for pattern in PantrySearchConfig.IGNORE_TERMS:
+            normalized = re.sub(pattern, '', normalized)
+
+        return re.sub(r'\s+', ' ', normalized).strip()
+
+```
 
 ```python
 # Normalize the arguments for better matching
@@ -379,14 +354,13 @@ This means comparing cleaner data rather than whatever wording happened to come 
 
 <br>
 
-### 🥊 Step Two: Fuzzy Matching
-
+### 🥊 Step Two: Finding the Match
 
 Normalisation helps, but it doesn't solve everything.
 
 PantryPilot uses **RapidFuzz** to calculate how similar two ingredient names are.
 
-Instead of requiring an exact text match, I get a **similarity score** and use thresholds to decide whether something looks like a good match.
+Instead of requiring an exact text match, I get a **similarity score** from **RapidFuzz** and use thresholds to decide whether something looks like a good match.
 
 Conceptually:
 
