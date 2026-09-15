@@ -460,11 +460,12 @@ This is where simple string similarity starts to fall short.
 
 <br>
 
-## 🛒 Turning Data Into Something Useful
+## 🛒 The Finished Product: Turning Matches Into Something Useful
 
-Once those comparisons have been made, something useful can actually be done with them.
+So now I know which ingredients I have — and which ones I'm missing, the missing ingredients can now become my shopping list.
 
-Let's say the saved recipe has five ingredients and we've managed to match three of them to things in the pantry.
+
+For example:
 
 ```text
 🍅 Tomatoes       ✓
@@ -474,17 +475,46 @@ Let's say the saved recipe has five ingredients and we've managed to match three
 🌿 Basil          ✗
 ```
 
-That leaves us with two ingredients that we probably need to buy.
 
-[`shopping/views.py`](./shopping/views.py)
+#### [`shopping/views.py`](./shopping/views.py)
 
-The shopping list is therefore **`derived data`** — information created from the pantry, saved recipe and matching results.
+```python
+def generate_shopping_list_items(request, shopping_list_id):
+    
+    ...
+    
+    for meal in planned_meals:
+        meal_ingredients = meal.recipe.ingredients.all()
+        matched, _, missing = PantrySearch().find_match(
+            recipe_ingredients=meal_ingredients,
+            pantry_items=pantry_items,
+        )
+        for ingredient in missing:
+            if ingredient.ingredient_name in [
+                ing.ingredient_name for ing in ingredients_to_shop.keys()
+            ]:
+                continue
+            else:
+                ingredients_to_shop[ingredient] = {
+                    'quantity': meal_ingredients.filter(
+                        ingredient_name=ingredient
+                    ).first().quantity,
+                    'units': meal_ingredients.filter(
+                        ingredient_name=ingredient
+                    ).first().units,
+                    'recipe': [meal.recipe],
+                }
+```
 
-> `I'm taking the data I've already got, processing it, and producing something useful from it.
-This is the point where the data stops being interesting just because it's structured, and actually becomes useful to the person using the application.`
+The key part is the `missing` ingredients from the matching process.
+
+I take those results and turn them into **derived data** — a shopping list built from the pantry, recipe and matching results.
+
+> **`Data in → Processing → Useful output`**
+
+That's where the structured data becomes something the user can actually act on.
 
 <br>
-
 
 ## 🚀 What I'd Do Next
 
