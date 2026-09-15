@@ -58,46 +58,18 @@ For example,
 
 ## 🔄 The Data Flow
 
-```text
-                  ┌──────────────────┐
-                  │   User Pantry    │
-                  │                  │
-                  │ Tomatoes         │
-                  │ Chickpeas        │
-                  │ Rice             │
-                  │ Onions           │
-                  │ Spinach          │
-                  └────────┬─────────┘
-                           │
-                           ▼
-                  ┌──────────────────┐
-                  │   PostgreSQL     │
-                  │                  │
-                  │ Structured       │
-                  │ pantry records   │
-                  └────────┬─────────┘
-                           │
-                           │
-                           ▼
-┌──────────────────┐   ┌──────────────────┐
-│ Spoonacular API  │──▶│ Ingredient       │
-│                  │   │ Matching         │
-│ External recipe  │   │                  │
-│ data             │   │ Normalise        │
-└──────────────────┘   │ Compare          │
-                       │ Match / No Match │
-                       └────────┬─────────┘
-                                │
-                     ┌──────────┴──────────┐
-                     ▼                     ▼
-              🥕 Ingredients        🛒 Missing
-                 I have              Ingredients
-                                       │
-                                       ▼
-                                Shopping List
-```
+PantryPilot brings together two different sources of ingredient data. 
+- Pantry data stored as structured records in PostgreSQL
+- Recipe information retrieved from the Spoonacular API and transformed into a format the application can work with.
 
-The interesting part isn't any individual technology.
+These two data sources are then compared through the ingredient-matching process.
+- The system normalises ingredient names, applies fuzzy matching, and identifies which ingredients are already available and which are missing.
+
+The result is derived data — a **shopping list** containing the ingredients needed to make the selected recipe.
+
+![Data flow](./documentation/data_flow.png)
+
+The interesting part isn't any individual technology in the flow.
 
 It's the **movement and transformation of data**.
 
