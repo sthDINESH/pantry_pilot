@@ -1,9 +1,11 @@
 # Data Engineering Show & Tell
+<br>
 
 > ## 🍽️ Can I make dinner with what I've already got?
 >
 > *A simple question that becomes an interesting data problem.*
 
+<br>
 
 **PantryPilot** is a smart pantry management application, but underneath the user-facing features is a small data engineering problem:
 
@@ -54,12 +56,11 @@ For example,
   </tr>
 </table>
 
----
 
-## 🔄 The Data Flow
+### 🔄 The Data Flow
 
 PantryPilot brings together two different sources of ingredient data. 
-- Pantry data stored as structured records in PostgreSQL
+- Pantry data stored as structured records in PostgreSQL.
 - Recipe information retrieved from the Spoonacular API and transformed into a format the application can work with.
 
 These two data sources are then compared through the ingredient-matching process.
@@ -74,6 +75,9 @@ The interesting part isn't any individual technology in the flow.
 It's the **movement and transformation of data**.
 
 ---
+
+<br>
+<br>
 
 # 1. 🥕 The Problem
 
