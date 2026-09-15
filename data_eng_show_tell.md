@@ -60,14 +60,6 @@ But underneath this simple question is a data-engineering problem:
 
 > **`How do I take data from different sources, structure it, clean it, match it, and turn it into something useful?`**
 
-The answer to the simple question involves:
-
-- Modelling my pantry data in a structured database
-- Fetching and transforming recipe data from an external API
-- Storing the recipe and ingredient data I need
-- Matching saved recipe ingredients against my pantry
-- Generating a shopping list from the ingredients I don't have
-
 <br>
 
 ## ⚡ So what did I build?
@@ -78,7 +70,7 @@ The answer to the simple question involves:
 
 Features: 
 
-• `pantry management` • `discover recipes` • `plan meals` • `generate shopping lists`
+• `pantry management` • `discover recipes` • `weekly meal plans` • `shopping lists`
 
 ### 🛠️ Tech Stack
 
@@ -231,10 +223,39 @@ The application makes an API request, receives the recipe information, and then 
 
 
 
-### Service layer:
-[`recipe/spoonacular.py`](./recipe/spoonacular.py)
+### [`recipe/spoonacular.py`](./recipe/spoonacular.py)
 
 • `make the API request` • `handle errors` • `receive the external response` • `transform it into the application's structure`
+
+```python
+try:
+    url = f"{APIConfig.SPOONACULAR_BASE_URL}/complexSearch"
+    params = {
+        'apiKey': APIConfig.SPOONACULAR_API_KEY,
+        'includeIngredients': ','.join(ingredients),
+        'cuisine': cuisine,
+        'diet': diet,
+        'type': meal_type,
+        'sort': 'max-used-ingredients',
+        'fillIngredients': True,
+        'number': 10,  # Number of recipes to return
+        'ignorePantry': True  # Don't assume basic pantry items
+    }
+
+    params['cuisine'] = cuisine if cuisine else None
+    params['diet'] = diet if diet else None
+    params['type'] = meal_type if meal_type else None
+
+    # Make the API call
+    if not APIConfig.MOCK_API_CALL:
+        response = requests.get(url, params=params, timeout=30)
+    else:
+        recipes_data = api_response.example_recipes_search_response
+    return {
+        'success': True,
+        'recipes': self._format_recipe_results(recipes_data)
+        }
+```
 
 The API response is formatted into fields the application can work with, including:
 
