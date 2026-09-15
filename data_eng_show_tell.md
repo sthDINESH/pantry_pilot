@@ -68,7 +68,7 @@ These two data sources are then compared through the ingredient-matching process
 
 The result is derived data — a **shopping list** containing the ingredients needed to make the selected recipe.
 
-figure>
+<figure>
   <img src="documentation/data_flow.png" 
        alt="Data flow diagram" 
        width="100%" 
