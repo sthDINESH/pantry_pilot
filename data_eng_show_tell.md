@@ -444,23 +444,19 @@ This is a useful example of **entity resolution**:
 
 ### ⚠️ But There's a Catch...
 
-
 Consider:
 
-- **`onion`**  
-- **`spring onion`**
+| Pantry | Saved Recipe | Fuzzy Match | 🤔 Same Ingredient? |
+|---|---|---|---|
+| `onion` | `spring onion` | High similarity | ❓ Not necessarily |
 
 These are clearly similar words, so a fuzzy matching algorithm might give them a pretty good score.
 
-> But should the application really tell the user they already have what they need?
+> **But should the application really tell the user they already have what they need?**
 
 **Not necessarily.**
 
-And that's the interesting part.
-
-This isn't just a question of finding similar strings. It's about really trying to work out whether **two records represent the same thing for my particular domain**.
-
-That's where the **data-quality and entity-resolution** side of the problem comes in.
+This is where simple string similarity starts to fall short.
 
 <br>
 
