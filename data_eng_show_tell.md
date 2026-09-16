@@ -489,20 +489,16 @@ This is where simple string similarity starts to fall short.
 
 <br>
 
-## 🛒 The Finished Product: Turning Matches Into Something Useful
+## 🛒 Turning Matches Into Something Useful
 
 So now I know which ingredients I have — and which ones I'm missing, the missing ingredients can now become my shopping list.
 
-
-For example:
-
-```text
-🍅 Tomatoes       ✓
-🫘 Chickpeas      ✓
-🍚 Rice           ✓
-🧄 Garlic         ✗
-🌿 Basil          ✗
-```
+<figure>
+  <img src="./documentation/shopping_list.png" 
+       alt="Generated shopping list" 
+       width="100%" 
+       style="max-width: 900px; height: auto; border: 1px solid #ddd; border-radius: 8px; margin: 20px 0;">
+</figure>
 
 
 #### [`shopping/views.py`](./shopping/views.py)
@@ -560,7 +556,7 @@ The biggest one I'd investigate is **semantic search**.
 
 Instead of assuming it's better than fuzzy matching, I'd test both approaches against a set of real ingredient examples:
 
-```text id="j947mk"
+```text
 Ingredient
     ↓
 Fuzzy Matching ──────┐
