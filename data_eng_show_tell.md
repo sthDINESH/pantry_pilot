@@ -545,12 +545,9 @@ That's where the structured data becomes something the user can actually act on.
 
 If I continued developing PantryPilot, there are a few things I'd improve:
 
-| 🚀 Main Improvements | 💡 Why? |
-|---|---|
-| 🧠 **Investigate semantic search** | It could help with cases where fuzzy matching struggles, but I'd need to test whether it actually improves the results. |
-| 📦 **Better quantity handling** | The app currently checks whether I have an ingredient, but not whether I have enough. |
-| ⚡ **Caching recipe data** | Reduce API calls and make the app less dependent on the external service. |
-| 📊 **Add some analytics** | Use the data to understand things like popular recipes and frequently missing ingredients. |
+| 🧩 **Investigate semantic search** | ⚖️ **Better quantity handling** | 🧠 **Caching recipe data** | 📊 **Add some analytics** |
+|---|---|---|---|
+| It could help with cases where fuzzy matching struggles, but I'd need to test whether it actually improves the results. | The app currently checks whether I have an ingredient, but not whether I have enough. | Reduce API calls and make the app less dependent on the external service. | Use the data to understand things like popular recipes and frequently missing ingredients. |
 
 The biggest one I'd investigate is **semantic search**.
 
