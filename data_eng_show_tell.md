@@ -518,38 +518,40 @@ That's where the structured data becomes something the user can actually act on.
 
 ## 🚀 What I'd Do Next
 
-There are a couple of things I'd improve if I continued developing this.
+If I continued developing PantryPilot, there are a few things I'd improve:
 
-The biggest one would probably be the ingredient matching.
+| 🚀 Main Improvements | 💡 Why? |
+|---|---|
+| 🧠 **Investigate semantic search** | It could help with cases where fuzzy matching struggles, but I'd need to test whether it actually improves the results. |
+| 📦 **Better quantity handling** | The app currently checks whether I have an ingredient, but not whether I have enough. |
+| ⚡ **Caching recipe data** | Reduce API calls and make the app less dependent on the external service. |
+| 📊 **Add some analytics** | Use the data to understand things like popular recipes and frequently missing ingredients. |
 
-At the moment, I'm largely working with the words themselves. But I've been learning about semantic search, and I think that could be a really interesting next step here.
+The biggest one I'd investigate is **semantic search**.
 
-Instead of only asking how similar two pieces of text are, I could represent ingredients based on their meaning and use that to find likely matches.
+Instead of assuming it's better than fuzzy matching, I'd test both approaches against a set of real ingredient examples:
 
-```text
+```text id="j947mk"
 Ingredient
-     │
-     ▼
- Embedding
-     │
-     ▼
-Semantic search
-     │
-     ▼
-Possible matches
-     │
-     ▼
-Domain rules
-     │
-     ▼
-Final decision
+    ↓
+Fuzzy Matching ──────┐
+                     ├──► Compare Results
+Semantic Search ─────┘
+                     ↓
+              Which works better?
 ```
 
-I wouldn't rely on semantic search by itself, though.
+For example, I'd want to test cases like:
 
-The onion and spring onion example is a good reason why. Two things can be very closely related semantically without being interchangeable.
+```text
+"tomatoes"       ↔ "fresh tomatoes"
+"chickpeas"      ↔ "garbanzo beans"
+"onion"          ↔ "spring onion"
+```
 
-So I'd probably combine semantic search with a canonical ingredient database and some rules specific to the food domain.
+The goal wouldn't simply be to use a newer technique.
+
+> **I'd test it against the actual problem and use whichever approach gives the most reliable results.**
 
 
 ## 🎯 8. Why This Is Relevant to Data Engineering
