@@ -575,32 +575,13 @@ The goal wouldn't simply be to use a newer technique.
 
 <br>
 
-## 🎯 8. Why This Is Relevant to Data Engineering
+## 💼 Why This Matters to Employers
 
-And that's really why I think this project is useful for demonstrating my data engineering skills.
+| **What I worked on** | 🌐 External API integration | 🧹 Data cleaning & transformation | 🧩 Ingredient matching | 🗃️ Relational data modelling | 📊 Derived data & shopping lists |
+|---|---|---|---|---|---|
+| **What this demonstrates** | Working with data from external sources | Making inconsistent data reliable and usable | Entity resolution and handling imperfect data | Structuring and connecting data effectively | Turning processed data into useful outputs |
 
-The application itself is a food application, but the problems underneath it are much more general.
-
-I'm bringing data in from an external source, deciding how to model it, cleaning it up, comparing records from different sources, dealing with imperfect data, and then producing something useful from the result.
-
-If this grew into a much larger application, I'd probably separate the external data ingestion from the main application as well — so I'd have something more like raw data coming in, then validation and cleaning, then structured data that the application and analytics could use.
-
-```text
-External Sources
-       │
-       ▼
-   Raw Data
-       │
-       ▼
-Validation & Cleaning
-       │
-       ▼
-Structured Data
-       │
-   ┌───┴───┐
-   ▼       ▼
-Application Analytics
-```
+These skills are transferable to any company working with data from multiple sources — whether that's customers, products, transactions or operational data.
 
 > **The main thing I took away from building PantryPilot is that putting data into a database is only the starting point.**
 >
