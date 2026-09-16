@@ -453,6 +453,17 @@ This is a useful example of **entity resolution**:
 
 ### ⚠️ But There's a Catch...
 
+<table style="width: 100%;">
+  <tr>
+    <td style="width: 50%;">
+      <img src="./documentation/onion_vs_spring_onion_pantry.png" alt="Image 1" style="width: 100%; height: auto; border: 1px solid #ddd; border-radius: 8px; margin: 20px 0;">
+    </td>
+    <td style="width: 50%;">
+      <img src="./documentation/onion_vs_spring_onion.png" alt="Image 2" style="width: 100%; height: auto; border: 1px solid #ddd; border-radius: 8px; margin: 20px 0;">
+    </td>
+  </tr>
+</table>
+
 Consider:
 
 | Pantry | Saved Recipe | Fuzzy Match | 🤔 Same Ingredient? |
