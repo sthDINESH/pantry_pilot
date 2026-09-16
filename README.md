@@ -11,6 +11,7 @@
     - [MVP Limitations](#mvp-limitations)
     - [Future Enhancements](#future-enhancements)
     - [AI assistance within the project](#ai-assistance-within-the-project)
+    - [Data Engineering Show & Tell](data_eng_show_tell.md)
 2. [UX Design](#ux-design)
     - [Strategy plane](#strategy-plane)
         - [Target Audience](#target-audience)
