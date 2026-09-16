@@ -91,6 +91,15 @@ Features:
 - Turn the processed data into useful shopping-list information
 - Build a complete application that could be extended further
 
+### Demo
+
+<figure>
+  <img src="documentation/de_show_tell_demo.gif" 
+       alt="Pantry Pilot Demo" 
+       width="100%" 
+       style="max-width: 900px; height: auto; border: 1px solid #ddd; border-radius: 8px; margin: 20px 0;">
+</figure>
+
 <br>
 
 ## 🗃️ Giving the Ingredients a Home
@@ -553,6 +562,7 @@ The goal wouldn't simply be to use a newer technique.
 
 > **I'd test it against the actual problem and use whichever approach gives the most reliable results.**
 
+<br>
 
 ## 🎯 8. Why This Is Relevant to Data Engineering
 
