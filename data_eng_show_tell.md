@@ -232,11 +232,18 @@ try:
     # Make the API call
     if not APIConfig.MOCK_API_CALL:
         response = requests.get(url, params=params, timeout=30)
-    else:
-        recipes_data = api_response.example_recipes_search_response
-    return {
-        'success': True,
-        'recipes': self._format_recipe_results(recipes_data)
+    
+    ...
+    
+    if response.status_code == 200:
+        if not APIConfig.MOCK_API_CALL:
+            recipes_data = response.json()
+        
+        ...
+
+        return {
+            'success': True,
+            'recipes': self._format_recipe_results(recipes_data)
         }
 ```
 
