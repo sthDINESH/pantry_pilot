@@ -292,7 +292,7 @@ For example, my pantry might contain:
 
 | My Pantry contains | Saved Recipe has | 🔍 Exact String Match? | 🧠 Human Interpretation |
 |---|---|---|---|
-| `Tomatoes` | `Fresh tomatoes` | ❌ No | ✅ Same ingredient for this use case |
+| `Tomato` | `Fresh tomatoes` | ❌ No | ✅ Same ingredient for this use case |
 
 > **That's the key problem to solve:** the data doesn't always have to be *identical* to represent the same thing.
 
@@ -362,7 +362,7 @@ Conceptually:
 " Fresh   Tomatoes "
           │
           ▼
-"fresh tomatoes"
+"tomatoes"
 ```
 
 This means comparing cleaner data rather than whatever wording happened to come from the API.
