@@ -52,8 +52,6 @@ And if I can't:
 
 > **What do I need to buy?**
 
-**`That's the idea behind PantryPilot.`**
-
 <br>
 
 But underneath this simple question is a data-engineering problem:
@@ -61,6 +59,8 @@ But underneath this simple question is a data-engineering problem:
 > **`How do I take data from different sources, structure it, clean it, match it, and turn it into something useful?`**
 
 <br>
+
+**`That's the idea behind PantryPilot.`**
 
 ## ⚡ So what did I build?
 
@@ -70,7 +70,7 @@ But underneath this simple question is a data-engineering problem:
 
 Features: 
 
-• `pantry management` • `discover recipes` • `weekly meal plans` • `shopping lists`
+• `pantry management` • `recipe discovery` • `weekly meal plans` • `shopping lists`
 
 ### 🛠️ Tech Stack
 
@@ -89,7 +89,7 @@ Features:
 - Integrate and transform data from an external API
 - Match ingredients that may be represented differently
 - Turn the processed data into useful shopping-list information
-- Build a complete application that could be extended further
+- Build a complete application that brings these pieces together and can be extended further
 
 ### Demo
 
@@ -467,34 +467,6 @@ This is a useful example of **entity resolution**:
 
 <br>
 
-### ⚠️ But There's a Catch...
-
-<table style="width: 100%;">
-  <tr>
-    <td style="width: 50%;">
-      <img src="./documentation/onion_vs_spring_onion_pantry.png" alt="Image 1" style="width: 100%; height: auto; border: 1px solid #ddd; border-radius: 8px; margin: 20px 0;">
-    </td>
-    <td style="width: 50%;">
-      <img src="./documentation/onion_vs_spring_onion.png" alt="Image 2" style="width: 100%; height: auto; border: 1px solid #ddd; border-radius: 8px; margin: 20px 0;">
-    </td>
-  </tr>
-</table>
-
-Consider:
-
-| Pantry | Saved Recipe | Fuzzy Match | 🤔 Same Ingredient? |
-|---|---|---|---|
-| `onion` | `spring onion` | High similarity | ❓ Not necessarily |
-
-These are clearly similar words, so a fuzzy matching algorithm might give them a pretty good score.
-
-> **But should the application really tell the user they already have what they need?**
-
-**Not necessarily.**
-
-This is where simple string similarity starts to fall short.
-
-<br>
 
 ## 🛒 Turning Matches Into Something Useful
 
@@ -545,6 +517,35 @@ I take those results and turn them into **derived data** — a shopping list bui
 > **`Data in → Processing → Useful output`**
 
 That's where the structured data becomes something the user can actually act on.
+
+<br>
+
+### ⚠️ But There's a Catch...
+
+<table style="width: 100%;">
+  <tr>
+    <td style="width: 50%;">
+      <img src="./documentation/onion_vs_spring_onion_pantry.png" alt="Image 1" style="width: 100%; height: auto; border: 1px solid #ddd; border-radius: 8px; margin: 20px 0;">
+    </td>
+    <td style="width: 50%;">
+      <img src="./documentation/onion_vs_spring_onion.png" alt="Image 2" style="width: 100%; height: auto; border: 1px solid #ddd; border-radius: 8px; margin: 20px 0;">
+    </td>
+  </tr>
+</table>
+
+Consider:
+
+| Pantry | Saved Recipe | Fuzzy Match | 🤔 Same Ingredient? |
+|---|---|---|---|
+| `onion` | `spring onion` | High similarity | ❓ Not necessarily |
+
+These are clearly similar words, so a fuzzy matching algorithm might give them a pretty good score.
+
+> **But should the application really tell the user they already have what they need?**
+
+**Not necessarily.**
+
+This is where simple string similarity starts to fall short.
 
 <br>
 
