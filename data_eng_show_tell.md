@@ -56,7 +56,7 @@ And if I can't:
 
 But underneath this simple question is a data-engineering problem:
 
-> **`How do I take data from different sources, structure it, clean it, match it, and turn it into something useful?`**
+> **`How do I take data from different sources, structure it, clean it, compare it, and turn it into something useful?`**
 
 <br>
 
