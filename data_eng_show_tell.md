@@ -155,6 +155,8 @@ This makes the data:
 The ERD became Django models backed by PostgreSQL.
 - [`pantry/models.py`](./pantry/models.py)
 - [`recipe/models.py`](./recipe/models.py)
+- [`meals/models.py`](./meals/models.py)
+- [`shopping/models.py`](./shopping/models.py)
 
 For example, a pantry item contains structured fields rather than just a name:
 
