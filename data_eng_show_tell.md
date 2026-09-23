@@ -593,6 +593,9 @@ The goal wouldn't simply be to use a newer technique.
 
 These skills are transferable to any company working with data from multiple sources — whether that's customers, products, transactions or operational data.
 
+
+## 🎯 Key Takeaway
+
 > **The main thing I took away from building PantryPilot is that putting data into a database is only the starting point.**
 >
 > **The more interesting challenge is making data from different sources reliable, comparable and useful.**
